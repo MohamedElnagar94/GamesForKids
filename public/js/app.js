@@ -49839,8 +49839,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! E:\My Works\ITI\Graduation Project\games-for-kids\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! E:\My Works\ITI\Graduation Project\games-for-kids\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /media/mohamed-iti/ITI/Graduation Proect/GamesForKids/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /media/mohamed-iti/ITI/Graduation Proect/GamesForKids/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
