@@ -49,7 +49,30 @@ export default{
                         $("#"+targetDivId+"> div")[2].className+=" hidePencil";
                     }
                 }
-                console.log($("#"+targetDivId+"> div")[0].className);
+                
+                  else if (targetDivId == "box-4"){
+                    if($("#"+targetDivId+" > div").length == 4){
+                    $("#"+targetDivId+" > div")[0];
+                        console.log("hello condition");
+                        $("#"+targetDivId ).addClass("hideBox");
+                        $("#"+targetDivId+"> div")[0].className+=" hidePencil";
+                        $("#"+targetDivId+"> div")[1].className+=" hidePencil";
+                        $("#"+targetDivId+"> div")[2].className+=" hidePencil";
+                        $("#"+targetDivId+"> div")[3].className+=" hidePencil";
+                    }
+                }
+               
+                else if (targetDivId == "box-5"){
+                    if($("#"+targetDivId+" > div").length == 5){
+                    $("#"+targetDivId+" > div")[0];
+                        console.log("hello condition");
+                        $("#"+targetDivId ).addClass("hideBox");
+                        for(i=0; i< ($("#"+targetDivId+" > div").length)+1 ; i++){
+                            $("#"+targetDivId+"> div")[i].className+=" hidePencil";
+                            console.log( $("#"+targetDivId));
+                        }
+                    }
+                }
         }
     }
 }

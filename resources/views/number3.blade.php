@@ -1,6 +1,6 @@
 @extends('layouts.app')
-<!-- <link src="./fonts/MISTV___.TTF" />
- <link href="css/pencil.css" rel="stylesheet" /> -->
+<link src="./fonts/MISTV___.TTF" />
+ <link href="css/pencil.css" rel="stylesheet" />
 @section('content')
 <!-- <div id="gameTitle">
             <h2 >

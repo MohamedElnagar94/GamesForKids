@@ -1985,9 +1985,28 @@ __webpack_require__.r(__webpack_exports__);
           $("#" + targetDivId + "> div")[1].className += " hidePencil";
           $("#" + targetDivId + "> div")[2].className += " hidePencil";
         }
-      }
+      } else if (targetDivId == "box-4") {
+        if ($("#" + targetDivId + " > div").length == 4) {
+          $("#" + targetDivId + " > div")[0];
+          console.log("hello condition");
+          $("#" + targetDivId).addClass("hideBox");
+          $("#" + targetDivId + "> div")[0].className += " hidePencil";
+          $("#" + targetDivId + "> div")[1].className += " hidePencil";
+          $("#" + targetDivId + "> div")[2].className += " hidePencil";
+          $("#" + targetDivId + "> div")[3].className += " hidePencil";
+        }
+      } else if (targetDivId == "box-5") {
+        if ($("#" + targetDivId + " > div").length == 5) {
+          $("#" + targetDivId + " > div")[0];
+          console.log("hello condition");
+          $("#" + targetDivId).addClass("hideBox");
 
-      console.log($("#" + targetDivId + "> div")[0].className);
+          for (i = 0; i < $("#" + targetDivId + " > div").length + 1; i++) {
+            $("#" + targetDivId + "> div")[i].className += " hidePencil";
+            console.log($("#" + targetDivId));
+          }
+        }
+      }
     }
   }
 });
@@ -2005,6 +2024,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Box__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Box */ "./resources/js/components/numberGamesLv/Box.vue");
 /* harmony import */ var _Pencilsbox__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Pencilsbox */ "./resources/js/components/numberGamesLv/Pencilsbox.vue");
+//
 //
 //
 //
@@ -50320,15 +50340,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!*******************************************************!*\
   !*** ./resources/js/components/numberGamesLv/Box.vue ***!
   \*******************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Box_vue_vue_type_template_id_2669e903___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Box.vue?vue&type=template&id=2669e903& */ "./resources/js/components/numberGamesLv/Box.vue?vue&type=template&id=2669e903&");
 /* harmony import */ var _Box_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Box.vue?vue&type=script&lang=js& */ "./resources/js/components/numberGamesLv/Box.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _Box_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _Box_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -50358,7 +50377,7 @@ component.options.__file = "resources/js/components/numberGamesLv/Box.vue"
 /*!********************************************************************************!*\
   !*** ./resources/js/components/numberGamesLv/Box.vue?vue&type=script&lang=js& ***!
   \********************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

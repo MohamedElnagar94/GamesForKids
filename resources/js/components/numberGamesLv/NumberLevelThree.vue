@@ -2,6 +2,7 @@
 <template>
 
    <div id="test">
+
        <div class="row">      
                 <div class="eachNumber col-2">
                     <div class="number"><span >0</span></div>    
