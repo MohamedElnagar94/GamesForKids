@@ -14,5 +14,21 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('home');
+    return view('website.index');
 });
+Route::get('/contact', function () {
+    return view('website.contact');
+});
+Route::get('/about', function () {
+    return view('website.about');
+});
+Route::get('/games', function () {
+    return view('website.games');
+});
+Route::get('/news', function () {
+    return view('website.news');
+});
+
+Route::get('/numbers',"Numbers\NumbersController@index");
+Route::get('/numbersExam',"Numbers\NumbersController@exam");
+Route::get('/numbersExamResult',"Numbers\NumbersController@result");
