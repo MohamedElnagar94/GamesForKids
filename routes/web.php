@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,9 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('website.index');
-});
+Route::get('/', 'HomeController@index')->name('home');
 Route::get('/contact', function () {
     return view('website.contact');
 });
@@ -32,3 +31,6 @@ Route::get('/news', function () {
 Route::get('/numbers',"Numbers\NumbersController@index");
 Route::get('/numbersExam',"Numbers\NumbersController@exam");
 Route::get('/numbersExamResult',"Numbers\NumbersController@result");
+
+Auth::routes();
+

@@ -60,6 +60,26 @@
                     <li class="hover-effect"><a href="/games">Games</a></li>
                     <li class="hover-effect"><a href="/news">News</a></li>
                     <li class="hover-effect"><a href="/contact">Contact</a></li>
+                    @guest
+                        <li class="hover-effect">
+                            <a href="{{ route('login') }}">{{ __('Login') }}</a>
+                        </li>
+                        @if (Route::has('register'))
+                            <li class="hover-effect">
+                                <a href="{{ route('register') }}">{{ __('Register') }}</a>
+                            </li>
+                        @endif
+                    @else
+                        <li class="hover-effect">
+                            <a href="#" onclick="$(this).parent().find('div').toggleClass('d-none')">{{ Auth::user()->name }}</a>
+                            <div class="d-none" style="background: white;width: 100%;height: fit-content;">
+                                <a style="display: flex;justify-content: center;align-items: center;height: 40px;color: black;" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                            @csrf
+                                        </form>
+                            </div>
+                        </li>
+                        @endguest
                 </ul>
             </div>
 
