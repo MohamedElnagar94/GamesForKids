@@ -14,7 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'HomeController@index')->name('home');
+
+Route::get('/', function () {
+    return view('website.index');
+});
 Route::get('/contact', function () {
     return view('website.contact');
 });
@@ -31,6 +34,9 @@ Route::get('/news', function () {
 Route::get('/numbers',"Numbers\NumbersController@index");
 Route::get('/numbersExam',"Numbers\NumbersController@exam");
 Route::get('/numbersExamResult',"Numbers\NumbersController@result");
-
 Auth::routes();
+
+Route::get('/order','SortNumberController@sortnumber');
+Route::get('/home', 'HomeController@index')->name('home');
+
 

@@ -1,13 +1,14 @@
 @extends('layouts.app')
 @section('className',"sub-banner")
 @section('slider')
+
 @endsection
 
 @section('website')
 <div class="trend-w3layouts">
 	<div class="container">
-		<h2>Result</h2>
-		<result-component></result-component>
+		<h2>Sort Numbers From 1 to 10</h2>
+		<order-component></order-component>
 	</div>
 </div>
 @endsection

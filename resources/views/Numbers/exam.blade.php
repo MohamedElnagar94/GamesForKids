@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('className',"sub-banner")
 @section('slider')
-
 @endsection
 
 @section('website')
