@@ -4,7 +4,7 @@
     <div id="content">
       <div id="cardPile">
         <img
-          class="number"
+          class="number img-fluid"
           v-for="number in numbers"
           :key="number"
           :src="'/storage/Images/'+ number + '.png'"
@@ -53,7 +53,7 @@ export default {
   },
   created() {
      this.numbers = [];
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 10; i++){
       let randResult = this.randFun(1, 10);
       // console.log("outside",randResult,this.resultOption);
       while (this.numbers.includes(randResult) === true) {
@@ -209,15 +209,11 @@ body {
 .number {
 
   position: relative;
-  z-index: 13;
-  right: auto;
-  height: 78px;
-  bottom: auto;
-  left: 0px;
-  top: 0px;
-  margin: 15px auto;
+  width: 80px;
+ 
+  /* z-index: 13; */
+  /* margin: 15px auto; */
   color: #fff;
-  font-size: 50px;
   text-shadow: 0 0 3px #000;
 }
 </style>
