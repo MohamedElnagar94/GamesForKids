@@ -1,8 +1,8 @@
 @extends('layouts.app')
-
-@section('content')
+@section('className',"sub-banner")
+@section('website')
 <div class="container">
-    <div class="row justify-content-center">
+    <div class="row justify-content-center p-5">
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Register') }}</div>

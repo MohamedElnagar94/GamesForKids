@@ -1,8 +1,8 @@
 @extends('layouts.app')
-
-@section('content')
+@section('className',"sub-banner")
+@section('website')
 <div class="container">
-    <div class="row justify-content-center">
+    <div class="row justify-content-center p-5">
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Login') }}</div>
@@ -44,7 +44,7 @@
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
-                                    <label class="form-check-label" for="remember">
+                                    <label class="form-check-label ml-5 w-100" for="remember">
                                         {{ __('Remember Me') }}
                                     </label>
                                 </div>
