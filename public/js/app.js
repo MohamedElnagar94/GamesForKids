@@ -1959,54 +1959,80 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'OrderNumber',
+  name: "OrderNumber",
   mounted: function mounted() {
-    console.log('Component mounted.');
+    console.log("Component mounted.");
+  },
+  methods: {
+    randFun: function randFun(minNum, maxNum) {
+      return Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum;
+    }
+  },
+  data: function data() {
+    return {
+      numbers: [],
+      words: ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"]
+    };
   },
   created: function created() {
-    var correctCards = 0;
-    $(init);
+    this.numbers = [];
 
-    function init() {
-      //hide success message
-      $('#successMessage').hide();
-      $('#successMessage').css({
-        left: '580px',
-        top: '330px',
-        width: 0,
-        height: 0
-      }); //reset the game
+    for (var i = 0; i < 10; i++) {
+      var randResult = this.randFun(1, 10); // console.log("outside",randResult,this.resultOption);
 
-      correctCards = 0;
-      $('#cardPile').html('');
-      $('#cardSlots').html(''); //create the numbers
-
-      var numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-      numbers.sort(function () {
-        return Math.random - .5;
-      });
-
-      for (var i = 0; i < 10; i++) {
-        $('div' + numbers[i] + '</div>').data('number', numbers[i]).attr('id', 'card' + numbers[i]).appendTo('#cardPile').draggable({
-          containment: '#conent',
-          stack: '#cardPile div',
-          cursor: 'move',
-          revert: true
-        });
-      } //create numbers names
-
-
-      var words = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
-
-      for (var _i = 1; _i <= 10; _i++) {
-        $('<div>' + words[_i - 1] + '</div>').data('number', _i).appendTo('#cardSlots').droppable({
-          accept: '#cardPile div',
-          hoverClass: 'hovered' // drop:handleCardDrop
-
-        });
+      while (this.numbers.includes(randResult) === true) {
+        randResult = this.randFun(1, 10); // console.log("inside",randResult,this.resultOption);
       }
-    }
+
+      this.numbers.push(randResult);
+    } // let correctCards = 0;
+    // $(init);
+    // function init(){
+    //     //hide success message
+    //     $('#successMessage').hide();
+    //     $('#successMessage').css({
+    //         left:'580px',
+    //         top:'330px',
+    //         width:0,
+    //         height:0
+    //     });
+    //     //reset the game
+    //     correctCards = 0 ;
+    //     $('#cardPile').html('');
+    //     $('#cardSlots').html('');
+    //     //create the numbers
+    //     let numbers = [1,2,3,4,5,6,7,8,9,10];
+    //     numbers.sort(() => {
+    //         return Math.random -.5 ;
+    //     });
+    //     // for (let i =0 ; i<10 ; i++){
+    //     //     $('div' + numbers[i] + '</div>').data('number',numbers[i]).attr(
+    //     //         'id','card'+numbers[i]).appendTo('#cardPile').draggable({
+    //     //             containment:'#conent',
+    //     //             stack:'#cardPile div',
+    //     //             cursor:'move',
+    //     //             revert:true
+    //     //         });
+    //     // }
+    //     // //create numbers names
+    //     // let words = [ 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten' ];
+    //     // for(let i =1;i<=10;i++){
+    //     //     $('<div>' + words[i-1] + '</div>').data('number',i).appendTo('#cardSlots').droppable({
+    //     //         accept:'#cardPile div',
+    //     //         hoverClass:'hovered',
+    //     //         // drop:handleCardDrop
+    //     //     })
+    //     // }
+    // }
+
   }
 });
 
@@ -6454,7 +6480,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\nbody[data-v-427fac71]{\n    margin: 30px;\n    line-height: 1.8em;\n}\n#content[data-v-427fac71]{\n    margin: 80px 70px;\n    text-align: center;\n    -moz-user-select: none;\n    -webkit-user-select: none;\n    -ms-user-select: none;\n        user-select: none;\n}\n#cardSlots[data-v-427fac71]{\n    margin: 50px auto 0 auto;\n    background: rgb(163, 163, 167);\n}\n#cardPile[data-v-427fac71]{\n    margin: 0 auto ;\n    background: rgb(201, 201, 202);\n}\n#cardSlots[data-v-427fac71], #cardPile[data-v-427fac71]{\n    width: 840px;\n    height: 140px;\n    padding: 20px;\n    border: 2px solid rgb(95, 95, 95);\n    border-radius: 15px;\n    box-shadow: 0 0 .3em rgba(41, 40, 40, 0.8);\n}\n#cardSlots div[data-v-427fac71], #cardPile div[data-v-427fac71]{\n    float: left;\n    width: 70px;\n    height: 80px;\n    padding: 10px;\n    padding-top: 20px;\n    padding-bottom: 0;\n    border: 2px solid rgb(rgb(77, 72, 72), rgb(68, 116, 68), rgb(66, 66, 107));\n    border-radius: 10px;\n    margin: 0 0 0 10px;\n    background: #fff;\n}\n#cardSlots div[data-v-427fac71]:first-child, #cardPile div[data-v-427fac71]:first-child {\n    margin-left: 0;\n}\n#cardSlots div.hovered[data-v-427fac71]{\n    background: #aaa;\n}\n#cardPile div[data-v-427fac71]{\n    background: rgb(123, 24, 136);\n    color: #fff;\n    font-size: 50px;\n    text-shadow: 0 0 3px #000;\n}\n#cardPile div.ui-draggable-dragging[data-v-427fac71] {\n    box-shadow: 0 0 .5em rgba(0, 0, 0, .8);\n}\n\n/*success message */\n#successMessage[data-v-427fac71]{\n    position: absolute;\n    left: 580;\n    top: 250px;\n    width: 0;\n    height: 0;\n    z-index: 10;\n    background: #dfd;\n    border: 2px solid #333;\n    border-radius: 10px;\n    box-shadow: .3em .3em .5em rgba(0, 0, 0, .8);\n    padding: 20px;\n}\n.welldone[data-v-427fac71]{\n    width: 330px;\n    height: 170px;\n    border-radius: 15px;\n}\n", ""]);
+exports.push([module.i, "\nbody[data-v-427fac71] {\n  margin: 30px;\n  line-height: 1.8em;\n}\n#content[data-v-427fac71] {\n  margin: 70px 70px;\n  text-align: center;\n  -moz-user-select: none;\n  -webkit-user-select: none;\n  -ms-user-select: none;\n      user-select: none;\n}\n#cardSlots[data-v-427fac71] {\n  margin: 50px auto 0 auto;\n  background: rgb(163, 163, 167);\n  display: flex;\n}\n#cardPile[data-v-427fac71] {\n  margin: 0 auto;\n  background: rgb(201, 201, 202);\n  display: flex;\n}\n#cardSlots[data-v-427fac71],\n#cardPile[data-v-427fac71] {\n  width: 840px;\n  height: 140px;\n  padding: 20px;\n  border: 2px solid rgb(95, 95, 95);\n  border-radius: 15px;\n  box-shadow: 0 0 0.3em rgba(41, 40, 40, 0.8);\n}\n#cardSlots div[data-v-427fac71],\n#cardPile div[data-v-427fac71] {\n  float: left;\n  width: 80px;\n  height: 80px;\n  padding: 10px;\n  padding-top: 20px;\n  padding-bottom: 0;\n  border: 2px solid rgb(rgb(77, 72, 72), rgb(68, 116, 68), rgb(66, 66, 107));\n  border-radius: 10px;\n  margin: 0 0 0 10px;\n  background: #fff;\n}\n#cardSlots div[data-v-427fac71]:first-child,\n#cardPile div[data-v-427fac71]:first-child {\n  margin-left: 0;\n}\n#cardSlots div.hovered[data-v-427fac71] {\n  background: #aaa;\n}\n#cardPile div[data-v-427fac71] {\n  background: rgb(123, 24, 136);\n  color: #fff;\n  font-size: 50px;\n  text-shadow: 0 0 3px #000;\n}\n#cardPile div.ui-draggable-dragging[data-v-427fac71] {\n  box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.8);\n}\n\n/*success message */\n#successMessage[data-v-427fac71] {\n  position: absolute;\n  left: 580;\n  top: 250px;\n  width: 0;\n  height: 0;\n  z-index: 7;\n  background: #dfd;\n  border: 2px solid #333;\n  border-radius: 10px;\n  box-shadow: 0.3em 0.3em 0.5em rgba(0, 0, 0, 0.8);\n  padding: 20px;\n}\n.welldone[data-v-427fac71] {\n  width: 330px;\n  height: 170px;\n  border-radius: 15px;\n}\n.words[data-v-427fac71] {\n  font-size: 26px;\n  font-weight: bold;\n}\n.number[data-v-427fac71] {\n\n  position: relative;\n  z-index: 13;\n  right: auto;\n  height: 78px;\n  bottom: auto;\n  left: 0px;\n  top: 0px;\n  margin: 15px auto;\n  color: #fff;\n  font-size: 50px;\n  text-shadow: 0 0 3px #000;\n}\n", ""]);
 
 // exports
 
@@ -38249,28 +38275,29 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
     _c("div", { attrs: { id: "content" } }, [
-      _c("div", { attrs: { id: "cardPile" } }),
-      _vm._v(" "),
-      _c("div", { attrs: { id: "cardSlots" } }),
-      _vm._v(" "),
-      _c("div", { attrs: { id: "successMessage" } }, [
-        _c("img", {
-          staticClass: "welldone",
-          attrs: { src: "/storage/Images/welldone.jpg", alt: "" }
+      _c(
+        "div",
+        { attrs: { id: "cardPile" } },
+        _vm._l(_vm.numbers, function(number) {
+          return _c("img", {
+            key: number,
+            staticClass: "number",
+            attrs: { src: "/storage/Images/" + number + ".png" }
+          })
         }),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            on: {
-              click: function($event) {
-                return _vm.init()
-              }
-            }
-          },
-          [_vm._v("play Again")]
-        )
-      ])
+        0
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { attrs: { id: "cardSlots" } },
+        _vm._l(_vm.words, function(word) {
+          return _c("div", { key: word, staticClass: "words" }, [
+            _vm._v(_vm._s(word))
+          ])
+        }),
+        0
+      )
     ])
   ])
 }
