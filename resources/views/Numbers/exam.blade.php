@@ -1,5 +1,14 @@
 @extends('layouts.app')
+@section('className',"sub-banner")
+@section('slider')
 
-@section('content')
-    <exam-numbers-component></exam-numbers-component>
+@endsection
+
+@section('website')
+<div class="trend-w3layouts">
+	<div class="container">
+		<h2>Exam</h2>
+		<exam-numbers-component></exam-numbers-component>
+	</div>
+</div>
 @endsection
