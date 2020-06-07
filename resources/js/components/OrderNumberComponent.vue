@@ -15,7 +15,7 @@
         </div>
       </div>
       <div class="row">
-        <div id="cardSlots" >
+        <div id="cardSlots">
           <div
             :id="word.title"
             @drop="drop(index+1,$event)"
@@ -29,7 +29,7 @@
       </div>
 
       <!-- sucess message -->
-        <!-- <button v-on="playAgain()">check elements in array</button> -->
+      <button class="btn btn-success" v-on="playAgain()" v-if="correctNumber == 10 ">play again</button>
       <!-- end of success message -->
     </div>
   </div>
@@ -42,44 +42,15 @@ export default {
     console.log("Component mounted.");
   },
   methods: {
-    randFun: function(minNum, maxNum) {
-      return Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum;
-    },
-
-    dragstart(number, event) {
-      let col = event.dataTransfer.setData("text", event.target.id);
-      console.log(col, event);
-      this.dragnumber = number;
-      console.log(number);
-      
-    },
-    drop(index, event) {
-      if (index == this.dragnumber) {
-        console.log(true);
-        
-        event.preventDefault();
-        let data = event.dataTransfer.getData("text");
-        event.target.innerHTML = "";
-        event.target.appendChild(document.getElementById(data));
-        this.words[index - 1].dragable = false;
-        this.correctNumber ++ ;
-        // console.log( event);
-        
-         
-      } else {
-        console.log(false);
-      }
-    },
-    playAgain: function() {
-    //  if(correctNumber == 10){
-    //    console.log("game finsih")
-    //  }
-    }
-  },
-  data() {
-    return {
-      numbers: [],
-      words: [
+    // forceRender: function(){
+    //   this.renderComponent = false;
+    //   this.$nextTick().then( () => {
+    //     this.renderComponent = true;
+    //   })
+    // },
+    start: function() {
+      this.numbers = [];
+      this.words = [
         { title: "one", dragable: true },
         { title: "two", dragable: true },
         { title: "three", dragable: true },
@@ -90,24 +61,60 @@ export default {
         { title: "eight", dragable: true },
         { title: "nine", dragable: true },
         { title: "ten", dragable: true }
-      ],
+      ];
+      for (let i = 0; i < 10; i++) {
+        let randResult = this.randFun(1, 10);
+
+        while (this.numbers.includes(randResult) === true) {
+          randResult = this.randFun(1, 10);
+        }
+        this.numbers.push(randResult);
+      }
+    },
+    randFun: function(minNum, maxNum) {
+      return Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum;
+    },
+
+    dragstart(number, event) {
+      let col = event.dataTransfer.setData("text", event.target.id);
+      console.log(col, event);
+      this.dragnumber = number;
+      console.log(number);
+    },
+    drop(index, event) {
+      if (index == this.dragnumber) {
+        console.log(true);
+
+        event.preventDefault();
+        let data = event.dataTransfer.getData("text");
+        event.target.innerHTML = "";
+        event.target.appendChild(document.getElementById(data));
+        this.words[index - 1].dragable = false;
+        this.correctNumber++;
+        console.log(this.correctNumber);
+      } else {
+        console.log(false);
+      }
+    },
+    playAgain: function() {
+      
+      if (this.correctNumber == 10) {
+        // this.forceRender();
+        window.location.href = '/order';
+      }
+    }
+  },
+  data() {
+    return {
+      numbers: [],
+      words: [],
       dragnumber: null,
-      correctNumber:0
+      correctNumber: 0,
+      renderComponent:true
     };
   },
   created() {
-    this.numbers = [];
-    for (let i = 0; i < 10; i++) {
-      let randResult = this.randFun(1, 10);
-      
-      while (this.numbers.includes(randResult) === true) {
-        randResult = this.randFun(1, 10);
-        
-      }
-      this.numbers.push(randResult);
-      
-    }
-   
+    this.start()
   }
 };
 </script>
@@ -117,7 +124,7 @@ body {
   margin: 30px;
   line-height: 1.8em;
 }
-img{
+img {
   cursor: pointer;
 }
 #content {
@@ -163,8 +170,6 @@ img{
   border-radius: 10px;
   margin: 0 0 0 10px;
   background: #fff;
-  
-  
 }
 #cardSlots div:first-child,
 #cardPile div:first-child {
@@ -183,7 +188,6 @@ img{
   -moz-box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.8);
   -webkit-box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.8);
   box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.8);
-  
 }
 
 .words {
@@ -210,5 +214,4 @@ img{
     flex-direction: column;
   }
 }
-
 </style>
