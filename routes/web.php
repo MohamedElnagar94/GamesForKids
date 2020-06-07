@@ -15,6 +15,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 
+Route::get('/pencilInBox', function () {
+    return view('Numbers/pencils');
+});
+
 Route::get('/', function () {
     return view('website.index');
 });

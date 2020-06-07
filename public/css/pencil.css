@@ -1,0 +1,179 @@
+
+  #gameTitle{
+	text-align: center;
+  }
+  .container-fluid{
+	background-image: url(./img/drawings.png);
+}
+  h2{
+	
+	margin-top:.5em;
+	/* font-family:Kristen ITC; */ 
+	/* font-family:'Comic Sans MS'; */
+	font-family: Jokerman;
+	font-size:500%;
+  	color:rgb(23,125,193);
+	-webkit-text-stroke: .04em rgb(23,125,193); 
+  }
+ 
+  .container{
+	width:90%;
+	/* background-color: rgb(23,125,193); */
+	background-color: rgb(120,173,191);
+	margin:0 auto;
+	border:.6em solid #fff;
+	border-radius: .5em;
+	
+  }
+  /* .row{
+	margin:0em 4em;
+  } */
+  .number{
+	width:6.5em;
+	height:6em;
+	background-color: #ccc;
+	font-size: large;
+	border-radius: .2em;
+	box-shadow: .6em .6em -.5em #888;
+	
+  }
+  @font-face{
+	font-family:"MisterVampire";
+	src:url("./fonts/MISTV___.TTF");
+	
+  }
+  @font-face{
+	font-family:"Burnstown Dam";
+	src:url("./fonts/burnstown dam.ttf");
+	
+  }
+  .number span{
+	display: inline-block;
+	margin:15% 35%;
+	color: rgb(68, 141, 165);
+	/* font:3em 'Comic Sans MS'   ; */
+	/* font:3em 'Ravie'  ;  */
+	font:4em  'Burnstown Dam', 'Showcard Gothic'  ; 
+	font-weight: bold;
+	/* -webkit-text-stroke:  .04em  rgb(23,125,193) ;  */
+	
+  }
+  
+  .matchedNumber{
+	width:6.5em;
+	height:6em;
+	background-color: #333;
+	font-size: large;
+	border-radius: .2em;
+	
+  }
+  .up{
+	border-right:.2em solid white;
+	border-bottom:.2em solid white;
+	-webkit-box-shadow:inset .3em .3em 0em .3em #555; 
+	 -moz-box-shadow:inset .3em .3em 0em .3em #555; 
+	box-shadow:inset .3em .3em 0em .3em #555;
+  }
+  .down{
+	border-right:.2em solid white;
+	border-top:.2em solid white;
+	 -webkit-box-shadow:inset  .3em -.3em 0em .3em #555;  
+	-moz-box-shadow:inset  .3em -.3em 0em .3em #555;
+	box-shadow:inset .3em -.3em 0em .3em #555;
+  }
+  .eachNumber{
+	margin:1em;
+	display:inline-block
+  }
+  .objects{
+  
+	background-color: white;
+	margin:.1em auto;
+  }
+  #pencilPlace div.pencil {
+    /* transform: translate(-50%,-50%) ; */
+    display: inline-block;
+	width:1.3em;
+	margin-top:1em;
+	margin-right:1em;
+  }
+  #pencilPlace div.pencil-top {
+    height: .5em;
+    background-color: #ec8787;
+    border-top-left-radius: .3em;
+    border-top-right-radius: .3em;
+}
+#pencilPlace div .pencil-body {
+    height: 4.8em;
+    background: #FFEB3B;
+}
+#pencilPlace div .pencil-bottom {
+	/* border-top: .7em solid #FFCC99; */
+	border-top: .7em solid #444;
+    border-left: .6em solid transparent;
+    border-right: .6em solid transparent;
+}
+
+.matchedNumber .pencil{
+	display: inline-block;
+	width:.5em;
+	margin-top:.6em;
+	margin-right:.09em;
+	margin-left: .09em;
+}
+
+	
+	
+
+.matchedNumber .pencil-top {
+	
+    height: .4em;
+    background-color: #ec8787;
+    border-top-left-radius: .3em;
+    border-top-right-radius: .3em;
+}
+.matchedNumber  .pencil-body {
+	height: 4em;
+    background: #FFEB3B;
+}
+.matchedNumber  .pencil-bottom {
+    border-top: .5em solid #FFCC99;
+    border-left: .2em solid transparent;
+    border-right: .2em solid transparent;
+}
+
+
+#gameControlls{
+	height:5em;
+	width:84%;
+	margin:0em auto;
+	margin-top:4em;
+	background-color: rgb(120,173,191);
+	border-top-left-radius: .6em;
+	border-top-right-radius: .6em;
+	
+}
+#gameControlls h4{
+color:white;
+font-family: 'Comic Sans MS';
+font-size: xx-large;
+width:47%;
+margin-top: .5em;
+margin-left: .5em;
+display: inline-block;
+
+
+}
+@keyframes example {
+	from {height:6.5em;}
+	to {height:0px ;}
+  }
+ 
+  .hideBox{
+	  animation-name: example;
+	  animation-duration: 4s;
+	  animation-fill-mode: forwards;
+  }
+  .hidePencil{
+visibility: hidden;
+  }
