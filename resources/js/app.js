@@ -24,6 +24,7 @@ Vue.component('order-component', require('./components/OrderNumberComponent.vue'
 Vue.component('numbers-component', require('./components/Numbers/NumbersComponent.vue').default);
 Vue.component('exam-numbers-component', require('./components/Numbers/ExamNumbersComponent.vue').default);
 Vue.component('result-component', require('./components/Numbers/ResultComponent.vue').default);
+Vue.component('count-numbers-component', require('./components/CountNumbers/CountNumbersComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
