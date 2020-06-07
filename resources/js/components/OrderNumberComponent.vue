@@ -29,8 +29,7 @@
       </div>
 
       <!-- sucess message -->
-     <!-- <button v-on="playAgain()">check elements in array</button> -->
-    
+        <!-- <button v-on="playAgain()">check elements in array</button> -->
       <!-- end of success message -->
     </div>
   </div>
@@ -63,7 +62,7 @@ export default {
         event.target.innerHTML = "";
         event.target.appendChild(document.getElementById(data));
         this.words[index - 1].dragable = false;
-        
+        this.correctNumber ++ ;
         // console.log( event);
         
          
