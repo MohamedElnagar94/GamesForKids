@@ -1956,33 +1956,55 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     console.log('Component mounted.');
   },
   data: function data() {
     return {
-      showLocks: false
+      levels: []
     };
   },
   created: function created() {
-    this.showLocks = true;
+    var checkLevels = JSON.parse(localStorage.getItem('levels'));
+
+    if (checkLevels === null) {
+      var allLevels = [{
+        level: 1,
+        open: true,
+        href: "/numbers"
+      }, {
+        level: 2,
+        open: false,
+        href: "/count"
+      }, {
+        level: 3,
+        open: false,
+        href: "/pencilInBox"
+      }, {
+        level: 4,
+        open: false,
+        href: "/exam2"
+      }, {
+        level: 5,
+        open: false,
+        href: "/order"
+      }, {
+        level: 6,
+        open: false,
+        href: "/numbersExam"
+      }, {
+        level: 7,
+        open: false,
+        href: "#"
+      }];
+      localStorage.setItem('levels', JSON.stringify(allLevels));
+      this.levels = JSON.parse(localStorage.getItem('levels'));
+    } else {
+      this.levels = JSON.parse(localStorage.getItem('levels'));
+    }
+
+    console.log(this.levels);
   }
 });
 
@@ -2412,6 +2434,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "NumbersComponent",
   data: function data() {
@@ -2494,22 +2519,22 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     changeNumber: function changeNumber(index, word) {
       if (word === 'left') {
-        if (this.indexOfChosen < 9) {
-          this.indexOfChosen = index + 1;
-        } else {
-          this.indexOfChosen = index;
+        this.indexOfChosen = index + 1; // console.log(this.indexOfChosen)
+
+        if (this.indexOfChosen >= 9) {
+          var levels = JSON.parse(localStorage.getItem('levels'));
+          levels[1].open = true;
+          localStorage.setItem('levels', JSON.stringify(levels));
+          this.indexOfChosen = 9;
         }
-
-        console.log(index, this.indexOfChosen);
       } else {
-        if (this.indexOfChosen > 0) {
-          this.indexOfChosen = index - 1;
-        } else {
-          this.indexOfChosen = index;
+        this.indexOfChosen = index - 1;
+
+        if (this.indexOfChosen < 0) {
+          this.indexOfChosen = 0;
         } // this.indexOfChosen = index - 1;
+        // console.log(index,this.indexOfChosen)
 
-
-        console.log(index, this.indexOfChosen);
       }
 
       return this.chosenNumber = this.numbers[this.indexOfChosen];
@@ -7373,7 +7398,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.allLevels[data-v-224449b3]{\n    width: 9.8%;\n    height: 9.8%;\n    position: absolute;\n    opacity: .9;\n    border-radius: 14% 14% 50% 50%;\n    box-shadow: 0px 0 20px 0px grey;\n}\n.level7[data-v-224449b3]{\n    top: 28%;\n    left: 7%;\n}\n.level6[data-v-224449b3]{\n    top: 39.5%;\n    left: 22.5%;\n}\n.level5[data-v-224449b3]{\n    top: 31.5%;\n    left: 42.5%;\n}\n.level4[data-v-224449b3]{\n    top: 36.8%;\n    left: 61.8%;\n}\n.level3[data-v-224449b3]{\n    top: 59.6%;\n    left: 54.8%;\n}\n.level2[data-v-224449b3]{\n    top: 76.6%;\n    left: 52.8%;\n}\n.level1[data-v-224449b3]{\n    top: 74.9%;\n    left: 75.8%;\n}\n.outer-circle[data-v-224449b3] {\n  \tbox-shadow: 0 0 50px 10px #453D9B;\n  \tborder: 7px solid #ECEBFA;\n  \tborder-top-color: #00ff08;\n    border-right-color: yellow;\n    border-bottom-color: #ff0101;\n    border-left-color: blueviolet;\n  \t/* margin: 20% auto; */\n  \ttext-align:center;\n  \t/* background: -webkit-linear-gradient(top, #ffffff 48%, #ecebfa 49%, #ecebfa 51%, #fff 52%); */\n  \t/* background: -moz-linear-gradient(top, #ffffff 48%, #ecebfa 49%, #ecebfa 51%, #fff 52%); */\n  \t/* background: linear-gradient(to bottom, #ffffff 48%, #ecebfa 49%, #ecebfa 51%, #fff 52%); */\n  \t/* width: 100px; */\n  \t/* height: 100px; */\n  \tborder-radius: 220px;\n\n  \t-webkit-animation:turning_cw-data-v-224449b3 5s infinite;\n  \tanimation:turning_cw-data-v-224449b3 5s infinite;\n  \t/* position:relative; */\n  \topacity: 1;\n}\n.outer-circle[data-v-224449b3]:hover {\n  \tbox-shadow: 0 0 100px 15px #453D9B;\n}\n@-webkit-keyframes aura-data-v-224449b3 {\n0%{\n  \t\ttext-shadow: 0 2px 2px #000;\n}\n50%{\n  \t\ttext-shadow: 0 10px 10px #000;\n  \t\tline-height: 190px;\n}\n100%{\n  \t\ttext-shadow: 0 2px 10px #000;\n}\n}\n@-webkit-keyframes turning_cw-data-v-224449b3 {\n0%{\n  \t\t-webkit-transform: rotate(0deg);\n}\n100%{\n  \t\t-webkit-transform: rotate(360deg);\n}\n}\n@-webkit-keyframes turning_acw-data-v-224449b3 {\n0%{\n  \t\t-webkit-transform: rotate(360deg);\n}\n100%{\n  \t\t-webkit-transform: rotate(0deg);\n}\n}\n@keyframes aura-data-v-224449b3 {\n0%{\n  \t\ttext-shadow: 0 2px 2px #000;\n}\n50%{\n  \t\ttext-shadow: 0 10px 10px #000;\n  \t\tline-height: 190px;\n}\n100%{\n  \t\ttext-shadow: 0 2px 10px #000;\n}\n}\n@keyframes turning_cw-data-v-224449b3 {\n0%{\n  \t\ttransform: rotate(0deg);\n}\n100%{\n  \t\ttransform: rotate(360deg);\n}\n}\n@keyframes turning_acw-data-v-224449b3 {\n0%{\n  \t\ttransform: rotate(360deg);\n}\n100%{\n  \t\ttransform: rotate(0deg);\n}\n}\n", ""]);
+exports.push([module.i, "\n.allLevels[data-v-224449b3]{\n    width: 5.8%;\n    height: 5.8%;\n    position: absolute;\n    border-radius: 14% 14% 50% 50%;\n}\n.level7[data-v-224449b3]{\n    top: 35%;\n    left: 9%;\n}\n.level7active[data-v-224449b3]{\n    top: 28%;\n    left: 7%;\n}\n.level6[data-v-224449b3]{\n    top: 46.5%;\n    left: 24.4%;\n}\n.level6active[data-v-224449b3]{\n    top: 39.5%;\n    left: 22.5%;\n}\n.level5[data-v-224449b3]{\n    top: 38.5%;\n    left: 44.4%;\n}\n.level5active[data-v-224449b3]{\n    top: 31.5%;\n    left: 42.5%;\n}\n.level4[data-v-224449b3]{\n    top: 43.8%;\n    left: 63.7%;\n}\n.level4active[data-v-224449b3]{\n    top: 36.8%;\n    left: 61.8%;\n}\n.level3[data-v-224449b3]{\n    top: 66.8%;\n    left: 56.8%;\n}\n.level3active[data-v-224449b3]{\n    top: 59.6%;\n    left: 54.8%;\n}\n.level2[data-v-224449b3]{\n    top: 83.7%;\n    left: 54.8%;\n}\n.level2active[data-v-224449b3]{\n    top: 76.6%;\n    left: 52.8%;\n}\n.level1[data-v-224449b3]{\n    top: 82%;\n    left: 77.7%;\n}\n.level1active[data-v-224449b3]{\n    top: 74.9%;\n    left: 75.8%;\n}\n.outer-circle[data-v-224449b3] {\n  \tbox-shadow: 0 0 50px 10px #453D9B;\n  \tborder: 7px solid #ECEBFA;\n  \tborder-top-color: #00ff08;\n    border-right-color: yellow;\n    border-bottom-color: #ff0101;\n    border-left-color: blueviolet;\n  \ttext-align:center;\n    width: 9.8%;\n    height: 9.8%;\n  \tborder-radius: 220px;\n\n  \t-webkit-animation:turning_cw-data-v-224449b3 5s infinite;\n  \tanimation:turning_cw-data-v-224449b3 5s infinite;\n  \topacity: 1;\n}\n.outer-circle[data-v-224449b3]:hover {\n  \tbox-shadow: 0 0 100px 15px #453D9B;\n}\n@-webkit-keyframes aura-data-v-224449b3 {\n0%{\n  \t\ttext-shadow: 0 2px 2px #000;\n}\n50%{\n  \t\ttext-shadow: 0 10px 10px #000;\n  \t\tline-height: 190px;\n}\n100%{\n  \t\ttext-shadow: 0 2px 10px #000;\n}\n}\n@-webkit-keyframes turning_cw-data-v-224449b3 {\n0%{\n  \t\t-webkit-transform: rotate(0deg);\n}\n100%{\n  \t\t-webkit-transform: rotate(360deg);\n}\n}\n@-webkit-keyframes turning_acw-data-v-224449b3 {\n0%{\n  \t\t-webkit-transform: rotate(360deg);\n}\n100%{\n  \t\t-webkit-transform: rotate(0deg);\n}\n}\n@keyframes aura-data-v-224449b3 {\n0%{\n  \t\ttext-shadow: 0 2px 2px #000;\n}\n50%{\n  \t\ttext-shadow: 0 10px 10px #000;\n  \t\tline-height: 190px;\n}\n100%{\n  \t\ttext-shadow: 0 2px 10px #000;\n}\n}\n@keyframes turning_cw-data-v-224449b3 {\n0%{\n  \t\ttransform: rotate(0deg);\n}\n100%{\n  \t\ttransform: rotate(360deg);\n}\n}\n@keyframes turning_acw-data-v-224449b3 {\n0%{\n  \t\ttransform: rotate(360deg);\n}\n100%{\n  \t\ttransform: rotate(0deg);\n}\n}\n", ""]);
 
 // exports
 
@@ -39364,76 +39389,53 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
     _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "position-relative" }, [
-        _c("img", {
-          staticClass: "img-fluid",
-          attrs: {
-            usemap: "#levels",
-            src: "/storage/Images/levels.png",
-            alt: ""
-          }
-        }),
-        _vm._v(" "),
-        _vm.showLocks
-          ? _c("div", { staticClass: "allLevels level7" }, [
-              _c("img", {
-                staticClass: "img-fluid",
-                attrs: { src: "/storage/Images/lock.png", alt: "" }
-              })
-            ])
-          : _vm._e(),
-        _vm._v(" "),
-        _vm.showLocks
-          ? _c("div", { staticClass: "allLevels level6" }, [
-              _c("img", {
-                staticClass: "img-fluid",
-                attrs: { src: "/storage/Images/lock.png", alt: "" }
-              })
-            ])
-          : _vm._e(),
-        _vm._v(" "),
-        _vm.showLocks
-          ? _c("div", { staticClass: "allLevels level5" }, [
-              _c("img", {
-                staticClass: "img-fluid",
-                attrs: { src: "/storage/Images/lock.png", alt: "" }
-              })
-            ])
-          : _vm._e(),
-        _vm._v(" "),
-        _vm.showLocks
-          ? _c("div", { staticClass: "allLevels level4" }, [
-              _c("img", {
-                staticClass: "img-fluid",
-                attrs: { src: "/storage/Images/lock.png", alt: "" }
-              })
-            ])
-          : _vm._e(),
-        _vm._v(" "),
-        _vm.showLocks
-          ? _c("div", { staticClass: "allLevels level3" }, [
-              _c("img", {
-                staticClass: "img-fluid",
-                attrs: { src: "/storage/Images/lock.png", alt: "" }
-              })
-            ])
-          : _vm._e(),
-        _vm._v(" "),
-        _vm.showLocks
-          ? _c("div", { staticClass: "allLevels level2" }, [
-              _c("img", {
-                staticClass: "img-fluid",
-                attrs: { src: "/storage/Images/lock.png", alt: "" }
-              })
-            ])
-          : _vm._e(),
-        _vm._v(" "),
-        _c("a", { attrs: { href: "/numbers" } }, [
-          _vm.showLocks
-            ? _c("div", { staticClass: "allLevels level1 outer-circle" })
-            : _vm._e()
-        ])
-      ])
+      _c(
+        "div",
+        { staticClass: "position-relative" },
+        [
+          _c("img", {
+            staticClass: "img-fluid",
+            attrs: {
+              usemap: "#levels",
+              src: "/storage/Images/levels.png",
+              alt: ""
+            }
+          }),
+          _vm._v(" "),
+          _vm._l(_vm.levels, function(level, index) {
+            return _c(
+              "a",
+              {
+                key: index,
+                attrs: { href: level.open === true ? level.href : "#" }
+              },
+              [
+                _c(
+                  "div",
+                  {
+                    staticClass: "allLevels",
+                    class: [
+                      "level" + level.level,
+                      level.open === true
+                        ? "outer-circle level" + level.level + "active"
+                        : ""
+                    ]
+                  },
+                  [
+                    level.open === false
+                      ? _c("img", {
+                          staticClass: "img-fluid",
+                          attrs: { src: "/storage/Images/lock.png", alt: "" }
+                        })
+                      : _vm._e()
+                  ]
+                )
+              ]
+            )
+          })
+        ],
+        2
+      )
     ])
   ])
 }
@@ -39869,12 +39871,10 @@ var render = function() {
       _c(
         "div",
         {
-          staticClass: "col-md-12 position-relative d-flex align-items-center",
+          staticClass: "col-md-12 d-flex align-items-center",
           staticStyle: { "justify-content": "space-evenly", padding: "30px" }
         },
         [
-          _vm._m(0),
-          _vm._v(" "),
           _vm.indexOfChosen < 9
             ? _c("img", {
                 staticClass: "img-fluid left",
@@ -39888,7 +39888,7 @@ var render = function() {
               })
             : _vm._e(),
           _vm._v(" "),
-          this.indexOfChosen > 0
+          _vm.indexOfChosen > 0
             ? _c("img", {
                 staticClass: "img-fluid right",
                 staticStyle: { width: "75px" },
@@ -39901,7 +39901,9 @@ var render = function() {
               })
             : _vm._e()
         ]
-      )
+      ),
+      _vm._v(" "),
+      _vm._m(0)
     ])
   ])
 }
@@ -39910,21 +39912,22 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "a",
-      {
-        staticClass: "position-absolute",
-        staticStyle: { top: "30px", left: "25px" },
-        attrs: { href: "/numbersExam" }
-      },
-      [
-        _c("img", {
-          staticClass: "img-fluid",
-          staticStyle: { width: "75px" },
-          attrs: { src: "/storage/Images/door.png", alt: "" }
-        })
-      ]
-    )
+    return _c("div", { staticClass: "w-100" }, [
+      _c(
+        "a",
+        {
+          staticClass: "d-flex justify-content-center align-items-center w-100",
+          attrs: { href: "/levels" }
+        },
+        [
+          _c("img", {
+            staticClass: "img-fluid",
+            staticStyle: { width: "75px" },
+            attrs: { src: "/storage/Images/door.png", alt: "" }
+          })
+        ]
+      )
+    ])
   }
 ]
 render._withStripped = true
