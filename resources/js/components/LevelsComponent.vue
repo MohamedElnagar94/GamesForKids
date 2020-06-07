@@ -4,22 +4,22 @@
             <div class="position-relative">
                 <img class="img-fluid" usemap="#levels" src="/storage/Images/levels.png" alt="">
                 <div v-if="showLocks" class="allLevels level7">
-                    <img src="/storage/Images/lock.png" alt="">
+                    <img class="img-fluid" src="/storage/Images/lock.png" alt="">
                 </div>
                 <div v-if="showLocks" class="allLevels level6">
-                    <img src="/storage/Images/lock.png" alt="">
+                    <img class="img-fluid" src="/storage/Images/lock.png" alt="">
                 </div>
                 <div v-if="showLocks" class="allLevels level5">
-                    <img src="/storage/Images/lock.png" alt="">
+                    <img class="img-fluid" src="/storage/Images/lock.png" alt="">
                 </div>
                 <div v-if="showLocks" class="allLevels level4">
-                    <img src="/storage/Images/lock.png" alt="">
+                    <img class="img-fluid" src="/storage/Images/lock.png" alt="">
                 </div>
                 <div v-if="showLocks" class="allLevels level3">
-                    <img src="/storage/Images/lock.png" alt="">
+                    <img class="img-fluid" src="/storage/Images/lock.png" alt="">
                 </div>
                 <div v-if="showLocks" class="allLevels level2">
-                    <img src="/storage/Images/lock.png" alt="">
+                    <img class="img-fluid" src="/storage/Images/lock.png" alt="">
                 </div>
                 <a href="/numbers">
                     <div v-if="showLocks" class="allLevels level1 outer-circle"></div>
@@ -81,11 +81,6 @@
 .level1{
     top: 74.9%;
     left: 75.8%;
-}
-.main {
-  	/* width: 800px;
-  	height: 300px; */
-  	/* margin: auto; */
 }
 
 .outer-circle {
