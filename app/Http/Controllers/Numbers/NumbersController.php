@@ -13,6 +13,9 @@ class NumbersController extends Controller
     public function exam(){
         return view("Numbers.exam");
     }
+    public function exam2(){
+        return view("Numbers.exam2");
+    }
     public function result(){
         return view("Numbers.result");
     }
