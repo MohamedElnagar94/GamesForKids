@@ -2381,6 +2381,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "OrderNumber",
   mounted: function mounted() {
@@ -2401,13 +2410,16 @@ __webpack_require__.r(__webpack_exports__);
         console.log(true);
         event.preventDefault();
         var data = event.dataTransfer.getData("text");
-        event.target.innerHTML = '';
+        event.target.innerHTML = "";
         event.target.appendChild(document.getElementById(data));
-        this.words[index - 1].dragable = false; // console.log("data"+data);
-        // console.log( event);
+        this.words[index - 1].dragable = false; // console.log( event);
       } else {
         console.log(false);
       }
+    },
+    playAgain: function playAgain() {//  if(correctNumber == 10){
+      //    console.log("game finsih")
+      //  }
     }
   },
   data: function data() {
@@ -2444,17 +2456,18 @@ __webpack_require__.r(__webpack_exports__);
         title: "ten",
         dragable: true
       }],
-      dragnumber: null
+      dragnumber: null,
+      correctNumber: 0
     };
   },
   created: function created() {
     this.numbers = [];
 
     for (var i = 0; i < 10; i++) {
-      var randResult = this.randFun(1, 10); // console.log("outside",randResult,this.resultOption);
+      var randResult = this.randFun(1, 10);
 
       while (this.numbers.includes(randResult) === true) {
-        randResult = this.randFun(1, 10); // console.log("inside",randResult,this.resultOption);
+        randResult = this.randFun(1, 10);
       }
 
       this.numbers.push(randResult);
@@ -6944,7 +6957,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\nbody[data-v-427fac71] {\n  margin: 30px;\n  line-height: 1.8em;\n}\n#content[data-v-427fac71] {\n  margin: 20px 70px;\n  text-align: center;\n  -moz-user-select: none;\n  -webkit-user-select: none;\n  -ms-user-select: none;\n      user-select: none;\n}\n#cardSlots[data-v-427fac71] {\n  margin: 50px auto 0 auto;\n  background: rgb(182, 182, 187);\n  display: flex;\n}\n#cardPile[data-v-427fac71] {\n  margin: 0 auto;\n  /* background: rgb(201, 201, 202); */\n  display: flex;\n}\n#cardSlots[data-v-427fac71],\n#cardPile[data-v-427fac71] {\n  width: 860px;\n  height: 140px;\n  padding: 20px;\n  /* border: 2px solid rgb(95, 95, 95); */\n  border-radius: 15px;\n  box-shadow: 0 0 0.3em rgba(41, 40, 40, 0.8);\n}\n#cardSlots div[data-v-427fac71],\n#cardPile div[data-v-427fac71] {\n  float: left;\n  width: 80px;\n  height: 100px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  /* border: 2px solid rgb(rgb(77, 72, 72), rgb(68, 116, 68), rgb(66, 66, 107)); */\n  border-radius: 10px;\n  margin: 0 0 0 10px;\n  background: #fff;\n}\n#cardSlots div[data-v-427fac71]:first-child,\n#cardPile div[data-v-427fac71]:first-child {\n  margin-left: 0;\n}\n#cardSlots div.hovered[data-v-427fac71] {\n  background: #aaa;\n}\n#cardPile div[data-v-427fac71] {\n  background: rgb(123, 24, 136);\n  color: #fff;\n  font-size: 50px;\n  text-shadow: 0 0 3px #000;\n}\n#cardPile div.ui-draggable-dragging[data-v-427fac71] {\n  box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.8);\n}\n\n/*success message */\n#successMessage[data-v-427fac71] {\n  position: absolute;\n  left: 580;\n  top: 250px;\n  width: 0;\n  height: 0;\n  z-index: 7;\n  background: #dfd;\n  border: 2px solid #333;\n  border-radius: 10px;\n  box-shadow: 0.3em 0.3em 0.5em rgba(0, 0, 0, 0.8);\n  padding: 20px;\n}\n.welldone[data-v-427fac71] {\n  width: 330px;\n  height: 170px;\n  border-radius: 15px;\n}\n.words[data-v-427fac71] {\n  font-size: 26px;\n  font-weight: bold;\n}\n.number[data-v-427fac71] {\n  /* position: relative;  */\n  /* width: 80px; */\n  height: 100px;\n  color: #fff;\n  text-shadow: 0 0 3px #000;\n}\n", ""]);
+exports.push([module.i, "\nbody[data-v-427fac71] {\n  margin: 30px;\n  line-height: 1.8em;\n}\nimg[data-v-427fac71]{\n  cursor: pointer;\n}\n#content[data-v-427fac71] {\n  margin: 20px 70px;\n  text-align: center;\n  -moz-user-select: none;\n  -webkit-user-select: none;\n  -ms-user-select: none;\n      user-select: none;\n}\n#cardSlots[data-v-427fac71] {\n  margin: 50px auto 0 auto;\n  background: rgb(182, 182, 187);\n  display: flex;\n}\n#cardPile[data-v-427fac71] {\n  margin: 0 auto;\n  /* background: rgb(201, 201, 202); */\n  display: flex;\n}\n#cardSlots[data-v-427fac71],\n#cardPile[data-v-427fac71] {\n  width: 860px;\n  height: 140px;\n  padding: 20px;\n  /* border: 2px solid rgb(95, 95, 95); */\n  border-radius: 15px;\n  box-shadow: 0 0 0.3em rgba(41, 40, 40, 0.8);\n}\n#cardSlots div[data-v-427fac71],\n#cardPile div[data-v-427fac71] {\n  float: left;\n  width: 80px;\n  height: 100px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  /* border: 2px solid rgb(rgb(77, 72, 72), rgb(68, 116, 68), rgb(66, 66, 107)); */\n  border-radius: 10px;\n  margin: 0 0 0 10px;\n  background: #fff;\n}\n#cardSlots div[data-v-427fac71]:first-child,\n#cardPile div[data-v-427fac71]:first-child {\n  margin-left: 0;\n}\n#cardSlots div.hovered[data-v-427fac71] {\n  background: #aaa;\n}\n#cardPile div[data-v-427fac71] {\n  background: rgb(123, 24, 136);\n  color: #fff;\n  font-size: 50px;\n  text-shadow: 0 0 3px #000;\n}\n#cardPile div.ui-draggable-dragging[data-v-427fac71] {\n  box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.8);\n}\n.words[data-v-427fac71] {\n  font-size: 26px;\n  font-weight: bold;\n}\n.number[data-v-427fac71] {\n  /* position: relative;  */\n  /* width: 80px; */\n  height: 100px;\n  color: #fff;\n  text-shadow: 0 0 3px #000;\n  display: flex;\n}\n@media screen and (max-width: 992px) {\n.column[data-v-427fac71] {\n    flex: 50%;\n}\n}\n@media screen and (max-width: 600px) {\n.row[data-v-427fac71] {\n    flex-direction: column;\n}\n}\n\n", ""]);
 
 // exports
 
@@ -39207,52 +39220,56 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
     _c("div", { attrs: { id: "content" } }, [
-      _c(
-        "div",
-        { attrs: { id: "cardPile" } },
-        _vm._l(_vm.numbers, function(number) {
-          return _c("img", {
-            key: number,
-            staticClass: "number img-fluid",
-            attrs: {
-              id: number,
-              draggable: "true",
-              src: "/storage/Images/" + number + ".png"
-            },
-            on: {
-              dragstart: function($event) {
-                return _vm.dragstart(number, $event)
-              }
-            }
-          })
-        }),
-        0
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        { attrs: { id: "cardSlots" } },
-        _vm._l(_vm.words, function(word, index) {
-          return _c(
-            "div",
-            {
-              key: index,
-              staticClass: "words",
-              attrs: { id: word.title, draggable: word.draggable },
+      _c("div", { staticClass: "row" }, [
+        _c(
+          "div",
+          { attrs: { id: "cardPile" } },
+          _vm._l(_vm.numbers, function(number) {
+            return _c("img", {
+              key: number,
+              staticClass: "number img-fluid column",
+              attrs: {
+                id: number,
+                draggable: "true",
+                src: "/storage/Images/" + number + ".png"
+              },
               on: {
-                drop: function($event) {
-                  return _vm.drop(index + 1, $event)
-                },
-                dragover: function($event) {
-                  $event.preventDefault()
+                dragstart: function($event) {
+                  return _vm.dragstart(number, $event)
                 }
               }
-            },
-            [_vm._v(_vm._s(word.title))]
-          )
-        }),
-        0
-      )
+            })
+          }),
+          0
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c(
+          "div",
+          { attrs: { id: "cardSlots" } },
+          _vm._l(_vm.words, function(word, index) {
+            return _c(
+              "div",
+              {
+                key: index,
+                staticClass: "words column",
+                attrs: { id: word.title, draggable: word.draggable },
+                on: {
+                  drop: function($event) {
+                    return _vm.drop(index + 1, $event)
+                  },
+                  dragover: function($event) {
+                    $event.preventDefault()
+                  }
+                }
+              },
+              [_vm._v(_vm._s(word.title))]
+            )
+          }),
+          0
+        )
+      ])
     ])
   ])
 }

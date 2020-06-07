@@ -1,28 +1,37 @@
 <template>
   <div class="container">
     <div id="content">
-      <div id="cardPile">
-        <img
-          class="number img-fluid"
-          :id="number"
-          v-for="number in numbers" 
-          draggable="true"
-          @dragstart="dragstart(number,$event)"
-          :key="number"
-          :src="'/storage/Images/' + number + '.png'"
-        />
+      <div class="row">
+        <div id="cardPile">
+          <img
+            class="number img-fluid column"
+            :id="number"
+            v-for="number in numbers"
+            draggable="true"
+            @dragstart="dragstart(number,$event)"
+            :key="number"
+            :src="'/storage/Images/' + number + '.png'"
+          />
+        </div>
       </div>
-      <div id="cardSlots">
-        <div
-          :id="word.title"
-          @drop="drop(index+1,$event)"
-          @dragover.prevent
-          class="words"
-          v-for="(word,index) in words"
-          :key="index"
-          :draggable="word.draggable"
-        >{{ word.title }}</div>
+      <div class="row">
+        <div id="cardSlots" >
+          <div
+            :id="word.title"
+            @drop="drop(index+1,$event)"
+            @dragover.prevent
+            class="words column"
+            v-for="(word,index) in words"
+            :key="index"
+            :draggable="word.draggable"
+          >{{ word.title }}</div>
+        </div>
       </div>
+
+      <!-- sucess message -->
+     <!-- <button v-on="playAgain()">check elements in array</button> -->
+    
+      <!-- end of success message -->
     </div>
   </div>
 </template>
@@ -37,60 +46,69 @@ export default {
     randFun: function(minNum, maxNum) {
       return Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum;
     },
-    
-    dragstart(number,event) {
+
+    dragstart(number, event) {
       let col = event.dataTransfer.setData("text", event.target.id);
-      console.log(col , event);
+      console.log(col, event);
       this.dragnumber = number;
-      console.log(number)
+      console.log(number);
+      
     },
     drop(index, event) {
       if (index == this.dragnumber) {
         console.log(true);
+        
         event.preventDefault();
         let data = event.dataTransfer.getData("text");
-        event.target.innerHTML='';
+        event.target.innerHTML = "";
         event.target.appendChild(document.getElementById(data));
-        this.words[index-1].dragable = false;
-        // console.log("data"+data);
+        this.words[index - 1].dragable = false;
+        
         // console.log( event);
+        
+         
       } else {
         console.log(false);
-
       }
+    },
+    playAgain: function() {
+    //  if(correctNumber == 10){
+    //    console.log("game finsih")
+    //  }
     }
   },
   data() {
     return {
       numbers: [],
       words: [
-
-        {title:"one" , dragable:true },
-        {title:"two" , dragable:true },
-        {title:"three" , dragable:true },
-        {title:"four" , dragable:true },
-        {title:"five" , dragable:true },
-        {title:"six" , dragable:true },
-        {title:"seven" , dragable:true },
-        {title:"eight" , dragable:true },
-        {title:"nine" , dragable:true },
-        {title:"ten" , dragable:true },
-        
+        { title: "one", dragable: true },
+        { title: "two", dragable: true },
+        { title: "three", dragable: true },
+        { title: "four", dragable: true },
+        { title: "five", dragable: true },
+        { title: "six", dragable: true },
+        { title: "seven", dragable: true },
+        { title: "eight", dragable: true },
+        { title: "nine", dragable: true },
+        { title: "ten", dragable: true }
       ],
-      dragnumber: null
+      dragnumber: null,
+      correctNumber:0
     };
   },
   created() {
     this.numbers = [];
     for (let i = 0; i < 10; i++) {
       let randResult = this.randFun(1, 10);
-      // console.log("outside",randResult,this.resultOption);
+      
       while (this.numbers.includes(randResult) === true) {
         randResult = this.randFun(1, 10);
-        // console.log("inside",randResult,this.resultOption);
+        
       }
       this.numbers.push(randResult);
+      
     }
+   
   }
 };
 </script>
@@ -99,6 +117,9 @@ export default {
 body {
   margin: 30px;
   line-height: 1.8em;
+}
+img{
+  cursor: pointer;
 }
 #content {
   margin: 20px 70px;
@@ -143,6 +164,8 @@ body {
   border-radius: 10px;
   margin: 0 0 0 10px;
   background: #fff;
+  
+  
 }
 #cardSlots div:first-child,
 #cardPile div:first-child {
@@ -161,31 +184,9 @@ body {
   -moz-box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.8);
   -webkit-box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.8);
   box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.8);
+  
 }
 
-/*success message */
-#successMessage {
-  position: absolute;
-  left: 580;
-  top: 250px;
-  width: 0;
-  height: 0;
-  z-index: 7;
-  background: #dfd;
-  border: 2px solid #333;
-  -moz-border-radius: 10px;
-  -webkit-border-radius: 10px;
-  border-radius: 10px;
-  -moz-box-shadow: 0.3em 0.3em 0.5em rgba(0, 0, 0, 0.8);
-  -webkit-box-shadow: 0.3em 0.3em 0.5em rgba(0, 0, 0, 0.8);
-  box-shadow: 0.3em 0.3em 0.5em rgba(0, 0, 0, 0.8);
-  padding: 20px;
-}
-.welldone {
-  width: 330px;
-  height: 170px;
-  border-radius: 15px;
-}
 .words {
   font-size: 26px;
   font-weight: bold;
@@ -196,5 +197,19 @@ body {
   height: 100px;
   color: #fff;
   text-shadow: 0 0 3px #000;
+  display: flex;
 }
+
+@media screen and (max-width: 992px) {
+  .column {
+    flex: 50%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .row {
+    flex-direction: column;
+  }
+}
+
 </style>
