@@ -1899,6 +1899,163 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CountNumbers/CountNumbersComponent.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/CountNumbers/CountNumbersComponent.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "CountNumbersComponent",
+  data: function data() {
+    return {
+      numbers: [{
+        id: 1,
+        name: 'One',
+        img: '1.png',
+        skitch: 'oneFruite.png'
+      }, {
+        id: 2,
+        name: 'Two',
+        img: '2.png',
+        skitch: 'banana.png'
+      }, {
+        id: 3,
+        name: 'Three',
+        img: '3.png',
+        skitch: 'apple.png'
+      }, {
+        id: 4,
+        name: 'Four',
+        img: '4.png',
+        skitch: 'redApple.png'
+      }, {
+        id: 5,
+        name: 'Five',
+        img: '5.png',
+        skitch: 'fruit5.png'
+      }, {
+        id: 6,
+        name: 'Six',
+        img: '6.png',
+        skitch: 'fruites6.png'
+      }, {
+        id: 7,
+        name: 'Seven',
+        img: '7.png',
+        skitch: 'mango.png'
+      }, {
+        id: 8,
+        name: 'Eight',
+        img: '8.png',
+        skitch: 'banana.png'
+      }, {
+        id: 9,
+        name: 'Nine',
+        img: '9.png',
+        skitch: 'redApple.png'
+      }, {
+        id: 10,
+        name: 'Ten',
+        img: '10.png',
+        skitch: 'mango.png'
+      }],
+      results: [],
+      randomOrder: [],
+      choces: [] // 4 choices
+
+    };
+  },
+  methods: {
+    randomArr: function randomArr() {
+      var res = [];
+
+      while (res.length < 4) {
+        var item = this.numbers[Math.floor(Math.random() * 10)];
+        if (res.indexOf(item) === -1) res.push(item);
+      }
+
+      return res;
+    },
+    reOrderArr: function reOrderArr(arr) {
+      var array = _toConsumableArray(arr);
+
+      var currentIndex = array.length,
+          temporaryValue,
+          randomIndex; // While there remain elements to shuffle...
+
+      while (0 !== currentIndex) {
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1; // And swap it with the current element.
+
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+      }
+
+      return array;
+    },
+    onDragging: function onDragging(event) {
+      event.dataTransfer.setData("text", event.target.id);
+    },
+    allowDrop: function allowDrop(event) {
+      event.preventDefault();
+    },
+    drag: function drag(event) {
+      event.dataTransfer.setData("text", event.target.id);
+    },
+    drop: function drop(event) {
+      event.preventDefault();
+      var data = event.dataTransfer.getData("text");
+      if (this.numbers[data - 1].name === event.target.id) event.target.appendChild(document.getElementById(data));
+    }
+  },
+  created: function created() {
+    this.results = this.randomArr();
+    this.randomOrder = this.reOrderArr(this.results);
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ExampleComponent.vue?vue&type=script&lang=js&":
 /*!***************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ExampleComponent.vue?vue&type=script&lang=js& ***!
@@ -39325,6 +39482,113 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CountNumbers/CountNumbersComponent.vue?vue&type=template&id=18c420b9&":
+/*!*************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/CountNumbers/CountNumbersComponent.vue?vue&type=template&id=18c420b9& ***!
+  \*************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container" }, [
+    _c(
+      "div",
+      { staticClass: "row" },
+      [
+        _vm._l(_vm.randomOrder, function(item, i) {
+          return _c(
+            "div",
+            {
+              key: i + 10,
+              staticClass:
+                "col-md-3 d-flex justify-content-center align-items-center p-4"
+            },
+            [
+              _c(
+                "div",
+                { staticStyle: { "text-align": "center", "line-height": "5" } },
+                _vm._l(item.id, function(single, index) {
+                  return _c("img", {
+                    key: index + 20,
+                    style: [
+                      item.id === 1
+                        ? { height: "120px", margin: "5px" }
+                        : { height: "50px", margin: "5px" }
+                    ],
+                    attrs: { src: "/storage/Images/" + item.skitch, alt: "" }
+                  })
+                }),
+                0
+              )
+            ]
+          )
+        }),
+        _vm._v(" "),
+        _vm._l(4, function(i) {
+          return _c(
+            "div",
+            {
+              key: i + 30,
+              staticClass:
+                "col-md-3 d-flex justify-content-center align-items-center p-4"
+            },
+            [
+              _c("div", {
+                staticStyle: {
+                  margin: "30% auto",
+                  height: "80px",
+                  width: "31%",
+                  "text-align": "center",
+                  "background-color": "lightgray"
+                },
+                attrs: { id: _vm.randomOrder[i - 1].name },
+                on: { drop: _vm.drop, dragover: _vm.allowDrop }
+              })
+            ]
+          )
+        }),
+        _vm._v(" "),
+        _vm._l(_vm.results, function(item, i) {
+          return _c(
+            "div",
+            {
+              key: i + 40,
+              staticClass:
+                "col-md-3 d-flex justify-content-center align-items-center p-4"
+            },
+            [
+              _c("img", {
+                staticStyle: { height: "75px" },
+                attrs: {
+                  src: "/storage/Images/" + item.img,
+                  alt: "",
+                  draggable: "true",
+                  id: item.id
+                },
+                on: { dragstart: _vm.onDragging }
+              })
+            ]
+          )
+        })
+      ],
+      2
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ExampleComponent.vue?vue&type=template&id=299e239e&":
 /*!*******************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ExampleComponent.vue?vue&type=template&id=299e239e& ***!
@@ -52604,7 +52868,11 @@ Vue.component('numbers-component', __webpack_require__(/*! ./components/Numbers/
 Vue.component('exam-numbers-component', __webpack_require__(/*! ./components/Numbers/ExamNumbersComponent.vue */ "./resources/js/components/Numbers/ExamNumbersComponent.vue")["default"]);
 Vue.component('exam2-component', __webpack_require__(/*! ./components/Numbers/Exam2Component.vue */ "./resources/js/components/Numbers/Exam2Component.vue")["default"]);
 Vue.component('result-component', __webpack_require__(/*! ./components/Numbers/ResultComponent.vue */ "./resources/js/components/Numbers/ResultComponent.vue")["default"]);
+<<<<<<< HEAD
+Vue.component('count-numbers-component', __webpack_require__(/*! ./components/CountNumbers/CountNumbersComponent.vue */ "./resources/js/components/CountNumbers/CountNumbersComponent.vue")["default"]);
+=======
 Vue.component('levels-component', __webpack_require__(/*! ./components/LevelsComponent.vue */ "./resources/js/components/LevelsComponent.vue")["default"]);
+>>>>>>> c282190afa4e06b0afe6e625f885e0687b6cdfdb
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -52659,6 +52927,75 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/components/CountNumbers/CountNumbersComponent.vue":
+/*!************************************************************************!*\
+  !*** ./resources/js/components/CountNumbers/CountNumbersComponent.vue ***!
+  \************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _CountNumbersComponent_vue_vue_type_template_id_18c420b9___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CountNumbersComponent.vue?vue&type=template&id=18c420b9& */ "./resources/js/components/CountNumbers/CountNumbersComponent.vue?vue&type=template&id=18c420b9&");
+/* harmony import */ var _CountNumbersComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CountNumbersComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/CountNumbers/CountNumbersComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _CountNumbersComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _CountNumbersComponent_vue_vue_type_template_id_18c420b9___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _CountNumbersComponent_vue_vue_type_template_id_18c420b9___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/CountNumbers/CountNumbersComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/CountNumbers/CountNumbersComponent.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************!*\
+  !*** ./resources/js/components/CountNumbers/CountNumbersComponent.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CountNumbersComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./CountNumbersComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CountNumbers/CountNumbersComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CountNumbersComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/CountNumbers/CountNumbersComponent.vue?vue&type=template&id=18c420b9&":
+/*!*******************************************************************************************************!*\
+  !*** ./resources/js/components/CountNumbers/CountNumbersComponent.vue?vue&type=template&id=18c420b9& ***!
+  \*******************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CountNumbersComponent_vue_vue_type_template_id_18c420b9___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./CountNumbersComponent.vue?vue&type=template&id=18c420b9& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CountNumbers/CountNumbersComponent.vue?vue&type=template&id=18c420b9&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CountNumbersComponent_vue_vue_type_template_id_18c420b9___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CountNumbersComponent_vue_vue_type_template_id_18c420b9___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
 
 /***/ }),
 
@@ -53460,8 +53797,13 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
+__webpack_require__(/*! /home/ashraf/Laravel/GamesForKids/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/ashraf/Laravel/GamesForKids/resources/sass/app.scss */"./resources/sass/app.scss");
+=======
 __webpack_require__(/*! E:\My Works\ITI\Graduation Project\games-for-kids\resources\js\app.js */"./resources/js/app.js");
 module.exports = __webpack_require__(/*! E:\My Works\ITI\Graduation Project\games-for-kids\resources\sass\app.scss */"./resources/sass/app.scss");
+>>>>>>> c282190afa4e06b0afe6e625f885e0687b6cdfdb
 
 
 /***/ })
