@@ -10,8 +10,8 @@
                 <p>{{checkAppreciation}}</p>
             </div>
             <div class="col-md-12 d-flex align-items-center" style="justify-content: space-evenly;">
-                <img style="width: 100px" src="/storage/Images/door.png" alt="">
-                <img style="width: 100px" src="/storage/Images/door.png" alt="">
+                <img style="width: 100px" src="/storage/Images/door.png" alt="Next Exam">
+                <img style="width: 100px" src="/storage/Images/door.png" alt="Prev Exam">
             </div>
         </div>
     </div>

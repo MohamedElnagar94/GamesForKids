@@ -37,6 +37,7 @@ Route::get('/news', function () {
 
 Route::get('/numbers',"Numbers\NumbersController@index");
 Route::get('/numbersExam',"Numbers\NumbersController@exam");
+Route::get('/exam2',"Numbers\NumbersController@exam2");
 Route::get('/numbersExamResult',"Numbers\NumbersController@result");
 Auth::routes();
 
