@@ -2373,6 +2373,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "OrderNumber",
   mounted: function mounted() {
@@ -2381,12 +2389,62 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     randFun: function randFun(minNum, maxNum) {
       return Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum;
+    },
+    dragstart: function dragstart(number, event) {
+      var col = event.dataTransfer.setData("text", event.target.id);
+      console.log(col, event);
+      this.dragnumber = number;
+      console.log(number);
+    },
+    drop: function drop(index, event) {
+      if (index == this.dragnumber) {
+        console.log(true);
+        event.preventDefault();
+        var data = event.dataTransfer.getData("text");
+        event.target.innerHTML = '';
+        event.target.appendChild(document.getElementById(data));
+        this.words[index - 1].dragable = false; // console.log("data"+data);
+        // console.log( event);
+      } else {
+        console.log(false);
+      }
     }
   },
   data: function data() {
     return {
       numbers: [],
-      words: ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"]
+      words: [{
+        title: "one",
+        dragable: true
+      }, {
+        title: "two",
+        dragable: true
+      }, {
+        title: "three",
+        dragable: true
+      }, {
+        title: "four",
+        dragable: true
+      }, {
+        title: "five",
+        dragable: true
+      }, {
+        title: "six",
+        dragable: true
+      }, {
+        title: "seven",
+        dragable: true
+      }, {
+        title: "eight",
+        dragable: true
+      }, {
+        title: "nine",
+        dragable: true
+      }, {
+        title: "ten",
+        dragable: true
+      }],
+      dragnumber: null
     };
   },
   created: function created() {
@@ -6886,7 +6944,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\nbody[data-v-427fac71] {\n    margin: 30px;\n    line-height: 1.8em;\n}\n#content[data-v-427fac71] {\n    margin: 70px 70px;\n    text-align: center;\n    -moz-user-select: none;\n    -webkit-user-select: none;\n    -ms-user-select: none;\n        user-select: none;\n}\n#cardSlots[data-v-427fac71] {\n    margin: 50px auto 0 auto;\n    background: rgb(163, 163, 167);\n    display: flex;\n}\n#cardPile[data-v-427fac71] {\n    margin: 0 auto;\n    background: rgb(201, 201, 202);\n    display: flex;\n}\n#cardSlots[data-v-427fac71],\n#cardPile[data-v-427fac71] {\n    width: 840px;\n    height: 140px;\n    padding: 20px;\n    border: 2px solid rgb(95, 95, 95);\n    border-radius: 15px;\n    box-shadow: 0 0 0.3em rgba(41, 40, 40, 0.8);\n}\n#cardSlots div[data-v-427fac71],\n#cardPile div[data-v-427fac71] {\n    float: left;\n    width: 80px;\n    height: 80px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    border: 2px solid rgb(rgb(77, 72, 72), rgb(68, 116, 68), rgb(66, 66, 107));\n    border-radius: 10px;\n    margin: 0 0 0 10px;\n    background: #fff;\n}\n#cardSlots div[data-v-427fac71]:first-child,\n#cardPile div[data-v-427fac71]:first-child {\n    margin-left: 0;\n}\n#cardSlots div.hovered[data-v-427fac71] {\n    background: #aaa;\n}\n#cardPile div[data-v-427fac71] {\n    background: rgb(123, 24, 136);\n    color: #fff;\n    font-size: 50px;\n    text-shadow: 0 0 3px #000;\n}\n#cardPile div.ui-draggable-dragging[data-v-427fac71] {\n    box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.8);\n}\n\n/*success message */\n#successMessage[data-v-427fac71] {\n    position: absolute;\n    left: 580;\n    top: 250px;\n    width: 0;\n    height: 0;\n    z-index: 7;\n    background: #dfd;\n    border: 2px solid #333;\n    border-radius: 10px;\n    box-shadow: 0.3em 0.3em 0.5em rgba(0, 0, 0, 0.8);\n    padding: 20px;\n}\n.welldone[data-v-427fac71] {\n    width: 330px;\n    height: 170px;\n    border-radius: 15px;\n}\n.words[data-v-427fac71] {\n    font-size: 26px;\n    font-weight: bold;\n}\n.number[data-v-427fac71] {\n    /* position: relative;  */\n    width: 80px;\n    color: #fff;\n    text-shadow: 0 0 3px #000;\n}\n", ""]);
+exports.push([module.i, "\nbody[data-v-427fac71] {\n  margin: 30px;\n  line-height: 1.8em;\n}\n#content[data-v-427fac71] {\n  margin: 20px 70px;\n  text-align: center;\n  -moz-user-select: none;\n  -webkit-user-select: none;\n  -ms-user-select: none;\n      user-select: none;\n}\n#cardSlots[data-v-427fac71] {\n  margin: 50px auto 0 auto;\n  background: rgb(182, 182, 187);\n  display: flex;\n}\n#cardPile[data-v-427fac71] {\n  margin: 0 auto;\n  /* background: rgb(201, 201, 202); */\n  display: flex;\n}\n#cardSlots[data-v-427fac71],\n#cardPile[data-v-427fac71] {\n  width: 860px;\n  height: 140px;\n  padding: 20px;\n  /* border: 2px solid rgb(95, 95, 95); */\n  border-radius: 15px;\n  box-shadow: 0 0 0.3em rgba(41, 40, 40, 0.8);\n}\n#cardSlots div[data-v-427fac71],\n#cardPile div[data-v-427fac71] {\n  float: left;\n  width: 80px;\n  height: 100px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  /* border: 2px solid rgb(rgb(77, 72, 72), rgb(68, 116, 68), rgb(66, 66, 107)); */\n  border-radius: 10px;\n  margin: 0 0 0 10px;\n  background: #fff;\n}\n#cardSlots div[data-v-427fac71]:first-child,\n#cardPile div[data-v-427fac71]:first-child {\n  margin-left: 0;\n}\n#cardSlots div.hovered[data-v-427fac71] {\n  background: #aaa;\n}\n#cardPile div[data-v-427fac71] {\n  background: rgb(123, 24, 136);\n  color: #fff;\n  font-size: 50px;\n  text-shadow: 0 0 3px #000;\n}\n#cardPile div.ui-draggable-dragging[data-v-427fac71] {\n  box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.8);\n}\n\n/*success message */\n#successMessage[data-v-427fac71] {\n  position: absolute;\n  left: 580;\n  top: 250px;\n  width: 0;\n  height: 0;\n  z-index: 7;\n  background: #dfd;\n  border: 2px solid #333;\n  border-radius: 10px;\n  box-shadow: 0.3em 0.3em 0.5em rgba(0, 0, 0, 0.8);\n  padding: 20px;\n}\n.welldone[data-v-427fac71] {\n  width: 330px;\n  height: 170px;\n  border-radius: 15px;\n}\n.words[data-v-427fac71] {\n  font-size: 26px;\n  font-weight: bold;\n}\n.number[data-v-427fac71] {\n  /* position: relative;  */\n  /* width: 80px; */\n  height: 100px;\n  color: #fff;\n  text-shadow: 0 0 3px #000;\n}\n", ""]);
 
 // exports
 
@@ -39156,7 +39214,16 @@ var render = function() {
           return _c("img", {
             key: number,
             staticClass: "number img-fluid",
-            attrs: { src: "/storage/Images/" + number + ".png" }
+            attrs: {
+              id: number,
+              draggable: "true",
+              src: "/storage/Images/" + number + ".png"
+            },
+            on: {
+              dragstart: function($event) {
+                return _vm.dragstart(number, $event)
+              }
+            }
           })
         }),
         0
@@ -39165,10 +39232,24 @@ var render = function() {
       _c(
         "div",
         { attrs: { id: "cardSlots" } },
-        _vm._l(_vm.words, function(word) {
-          return _c("div", { key: word, staticClass: "words" }, [
-            _vm._v("\n                " + _vm._s(word) + "\n            ")
-          ])
+        _vm._l(_vm.words, function(word, index) {
+          return _c(
+            "div",
+            {
+              key: index,
+              staticClass: "words",
+              attrs: { id: word.title, draggable: word.draggable },
+              on: {
+                drop: function($event) {
+                  return _vm.drop(index + 1, $event)
+                },
+                dragover: function($event) {
+                  $event.preventDefault()
+                }
+              }
+            },
+            [_vm._v(_vm._s(word.title))]
+          )
         }),
         0
       )
@@ -51848,8 +51929,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /media/mohamed-iti/ITI/Graduation Proect/GamesForKids/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /media/mohamed-iti/ITI/Graduation Proect/GamesForKids/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/eslam/iti/project/gradution-project/GamesForKids/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/eslam/iti/project/gradution-project/GamesForKids/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
