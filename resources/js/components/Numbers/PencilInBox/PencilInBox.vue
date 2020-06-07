@@ -25,7 +25,7 @@
                     <Box id="box-4" class="up"></Box>
                 </div> 
                 
-                <div class="objects col-11" id="pencilPlace">
+                <div class="objects col-11" id="pencilPlace" disable>
 
                     <div style="display:inline-block" v-for="index in 10" :key="index">
                         <Pencil :id="index" draggable="true" style="display:inline-block">

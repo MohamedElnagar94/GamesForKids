@@ -1,12 +1,10 @@
-body{
-	/* background-color:rgb(122, 192, 238); */
-	background-image: url(./img/drawings.png);
-	height:100%;
-  }
-  #gameTitle{
 
+  #gameTitle{
 	text-align: center;
   }
+  .container-fluid{
+	background-image: url(./img/drawings.png);
+}
   h2{
 	
 	margin-top:.5em;
@@ -20,7 +18,8 @@ body{
  
   .container{
 	width:90%;
-	background-color: rgb(23,125,193);
+	/* background-color: rgb(23,125,193); */
+	background-color: rgb(120,173,191);
 	margin:0 auto;
 	border:.6em solid #fff;
 	border-radius: .5em;
@@ -51,7 +50,7 @@ body{
   .number span{
 	display: inline-block;
 	margin:15% 35%;
-	color: rgb(23,125,193);
+	color: rgb(68, 141, 165);
 	/* font:3em 'Comic Sans MS'   ; */
 	/* font:3em 'Ravie'  ;  */
 	font:4em  'Burnstown Dam', 'Showcard Gothic'  ; 
@@ -149,7 +148,7 @@ body{
 	width:84%;
 	margin:0em auto;
 	margin-top:4em;
-	background-color: rgb(23,125,193);
+	background-color: rgb(120,173,191);
 	border-top-left-radius: .6em;
 	border-top-right-radius: .6em;
 	

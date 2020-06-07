@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,10 +14,33 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
+
+Route::get('/pencilInBox', function () {
+    return view('Numbers/pencils');
 });
 
-Route::get('/level3', function () {
-    return view('number3');
+Route::get('/', function () {
+    return view('website.index');
 });
+Route::get('/contact', function () {
+    return view('website.contact');
+});
+Route::get('/about', function () {
+    return view('website.about');
+});
+Route::get('/games', function () {
+    return view('website.games');
+});
+Route::get('/news', function () {
+    return view('website.news');
+});
+
+Route::get('/numbers',"Numbers\NumbersController@index");
+Route::get('/numbersExam',"Numbers\NumbersController@exam");
+Route::get('/numbersExamResult',"Numbers\NumbersController@result");
+Auth::routes();
+
+Route::get('/order','SortNumberController@sortnumber');
+Route::get('/home', 'HomeController@index')->name('home');
+
+
