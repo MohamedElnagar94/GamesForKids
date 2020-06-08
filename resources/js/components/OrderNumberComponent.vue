@@ -1,7 +1,7 @@
 <template >
   <div class="container" :key="componentKey">
     <div id="content">
-      <img :src="src" class="vloume" @click="runMusic()" alt />
+      <img :src="src" class="vloume" @click="play()" alt />
 
       <img src="/storage/Images/congrates.gif" class="celebrateimg" v-if="correctNumber == 10 " alt />
       <div class="row">
@@ -39,6 +39,11 @@
       >Play Again</button>
 
       <!-- end of success message -->
+
+      <!--  audio -->
+  <audio ref="audioElm" src="/storage/Images/happy.mp3"></audio>
+
+      <!--  audio -->
     </div>
   </div>
 </template>
@@ -50,21 +55,16 @@ export default {
     console.log("Component mounted.");
   },
   methods: {
-    runMusic: function() {
-      var audio = new Audio("/storage/Images/happy.mp3");
-       
-      if (this.src == "/storage/Images/close.png") {
-        console.log('play' , this.src)
-        audio.play()
-        this.src = "/storage/Images/open.png";
-        
+   play: function(event) {
+      var a = this.$refs.audioElm;
+      if (a.paused) {
+        a.play();
+        this.src="/storage/Images/open.png"
       } else {
-        this.src = "/storage/Images/close.png";
-        console.log('stop' , this.src)
-        audio.pause()
-
+        a.pause();
+        this.src="/storage/Images/close.png"
       }
-    },
+   }, 
     start: function() {
       this.numbers = [];
       this.words = [
@@ -130,7 +130,7 @@ export default {
       correctNumber: 0,
       renderComponent: true,
       componentKey: 0,
-      src: "/storage/Images/open.png"
+      src: "/storage/Images/close.png"
     };
   },
   created() {
