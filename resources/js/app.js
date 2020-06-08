@@ -27,8 +27,10 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 Vue.component('order-component', require('./components/OrderNumberComponent.vue').default);
 Vue.component('numbers-component', require('./components/Numbers/NumbersComponent.vue').default);
 Vue.component('exam-numbers-component', require('./components/Numbers/ExamNumbersComponent.vue').default);
+Vue.component('exam2-component', require('./components/Numbers/Exam2Component.vue').default);
 Vue.component('result-component', require('./components/Numbers/ResultComponent.vue').default);
-
+Vue.component('count-numbers-component', require('./components/CountNumbers/CountNumbersComponent.vue').default);
+Vue.component('levels-component', require('./components/LevelsComponent.vue').default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

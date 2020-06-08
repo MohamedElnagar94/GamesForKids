@@ -37,10 +37,15 @@ Route::get('/news', function () {
 
 Route::get('/numbers',"Numbers\NumbersController@index");
 Route::get('/numbersExam',"Numbers\NumbersController@exam");
+Route::get('/exam2',"Numbers\NumbersController@exam2");
 Route::get('/numbersExamResult',"Numbers\NumbersController@result");
+Route::get('/levels', function () {
+    return view('levels');
+});
 Auth::routes();
 
 Route::get('/order','SortNumberController@sortnumber');
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/count',"CountNumbers\CountNumbersController@index");
 
