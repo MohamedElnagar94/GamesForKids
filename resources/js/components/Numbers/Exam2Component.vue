@@ -5,16 +5,16 @@
                 class="col-md-12 d-flex justify-content-center align-items-center p-4"
             >
                 <img
-                    style="height: 75px"
+                    style="height: 30px"
                     :src="'/storage/Images/' + count + '.png'"
                     alt=""
                 />
                 <img
-                    style="height: 75px"
+                    style="height: 30px"
                     src="/storage/Images/slash.png"
                     alt=""
                 />
-                <img style="height: 75px" src="/storage/Images/10.png" alt="" />
+                <img style="height: 30px" src="/storage/Images/10.png" alt="" />
             </div>
             <div
                 class="col-md-12 d-flex justify-content-center align-items-center p-5"
@@ -42,12 +42,12 @@
                 <i
                     class="fa fa-check"
                     v-if="checkResult && result === resultFromDrag"
-                    style="font-size: 81px;color: green;margin: 10px 30px;"
+                    style="font-size: 120px;color: green;margin: 10px 30px;"
                 ></i>
                 <i
                     class="fa fa-close"
                     v-if="checkResult && result !== resultFromDrag"
-                    style="font-size: 81px;color: red;margin: 10px 30px;"
+                    style="font-size: 120px;color: red;margin: 10px 30px;"
                 ></i>
             </div>
             <div
@@ -92,7 +92,7 @@ export default {
     name: "Exam2Component",
     data() {
         return {
-            questions: [],            
+            questions: [],
             firstNum: null,
             secondNum: null,
             result: null,
@@ -160,7 +160,7 @@ export default {
             this.checkResult = true;
             this.questions.push({
                 firstNum: this.firstNum,
-                secondNum: this.secondNum,                
+                secondNum: this.secondNum,
                 result: this.result,
                 resultFromDrag: this.resultFromDrag,
                 answer: this.result === this.resultFromDrag
