@@ -1998,9 +1998,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         skitch: 'mango.png'
       }],
       results: [],
-      randomOrder: [],
-      choces: [] // 4 choices
-
+      randomOrder: []
     };
   },
   methods: {
@@ -3083,6 +3081,91 @@ __webpack_require__.r(__webpack_exports__);
 
       this.numbers.push(randResult);
     }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Sort/MergeSortComponent.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Sort/MergeSortComponent.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "MergeSortComponent",
+  data: function data() {
+    return {
+      answer: '',
+      steps: 0,
+      numbersArray: []
+    };
+  },
+  methods: {
+    getArray: function getArray(start, end, step) {
+      var array = _.range(start, end, step);
+
+      var currentIndex = array.length,
+          temporaryValue,
+          randomIndex; // While there remain elements to shuffle...
+
+      while (0 !== currentIndex) {
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1; // And swap it with the current element.
+
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+      }
+
+      return array;
+    }
+  },
+  created: function created() {
+    this.numbersArray = this.getArray(0, 8, 1);
+    this.answer = 'Think'; // Think, Yes, No
   }
 });
 
@@ -7549,7 +7632,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.button[data-v-4e16050c] {\r\n    padding: 15px 25px;\r\n    font-size: 24px;\r\n    text-align: center;\r\n    cursor: pointer;\r\n    outline: none;\r\n    color: #fff;\r\n    background-color: #4caf50;\r\n    border: none;\r\n    border-radius: 15px;\r\n    box-shadow: 0 9px #999;\n}\n.button[data-v-4e16050c]:hover {\r\n    background-color: #3e8e41;\n}\n.button[data-v-4e16050c]:active {\r\n    background-color: #3e8e41;\r\n    box-shadow: 0 5px #666;\r\n    transform: translateY(4px);\n}\n.result[data-v-4e16050c] {\r\n    width: 100px;\r\n    height: 100px;\r\n    border: 1px solid gray;\r\n    box-shadow: 0 0 3px 0 gray, inset 0 0 7px 0 gray;\n}\n.divBg[data-v-4e16050c] {\r\n    background-color: rgba(85, 169, 56, 0.5);\n}\r\n", ""]);
+exports.push([module.i, "\n.button[data-v-4e16050c] {\n    padding: 15px 25px;\n    font-size: 24px;\n    text-align: center;\n    cursor: pointer;\n    outline: none;\n    color: #fff;\n    background-color: #4caf50;\n    border: none;\n    border-radius: 15px;\n    box-shadow: 0 9px #999;\n}\n.button[data-v-4e16050c]:hover {\n    background-color: #3e8e41;\n}\n.button[data-v-4e16050c]:active {\n    background-color: #3e8e41;\n    box-shadow: 0 5px #666;\n    transform: translateY(4px);\n}\n.result[data-v-4e16050c] {\n    width: 100px;\n    height: 100px;\n    border: 1px solid gray;\n    box-shadow: 0 0 3px 0 gray, inset 0 0 7px 0 gray;\n}\n.divBg[data-v-4e16050c] {\n    background-color: rgba(85, 169, 56, 0.5);\n}\n", ""]);
 
 // exports
 
@@ -7587,7 +7670,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.lineResult[data-v-0f352d60]{\r\n    width: 200px;\r\n    height: 15px;\r\n    border: 1px solid black;\r\n    border-radius: 20px;\r\n    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(220,219,224,1) 27%, rgba(255,255,255,1) 50%, rgba(224,224,224,1) 73%, rgba(0,0,0,1) 100%);\n}\r\n", ""]);
+exports.push([module.i, "\n.lineResult[data-v-0f352d60]{\n    width: 200px;\n    height: 15px;\n    border: 1px solid black;\n    border-radius: 20px;\n    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(220,219,224,1) 27%, rgba(255,255,255,1) 50%, rgba(224,224,224,1) 73%, rgba(0,0,0,1) 100%);\n}\n", ""]);
 
 // exports
 
@@ -7606,7 +7689,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\nbody[data-v-427fac71] {\r\n  margin: 30px;\r\n  line-height: 1.8em;\n}\nimg[data-v-427fac71]{\r\n  cursor: pointer;\n}\n#content[data-v-427fac71] {\r\n  margin: 20px 70px;\r\n  text-align: center;\r\n  -moz-user-select: none;\r\n  -webkit-user-select: none;\r\n  -ms-user-select: none;\r\n      user-select: none;\n}\n#cardSlots[data-v-427fac71] {\r\n  margin: 50px auto 0 auto;\r\n  background: rgb(182, 182, 187);\r\n  display: flex;\n}\n#cardPile[data-v-427fac71] {\r\n  margin: 0 auto;\r\n  /* background: rgb(201, 201, 202); */\r\n  display: flex;\n}\n#cardSlots[data-v-427fac71],\r\n#cardPile[data-v-427fac71] {\r\n  width: 860px;\r\n  height: 140px;\r\n  padding: 20px;\r\n  /* border: 2px solid rgb(95, 95, 95); */\r\n  border-radius: 15px;\r\n  box-shadow: 0 0 0.3em rgba(41, 40, 40, 0.8);\n}\n#cardSlots div[data-v-427fac71],\r\n#cardPile div[data-v-427fac71] {\r\n  float: left;\r\n  width: 80px;\r\n  height: 100px;\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  /* border: 2px solid rgb(rgb(77, 72, 72), rgb(68, 116, 68), rgb(66, 66, 107)); */\r\n  border-radius: 10px;\r\n  margin: 0 0 0 10px;\r\n  background: #fff;\n}\n#cardSlots div[data-v-427fac71]:first-child,\r\n#cardPile div[data-v-427fac71]:first-child {\r\n  margin-left: 0;\n}\n#cardSlots div.hovered[data-v-427fac71] {\r\n  background: #aaa;\n}\n#cardPile div[data-v-427fac71] {\r\n  background: rgb(123, 24, 136);\r\n  color: #fff;\r\n  font-size: 50px;\r\n  text-shadow: 0 0 3px #000;\n}\n#cardPile div.ui-draggable-dragging[data-v-427fac71] {\r\n  box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.8);\n}\n.words[data-v-427fac71] {\r\n  font-size: 26px;\r\n  font-weight: bold;\n}\n.number[data-v-427fac71] {\r\n  /* position: relative;  */\r\n  /* width: 80px; */\r\n  height: 100px;\r\n  color: #fff;\r\n  text-shadow: 0 0 3px #000;\r\n  display: flex;\n}\n@media screen and (max-width: 992px) {\n.column[data-v-427fac71] {\r\n    flex: 50%;\n}\n}\n@media screen and (max-width: 600px) {\n.row[data-v-427fac71] {\r\n    flex-direction: column;\n}\n}\r\n\r\n", ""]);
+exports.push([module.i, "\nbody[data-v-427fac71] {\n  margin: 30px;\n  line-height: 1.8em;\n}\nimg[data-v-427fac71]{\n  cursor: pointer;\n}\n#content[data-v-427fac71] {\n  margin: 20px 70px;\n  text-align: center;\n  -moz-user-select: none;\n  -webkit-user-select: none;\n  -ms-user-select: none;\n      user-select: none;\n}\n#cardSlots[data-v-427fac71] {\n  margin: 50px auto 0 auto;\n  background: rgb(182, 182, 187);\n  display: flex;\n}\n#cardPile[data-v-427fac71] {\n  margin: 0 auto;\n  /* background: rgb(201, 201, 202); */\n  display: flex;\n}\n#cardSlots[data-v-427fac71],\n#cardPile[data-v-427fac71] {\n  width: 860px;\n  height: 140px;\n  padding: 20px;\n  /* border: 2px solid rgb(95, 95, 95); */\n  border-radius: 15px;\n  box-shadow: 0 0 0.3em rgba(41, 40, 40, 0.8);\n}\n#cardSlots div[data-v-427fac71],\n#cardPile div[data-v-427fac71] {\n  float: left;\n  width: 80px;\n  height: 100px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  /* border: 2px solid rgb(rgb(77, 72, 72), rgb(68, 116, 68), rgb(66, 66, 107)); */\n  border-radius: 10px;\n  margin: 0 0 0 10px;\n  background: #fff;\n}\n#cardSlots div[data-v-427fac71]:first-child,\n#cardPile div[data-v-427fac71]:first-child {\n  margin-left: 0;\n}\n#cardSlots div.hovered[data-v-427fac71] {\n  background: #aaa;\n}\n#cardPile div[data-v-427fac71] {\n  background: rgb(123, 24, 136);\n  color: #fff;\n  font-size: 50px;\n  text-shadow: 0 0 3px #000;\n}\n#cardPile div.ui-draggable-dragging[data-v-427fac71] {\n  box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.8);\n}\n.words[data-v-427fac71] {\n  font-size: 26px;\n  font-weight: bold;\n}\n.number[data-v-427fac71] {\n  /* position: relative;  */\n  /* width: 80px; */\n  height: 100px;\n  color: #fff;\n  text-shadow: 0 0 3px #000;\n  display: flex;\n}\n@media screen and (max-width: 992px) {\n.column[data-v-427fac71] {\n    flex: 50%;\n}\n}\n@media screen and (max-width: 600px) {\n.row[data-v-427fac71] {\n    flex-direction: column;\n}\n}\n\n", ""]);
 
 // exports
 
@@ -40671,6 +40754,143 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Sort/MergeSortComponent.vue?vue&type=template&id=3b29e986&":
+/*!**************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Sort/MergeSortComponent.vue?vue&type=template&id=3b29e986& ***!
+  \**************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row" }, [
+      _c(
+        "div",
+        {
+          staticClass:
+            "col-md-2 d-flex justify-content-center align-items-center p-4"
+        },
+        [
+          _c(
+            "div",
+            { staticStyle: { "text-align": "center", "line-height": "5" } },
+            [
+              _c("img", {
+                style: [{ margin: "5px" }],
+                attrs: {
+                  src: "/storage/Images/" + _vm.answer + ".gif",
+                  alt: ""
+                }
+              })
+            ]
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass:
+            "col-md-10 d-flex justify-content-center align-items-center p-4"
+        },
+        [
+          _c(
+            "div",
+            { staticStyle: { "margin-left": "25%" } },
+            [
+              _vm._l(_vm.numbersArray.slice(0, 4), function(i) {
+                return _c(
+                  "div",
+                  {
+                    key: i,
+                    staticClass:
+                      "col-md-1 d-flex justify-content-center align-items-center p-4",
+                    style: [
+                      {
+                        margin: "5px",
+                        border: "1px solid gray",
+                        "background-color": "lightgreen"
+                      }
+                    ]
+                  },
+                  [
+                    _c(
+                      "div",
+                      {
+                        staticStyle: { "font-size": "30px", margin: "0 40px" }
+                      },
+                      [_vm._v(_vm._s(i))]
+                    )
+                  ]
+                )
+              }),
+              _vm._v(" "),
+              _vm._l(_vm.numbersArray.slice(4, 9), function(i) {
+                return _c(
+                  "div",
+                  {
+                    key: i,
+                    staticClass:
+                      "col-md-1 d-flex justify-content-center align-items-center p-4",
+                    style: [
+                      {
+                        margin: "5px",
+                        border: "1px solid gray",
+                        "background-color": "lightblue"
+                      }
+                    ]
+                  },
+                  [
+                    _c(
+                      "div",
+                      {
+                        staticStyle: { "font-size": "30px", margin: "0 40px" }
+                      },
+                      [_vm._v(_vm._s(i))]
+                    )
+                  ]
+                )
+              }),
+              _vm._v(" "),
+              _c("div", [
+                _c("img", {
+                  style: [
+                    _vm.steps === 0
+                      ? { width: "50%", height: "150px", float: "right" }
+                      : _vm.steps === 1
+                      ? {
+                          width: "50%",
+                          height: "150px",
+                          transform: "scaleX(-1)",
+                          margin: "0 -10%"
+                        }
+                      : { display: "none" }
+                  ],
+                  attrs: { src: "/storage/Images/arrow.gif", alt: "" }
+                })
+              ])
+            ],
+            2
+          )
+        ]
+      )
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js":
 /*!********************************************************************!*\
   !*** ./node_modules/vue-loader/lib/runtime/componentNormalizer.js ***!
@@ -52865,11 +53085,9 @@ Vue.component('numbers-component', __webpack_require__(/*! ./components/Numbers/
 Vue.component('exam-numbers-component', __webpack_require__(/*! ./components/Numbers/ExamNumbersComponent.vue */ "./resources/js/components/Numbers/ExamNumbersComponent.vue")["default"]);
 Vue.component('exam2-component', __webpack_require__(/*! ./components/Numbers/Exam2Component.vue */ "./resources/js/components/Numbers/Exam2Component.vue")["default"]);
 Vue.component('result-component', __webpack_require__(/*! ./components/Numbers/ResultComponent.vue */ "./resources/js/components/Numbers/ResultComponent.vue")["default"]);
-<<<<<<< HEAD
 Vue.component('count-numbers-component', __webpack_require__(/*! ./components/CountNumbers/CountNumbersComponent.vue */ "./resources/js/components/CountNumbers/CountNumbersComponent.vue")["default"]);
-=======
+Vue.component('merge-sort-component', __webpack_require__(/*! ./components/Sort/MergeSortComponent.vue */ "./resources/js/components/Sort/MergeSortComponent.vue")["default"]);
 Vue.component('levels-component', __webpack_require__(/*! ./components/LevelsComponent.vue */ "./resources/js/components/LevelsComponent.vue")["default"]);
->>>>>>> c282190afa4e06b0afe6e625f885e0687b6cdfdb
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -53776,6 +53994,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/Sort/MergeSortComponent.vue":
+/*!*************************************************************!*\
+  !*** ./resources/js/components/Sort/MergeSortComponent.vue ***!
+  \*************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _MergeSortComponent_vue_vue_type_template_id_3b29e986___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MergeSortComponent.vue?vue&type=template&id=3b29e986& */ "./resources/js/components/Sort/MergeSortComponent.vue?vue&type=template&id=3b29e986&");
+/* harmony import */ var _MergeSortComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MergeSortComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/Sort/MergeSortComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _MergeSortComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _MergeSortComponent_vue_vue_type_template_id_3b29e986___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _MergeSortComponent_vue_vue_type_template_id_3b29e986___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Sort/MergeSortComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/Sort/MergeSortComponent.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************!*\
+  !*** ./resources/js/components/Sort/MergeSortComponent.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MergeSortComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./MergeSortComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Sort/MergeSortComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MergeSortComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/Sort/MergeSortComponent.vue?vue&type=template&id=3b29e986&":
+/*!********************************************************************************************!*\
+  !*** ./resources/js/components/Sort/MergeSortComponent.vue?vue&type=template&id=3b29e986& ***!
+  \********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MergeSortComponent_vue_vue_type_template_id_3b29e986___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./MergeSortComponent.vue?vue&type=template&id=3b29e986& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Sort/MergeSortComponent.vue?vue&type=template&id=3b29e986&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MergeSortComponent_vue_vue_type_template_id_3b29e986___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MergeSortComponent_vue_vue_type_template_id_3b29e986___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/sass/app.scss":
 /*!*********************************!*\
   !*** ./resources/sass/app.scss ***!
@@ -53794,13 +54081,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-<<<<<<< HEAD
 __webpack_require__(/*! /home/ashraf/Laravel/GamesForKids/resources/js/app.js */"./resources/js/app.js");
 module.exports = __webpack_require__(/*! /home/ashraf/Laravel/GamesForKids/resources/sass/app.scss */"./resources/sass/app.scss");
-=======
-__webpack_require__(/*! E:\My Works\ITI\Graduation Project\games-for-kids\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! E:\My Works\ITI\Graduation Project\games-for-kids\resources\sass\app.scss */"./resources/sass/app.scss");
->>>>>>> c282190afa4e06b0afe6e625f885e0687b6cdfdb
 
 
 /***/ })
