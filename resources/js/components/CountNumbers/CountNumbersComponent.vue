@@ -40,8 +40,6 @@
 
                 results: [],
                 randomOrder: [],
-                choces:[], // 4 choices
-
             }
         },
 
