@@ -14,7 +14,7 @@
             <img src="images/banner3.jpg" alt="" />
         </li>
     </ul>
-    <a href="/numbers" class="glow-on-hover" type="button">START THE GAME</a>
+    <a href="/levels" class="glow-on-hover" type="button">START THE GAME</a>
 </div>
 <!-- //Slider -->
 @endsection

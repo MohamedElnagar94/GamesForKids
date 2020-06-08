@@ -1,6 +1,9 @@
-<template>
-  <div class="container">
+<template >
+  <div class="container" :key="componentKey">
     <div id="content">
+      <img :src="src" class="vloume" @click="runMusic()" alt />
+
+      <img src="/storage/Images/congrates.gif" class="celebrateimg" v-if="correctNumber == 10 " alt />
       <div class="row">
         <div id="cardPile">
           <img
@@ -29,7 +32,12 @@
       </div>
 
       <!-- sucess message -->
-      <button class="btn btn-success" v-on="playAgain()" v-if="correctNumber == 10 ">play again</button>
+      <button
+        class="btn btn-primary mt-3"
+        @click="forceRerender()"
+        v-if="correctNumber == 10 "
+      >Play Again</button>
+
       <!-- end of success message -->
     </div>
   </div>
@@ -42,12 +50,21 @@ export default {
     console.log("Component mounted.");
   },
   methods: {
-    // forceRender: function(){
-    //   this.renderComponent = false;
-    //   this.$nextTick().then( () => {
-    //     this.renderComponent = true;
-    //   })
-    // },
+    runMusic: function() {
+      var audio = new Audio("/storage/Images/happy.mp3");
+       
+      if (this.src == "/storage/Images/close.png") {
+        console.log('play' , this.src)
+        audio.play()
+        this.src = "/storage/Images/open.png";
+        
+      } else {
+        this.src = "/storage/Images/close.png";
+        console.log('stop' , this.src)
+        audio.pause()
+
+      }
+    },
     start: function() {
       this.numbers = [];
       this.words = [
@@ -96,11 +113,12 @@ export default {
         console.log(false);
       }
     },
-    playAgain: function() {
-      
+    forceRerender: function() {
       if (this.correctNumber == 10) {
         // this.forceRender();
-        window.location.href = '/order';
+        // window.location.href = '/order';
+        this.componentKey += 1;
+        this.correctNumber = 0;
       }
     }
   },
@@ -110,11 +128,13 @@ export default {
       words: [],
       dragnumber: null,
       correctNumber: 0,
-      renderComponent:true
+      renderComponent: true,
+      componentKey: 0,
+      src: "/storage/Images/open.png"
     };
   },
   created() {
-    this.start()
+    this.start();
   }
 };
 </script>
@@ -133,6 +153,7 @@ img {
   -moz-user-select: none;
   -webkit-user-select: none;
   user-select: none;
+  position: relative;
 }
 #cardSlots {
   margin: 50px auto 0 auto;
@@ -202,16 +223,22 @@ img {
   text-shadow: 0 0 3px #000;
   display: flex;
 }
-
-@media screen and (max-width: 992px) {
-  .column {
-    flex: 50%;
-  }
+.celebrateimg {
+  position: absolute;
+  text-align: center;
+  margin: 10px auto;
+  top: -38%;
+  left: 25%;
+}
+.block {
+  display: inline;
 }
 
-@media screen and (max-width: 600px) {
-  .row {
-    flex-direction: column;
-  }
+.vloume {
+  width: 72px;
+  height: 49px;
+  position: absolute;
+  top: -25%;
+  left: -10%;
 }
 </style>
