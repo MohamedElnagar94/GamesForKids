@@ -5,7 +5,7 @@
 
       <img src="/storage/Images/congrates.gif" class="celebrateimg" v-if="correctNumber == 10 " alt />
       <div class="row">
-        <div id="cardPile">
+        <div class="cardPile">
           <img
             class="number img-fluid column"
             :id="number"
@@ -18,7 +18,7 @@
         </div>
       </div>
       <div class="row">
-        <div id="cardSlots">
+        <div class="cardSlots">
           <div
             :id="word.title"
             @drop="drop(index+1,$event)"
@@ -31,9 +31,20 @@
         </div>
       </div>
 
+      <div class="row">
+        <div class=" numbernames" >
+          <div
+            :id="word.title"
+            class="words namesInOtherdiv column"
+            v-for="(word,index) in words"
+            :key="index"
+          >{{ word.title }}</div>
+        </div>
+      </div>
+
       <!-- sucess message -->
       <button
-        class="btn btn-primary mt-3"
+        class="btn btn-primary mt-3 playAgain"
         @click="forceRerender()"
         v-if="correctNumber == 10 "
       >Play Again</button>
@@ -41,7 +52,7 @@
       <!-- end of success message -->
 
       <!--  audio -->
-  <audio ref="audioElm" src="/storage/Images/happy.mp3"></audio>
+      <audio ref="audioElm" src="/storage/Images/happy.mp3"></audio>
 
       <!--  audio -->
     </div>
@@ -55,16 +66,16 @@ export default {
     console.log("Component mounted.");
   },
   methods: {
-   play: function(event) {
+    play: function(event) {
       var a = this.$refs.audioElm;
       if (a.paused) {
         a.play();
-        this.src="/storage/Images/open.png"
+        this.src = "/storage/Images/open.png";
       } else {
         a.pause();
-        this.src="/storage/Images/close.png"
+        this.src = "/storage/Images/close.png";
       }
-   }, 
+    },
     start: function() {
       this.numbers = [];
       this.words = [
@@ -115,8 +126,6 @@ export default {
     },
     forceRerender: function() {
       if (this.correctNumber == 10) {
-        // this.forceRender();
-        // window.location.href = '/order';
         this.componentKey += 1;
         this.correctNumber = 0;
       }
@@ -155,21 +164,21 @@ img {
   user-select: none;
   position: relative;
 }
-#cardSlots {
-  margin: 50px auto 0 auto;
+.cardSlots {
+  margin: 27px auto 0 auto;
   background: rgb(182, 182, 187);
   display: flex;
 }
 
-#cardPile {
+.cardPile {
   margin: 0 auto;
   /* background: rgb(201, 201, 202); */
   display: flex;
 }
-#cardSlots,
-#cardPile {
+.cardSlots,
+.cardPile {
   width: 860px;
-  height: 140px;
+  height: 170px;
   padding: 20px;
   /* border: 2px solid rgb(95, 95, 95); */
   border-radius: 15px;
@@ -177,8 +186,8 @@ img {
   -webkit-box-shadow: 0 0 0.3em rgba(37, 37, 37, 0.8);
   box-shadow: 0 0 0.3em rgba(41, 40, 40, 0.8);
 }
-#cardSlots div,
-#cardPile div {
+.cardSlots div,
+.cardPile div {
   float: left;
   width: 80px;
   height: 100px;
@@ -192,20 +201,20 @@ img {
   margin: 0 0 0 10px;
   background: #fff;
 }
-#cardSlots div:first-child,
-#cardPile div:first-child {
+.cardSlots div:first-child,
+.cardPile div:first-child {
   margin-left: 0;
 }
-#cardSlots div.hovered {
+.cardSlots div.hovered {
   background: #aaa;
 }
-#cardPile div {
+.cardPile div {
   background: rgb(123, 24, 136);
   color: #fff;
   font-size: 50px;
   text-shadow: 0 0 3px #000;
 }
-#cardPile div.ui-draggable-dragging {
+.cardPile div.ui-draggable-dragging {
   -moz-box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.8);
   -webkit-box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.8);
   box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.8);
@@ -240,5 +249,41 @@ img {
   position: absolute;
   top: -25%;
   left: -10%;
+}
+.playAgain {
+  font-weight: bold;
+  font-size: 24px;
+  position: absolute;
+  left: 40%;
+}
+.numbernames{
+  
+  position: absolute;
+  top: 87%;
+  left: 6%;
+  font-weight: 500;
+}
+.namesInOtherdiv{
+float: left;
+  width: 74px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  margin: 0 0 0 10px;
+  background: rgb(167, 154, 154);
+  font-size: 22px;
+  color: white;
+}
+
+.namesInOtherdiv:nth-child(even) {
+  background: rgb(204, 49, 204);
+}
+
+.namesInOtherdiv:nth-child(odd) {
+  background: rgb(209, 112, 47);
 }
 </style>
