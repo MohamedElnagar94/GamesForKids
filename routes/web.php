@@ -47,4 +47,5 @@ Auth::routes();
 Route::get('/order','SortNumberController@sortnumber');
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/count',"CountNumbers\CountNumbersController@index");
 
