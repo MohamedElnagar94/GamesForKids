@@ -1,6 +1,9 @@
-<template>
-  <div class="container">
+<template >
+  <div class="container" :key="componentKey">
     <div id="content">
+      <img :src="src" class="vloume" @click="runMusic()" alt />
+
+      <img src="/storage/Images/congrates.gif" class="celebrateimg" v-if="correctNumber == 10 " alt />
       <div class="row">
         <div id="cardPile">
           <img
@@ -15,7 +18,7 @@
         </div>
       </div>
       <div class="row">
-        <div id="cardSlots" >
+        <div id="cardSlots">
           <div
             :id="word.title"
             @drop="drop(index+1,$event)"
@@ -29,7 +32,12 @@
       </div>
 
       <!-- sucess message -->
-        <!-- <button v-on="playAgain()">check elements in array</button> -->
+      <button
+        class="btn btn-primary mt-3"
+        @click="forceRerender()"
+        v-if="correctNumber == 10 "
+      >Play Again</button>
+
       <!-- end of success message -->
     </div>
   </div>
@@ -42,44 +50,24 @@ export default {
     console.log("Component mounted.");
   },
   methods: {
-    randFun: function(minNum, maxNum) {
-      return Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum;
-    },
-
-    dragstart(number, event) {
-      let col = event.dataTransfer.setData("text", event.target.id);
-      console.log(col, event);
-      this.dragnumber = number;
-      console.log(number);
-      
-    },
-    drop(index, event) {
-      if (index == this.dragnumber) {
-        console.log(true);
+    runMusic: function() {
+      var audio = new Audio("/storage/Images/happy.mp3");
+       
+      if (this.src == "/storage/Images/close.png") {
+        console.log('play' , this.src)
+        audio.play()
+        this.src = "/storage/Images/open.png";
         
-        event.preventDefault();
-        let data = event.dataTransfer.getData("text");
-        event.target.innerHTML = "";
-        event.target.appendChild(document.getElementById(data));
-        this.words[index - 1].dragable = false;
-        this.correctNumber ++ ;
-        // console.log( event);
-        
-         
       } else {
-        console.log(false);
+        this.src = "/storage/Images/close.png";
+        console.log('stop' , this.src)
+        audio.pause()
+
       }
     },
-    playAgain: function() {
-    //  if(correctNumber == 10){
-    //    console.log("game finsih")
-    //  }
-    }
-  },
-  data() {
-    return {
-      numbers: [],
-      words: [
+    start: function() {
+      this.numbers = [];
+      this.words = [
         { title: "one", dragable: true },
         { title: "two", dragable: true },
         { title: "three", dragable: true },
@@ -90,24 +78,63 @@ export default {
         { title: "eight", dragable: true },
         { title: "nine", dragable: true },
         { title: "ten", dragable: true }
-      ],
+      ];
+      for (let i = 0; i < 10; i++) {
+        let randResult = this.randFun(1, 10);
+
+        while (this.numbers.includes(randResult) === true) {
+          randResult = this.randFun(1, 10);
+        }
+        this.numbers.push(randResult);
+      }
+    },
+    randFun: function(minNum, maxNum) {
+      return Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum;
+    },
+
+    dragstart(number, event) {
+      let col = event.dataTransfer.setData("text", event.target.id);
+      console.log(col, event);
+      this.dragnumber = number;
+      console.log(number);
+    },
+    drop(index, event) {
+      if (index == this.dragnumber) {
+        console.log(true);
+
+        event.preventDefault();
+        let data = event.dataTransfer.getData("text");
+        event.target.innerHTML = "";
+        event.target.appendChild(document.getElementById(data));
+        this.words[index - 1].dragable = false;
+        this.correctNumber++;
+        console.log(this.correctNumber);
+      } else {
+        console.log(false);
+      }
+    },
+    forceRerender: function() {
+      if (this.correctNumber == 10) {
+        // this.forceRender();
+        // window.location.href = '/order';
+        this.componentKey += 1;
+        this.correctNumber = 0;
+      }
+    }
+  },
+  data() {
+    return {
+      numbers: [],
+      words: [],
       dragnumber: null,
-      correctNumber:0
+      correctNumber: 0,
+      renderComponent: true,
+      componentKey: 0,
+      src: "/storage/Images/open.png"
     };
   },
   created() {
-    this.numbers = [];
-    for (let i = 0; i < 10; i++) {
-      let randResult = this.randFun(1, 10);
-      
-      while (this.numbers.includes(randResult) === true) {
-        randResult = this.randFun(1, 10);
-        
-      }
-      this.numbers.push(randResult);
-      
-    }
-   
+    this.start();
   }
 };
 </script>
@@ -117,7 +144,7 @@ body {
   margin: 30px;
   line-height: 1.8em;
 }
-img{
+img {
   cursor: pointer;
 }
 #content {
@@ -126,6 +153,7 @@ img{
   -moz-user-select: none;
   -webkit-user-select: none;
   user-select: none;
+  position: relative;
 }
 #cardSlots {
   margin: 50px auto 0 auto;
@@ -163,8 +191,6 @@ img{
   border-radius: 10px;
   margin: 0 0 0 10px;
   background: #fff;
-  
-  
 }
 #cardSlots div:first-child,
 #cardPile div:first-child {
@@ -183,7 +209,6 @@ img{
   -moz-box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.8);
   -webkit-box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.8);
   box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.8);
-  
 }
 
 .words {
@@ -198,17 +223,22 @@ img{
   text-shadow: 0 0 3px #000;
   display: flex;
 }
-
-@media screen and (max-width: 992px) {
-  .column {
-    flex: 50%;
-  }
+.celebrateimg {
+  position: absolute;
+  text-align: center;
+  margin: 10px auto;
+  top: -38%;
+  left: 25%;
+}
+.block {
+  display: inline;
 }
 
-@media screen and (max-width: 600px) {
-  .row {
-    flex-direction: column;
-  }
+.vloume {
+  width: 72px;
+  height: 49px;
+  position: absolute;
+  top: -25%;
+  left: -10%;
 }
-
 </style>
