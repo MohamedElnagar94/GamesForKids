@@ -1,20 +1,21 @@
 <template>
     <div class="container">
+        <img :src="src" class="vloume" @click="play()" alt />
         <div class="row">
             <div
                 class="col-md-12 d-flex justify-content-center align-items-center p-4"
             >
                 <img
-                    style="height: 75px"
+                    style="height: 30px"
                     :src="'/storage/Images/' + count + '.png'"
                     alt=""
                 />
                 <img
-                    style="height: 75px"
+                    style="height: 30px"
                     src="/storage/Images/slash.png"
                     alt=""
                 />
-                <img style="height: 75px" src="/storage/Images/10.png" alt="" />
+                <img style="height: 30px" src="/storage/Images/10.png" alt="" />
             </div>
             <div
                 class="col-md-12 d-flex justify-content-center align-items-center p-5"
@@ -42,12 +43,12 @@
                 <i
                     class="fa fa-check"
                     v-if="checkResult && result === resultFromDrag"
-                    style="font-size: 81px;color: green;margin: 10px 30px;"
+                    style="font-size: 120px;color: green;margin: 10px 30px;"
                 ></i>
                 <i
                     class="fa fa-close"
                     v-if="checkResult && result !== resultFromDrag"
-                    style="font-size: 81px;color: red;margin: 10px 30px;"
+                    style="font-size: 120px;color: red;margin: 10px 30px;"
                 ></i>
             </div>
             <div
@@ -73,17 +74,24 @@
                 class="col-md-12 position-relative d-flex align-items-center"
                 style="justify-content: space-evenly;padding: 30px"
             >
-                <img
-                    class="img-fluid position-absolute"
-                    style="width:75px;top: 30px;left: 25px;"
-                    src="/storage/Images/door.png"
-                    alt=""
-                />
+                <a href="/levels"
+                    ><img
+                        style="width: 100px"
+                        src="/storage/Images/door.png"
+                        alt="Prev Exam"
+                        data-toggle="tooltip"
+                        title="Next Level"
+                        data-placement="top"
+                /></a>
                 <button class="button" v-on:click="newQuestion">
                     {{ buttonNext }}
                 </button>
             </div>
         </div>
+        <!--  audio -->
+        <audio ref="audioElm" src="/storage/Images/happy.mp3"></audio>
+
+        <!--  audio -->
     </div>
 </template>
 
@@ -92,7 +100,7 @@ export default {
     name: "Exam2Component",
     data() {
         return {
-            questions: [],            
+            questions: [],
             firstNum: null,
             secondNum: null,
             result: null,
@@ -103,10 +111,21 @@ export default {
             draggable: true,
             checkResult: false,
             buttonNext: "Next Question",
-            showResult: false
+            showResult: false,
+            src: "/storage/Images/close.png"
         };
     },
     methods: {
+        play: function(event) {
+            var a = this.$refs.audioElm;
+            if (a.paused) {
+                a.play();
+                this.src = "/storage/Images/open.png";
+            } else {
+                a.pause();
+                this.src = "/storage/Images/close.png";
+            }
+        },
         randFun: function() {
             return Math.floor(Math.random() * 11);
         },
@@ -160,7 +179,7 @@ export default {
             this.checkResult = true;
             this.questions.push({
                 firstNum: this.firstNum,
-                secondNum: this.secondNum,                
+                secondNum: this.secondNum,
                 result: this.result,
                 resultFromDrag: this.resultFromDrag,
                 answer: this.result === this.resultFromDrag
@@ -213,5 +232,12 @@ export default {
 }
 .divBg {
     background-color: rgba(85, 169, 56, 0.5);
+}
+.vloume {
+    width: 72px;
+    height: 49px;
+    position: absolute;
+    top: 20%;
+    left: 50px;
 }
 </style>
