@@ -2,11 +2,12 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="position-relative">
-                <img class="img-fluid" usemap="#levels" src="/storage/Images/levels.png" alt="">
-                <a v-for="(level,index) in levels" :key="index" :href="level.open === true ? level.href : '#'">
-                    <div class="allLevels" :class="['level' + level.level,level.open === true ?'outer-circle level'+level.level+'active': '']">
+                <img class="img-fluid background" usemap="#levels" src="/storage/Images/levels.png" alt="">
+                <a v-for="(level,index) in levels" v-on:mouseover="playSound(index)" v-on:click="stopPreventDefult($event,index)" class="allLevels" :class="['level' + level.level,level.open === true ?'outer-circle level'+level.level+'active': '']"  :key="index" :href="level.open === true ? level.href : '#'">
+                    <div>
                         <img v-if="level.open === false" class="img-fluid" src="/storage/Images/lock.png" alt="">
                     </div>
+                    <audio :id="'soundLevel' + level.level" :key="index" :src="'/storage/Sound/'+ level.sound"></audio>
                 </a>
             </div>
         </div>
@@ -23,24 +24,35 @@
                 levels:[]
             }
         },
+        methods:{
+            stopPreventDefult:function(e,index){
+                if(this.levels[index].open === false){
+                    e.preventDefault()
+                }
+            },
+            playSound:function(index){
+                let hoverLevel = document.getElementById(`soundLevel${this.levels[index].level}`)
+                hoverLevel.currentTime = 0;
+                hoverLevel.play()
+            }
+        },
         created(){
             let checkLevels = JSON.parse(localStorage.getItem('levels'))
             if(checkLevels === null){
                 let allLevels = [
-                    {level: 1,open:true,href:"/numbers"},
-                    {level: 2,open:false,href:"/count"},
-                    {level: 3,open:false,href:"/pencilInBox"},
-                    {level: 4,open:false,href:"/exam2"},
-                    {level: 5,open:false,href:"/order"},
-                    {level: 6,open:false,href:"/numbersExam"},
-                    {level: 7,open:false,href:"#"},
+                    {level: 1,open:true,href:"/numbers",sound:"level 1.mp3"},
+                    {level: 2,open:false,href:"/count",sound:"level 2.mp3"},
+                    {level: 3,open:false,href:"/pencilInBox",sound:"level 3.mp3"},
+                    {level: 4,open:false,href:"/exam2",sound:"level 4.mp3"},
+                    {level: 5,open:false,href:"/order",sound:"level 5.mp3"},
+                    {level: 6,open:false,href:"/numbersExam",sound:"level 6.mp3"},
+                    {level: 7,open:false,href:"#",sound:"level 7.mp3"},
                 ]
                 localStorage.setItem('levels',JSON.stringify(allLevels))
                 this.levels = JSON.parse(localStorage.getItem('levels'))
             }else{
                 this.levels = JSON.parse(localStorage.getItem('levels'))
             }
-            console.log(this.levels);
         }
     }
 </script>

@@ -19,8 +19,11 @@
                 <img class="m-4" v-for="(result,index) in resultOption" :key="index" @dragover.prevent @dragexit="dragExit(result)" @dragstart="dragStart(result)" @dragenter="dragEnter" @dragleave="dragLeave(result)" @dragend="dragEnd" :draggable="draggable" style="height: 75px;cursor: pointer" :src="'/storage/Images/' + result + '.png'" alt="">
             </div>
             <div class="col-md-12 position-relative d-flex align-items-center" style="justify-content: space-evenly;padding: 30px">
-                <img class="img-fluid position-absolute" style="width:75px;top: 30px;left: 25px;" src="/storage/Images/door.png" alt="">
+                <!-- <img class="img-fluid position-absolute" style="width:75px;top: 30px;left: 25px;" src="/storage/Images/door.png" alt=""> -->
                 <button class="button" v-on:click="newQuestion">{{buttonNext}}</button>
+            </div>
+            <div class="w-100">
+                <a href="/levels" class="d-flex justify-content-center align-items-center w-100"><img class="img-fluid" style="width:75px;" src="/storage/Images/door.png" alt=""></a>
             </div>
         </div>
     </div>
