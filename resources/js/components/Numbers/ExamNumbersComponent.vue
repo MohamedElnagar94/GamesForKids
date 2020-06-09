@@ -1,75 +1,39 @@
 <template>
-  <div class="container">
-    <img :src="src" class="vloume" @click="play()" alt />
 
-    <div class="row">
-      <div class="col-md-12 d-flex justify-content-center align-items-center p-4">
-        <img style="height: 75px" :src="'/storage/Images/' + count + '.png'" alt />
-        <img style="height: 75px" src="/storage/Images/slash.png" alt />
-        <img style="height: 75px" src="/storage/Images/10.png" alt />
-      </div>
-      <div class="col-md-12 d-flex justify-content-center align-items-center p-5">
-        <img class="m-3" style="height: 75px" :src="'/storage/Images/' + firstNum + '.png'" alt />
-        <img
-          class="m-3"
-          :style="operationStyle()"
-          :src="'/storage/Images/' + operation + '.png'"
-          alt
-        />
-        <img class="m-3" style="height: 75px" :src="'/storage/Images/' + secondNum + '.png'" alt />
-        <img class="m-3" style="height: 75px" src="/storage/Images/equal.png" alt />
-        <div
-          class="result d-flex justify-content-center align-items-center"
-          :class="{divBg : changeColor === true}"
-          id="result"
-          @dragover.prevent
-          @drop="dragFinish(-1, $event)"
-        ></div>
-        <i
-          class="fa fa-check"
-          v-if="checkResult && result === resultFromDrag"
-          style="font-size: 81px;color: green;margin: 10px 30px;"
-        ></i>
-        <i
-          class="fa fa-close"
-          v-if="checkResult && result !== resultFromDrag"
-          style="font-size: 81px;color: red;margin: 10px 30px;"
-        ></i>
-      </div>
-      <div class="col-md-12 d-flex justify-content-center align-items-center p-4">
-        <img
-          class="m-4"
-          v-for="(result,index) in resultOption"
-          :key="index"
-          @dragover.prevent
-          @dragexit="dragExit(result)"
-          @dragstart="dragStart(result)"
-          @dragenter="dragEnter"
-          @dragleave="dragLeave(result)"
-          @dragend="dragEnd"
-          :draggable="draggable"
-          style="height: 75px;cursor: pointer"
-          :src="'/storage/Images/' + result + '.png'"
-          alt
-        />
-      </div>
-      <div
-        class="col-md-12 position-relative d-flex align-items-center"
-        style="justify-content: space-evenly;padding: 30px"
-      >
-        <img
-          class="img-fluid position-absolute"
-          style="width:75px;top: 30px;left: 25px;"
-          src="/storage/Images/door.png"
-          alt
-        />
-        <button class="button" v-on:click="newQuestion">{{buttonNext}}</button>
-      </div>
-      <!--  audio -->
+    <div class="container">
+      <img :src="src" class="vloume" @click="play()" alt />
+        <div class="row">
+            <div class="col-md-12 d-flex justify-content-center align-items-center p-4">
+                <img style="height: 75px" :src="'/storage/Images/' + count + '.png'" alt="">
+                <img style="height: 75px" src="/storage/Images/slash.png" alt="">
+                <img style="height: 75px" src="/storage/Images/10.png" alt="">
+            </div>
+            <div class="col-md-12 d-flex justify-content-center align-items-center p-5">
+                <img class="m-3" style="height: 75px" :src="'/storage/Images/' + firstNum + '.png'" alt="">
+                <img class="m-3" :style="operationStyle()" :src="'/storage/Images/' + operation + '.png'" alt="">
+                <img class="m-3" style="height: 75px" :src="'/storage/Images/' + secondNum + '.png'" alt="">
+                <img class="m-3" style="height: 75px" src="/storage/Images/equal.png" alt="">
+                <div class="result d-flex justify-content-center align-items-center" :class="{divBg : changeColor === true}" id="result" @dragover.prevent @drop="dragFinish(-1, $event)"></div>
+                <i class="fa fa-check" v-if="checkResult && result === resultFromDrag" style="font-size: 81px;color: green;margin: 10px 30px;"></i>
+                <i class="fa fa-close" v-if="checkResult && result !== resultFromDrag" style="font-size: 81px;color: red;margin: 10px 30px;"></i>
+            </div>
+            <div class="col-md-12 d-flex justify-content-center align-items-center p-4">
+                <img class="m-4" v-for="(result,index) in resultOption" :key="index" @dragover.prevent @dragexit="dragExit(result)" @dragstart="dragStart(result)" @dragenter="dragEnter" @dragleave="dragLeave(result)" @dragend="dragEnd" :draggable="draggable" style="height: 75px;cursor: pointer" :src="'/storage/Images/' + result + '.png'" alt="">
+            </div>
+            <div class="col-md-12 position-relative d-flex align-items-center" style="justify-content: space-evenly;padding: 30px">
+                <!-- <img class="img-fluid position-absolute" style="width:75px;top: 30px;left: 25px;" src="/storage/Images/door.png" alt=""> -->
+                <button class="button" v-on:click="newQuestion">{{buttonNext}}</button>
+            </div>
+            <div class="w-100">
+                <a href="/levels" class="d-flex justify-content-center align-items-center w-100"><img class="img-fluid" style="width:75px;" src="/storage/Images/door.png" alt=""></a>
+            </div>
+        </div>
+        <!--  audio -->
       <audio ref="audioElm" src="/storage/Images/happy.mp3"></audio>
 
       <!--  audio -->
-    </div>
+
+    
   </div>
 </template>
 
@@ -184,7 +148,7 @@ export default {
         this.draggable = true;
         this.checkResult = false;
         this.resultFromDrag = null;
-        $("#result").html("");
+        $("#result").html(""); 
         this.count++;
       }
       if (this.count === 10) {
@@ -278,3 +242,21 @@ export default {
 }
 </style>
 
+<<<<<<< HEAD
+=======
+    .button:active {
+        background-color: #3e8e41;
+        box-shadow: 0 5px #666;
+        transform: translateY(4px);
+    }
+    .result{
+        width: 100px;
+        height: 100px;
+        border: 1px solid gray;
+        box-shadow: 0 0 3px 0 gray,inset 0 0 7px 0 gray;
+    }
+    .divBg{
+        background-color: rgba(85,169,56,0.5);
+    }
+</style>
+>>>>>>> 51a449603743f8f0ddfc0803abdc5d103e303b54
