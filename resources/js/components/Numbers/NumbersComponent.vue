@@ -26,7 +26,9 @@
             </div>
             <div class="col-md-6" style="padding: 25px 137px 0">
                 <div class="text-center count">
-                    <img v-for="(item ,index) in chosenNumber.id " :key="index"
+                    <img
+                        v-for="(item, index) in chosenNumber.id"
+                        :key="index"
                         class=""
                         :src="'/storage/Images/' + chosenNumber.imgAnimate"
                         style="height:100px;padding:2px"
@@ -35,22 +37,12 @@
                 </div>
             </div>
             <div
-                class="col-md-12 position-relative d-flex align-items-center"
+                class="col-md-12 d-flex align-items-center"
                 style="justify-content: space-evenly;padding: 30px"
             >
-                <a
-                    href="/numbersExam"
-                    class="position-absolute"
-                    style="top: 30px;left: 25px;"
-                    ><img
-                        class="img-fluid"
-                        style="width:75px;"
-                        src="/storage/Images/door.png"
-                        alt=""
-                /></a>
                 <img
                     class="img-fluid right"
-                    v-if="this.indexOfChosen > 0"
+                    v-if="indexOfChosen > 0"
                     v-on:click="changeNumber(indexOfChosen, 'right')"
                     style="width: 75px;transform: rotate(180deg)"
                     src="/storage/Images/arrow.png"
@@ -63,7 +55,18 @@
                     style="width: 75px;"
                     src="/storage/Images/arrow.png"
                     alt=""
-                />
+                />                
+            </div>
+            <div class="w-100">
+                <a
+                    href="/levels"
+                    class="d-flex justify-content-center align-items-center w-100"
+                    ><img
+                        class="img-fluid"
+                        style="width:75px;"
+                        src="/storage/Images/door.png"
+                        alt=""
+                /></a>
             </div>
         </div>
     </div>
@@ -163,21 +166,20 @@ export default {
     methods: {
         changeNumber: function(index, word) {
             if (word === "left") {
-                if (this.indexOfChosen < 9) {
-                    this.indexOfChosen = index + 1;
-                } else {
-                    this.indexOfChosen = index;
+                this.indexOfChosen = index + 1;
+                // console.log(this.indexOfChosen)
+                if (this.indexOfChosen >= 9) {
+                    let levels = JSON.parse(localStorage.getItem("levels"));
+                    levels[1].open = true;
+                    localStorage.setItem("levels", JSON.stringify(levels));
+                    this.indexOfChosen = 9;
                 }
-                console.log(index, this.indexOfChosen);
             } else {
-                if (this.indexOfChosen > 0) {
-                    this.indexOfChosen = index - 1;
-                } else {
-                    this.indexOfChosen = index;
-                }
-                // this.indexOfChosen = index - 1;
-                console.log(index, this.indexOfChosen);
-            }
+                this.indexOfChosen = index - 1;
+                if (this.indexOfChosen < 0) {
+                    this.indexOfChosen = 0;
+                }                
+            }            
             return (this.chosenNumber = this.numbers[this.indexOfChosen]);
         }
     },
