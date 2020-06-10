@@ -1,26 +1,41 @@
 <template>
-    <div class="container">
+    <div class="container" :key="render">
         <img :src="src" class="vloume" @click="play()" alt />
         <div class="row position-relative">
         <img src="/storage/Images/congrates.gif" class="celebrateimg" v-if="count == 4"/>
-        <div class="w-100 d-flex justify-content-center align-items-center">
-            <div v-for="(item, i) in randomOrder" :key="i"  class="col-md-3">
-                <div style="text-align:center; line-height: 5">
-                    <img v-for="(single, index) in item.id" :key="index+20" :style="[item.id === 1 ? {'height': '120px', 'margin': '5px'} : {'height': '50px', 'margin': '5px'}]" :src="'/storage/Images/' +  item.skitch" alt />
+        <div :class="count == 4 ? 'col-md-8' : 'col-md-12'">
+            <div class="w-100 d-flex justify-content-center align-items-center">
+                <div v-for="(item, i) in randomOrder" :key="i"  class="col-md-3">
+                    <div style="text-align:center; line-height: 5">
+                        <img v-for="(single, index) in item.id" :key="index+20" :style="[item.id === 1 ? {'height': '120px', 'margin': '5px'} : {'height': '50px', 'margin': '5px'}]" :src="'/storage/Images/' +  item.skitch" alt />
+                    </div>
+                </div>
+            </div>
+            <div class="w-100 d-flex justify-content-center align-items-center mt-5">
+                <div v-for="i in 4" :key="i" class="col-md-3 d-flex justify-content-center align-items-center p-4">
+                    <div class="d-flex justify-content-center align-items-center expectResult" style="height: 90px; width: 90px; text-align:center; background-color: lightgray;" :id="randomOrder[i-1].name" @drop="drop" @dragover="allowDrop"></div>
+                </div>
+            </div>
+            <div class="w-100 d-flex justify-content-center align-items-center mt-5">
+                <div v-for="(item, i) in results" :key="i" class="col-md-3 d-flex justify-content-center align-items-center p-4">
+                    <img style="height: 75px" :src="'/storage/Images/' + item.img" alt draggable="true" @dragstart="onDragging" :id="item.id" />
                 </div>
             </div>
         </div>
-        <div class="w-100 d-flex justify-content-center align-items-center mt-5">
-            <div v-for="i in 4" :key="i" class="col-md-3 d-flex justify-content-center align-items-center p-4">
-                <div class="d-flex justify-content-center align-items-center expectResult" style="height: 90px; width: 90px; text-align:center; background-color: lightgray;" :id="randomOrder[i-1].name" @drop="drop" @dragover="allowDrop"></div>
+        <div v-if="count == 4" class="col-md-4 d-flex justify-content-center align-items-center">
+            <div class="col-md-12 position-relative">
+                <div style="width: 100%;">
+                    <div class="pt-3 text-center" style="font-size: 50px;font-weight: bold;">
+                        <p class="text-success">
+                            <span class="d-block">Well Done</span>
+                            <span class="d-block" style="font-size: 35px;">My Friend</span>
+                        </p>
+                        <img class="img-fluid" style="width: 55%;" src="/storage/Images/boy4.png" alt="">
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="w-100 d-flex justify-content-center align-items-center mt-5">
-            <div v-for="(item, i) in results" :key="i" class="col-md-3 d-flex justify-content-center align-items-center p-4">
-                <img v-if="item.show" style="height: 75px" :src="'/storage/Images/' + item.img" alt draggable="true" @dragstart="onDragging" :id="item.id" />
-            </div>
-        </div>
-        <div class="col-md-12 d-flex align-items-center mt-5" style="justify-content: space-evenly;">
+        <div class="col-md-12 d-flex align-items-center" style="justify-content: space-evenly;">
             <a v-if="count == 4" href="#" @click.prevent="playAgain()" class="d-inline-block" data-toggle="tooltip" title="Play Again" data-placement="top">
                 <i class="fa fa-repeat btn btn-success" style="font-size:50px;padding: 15px 40px"></i>
             </a>
@@ -40,31 +55,30 @@ export default {
     data() {
         return {
             numbers: [
-                { id: 1, name: "One", img: "1.png", skitch: "fruites6.png",show:true },
-                { id: 2, name: "Two", img: "2.png", skitch: "banana.png",show:true },
-                { id: 3, name: "Three", img: "3.png", skitch: "apple.png",show:true },
-                { id: 4, name: "Four", img: "4.png", skitch: "redApple.png",show:true },
-                { id: 5, name: "Five", img: "5.png", skitch: "fruit5.png",show:true },
-                { id: 6, name: "Six", img: "6.png", skitch: "fruites6.png",show:true },
-                { id: 7, name: "Seven", img: "7.png", skitch: "mango.png",show:true },
-                { id: 8, name: "Eight", img: "8.png", skitch: "banana.png",show:true },
-                { id: 9, name: "Nine", img: "9.png", skitch: "redApple.png",show:true },
-                { id: 10, name: "Ten", img: "10.png", skitch: "mango.png",show:true }
+                { id: 1, name: "One", img: "1.png", skitch: "fruites6.png" },
+                { id: 2, name: "Two", img: "2.png", skitch: "banana.png" },
+                { id: 3, name: "Three", img: "3.png", skitch: "apple.png" },
+                { id: 4, name: "Four", img: "4.png", skitch: "redApple.png" },
+                { id: 5, name: "Five", img: "5.png", skitch: "fruit5.png" },
+                { id: 6, name: "Six", img: "6.png", skitch: "fruites6.png" },
+                { id: 7, name: "Seven", img: "7.png", skitch: "mango.png" },
+                { id: 8, name: "Eight", img: "8.png", skitch: "banana.png" },
+                { id: 9, name: "Nine", img: "9.png", skitch: "redApple.png" },
+                { id: 10, name: "Ten", img: "10.png", skitch: "mango.png" }
             ],
             results: [],
             randomOrder: [],
             src: "/storage/Images/close.png",
             count:0,
+            render:0
         };
     },
     methods: {
         playAgain(){
-            this.results = []
-            $('.expectResult').html('')
-            this.numbers.map(item => item.show = true)
             this.randomArr();
             this.randomOrder = this.reOrderArr();
             this.count = 0;
+            this.render++;
         },
         play: function(event) {
             var a = this.$refs.audioElm;
@@ -77,7 +91,7 @@ export default {
             }
         },
         randomArr: function() {
-            // this.results = []
+            this.results = []
             while (this.results.length < 4) {
                 let item = this.numbers[Math.floor(Math.random() * 10)];
                 if (this.results.indexOf(item) === -1) this.results.push(item);
@@ -120,8 +134,7 @@ export default {
             event.preventDefault();
             let data = event.dataTransfer.getData("text");
             if (this.numbers[data - 1].name === event.target.id){
-                $(event.target).html(`<img style="height: 75px" src="/storage/Images/${data}.png"/>`);
-                this.results.find((item) => item.id == data).show = false;
+                event.target.appendChild(document.getElementById(data));
                 this.count++;
             }
             if (this.count == 4) {
@@ -153,7 +166,7 @@ export default {
     /* text-align: center; */
     /* margin: 10px auto; */
     top: 35%;
-    left: 50%;
+    left: 35%;
     transform: translate(-50%, -50%);
     width: 320px;
     z-index: 999;

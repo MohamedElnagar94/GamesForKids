@@ -3,23 +3,38 @@
         <div class="row position-relative">
             <img :src="src" class="vloume" @click="play()" alt />
             <img src="/storage/Images/congrates.gif" class="celebrateimg" v-if="correctNumber == 10"/>
-            <div class="cardPile">
-                <img class="number img-fluid column" :id="number" v-for="number in numbers" draggable="true" @dragstart="dragstart(number,$event)" :key="number" :src="'/storage/Images/' + number + '.png'"/>
-            </div>
-            <div class="cardSlots">
-                <div v-for="(word,index) in words" :key="index">
-                    <div :id="word.title" @drop="drop(index+1,$event)" @dragover.prevent class="words column" :draggable="word.draggable">{{ word.title }}</div>
-                    <div :id="word.title" class="numbernames words namesInOtherdiv column">{{ word.title }}</div>
+            <div :class="correctNumber == 10 ? 'col-md-8' : ''">
+                <div class="cardPile" v-if="correctNumber != 10">
+                    <img class="number img-fluid column" :id="number" v-for="number in numbers" draggable="true" @dragstart="dragstart(number,$event)" :key="number" :src="'/storage/Images/' + number + '.png'"/>
                 </div>
+                <div class="cardSlots">
+                    <div v-for="(word,index) in words" :key="index">
+                        <div :id="word.title" @drop="drop(index+1,$event)" @dragover.prevent class="words column" :draggable="word.draggable">{{ word.title }}</div>
+                        <div :id="word.title" class="numbernames words namesInOtherdiv column">{{ word.title }}</div>
+                    </div>
+                </div>
+                <!-- sucess message -->
             </div>
-            <!-- sucess message -->
-            <div class="w-100 text-center">
-                <button class="btn btn-primary mt-3 playAgain" @click="forceRerender()" v-if="correctNumber == 10">Play Again</button>
+            <div v-if="correctNumber == 10" class="col-md-4 d-flex justify-content-center align-items-center">
+                <div class="col-md-12 position-relative">
+                    <div style="width: 100%;">
+                        <div class="pt-3 text-center" style="font-size: 50px;font-weight: bold;">
+                            <p class="text-success">
+                                <span class="d-block">Well Done</span>
+                                <span class="d-block" style="font-size: 35px;">My Friend</span>
+                            </p>
+                            <img class="img-fluid" style="width: 55%;" src="/storage/Images/boy4.png" alt="">
+                        </div>
+                    </div>
+                </div>
             </div>
             <!-- end of success message -->
             <!--  audio -->
             <audio ref="audioElm" src="/storage/Images/happy.mp3"></audio>
             <!--  audio -->
+        </div>
+        <div class="w-100 text-center">
+            <button class="btn btn-primary mt-3 playAgain" @click="forceRerender()" v-if="correctNumber == 10">Play Again</button>
         </div>
         <div class="col-md-12 position-relative d-flex align-items-center" style="justify-content: space-evenly;padding: 30px">
             <a href="/levels">
@@ -214,9 +229,10 @@ img {
     /* text-align: center; */
     /* margin: 10px auto; */
     top: 35%;
-    left: 50%;
+    left: 35%;
     transform: translate(-50%, -50%);
     width: 320px;
+    z-index: 999;
 }
 .block {
   display: inline;

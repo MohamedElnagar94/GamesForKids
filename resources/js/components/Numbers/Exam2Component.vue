@@ -35,7 +35,7 @@
                     </div>
                     <div class="pt-3 text-center" style="font-size: 50px;font-weight: bold;">
                         <p class="text-white">{{message}}</p>
-                        <img v-if="message == 'Well Done'" class="img-fluid" style="width: 55%;" src="/storage/Images/boy1.png" alt="">
+                        <img v-if="message == 'Well Done'" class="img-fluid" style="width: 55%;" src="/storage/Images/boy4.png" alt="">
                         <img v-if="message == 'UnLucky'" class="img-fluid" style="width: 35%;" src="/storage/Images/sadboy.png" alt="">
                     </div>
                 </div>

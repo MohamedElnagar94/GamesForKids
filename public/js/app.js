@@ -1956,6 +1956,21 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "CountNumbersComponent",
   data: function data() {
@@ -1964,79 +1979,66 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         id: 1,
         name: "One",
         img: "1.png",
-        skitch: "fruites6.png",
-        show: true
+        skitch: "fruites6.png"
       }, {
         id: 2,
         name: "Two",
         img: "2.png",
-        skitch: "banana.png",
-        show: true
+        skitch: "banana.png"
       }, {
         id: 3,
         name: "Three",
         img: "3.png",
-        skitch: "apple.png",
-        show: true
+        skitch: "apple.png"
       }, {
         id: 4,
         name: "Four",
         img: "4.png",
-        skitch: "redApple.png",
-        show: true
+        skitch: "redApple.png"
       }, {
         id: 5,
         name: "Five",
         img: "5.png",
-        skitch: "fruit5.png",
-        show: true
+        skitch: "fruit5.png"
       }, {
         id: 6,
         name: "Six",
         img: "6.png",
-        skitch: "fruites6.png",
-        show: true
+        skitch: "fruites6.png"
       }, {
         id: 7,
         name: "Seven",
         img: "7.png",
-        skitch: "mango.png",
-        show: true
+        skitch: "mango.png"
       }, {
         id: 8,
         name: "Eight",
         img: "8.png",
-        skitch: "banana.png",
-        show: true
+        skitch: "banana.png"
       }, {
         id: 9,
         name: "Nine",
         img: "9.png",
-        skitch: "redApple.png",
-        show: true
+        skitch: "redApple.png"
       }, {
         id: 10,
         name: "Ten",
         img: "10.png",
-        skitch: "mango.png",
-        show: true
+        skitch: "mango.png"
       }],
       results: [],
       randomOrder: [],
       src: "/storage/Images/close.png",
-      count: 0
+      count: 0,
+      render: 0
     };
   },
   methods: {
     playAgain: function playAgain() {
-      this.results = [];
-      $('.expectResult').html('');
-      this.numbers.map(function (item) {
-        return item.show = true;
-      });
       this.randomArr();
       this.randomOrder = this.reOrderArr();
       this.count = 0;
+      this.render++;
     },
     play: function play(event) {
       var a = this.$refs.audioElm;
@@ -2050,7 +2052,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       }
     },
     randomArr: function randomArr() {
-      // this.results = []
+      this.results = [];
+
       while (this.results.length < 4) {
         var item = this.numbers[Math.floor(Math.random() * 10)];
         if (this.results.indexOf(item) === -1) this.results.push(item);
@@ -2089,10 +2092,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       var data = event.dataTransfer.getData("text");
 
       if (this.numbers[data - 1].name === event.target.id) {
-        $(event.target).html("<img style=\"height: 75px\" src=\"/storage/Images/".concat(data, ".png\"/>"));
-        this.results.find(function (item) {
-          return item.id == data;
-        }).show = false;
+        event.target.appendChild(document.getElementById(data));
         this.count++;
       }
 
@@ -3226,6 +3226,21 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -7929,7 +7944,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.vloume[data-v-18c420b9] {\n  width: 72px;\n  height: 49px;\n  position: absolute;\n  top: 20%;\n  left: 50px;\n}\n.celebrateimg[data-v-18c420b9] {\n    position: absolute;\n    /* text-align: center; */\n    /* margin: 10px auto; */\n    top: 35%;\n    left: 50%;\n    transform: translate(-50%, -50%);\n    width: 320px;\n    z-index: 999;\n}\n", ""]);
+exports.push([module.i, "\n.vloume[data-v-18c420b9] {\n  width: 72px;\n  height: 49px;\n  position: absolute;\n  top: 20%;\n  left: 50px;\n}\n.celebrateimg[data-v-18c420b9] {\n    position: absolute;\n    /* text-align: center; */\n    /* margin: 10px auto; */\n    top: 35%;\n    left: 35%;\n    transform: translate(-50%, -50%);\n    width: 320px;\n    z-index: 999;\n}\n", ""]);
 
 // exports
 
@@ -8043,7 +8058,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\nbody[data-v-427fac71] {\n  margin: 30px;\n  line-height: 1.8em;\n}\nimg[data-v-427fac71] {\n  cursor: pointer;\n}\n#content[data-v-427fac71] {\n  margin: 20px 70px;\n  text-align: center;\n  -moz-user-select: none;\n  -webkit-user-select: none;\n  -ms-user-select: none;\n      user-select: none;\n  position: relative;\n}\n.cardSlots[data-v-427fac71] {\n  margin: 27px auto 0 auto;\n  background: rgb(182, 182, 187);\n  /* display: flex; */\n}\n.cardPile[data-v-427fac71] {\n  /* margin: 0 auto; */\n  /* background: rgb(201, 201, 202); */\n  /* display: flex; */\n}\n.cardSlots[data-v-427fac71],\n.cardPile[data-v-427fac71] {\n  width: 100%;\n  /* height: 170px; */\n  padding: 20px;\n  /* border: 2px solid rgb(95, 95, 95); */\n  border-radius: 15px;\n  text-align: center;\n  box-shadow: 0 0 0.3em rgba(41, 40, 40, 0.8);\n}\n.cardSlots div div[data-v-427fac71]:first-child,\n.cardPile div[data-v-427fac71]{\n  /* float: left; */\n  width: 90px;\n  height: 100px;\n  display: inline-flex;\n  justify-content: center;\n  align-items: center;\n  /* border: 2px solid rgb(rgb(77, 72, 72), rgb(68, 116, 68), rgb(66, 66, 107)); */\n  border-radius: 10px;\n  margin: 0 10px;\n  background: #fff;\n}\n.cardSlots div[data-v-427fac71]:first-child,\n.cardPile div[data-v-427fac71]:first-child {\n  /* margin-left: 0; */\n}\n.cardSlots div.hovered[data-v-427fac71] {\n  background: #aaa;\n}\n.cardPile div[data-v-427fac71] {\n  background: rgb(123, 24, 136);\n  color: #fff;\n  font-size: 50px;\n  text-shadow: 0 0 3px #000;\n}\n.cardPile div.ui-draggable-dragging[data-v-427fac71] {\n  box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.8);\n}\n.words[data-v-427fac71] {\n  font-size: 26px;\n  font-weight: bold;\n}\n.number[data-v-427fac71] {\n  /* position: relative;  */\n  /* width: 80px; */\n  height: 100px;\n  color: #fff;\n  text-shadow: 0 0 3px #000;\n  /* display: flex; */\n    margin: 0 10px;\n}\n.celebrateimg[data-v-427fac71] {\n    position: absolute;\n    /* text-align: center; */\n    /* margin: 10px auto; */\n    top: 35%;\n    left: 50%;\n    transform: translate(-50%, -50%);\n    width: 320px;\n}\n.block[data-v-427fac71] {\n  display: inline;\n}\n.vloume[data-v-427fac71] {\n  width: 72px;\n  height: 49px;\n  position: absolute;\n  top: -25%;\n  left: -10%;\n}\n.playAgain[data-v-427fac71] {\n  font-weight: bold;\n  font-size: 24px;\n  /* position: absolute; */\n  /* left: 40%; */\n}\n.numbernames[data-v-427fac71]{\n\n  /* position: absolute; */\n  /* top: 87%; */\n  /* left: 6%; */\n  font-weight: 500;\n}\n.namesInOtherdiv[data-v-427fac71]{\n/* float: left; */\n      /* float: left; */\n    width: auto;\n    height: 40px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    border-radius: 10px;\n    margin: 0 10px;\n    background: rgb(167, 154, 154);\n    font-size: 22px;\n    color: white;\n    margin-top: 10px;\n}\n.namesInOtherdiv[data-v-427fac71]:nth-child(even) {\n  background: rgb(204, 49, 204);\n}\n.namesInOtherdiv[data-v-427fac71]:nth-child(odd) {\n  background: rgb(209, 112, 47);\n}\n.cardSlots div[data-v-427fac71]{\n    display: inline-grid;\n    margin-bottom: 5px;\n}\n", ""]);
+exports.push([module.i, "\nbody[data-v-427fac71] {\n  margin: 30px;\n  line-height: 1.8em;\n}\nimg[data-v-427fac71] {\n  cursor: pointer;\n}\n#content[data-v-427fac71] {\n  margin: 20px 70px;\n  text-align: center;\n  -moz-user-select: none;\n  -webkit-user-select: none;\n  -ms-user-select: none;\n      user-select: none;\n  position: relative;\n}\n.cardSlots[data-v-427fac71] {\n  margin: 27px auto 0 auto;\n  background: rgb(182, 182, 187);\n  /* display: flex; */\n}\n.cardPile[data-v-427fac71] {\n  /* margin: 0 auto; */\n  /* background: rgb(201, 201, 202); */\n  /* display: flex; */\n}\n.cardSlots[data-v-427fac71],\n.cardPile[data-v-427fac71] {\n  width: 100%;\n  /* height: 170px; */\n  padding: 20px;\n  /* border: 2px solid rgb(95, 95, 95); */\n  border-radius: 15px;\n  text-align: center;\n  box-shadow: 0 0 0.3em rgba(41, 40, 40, 0.8);\n}\n.cardSlots div div[data-v-427fac71]:first-child,\n.cardPile div[data-v-427fac71]{\n  /* float: left; */\n  width: 90px;\n  height: 100px;\n  display: inline-flex;\n  justify-content: center;\n  align-items: center;\n  /* border: 2px solid rgb(rgb(77, 72, 72), rgb(68, 116, 68), rgb(66, 66, 107)); */\n  border-radius: 10px;\n  margin: 0 10px;\n  background: #fff;\n}\n.cardSlots div[data-v-427fac71]:first-child,\n.cardPile div[data-v-427fac71]:first-child {\n  /* margin-left: 0; */\n}\n.cardSlots div.hovered[data-v-427fac71] {\n  background: #aaa;\n}\n.cardPile div[data-v-427fac71] {\n  background: rgb(123, 24, 136);\n  color: #fff;\n  font-size: 50px;\n  text-shadow: 0 0 3px #000;\n}\n.cardPile div.ui-draggable-dragging[data-v-427fac71] {\n  box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.8);\n}\n.words[data-v-427fac71] {\n  font-size: 26px;\n  font-weight: bold;\n}\n.number[data-v-427fac71] {\n  /* position: relative;  */\n  /* width: 80px; */\n  height: 100px;\n  color: #fff;\n  text-shadow: 0 0 3px #000;\n  /* display: flex; */\n    margin: 0 10px;\n}\n.celebrateimg[data-v-427fac71] {\n    position: absolute;\n    /* text-align: center; */\n    /* margin: 10px auto; */\n    top: 35%;\n    left: 35%;\n    transform: translate(-50%, -50%);\n    width: 320px;\n    z-index: 999;\n}\n.block[data-v-427fac71] {\n  display: inline;\n}\n.vloume[data-v-427fac71] {\n  width: 72px;\n  height: 49px;\n  position: absolute;\n  top: -25%;\n  left: -10%;\n}\n.playAgain[data-v-427fac71] {\n  font-weight: bold;\n  font-size: 24px;\n  /* position: absolute; */\n  /* left: 40%; */\n}\n.numbernames[data-v-427fac71]{\n\n  /* position: absolute; */\n  /* top: 87%; */\n  /* left: 6%; */\n  font-weight: 500;\n}\n.namesInOtherdiv[data-v-427fac71]{\n/* float: left; */\n      /* float: left; */\n    width: auto;\n    height: 40px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    border-radius: 10px;\n    margin: 0 10px;\n    background: rgb(167, 154, 154);\n    font-size: 22px;\n    color: white;\n    margin-top: 10px;\n}\n.namesInOtherdiv[data-v-427fac71]:nth-child(even) {\n  background: rgb(204, 49, 204);\n}\n.namesInOtherdiv[data-v-427fac71]:nth-child(odd) {\n  background: rgb(209, 112, 47);\n}\n.cardSlots div[data-v-427fac71]{\n    display: inline-grid;\n    margin-bottom: 5px;\n}\n", ""]);
 
 // exports
 
@@ -40018,7 +40033,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
+  return _c("div", { key: _vm.render, staticClass: "container" }, [
     _c("img", {
       staticClass: "vloume",
       attrs: { src: _vm.src, alt: "" },
@@ -40037,104 +40052,116 @@ var render = function() {
           })
         : _vm._e(),
       _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass: "w-100 d-flex justify-content-center align-items-center"
-        },
-        _vm._l(_vm.randomOrder, function(item, i) {
-          return _c("div", { key: i, staticClass: "col-md-3" }, [
-            _c(
-              "div",
-              { staticStyle: { "text-align": "center", "line-height": "5" } },
-              _vm._l(item.id, function(single, index) {
-                return _c("img", {
-                  key: index + 20,
-                  style: [
-                    item.id === 1
-                      ? { height: "120px", margin: "5px" }
-                      : { height: "50px", margin: "5px" }
-                  ],
-                  attrs: { src: "/storage/Images/" + item.skitch, alt: "" }
-                })
-              }),
-              0
-            )
-          ])
-        }),
-        0
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass:
-            "w-100 d-flex justify-content-center align-items-center mt-5"
-        },
-        _vm._l(4, function(i) {
-          return _c(
-            "div",
-            {
-              key: i,
-              staticClass:
-                "col-md-3 d-flex justify-content-center align-items-center p-4"
-            },
-            [
-              _c("div", {
-                staticClass:
-                  "d-flex justify-content-center align-items-center expectResult",
-                staticStyle: {
-                  height: "90px",
-                  width: "90px",
-                  "text-align": "center",
-                  "background-color": "lightgray"
-                },
-                attrs: { id: _vm.randomOrder[i - 1].name },
-                on: { drop: _vm.drop, dragover: _vm.allowDrop }
-              })
-            ]
-          )
-        }),
-        0
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass:
-            "w-100 d-flex justify-content-center align-items-center mt-5"
-        },
-        _vm._l(_vm.results, function(item, i) {
-          return _c(
-            "div",
-            {
-              key: i,
-              staticClass:
-                "col-md-3 d-flex justify-content-center align-items-center p-4"
-            },
-            [
-              item.show
-                ? _c("img", {
-                    staticStyle: { height: "75px" },
-                    attrs: {
-                      src: "/storage/Images/" + item.img,
-                      alt: "",
-                      draggable: "true",
-                      id: item.id
-                    },
-                    on: { dragstart: _vm.onDragging }
+      _c("div", { class: _vm.count == 4 ? "col-md-8" : "col-md-12" }, [
+        _c(
+          "div",
+          {
+            staticClass:
+              "w-100 d-flex justify-content-center align-items-center"
+          },
+          _vm._l(_vm.randomOrder, function(item, i) {
+            return _c("div", { key: i, staticClass: "col-md-3" }, [
+              _c(
+                "div",
+                { staticStyle: { "text-align": "center", "line-height": "5" } },
+                _vm._l(item.id, function(single, index) {
+                  return _c("img", {
+                    key: index + 20,
+                    style: [
+                      item.id === 1
+                        ? { height: "120px", margin: "5px" }
+                        : { height: "50px", margin: "5px" }
+                    ],
+                    attrs: { src: "/storage/Images/" + item.skitch, alt: "" }
                   })
-                : _vm._e()
-            ]
+                }),
+                0
+              )
+            ])
+          }),
+          0
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass:
+              "w-100 d-flex justify-content-center align-items-center mt-5"
+          },
+          _vm._l(4, function(i) {
+            return _c(
+              "div",
+              {
+                key: i,
+                staticClass:
+                  "col-md-3 d-flex justify-content-center align-items-center p-4"
+              },
+              [
+                _c("div", {
+                  staticClass:
+                    "d-flex justify-content-center align-items-center expectResult",
+                  staticStyle: {
+                    height: "90px",
+                    width: "90px",
+                    "text-align": "center",
+                    "background-color": "lightgray"
+                  },
+                  attrs: { id: _vm.randomOrder[i - 1].name },
+                  on: { drop: _vm.drop, dragover: _vm.allowDrop }
+                })
+              ]
+            )
+          }),
+          0
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass:
+              "w-100 d-flex justify-content-center align-items-center mt-5"
+          },
+          _vm._l(_vm.results, function(item, i) {
+            return _c(
+              "div",
+              {
+                key: i,
+                staticClass:
+                  "col-md-3 d-flex justify-content-center align-items-center p-4"
+              },
+              [
+                _c("img", {
+                  staticStyle: { height: "75px" },
+                  attrs: {
+                    src: "/storage/Images/" + item.img,
+                    alt: "",
+                    draggable: "true",
+                    id: item.id
+                  },
+                  on: { dragstart: _vm.onDragging }
+                })
+              ]
+            )
+          }),
+          0
+        )
+      ]),
+      _vm._v(" "),
+      _vm.count == 4
+        ? _c(
+            "div",
+            {
+              staticClass:
+                "col-md-4 d-flex justify-content-center align-items-center"
+            },
+            [_vm._m(0)]
           )
-        }),
-        0
-      ),
+        : _vm._e(),
       _vm._v(" "),
       _c(
         "div",
         {
-          staticClass: "col-md-12 d-flex align-items-center mt-5",
+          staticClass: "col-md-12 d-flex align-items-center",
           staticStyle: { "justify-content": "space-evenly" }
         },
         [
@@ -40165,7 +40192,7 @@ var render = function() {
               )
             : _vm._e(),
           _vm._v(" "),
-          _vm._m(0)
+          _vm._m(1)
         ]
       ),
       _vm._v(" "),
@@ -40177,6 +40204,42 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-12 position-relative" }, [
+      _c("div", { staticStyle: { width: "100%" } }, [
+        _c(
+          "div",
+          {
+            staticClass: "pt-3 text-center",
+            staticStyle: { "font-size": "50px", "font-weight": "bold" }
+          },
+          [
+            _c("p", { staticClass: "text-success" }, [
+              _c("span", { staticClass: "d-block" }, [_vm._v("Well Done")]),
+              _vm._v(" "),
+              _c(
+                "span",
+                {
+                  staticClass: "d-block",
+                  staticStyle: { "font-size": "35px" }
+                },
+                [_vm._v("My Friend")]
+              )
+            ]),
+            _vm._v(" "),
+            _c("img", {
+              staticClass: "img-fluid",
+              staticStyle: { width: "55%" },
+              attrs: { src: "/storage/Images/boy4.png", alt: "" }
+            })
+          ]
+        )
+      ])
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -40606,7 +40669,7 @@ var render = function() {
                   ? _c("img", {
                       staticClass: "img-fluid",
                       staticStyle: { width: "55%" },
-                      attrs: { src: "/storage/Images/boy1.png", alt: "" }
+                      attrs: { src: "/storage/Images/boy4.png", alt: "" }
                     })
                   : _vm._e(),
                 _vm._v(" "),
@@ -40938,7 +41001,7 @@ var render = function() {
                   ? _c("img", {
                       staticClass: "img-fluid",
                       staticStyle: { width: "55%" },
-                      attrs: { src: "/storage/Images/boy1.png", alt: "" }
+                      attrs: { src: "/storage/Images/boy4.png", alt: "" }
                     })
                   : _vm._e(),
                 _vm._v(" "),
@@ -41626,79 +41689,77 @@ var render = function() {
           })
         : _vm._e(),
       _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "cardPile" },
-        _vm._l(_vm.numbers, function(number) {
-          return _c("img", {
-            key: number,
-            staticClass: "number img-fluid column",
-            attrs: {
-              id: number,
-              draggable: "true",
-              src: "/storage/Images/" + number + ".png"
-            },
-            on: {
-              dragstart: function($event) {
-                return _vm.dragstart(number, $event)
-              }
-            }
-          })
-        }),
-        0
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "cardSlots" },
-        _vm._l(_vm.words, function(word, index) {
-          return _c("div", { key: index }, [
-            _c(
-              "div",
-              {
-                staticClass: "words column",
-                attrs: { id: word.title, draggable: word.draggable },
-                on: {
-                  drop: function($event) {
-                    return _vm.drop(index + 1, $event)
-                  },
-                  dragover: function($event) {
-                    $event.preventDefault()
-                  }
-                }
-              },
-              [_vm._v(_vm._s(word.title))]
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass: "numbernames words namesInOtherdiv column",
-                attrs: { id: word.title }
-              },
-              [_vm._v(_vm._s(word.title))]
-            )
-          ])
-        }),
-        0
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "w-100 text-center" }, [
-        _vm.correctNumber == 10
+      _c("div", { class: _vm.correctNumber == 10 ? "col-md-8" : "" }, [
+        _vm.correctNumber != 10
           ? _c(
-              "button",
-              {
-                staticClass: "btn btn-primary mt-3 playAgain",
-                on: {
-                  click: function($event) {
-                    return _vm.forceRerender()
+              "div",
+              { staticClass: "cardPile" },
+              _vm._l(_vm.numbers, function(number) {
+                return _c("img", {
+                  key: number,
+                  staticClass: "number img-fluid column",
+                  attrs: {
+                    id: number,
+                    draggable: "true",
+                    src: "/storage/Images/" + number + ".png"
+                  },
+                  on: {
+                    dragstart: function($event) {
+                      return _vm.dragstart(number, $event)
+                    }
                   }
-                }
-              },
-              [_vm._v("Play Again")]
+                })
+              }),
+              0
             )
-          : _vm._e()
+          : _vm._e(),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "cardSlots" },
+          _vm._l(_vm.words, function(word, index) {
+            return _c("div", { key: index }, [
+              _c(
+                "div",
+                {
+                  staticClass: "words column",
+                  attrs: { id: word.title, draggable: word.draggable },
+                  on: {
+                    drop: function($event) {
+                      return _vm.drop(index + 1, $event)
+                    },
+                    dragover: function($event) {
+                      $event.preventDefault()
+                    }
+                  }
+                },
+                [_vm._v(_vm._s(word.title))]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "numbernames words namesInOtherdiv column",
+                  attrs: { id: word.title }
+                },
+                [_vm._v(_vm._s(word.title))]
+              )
+            ])
+          }),
+          0
+        )
       ]),
+      _vm._v(" "),
+      _vm.correctNumber == 10
+        ? _c(
+            "div",
+            {
+              staticClass:
+                "col-md-4 d-flex justify-content-center align-items-center"
+            },
+            [_vm._m(0)]
+          )
+        : _vm._e(),
       _vm._v(" "),
       _c("audio", {
         ref: "audioElm",
@@ -41706,10 +41767,63 @@ var render = function() {
       })
     ]),
     _vm._v(" "),
-    _vm._m(0)
+    _c("div", { staticClass: "w-100 text-center" }, [
+      _vm.correctNumber == 10
+        ? _c(
+            "button",
+            {
+              staticClass: "btn btn-primary mt-3 playAgain",
+              on: {
+                click: function($event) {
+                  return _vm.forceRerender()
+                }
+              }
+            },
+            [_vm._v("Play Again")]
+          )
+        : _vm._e()
+    ]),
+    _vm._v(" "),
+    _vm._m(1)
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-12 position-relative" }, [
+      _c("div", { staticStyle: { width: "100%" } }, [
+        _c(
+          "div",
+          {
+            staticClass: "pt-3 text-center",
+            staticStyle: { "font-size": "50px", "font-weight": "bold" }
+          },
+          [
+            _c("p", { staticClass: "text-success" }, [
+              _c("span", { staticClass: "d-block" }, [_vm._v("Well Done")]),
+              _vm._v(" "),
+              _c(
+                "span",
+                {
+                  staticClass: "d-block",
+                  staticStyle: { "font-size": "35px" }
+                },
+                [_vm._v("My Friend")]
+              )
+            ]),
+            _vm._v(" "),
+            _c("img", {
+              staticClass: "img-fluid",
+              staticStyle: { width: "55%" },
+              attrs: { src: "/storage/Images/boy4.png", alt: "" }
+            })
+          ]
+        )
+      ])
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
