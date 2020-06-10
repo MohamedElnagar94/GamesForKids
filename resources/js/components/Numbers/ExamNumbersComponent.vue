@@ -2,12 +2,12 @@
     <div class="container">
       <img :src="src" class="vloume" @click="play()" alt />
         <div class="row">
+            <div class="col-md-12 d-flex justify-content-center align-items-center p-4">
+                <img style="height: 40px" :src="'/storage/Images/' + count + '.png'" alt="">
+                <img style="height: 40px" src="/storage/Images/slash.png" alt="">
+                <img style="height: 40px" src="/storage/Images/10.png" alt="">
+            </div>
             <div class="col-md-6">
-                <div class="col-md-12 d-flex justify-content-center align-items-center p-4">
-                    <img style="height: 75px" :src="'/storage/Images/' + count + '.png'" alt="">
-                    <img style="height: 75px" src="/storage/Images/slash.png" alt="">
-                    <img style="height: 75px" src="/storage/Images/10.png" alt="">
-                </div>
                 <div class="col-md-12 d-flex justify-content-center align-items-center p-5">
                     <img class="m-3" style="height: 75px" :src="'/storage/Images/' + firstNum + '.png'" alt="">
                     <img class="m-3" :style="operationStyle()" :src="'/storage/Images/' + operation + '.png'" alt="">
@@ -37,7 +37,7 @@
                     </div>
                     <div class="pt-3 text-center" style="font-size: 50px;font-weight: bold;">
                         <p class="text-white">{{message}}</p>
-                        <img v-if="message == 'Well Done'" class="img-fluid" style="width: 55%;" src="/storage/Images/boy1.png" alt="">
+                        <img v-if="message == 'Well Done'" class="img-fluid" style="width: 55%;" src="/storage/Images/boy4.png" alt="">
                         <img v-if="message == 'UnLucky'" class="img-fluid" style="width: 35%;" src="/storage/Images/sadboy.png" alt="">
                     </div>
                 </div>
@@ -174,18 +174,18 @@
                 this.message = ''
             },
             dragEnter:function () {
-                console.log("dragenter")
+                // console.log("dragenter")
             },
             dragLeave:function (num) {
                 // this.changeColor = true;
-                console.log("dragLeave",num)
+                // console.log("dragLeave",num)
             },
             dragEnd:function () {
                 this.changeColor = false;
 
             },
             dragExit:function(num){
-                console.log("dragExit",num)
+                // console.log("dragExit",num)
             },
             dragFinish:function (index,ev) {
                 $('#result').append(`<img class="m-3" style="height: 75px" src="/storage/Images/${this.resultFromDrag}.png" alt="">`);
@@ -205,13 +205,15 @@
                     answer: this.result === this.resultFromDrag
                 });
                 localStorage.setItem("finalResult", JSON.stringify(this.questions));
-                console.log(localStorage.getItem("finalResult"));
-                console.log("dragFinish",index,ev)
+                if(this.count === 10){
+                    let levels = JSON.parse(localStorage.getItem('levels'));
+                    levels[6].open = true;
+                    localStorage.setItem('levels',JSON.stringify(levels))
+                }
             },
             dragStart:function (num) {
                 this.changeColor = true;
                 this.resultFromDrag = num;
-                console.log("dragStarttttttttt",num)
             }
         },
         created() {
