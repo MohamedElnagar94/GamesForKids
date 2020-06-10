@@ -1,74 +1,20 @@
 <template>
     <div class="container">
+        <img :src="src" class="vloume" @click="play()" alt />
         <div class="row">
             <div class="col-md-6">
-                <div
-                    class="col-md-12 d-flex justify-content-center align-items-center p-4"
-                >
-                    <img
-                        style="height: 75px"
-                        :src="'/storage/Images/' + count + '.png'"
-                        alt=""
-                    />
-                    <img
-                        style="height: 75px"
-                        src="/storage/Images/slash.png"
-                        alt=""
-                    />
+                <div class="col-md-12 d-flex justify-content-center align-items-center p-4">
+                    <img style="height: 75px" :src="'/storage/Images/' + count + '.png'" alt=""/>
+                    <img style="height: 75px" src="/storage/Images/slash.png" alt="" />
                     <img style="height: 75px" src="/storage/Images/10.png" alt="" />
                 </div>
-                <div
-                    class="col-md-12 d-flex justify-content-center align-items-center p-5"
-                >
-                    <img
-                        class="m-3"
-                        style="height: 75px"
-                        :src="'/storage/Images/' + firstNum + '.png'"
-                        alt=""
-                    />
-                    <div
-                        class="result d-flex justify-content-center align-items-center"
-                        :class="{ divBg: changeColor === true }"
-                        id="result"
-                        @dragover.prevent
-                        @drop="dragFinish(-1, $event)"
-                    ></div>
-                    <img
-                        class="m-3"
-                        style="height: 75px"
-                        :src="'/storage/Images/' + secondNum + '.png'"
-                        alt=""
-                    />
-
-                    <i
-                        class="fa fa-check"
-                        v-if="checkResult && result === resultFromDrag"
-                        style="font-size: 81px;color: green;margin: 10px 30px;"
-                    ></i>
-                    <i
-                        class="fa fa-close"
-                        v-if="checkResult && result !== resultFromDrag"
-                        style="font-size: 81px;color: red;margin: 10px 30px;"
-                    ></i>
+                <div class="col-md-12 d-flex justify-content-center align-items-center p-5">
+                    <img class="m-3" style="height: 75px" :src="'/storage/Images/' + firstNum + '.png'" alt="" />
+                    <div class="result d-flex justify-content-center align-items-center" :class="{ divBg: changeColor === true }" id="result" @dragover.prevent @drop="dragFinish(-1, $event)"></div>
+                    <img class="m-3" style="height: 75px" :src="'/storage/Images/' + secondNum + '.png'" alt=""/>
                 </div>
-                <div
-                    class="col-md-12 d-flex justify-content-center align-items-center p-4"
-                >
-                    <img
-                        class="m-4"
-                        v-for="(result, index) in resultOption"
-                        :key="index"
-                        @dragover.prevent
-                        @dragexit="dragExit(result)"
-                        @dragstart="dragStart(result)"
-                        @dragenter="dragEnter"
-                        @dragleave="dragLeave(result)"
-                        @dragend="dragEnd"
-                        :draggable="draggable"
-                        style="height: 75px;cursor: pointer"
-                        :src="'/storage/Images/' + result + '.png'"
-                        alt=""
-                    />
+                <div class="col-md-12 d-flex justify-content-center align-items-center p-4">
+                    <img class="m-4" v-for="(result, index) in resultOption" :key="index" @dragover.prevent @dragexit="dragExit(result)" @dragstart="dragStart(result)" @dragenter="dragEnter" @dragleave="dragLeave(result)" @dragend="dragEnd" :draggable="draggable" style="height: 75px;cursor: pointer" :src="'/storage/Images/' + result + '.png'" alt="" />
                 </div>
                 <div class="col-md-12 position-relative d-flex align-items-center" style="justify-content: space-evenly;padding: 30px">
                     <button class="button" v-on:click="newQuestion">
@@ -95,10 +41,16 @@
                 </div>
                 <img class="img-fluid" src="/storage/Images/presentations.png" alt="">
             </div>
-            <div class="w-100">
-                <a href="/levels" class="d-flex justify-content-center align-items-center w-100"><img class="img-fluid" style="width:75px;" src="/storage/Images/door.png" alt=""></a>
+            <div class="col-md-12 position-relative d-flex align-items-center" style="justify-content: space-evenly;padding: 30px">
+                <a href="/levels">
+                    <img style="width: 100px" src="/storage/Images/door.png" alt="Prev Exam" data-toggle="tooltip" title="Next Level" data-placement="top"/>
+                </a>
             </div>
         </div>
+        <!--  audio -->
+        <audio ref="audioElm" src="/storage/Images/happy.mp3"></audio>
+
+        <!--  audio -->
     </div>
 </template>
 
@@ -119,10 +71,21 @@ export default {
             checkResult: false,
             buttonNext: "Next Question",
             showResult: false,
-            message:''
+            message:'',
+            src: "/storage/Images/close.png"
         };
     },
     methods: {
+        play: function(event) {
+            var a = this.$refs.audioElm;
+            if (a.paused) {
+                a.play();
+                this.src = "/storage/Images/open.png";
+            } else {
+                a.pause();
+                this.src = "/storage/Images/close.png";
+            }
+        },
         randFun: function() {
             return Math.floor(Math.random() * 11);
         },
@@ -235,5 +198,12 @@ export default {
 }
 .divBg {
     background-color: rgba(85, 169, 56, 0.5);
+}
+.vloume {
+    width: 72px;
+    height: 49px;
+    position: absolute;
+    top: 20%;
+    left: 50px;
 }
 </style>

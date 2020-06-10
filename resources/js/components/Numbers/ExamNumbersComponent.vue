@@ -1,5 +1,6 @@
 <template>
     <div class="container">
+      <img :src="src" class="vloume" @click="play()" alt />
         <div class="row">
             <div class="col-md-6">
                 <div class="col-md-12 d-flex justify-content-center align-items-center p-4">
@@ -46,9 +47,11 @@
                 <a href="/levels" class="d-flex justify-content-center align-items-center w-100"><img class="img-fluid" style="width:75px;" src="/storage/Images/door.png" alt=""></a>
             </div>
         </div>
+        <!--  audio -->
+        <audio ref="audioElm" src="/storage/Images/happy.mp3"></audio>
+        <!--  audio -->
     </div>
 </template>
-
 <script>
     export default {
         name: "ExamNumbersComponent",
@@ -67,10 +70,21 @@
                 checkResult:false,
                 buttonNext:'Next Question',
                 showResult:false,
-                message:''
+                src: "/storage/Images/close.png",
+                message:'',
             }
         },
         methods:{
+            play: function(event) {
+                var a = this.$refs.audioElm;
+                if (a.paused) {
+                    a.play();
+                    this.src = "/storage/Images/open.png";
+                } else {
+                    a.pause();
+                    this.src = "/storage/Images/close.png";
+                }
+            },
             randomOperation:function(){
                 let minNum = Math.floor(0);
                 let maxNum = Math.floor(1);
@@ -91,50 +105,48 @@
             randFun:function(minNum,maxNum){
                 return Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum;
             },
-            pushLastResult:function(min,max){
-                let randResult = this.randFun(min,max);
+            pushLastResult: function(min, max) {
+                let randResult = this.randFun(min, max);
                 // console.log("outside",randResult,this.resultOption);
-                while(this.resultOption.includes(randResult) === true){
-                    randResult = this.randFun(min,max);
+                while (this.resultOption.includes(randResult) === true) {
+                    randResult = this.randFun(min, max);
                     // console.log("inside",randResult,this.resultOption);
                 }
                 return randResult;
-
             },
-            pushResultOption:function(){
+            pushResultOption: function() {
                 this.resultOption = [];
                 // this.resultOption = Array.from({length: 4}, () => this.pushLastResult(0,10));
                 for (let i = 0; i < 3; i++) {
-                    let number = this.pushLastResult(0,10);
+                    let number = this.pushLastResult(0, 10);
                     this.resultOption.push(number);
                 }
                 console.log(this.resultOption);
-                if(this.resultOption.includes(this.result)){
+                if (this.resultOption.includes(this.result)) {
                     // let number = this.resultOption.indexOf(this.randFun(0,3));
                     // console.log(number);
-                    let number = this.pushLastResult(0,10);
+                    let number = this.pushLastResult(0, 10);
                     // this.resultOption[number] = this.result;
                     this.resultOption.push(number);
-                }else {
-                    let number = this.pushLastResult(0,3);
+                } else {
+                    let number = this.pushLastResult(0, 3);
                     this.resultOption.splice(number, 0, this.result);
                 }
             },
-            randomNumber:function () {
-                if(this.operation === 'plus'){
-                    let randFirstNum = this.randFun(1,5);
-                    let randSecondNum = this.randFun(1,5);
+            randomNumber: function() {
+                if (this.operation === "plus") {
+                    let randFirstNum = this.randFun(1, 5);
+                    let randSecondNum = this.randFun(1, 5);
                     this.firstNum = randFirstNum;
                     this.secondNum = randSecondNum;
                     this.result = this.firstNum + this.secondNum;
                     this.pushResultOption();
-
-                }else if(this.operation === 'subtract'){
-                    let randFirstNum = this.randFun(0,10);
-                    let randSecondNum = this.randFun(0,10);
-                    if(randFirstNum < randSecondNum){
-                        this.randomNumber()
-                    }else {
+                } else if (this.operation === "subtract") {
+                    let randFirstNum = this.randFun(0, 10);
+                    let randSecondNum = this.randFun(0, 10);
+                    if (randFirstNum < randSecondNum) {
+                        this.randomNumber();
+                    } else {
                         this.firstNum = randFirstNum;
                         this.secondNum = randSecondNum;
                         this.result = this.firstNum - this.secondNum;
@@ -207,37 +219,47 @@
             this.randomNumber();
             localStorage.setItem("finalResult", JSON.stringify([]));
         }
+
     }
 </script>
-
 <style scoped>
-    .button {
-        padding: 15px 25px;
-        font-size: 24px;
-        text-align: center;
-        cursor: pointer;
-        outline: none;
-        color: #fff;
-        background-color: #4CAF50;
-        border: none;
-        border-radius: 15px;
-        box-shadow: 0 9px #999;
-    }
+.button {
+    padding: 15px 25px;
+    font-size: 24px;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+    color: #fff;
+    background-color: #4caf50;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+}
 
-    .button:hover {background-color: #3e8e41}
+.button:hover {
+    background-color: #3e8e41;
+}
 
-    .button:active {
-        background-color: #3e8e41;
-        box-shadow: 0 5px #666;
-        transform: translateY(4px);
-    }
-    .result{
-        width: 100px;
-        height: 100px;
-        border: 1px solid gray;
-        box-shadow: 0 0 3px 0 gray,inset 0 0 7px 0 gray;
-    }
-    .divBg{
-        background-color: rgba(85,169,56,0.5);
-    }
+.button:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+.result {
+    width: 100px;
+    height: 100px;
+    border: 1px solid gray;
+    box-shadow: 0 0 3px 0 gray, inset 0 0 7px 0 gray;
+}
+.divBg {
+    background-color: rgba(85, 169, 56, 0.5);
+}
+.vloume {
+  width: 72px;
+  height: 49px;
+  position: absolute;
+  top: 20%;
+  left: 50px;
+}
 </style>
+

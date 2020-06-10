@@ -2,9 +2,9 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6" style="padding: 30px 145px 0;display: flex;flex-direction: column;">
-                <div class="text-center">
-                    <img @mouseover="playAudio()" class="img-fluid" style="cursor: url('/storage/Images/audio2.png') 25 25,auto;" :src="'/storage/Images/'+ chosenNumber.imgNum" alt="">
-                </div>
+      
+                <img @mouseover="playAudio()" class="img-fluid" style="cursor: url('/storage/Images/audio2.png') 25 25,auto;" :src="'/storage/Images/'+ chosenNumber.imgNum" alt="">
+                
                 <div class="text-center" style="padding: 0 20px 0;font-size: 115px">
                     <p @mouseover="playAudio()" style="text-shadow: 0px 3px grey;cursor: url('/storage/Images/audio2.png') 25 25,auto;" :style="{color: chosenNumber.color}">{{chosenNumber.nameEN}}</p>
                 </div>
@@ -19,15 +19,26 @@
             <div class="col-md-12 d-flex align-items-center" style="justify-content: space-evenly;padding: 30px">
                 <img class="img-fluid right" v-if="indexOfChosen > 0" v-on:click="changeNumber(indexOfChosen,'right')" style="width: 75px;transform: rotate(180deg)" src="/storage/Images/arrow.png" alt="">
                 <img class="img-fluid left" v-if="indexOfChosen < 9" v-on:click="changeNumber(indexOfChosen,'left')" style="width: 75px;" src="/storage/Images/arrow.png" alt="">
+
             </div>
             <div class="w-100">
-                <a href="/levels" class="d-flex justify-content-center align-items-center w-100"><img class="img-fluid" style="width:75px;" src="/storage/Images/door.png" alt=""></a>
+                <a
+                    href="/levels"
+                    class="d-flex justify-content-center align-items-center w-100"
+                    ><img
+                        class="img-fluid"
+                        style="width:75px;"
+                        src="/storage/Images/door.png"
+                        alt=""
+                /></a>
             </div>
         </div>
     </div>
+   
 </template>
 
 <script>
+
     export default {
         name: "NumbersComponent",
         data(){
@@ -89,12 +100,8 @@
         created() {
             this.chosenNumber = this.numbers[this.indexOfChosen]
         },
-        computed:{
-
-        }
-    }
+        computed:{}
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
