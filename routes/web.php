@@ -49,4 +49,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/count',"CountNumbers\CountNumbersController@index");
 Route::get('/mergesort',"Sort\MergeSortController@index");
+Route::get('/quicksort',"Sort\QuickSortController@index");
 
