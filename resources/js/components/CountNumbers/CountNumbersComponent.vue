@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" :key="componentKey">
     <img :src="src" class="vloume" @click="play()" alt />
     <div class="row">
       <div
@@ -46,7 +46,7 @@
         />
       </div>
       <div class="col-md-12 d-flex align-items-center mt-5" style="justify-content: space-evenly;">
-          <a href="#" @click.prevent="playAgain" class="d-inline-block" data-toggle="tooltip" title="Play Again" data-placement="top">
+          <a href="#" @click.prevent="forceRerender()" class="d-inline-block" data-toggle="tooltip" title="Play Again" data-placement="top">
             <i class="fa fa-repeat btn btn-success" style="font-size:50px;padding: 15px 40px"></i>
             </a>
           <a href="/levels" ><img style="width: 100px" src="/storage/Images/door.png" alt="Prev Exam" data-toggle="tooltip" title="Next Level" data-placement="top"></a>
@@ -79,14 +79,19 @@ export default {
 
       results: [],
       randomOrder: [],
-      src: "/storage/Images/close.png"
+      src: "/storage/Images/close.png",
+      componentKey:0
     };
   },
 
   methods: {
-    playAgain(){
+    forceRerender() {
       this.results = this.randomArr();
       this.randomOrder = this.reOrderArr(this.results);
+      setTimeout(()=>{
+        this.componentKey += 1;
+      },2000)
+        
     },
     play: function(event) {
       var a = this.$refs.audioElm;
