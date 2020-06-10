@@ -174,18 +174,18 @@
                 this.message = ''
             },
             dragEnter:function () {
-                console.log("dragenter")
+                // console.log("dragenter")
             },
             dragLeave:function (num) {
                 // this.changeColor = true;
-                console.log("dragLeave",num)
+                // console.log("dragLeave",num)
             },
             dragEnd:function () {
                 this.changeColor = false;
 
             },
             dragExit:function(num){
-                console.log("dragExit",num)
+                // console.log("dragExit",num)
             },
             dragFinish:function (index,ev) {
                 $('#result').append(`<img class="m-3" style="height: 75px" src="/storage/Images/${this.resultFromDrag}.png" alt="">`);
@@ -205,13 +205,15 @@
                     answer: this.result === this.resultFromDrag
                 });
                 localStorage.setItem("finalResult", JSON.stringify(this.questions));
-                console.log(localStorage.getItem("finalResult"));
-                console.log("dragFinish",index,ev)
+                if(this.count === 10){
+                    let levels = JSON.parse(localStorage.getItem('levels'));
+                    levels[6].open = true;
+                    localStorage.setItem('levels',JSON.stringify(levels))
+                }
             },
             dragStart:function (num) {
                 this.changeColor = true;
                 this.resultFromDrag = num;
-                console.log("dragStarttttttttt",num)
             }
         },
         created() {

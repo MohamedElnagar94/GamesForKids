@@ -153,6 +153,11 @@ export default {
             localStorage.setItem("finalResult", JSON.stringify(this.questions));
             console.log(localStorage.getItem("finalResult"));
             console.log("dragFinish", index, ev);
+            if(this.count === 10){
+                let levels = JSON.parse(localStorage.getItem('levels'));
+                levels[4].open = true;
+                localStorage.setItem('levels',JSON.stringify(levels))
+            }
         },
         dragStart: function(num) {
             this.changeColor = true;
