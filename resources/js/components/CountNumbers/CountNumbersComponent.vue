@@ -55,6 +55,12 @@
       <audio ref="audioElm" src="/storage/Images/happy.mp3"></audio>
 
       <!--  audio -->
+      <div class="result align-items-center offset-1">
+        <div v-if="message == 'WELL DONE'" class="pt-3 text-center" style="font-size: 50px;font-weight: bold;">
+            <p class="text-success">{{message}}</p>
+            <img class="img-fluid" style="width: 40%;" src="/storage/Images/boy1.png" alt="">            
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -80,7 +86,9 @@ export default {
       results: [],
       randomOrder: [],
       src: "/storage/Images/close.png",
-      componentKey:0
+      componentKey:0,
+      message:'',
+      numberOfDrop:0
     };
   },
 
@@ -88,9 +96,7 @@ export default {
     forceRerender() {
       this.results = this.randomArr();
       this.randomOrder = this.reOrderArr(this.results);
-      setTimeout(()=>{
-        this.componentKey += 1;
-      },2000)
+      this.componentKey += 1;     
         
     },
     play: function(event) {
@@ -149,6 +155,10 @@ export default {
       let data = event.dataTransfer.getData("text");
       if (this.numbers[data - 1].name === event.target.id)
         event.target.appendChild(document.getElementById(data));
+        this.numberOfDrop ++;
+        if(this.numberOfDrop == 4){
+          this.message="WELL DONE";
+        }
     }
   },
 
@@ -166,5 +176,8 @@ export default {
   position: absolute;
   top: 20%;
   left: 50px;
+}
+.result{
+  position: absolute;
 }
 </style>
