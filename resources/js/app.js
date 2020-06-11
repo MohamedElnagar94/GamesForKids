@@ -22,7 +22,11 @@ window.Vue = require('vue');
 
 
 Vue.component('pencil-in-box', require('./components/Numbers/PencilInBox/PencilInBox.vue').default);
- 
+Vue.component('ballons', require('./components/Numbers/Ballons.vue').default);
+Vue.component('cards-2-2', require('./components/Cards2by2.vue').default);
+Vue.component('cards-2-3', require('./components/Cards2by3.vue').default);
+Vue.component('cards-3-4', require('./components/Cards3by4.vue').default);
+
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('order-component', require('./components/OrderNumberComponent.vue').default);
 Vue.component('numbers-component', require('./components/Numbers/NumbersComponent.vue').default);

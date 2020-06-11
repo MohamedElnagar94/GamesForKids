@@ -1,0 +1,10 @@
+.playBoard{
+    background-color: rgb(151, 192, 206);
+    width:60em;
+    height:27em;
+    margin:2em auto;
+  }
+  .flip-card{
+    width:20%;
+    height:6em;
+}

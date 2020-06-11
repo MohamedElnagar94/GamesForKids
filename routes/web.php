@@ -18,7 +18,18 @@ use Illuminate\Support\Facades\Route;
 Route::get('/pencilInBox', function () {
     return view('Numbers/pencils');
 });
-
+Route::get('/ballons', function () {
+    return view('Numbers/ballons');
+});
+Route::get('/cards-2-2', function () {
+    return view('cards2by2');
+});
+Route::get('/cards-2-3', function () {
+    return view('cards2by3');
+});
+Route::get('/cards-3-4', function () {
+    return view('cards3by4');
+});
 Route::get('/', function () {
     return view('website.index');
 });
