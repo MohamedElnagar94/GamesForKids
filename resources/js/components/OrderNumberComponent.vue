@@ -1,62 +1,47 @@
 <template >
-  <div class="container" :key="componentKey">
-    <div id="content">
-      <img :src="src" class="vloume" @click="play()" alt />
-
-      <img src="/storage/Images/congrates.gif" class="celebrateimg" v-if="correctNumber == 10 " alt />
-      <div class="row">
-        <div class="cardPile">
-          <img
-            class="number img-fluid column"
-            :id="number"
-            v-for="number in numbers"
-            draggable="true"
-            @dragstart="dragstart(number,$event)"
-            :key="number"
-            :src="'/storage/Images/' + number + '.png'"
-          />
+    <div class="container" :key="componentKey">
+        <div class="row position-relative">
+            <img :src="src" class="vloume" @click="play()" alt />
+            <img src="/storage/Images/congrates.gif" class="celebrateimg" v-if="correctNumber == 10"/>
+            <div :class="correctNumber == 10 ? 'col-md-8' : ''">
+                <div class="cardPile" v-if="correctNumber != 10">
+                    <img class="number img-fluid column" :id="number" v-for="number in numbers" draggable="true" @dragstart="dragstart(number,$event)" :key="number" :src="'/storage/Images/' + number + '.png'"/>
+                </div>
+                <div class="cardSlots">
+                    <div v-for="(word,index) in words" :key="index">
+                        <div :id="word.title" @drop="drop(index+1,$event)" @dragover.prevent class="words column" :draggable="word.draggable">{{ word.title }}</div>
+                        <div :id="word.title" class="numbernames words namesInOtherdiv column">{{ word.title }}</div>
+                    </div>
+                </div>
+                <!-- sucess message -->
+            </div>
+            <div v-if="correctNumber == 10" class="col-md-4 d-flex justify-content-center align-items-center">
+                <div class="col-md-12 position-relative">
+                    <div style="width: 100%;">
+                        <div class="pt-3 text-center" style="font-size: 50px;font-weight: bold;">
+                            <p class="text-success">
+                                <span class="d-block">Well Done</span>
+                                <span class="d-block" style="font-size: 35px;">My Friend</span>
+                            </p>
+                            <img class="img-fluid" style="width: 55%;" src="/storage/Images/boy4.png" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end of success message -->
+            <!--  audio -->
+            <audio ref="audioElm" src="/storage/Images/happy.mp3"></audio>
+            <!--  audio -->
         </div>
-      </div>
-      <div class="row">
-        <div class="cardSlots">
-          <div
-            :id="word.title"
-            @drop="drop(index+1,$event)"
-            @dragover.prevent
-            class="words column"
-            v-for="(word,index) in words"
-            :key="index"
-            :draggable="word.draggable"
-          >{{ word.title }}</div>
+        <div class="w-100 text-center">
+            <button class="btn btn-primary mt-3 playAgain" @click="forceRerender()" v-if="correctNumber == 10">Play Again</button>
         </div>
-      </div>
-
-      <div class="row">
-        <div class=" numbernames" >
-          <div
-            :id="word.title"
-            class="words namesInOtherdiv column"
-            v-for="(word,index) in words"
-            :key="index"
-          >{{ word.title }}</div>
+        <div class="col-md-12 position-relative d-flex align-items-center" style="justify-content: space-evenly;padding: 30px">
+            <a href="/levels">
+                <img style="width: 100px" src="/storage/Images/door.png" alt="Prev Exam" data-toggle="tooltip" title="Next Level" data-placement="top"/>
+            </a>
         </div>
-      </div>
-
-      <!-- sucess message -->
-      <button
-        class="btn btn-primary mt-3 playAgain"
-        @click="forceRerender()"
-        v-if="correctNumber == 10 "
-      >Play Again</button>
-
-      <!-- end of success message -->
-
-      <!--  audio -->
-      <audio ref="audioElm" src="/storage/Images/happy.mp3"></audio>
-
-      <!--  audio -->
     </div>
-  </div>
 </template>
 
 <script>
@@ -123,6 +108,11 @@ export default {
       } else {
         console.log(false);
       }
+        if (this.correctNumber == 10) {
+            let levels = JSON.parse(localStorage.getItem('levels'));
+            levels[5].open = true;
+            localStorage.setItem('levels',JSON.stringify(levels))
+        }
     },
     forceRerender: function() {
       if (this.correctNumber == 10) {
@@ -167,43 +157,44 @@ img {
 .cardSlots {
   margin: 27px auto 0 auto;
   background: rgb(182, 182, 187);
-  display: flex;
+  /* display: flex; */
 }
 
 .cardPile {
-  margin: 0 auto;
+  /* margin: 0 auto; */
   /* background: rgb(201, 201, 202); */
-  display: flex;
+  /* display: flex; */
 }
 .cardSlots,
 .cardPile {
-  width: 860px;
-  height: 170px;
+  width: 100%;
+  /* height: 170px; */
   padding: 20px;
   /* border: 2px solid rgb(95, 95, 95); */
   border-radius: 15px;
+  text-align: center;
   -moz-box-shadow: 0 0 0.3em rgba(41, 40, 40, 0.8);
   -webkit-box-shadow: 0 0 0.3em rgba(37, 37, 37, 0.8);
   box-shadow: 0 0 0.3em rgba(41, 40, 40, 0.8);
 }
-.cardSlots div,
-.cardPile div {
-  float: left;
-  width: 80px;
+.cardSlots div div:first-child,
+.cardPile div{
+  /* float: left; */
+  width: 90px;
   height: 100px;
-  display: flex;
+  display: inline-flex;
   justify-content: center;
   align-items: center;
   /* border: 2px solid rgb(rgb(77, 72, 72), rgb(68, 116, 68), rgb(66, 66, 107)); */
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
   border-radius: 10px;
-  margin: 0 0 0 10px;
+  margin: 0 10px;
   background: #fff;
 }
 .cardSlots div:first-child,
 .cardPile div:first-child {
-  margin-left: 0;
+  /* margin-left: 0; */
 }
 .cardSlots div.hovered {
   background: #aaa;
@@ -230,14 +221,18 @@ img {
   height: 100px;
   color: #fff;
   text-shadow: 0 0 3px #000;
-  display: flex;
+  /* display: flex; */
+    margin: 0 10px;
 }
 .celebrateimg {
-  position: absolute;
-  text-align: center;
-  margin: 10px auto;
-  top: -38%;
-  left: 25%;
+    position: absolute;
+    /* text-align: center; */
+    /* margin: 10px auto; */
+    top: 35%;
+    left: 35%;
+    transform: translate(-50%, -50%);
+    width: 320px;
+    z-index: 999;
 }
 .block {
   display: inline;
@@ -253,30 +248,30 @@ img {
 .playAgain {
   font-weight: bold;
   font-size: 24px;
-  position: absolute;
-  left: 40%;
+  /* position: absolute; */
+  /* left: 40%; */
 }
 .numbernames{
-  
-  position: absolute;
-  top: 87%;
-  left: 6%;
+
+  /* position: absolute; */
+  /* top: 87%; */
+  /* left: 6%; */
   font-weight: 500;
 }
 .namesInOtherdiv{
-float: left;
-  width: 74px;
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  -moz-border-radius: 10px;
-  -webkit-border-radius: 10px;
-  border-radius: 10px;
-  margin: 0 0 0 10px;
-  background: rgb(167, 154, 154);
-  font-size: 22px;
-  color: white;
+/* float: left; */
+      /* float: left; */
+    width: auto;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    margin: 0 10px;
+    background: rgb(167, 154, 154);
+    font-size: 22px;
+    color: white;
+    margin-top: 10px;
 }
 
 .namesInOtherdiv:nth-child(even) {
@@ -285,5 +280,9 @@ float: left;
 
 .namesInOtherdiv:nth-child(odd) {
   background: rgb(209, 112, 47);
+}
+.cardSlots div{
+    display: inline-grid;
+    margin-bottom: 5px;
 }
 </style>

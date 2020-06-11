@@ -29,8 +29,9 @@ Vue.component('numbers-component', require('./components/Numbers/NumbersComponen
 Vue.component('exam-numbers-component', require('./components/Numbers/ExamNumbersComponent.vue').default);
 Vue.component('exam2-component', require('./components/Numbers/Exam2Component.vue').default);
 Vue.component('result-component', require('./components/Numbers/ResultComponent.vue').default);
-Vue.component('count-numbers-component', require('./components/CountNumbers/CountNumbersComponent.vue').default);
-Vue.component('merge-sort-component', require('./components/Sort/MergeSortComponent.vue').default);
+Vue.component('count-numbers-component', require('./components/Numbers/CountNumbers/CountNumbersComponent.vue').default);
+Vue.component('merge-sort-component', require('./components/Numbers/Sort/MergeSortComponent.vue').default);
+Vue.component('quick-sort-component', require('./components/Numbers/Sort/QuickSortComponent.vue').default);
 Vue.component('levels-component', require('./components/LevelsComponent.vue').default);
 Vue.component('game-memory-component',require('./components/GameMemory/GameMemoryComponent.vue').default);
 /**
