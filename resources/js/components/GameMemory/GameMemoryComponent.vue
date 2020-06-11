@@ -91,7 +91,7 @@ export default {
       this.move = 0;
       this.board = [];
       this.left = this.boardSize * 2;
-      this.hintLeft = 3;
+      this.hintLeft = 1;
       this.startTime = new Date().getTime();
       let arr = this.createArray();
       this.createBoard(arr);
@@ -160,7 +160,9 @@ export default {
         const text =
           "Congratulations, you have completed the puzzle. Do you want to start new game?";
         // const returnedValue = confirm(text);
-        if (returnedValue === true) this.newGame();
+        // if (returnedValue === true) this.newGame();
+        
+        
       }
     },
     // show the selected card image
@@ -173,15 +175,17 @@ export default {
         this.prev = this.board[currentRowIndex][currentColIndex];
       } else if (this.compareImages(current)) {
         // selected two cards are equal to each other so hide them
-        current.status = 2;
-        this.prev.status = 2;
+
+        current.status = 1;
+        this.prev.status = 1;
+
         this.left -= 1;
         // check if the game is over
         this.isGameEnd();
       } else {
-        // selected cards are not eqaul to each other so hide them after 0.5 seconds
+        // selected cards are not eqaul to each other so hide them after 1000 seconds
         setTimeout(
-          function(current, prev) {
+          (current, prev) => {
             current.status = 0;
             prev.status = 0;
           },
@@ -218,7 +222,7 @@ export default {
       this.hintLeft -= 1;
       let turnedCards = this.showCards();
       // cards are showed now. After 1 second, hide the turned cards
-      setTimeout(this.hideCards, 2000, turnedCards);
+      setTimeout(this.hideCards, 1500, turnedCards);
     }
   },
   data() {
@@ -278,8 +282,8 @@ export default {
   position: absolute;
   text-align: center;
   margin: 10px auto;
-  top: 24%;
-  left: 25%;
+  top: 53%;
+  left: 53%;
   cursor: pointer;
 }
 
