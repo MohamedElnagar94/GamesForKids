@@ -32,6 +32,7 @@ Vue.component('result-component', require('./components/Numbers/ResultComponent.
 Vue.component('count-numbers-component', require('./components/CountNumbers/CountNumbersComponent.vue').default);
 Vue.component('merge-sort-component', require('./components/Sort/MergeSortComponent.vue').default);
 Vue.component('levels-component', require('./components/LevelsComponent.vue').default);
+Vue.component('game-memory-component',require('./components/GameMemory/GameMemoryComponent.vue').default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
