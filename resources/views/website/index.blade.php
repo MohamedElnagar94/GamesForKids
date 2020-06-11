@@ -5,16 +5,16 @@
 <div class="slider position-relative">
     <ul class="rslides" id="slider">
         <li>
-            <img src="images/banner1.jpg" alt="" />
+            <img src="images/slider1.png" alt="" />
         </li>
         <li>
-            <img src="images/banner2.jpg" alt="" />
+            <img src="images/slider2.png" alt="" />
         </li>
         <li>
-            <img src="images/banner3.jpg" alt="" />
+            <img src="images/slider3.png" alt="" />
         </li>
     </ul>
-    <a href="/numbers" class="glow-on-hover" type="button">START THE GAME</a>
+    <a href="/levels" class="glow-on-hover" type="button">START THE GAME</a>
 </div>
 <!-- //Slider -->
 @endsection
