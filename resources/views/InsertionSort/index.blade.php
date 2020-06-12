@@ -7,8 +7,8 @@
 @section('website')
 <div class="trend-w3layouts">
 	<div class="container">
-		<h2>Quick Sort</h2>
-		<quick-sort-component></quick-sort-component>
+		<h2>Insertion Sort</h2>
+		<insertion-sort-component></insertion-sort-component>
 	</div>
 </div>
 @endsection
