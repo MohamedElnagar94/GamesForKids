@@ -60,10 +60,12 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/count',"CountNumbers\CountNumbersController@index");
 Route::get('/mergesort',"Sort\MergeSortController@index");
-
+<<<<<<< HEAD
+Route::get('/bubblesort',"BubbleSortController@index");
+=======
+Route::get('/insertionsort',"Sort\InsertionSortController@index");
 Route::get('/gameMemory','GameMemoryController@gamememory');
 
-Route::get('/quicksort',"Sort\QuickSortController@index");
-
+>>>>>>> 2e263287886cfadd27dbe26f5f039837f19d9e65
 
 
