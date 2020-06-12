@@ -1,0 +1,145 @@
+body { 
+  /* background:hsl(70, 31%, 85%); text-align:center;  */
+}
+.container-fluid{
+	background-image: url(./img/drawings.png);
+}
+.row h2{
+  margin-left:20% ;
+  margin-top:.5em;
+  /* font-family:Kristen ITC; */ 
+  /* font-family:'Comic Sans MS'; */
+  font-family: Jokerman ,'Comic Sans MS';
+  font-size:500%;
+color:#fff;
+  -webkit-text-stroke: .04em rgb(23,125,193); 
+}
+.container{
+  width:80%;
+  /* background-color: rgb(23,125,193); */
+  margin:1em auto;
+  height:30em;
+  background-color:rgb(212, 240, 245);
+
+}
+#gameControlls{
+	height:5em;
+	width:100%;
+	margin:0em auto;
+	background-color: rgb(120,173,191);
+	border-top-left-radius: .6em;
+	border-top-right-radius: .6em;
+	
+}
+#gameControlls h4,#gameControlls span, #gameControlls h3{
+  color:white;
+  font-family: 'Comic Sans MS';
+  font-size: xx-large;
+  width:25%;
+  margin-top: .5em;
+  margin-left: .3em;
+  display: inline-block;
+  }
+  #gameControlls h3,#gameControlls span{
+  font-size: x-large;
+  width:13%;
+  margin-left: .1em;
+  margin-right: .2em;
+  }
+@font-face{
+  font-family:"MisterVampire";
+  src:url("./fonts/MISTV___.TTF");
+  
+}
+
+
+.balloon {
+  display:inline-block;
+   width:120px;
+  height:145px;
+  background:hsl(215,50%,65%);
+  border-radius:80%;
+  position:relative;
+  box-shadow:inset -10px -10px 0 rgba(0,0,0,0.07);
+  margin:20px 30px;
+  transition:transform 0.5s ease;
+  z-index:10;
+  animation:balloons 4s ease-in-out infinite;
+  transform-origin:bottom center;
+  font-size: xx-large ;
+
+}
+.balloon span{
+  font-size:120% ;
+  font-family: 'Comic Sans MS';
+  margin:1.3em 1.5em;
+  display: block;
+  color:white;
+}
+
+@keyframes balloons {
+  0%,100%{ transform:translateY(0) rotate(-4deg); }
+  50%{ transform:translateY(-25px) rotate(4deg); }
+}
+
+
+
+.balloon:before {
+  content:"▲";
+  font-size:20px;
+  color:hsl(215,30%,50%);
+  display:block;
+  text-align:center;
+  width:100%;
+  position:absolute;
+  bottom:-12px;
+  z-index:-100;
+}
+
+.balloon:after {
+ display:inline-block; top:4.5em;
+  position:absolute;
+  height:6em;
+  width:2px;
+  margin:0 1.6em;
+  content:"";
+  background:rgba(0,0,0,0.2); 
+}
+
+.balloon:nth-child(1){ background:hsl(245,100%,65%); animation-duration:3.5s; }
+.balloon:nth-child(1):before { color:hsl(245,100%,65%);  }
+
+.balloon:nth-child(2){ background:hsl(130,100%,60%); animation-duration:3s; }
+.balloon:nth-child(2):before { color:hsl(139,100%,50%);  }
+
+
+.balloon:nth-child(3){ background:hsl(0,100%,59%); animation-duration:5s; }
+.balloon:nth-child(3):before { color:hsl(0,100%,50%);  }
+
+.balloon:nth-child(4){ background:hsl(53,100%,58%); animation-duration:4.5s; }
+.balloon:nth-child(4):before { color:hsl(59,100%,52%);  }
+
+.balloon:nth-child(5){ background:hsl(23,100%,57%); animation-duration:5s; }
+.balloon:nth-child(5):before { color:hsl(23,100%,46%);  }
+
+@keyframes example {
+	from {height:6.5em;}
+	to {height:0px ;}
+  }
+ 
+  .hideBalloon{
+	  animation-name: example;
+	  animation-duration: 2s;
+	  animation-fill-mode: forwards;
+  }
+@media only screen and (max-width:800px ) {
+
+  h2{
+      font-size:250%;
+  }}
+  @media only screen and (max-width:1000px ) {
+ 
+  h2{
+      font-size:350%;
+  }
+  }

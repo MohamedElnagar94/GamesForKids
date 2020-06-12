@@ -153,27 +153,30 @@
 	border-top-right-radius: .6em;
 	
 }
-#gameControlls h4{
+#gameControlls h4,#gameControlls span, #gameControlls h3{
 color:white;
 font-family: 'Comic Sans MS';
 font-size: xx-large;
-width:47%;
+width:23%;
 margin-top: .5em;
-margin-left: .5em;
+margin-left: .3em;
 display: inline-block;
-
-
+}
+#gameControlls h3,#gameControlls span{
+font-size: x-large;
+width:13%;
+margin-left: .1em;
+margin-right: .2em;
 }
 @keyframes example {
 	from {height:6.5em;}
 	to {height:0px ;}
   }
  
-  .hideBox{
-	  animation-name: example;
+  .boxFull{
+	  /* animation-name: example;
 	  animation-duration: 4s;
-	  animation-fill-mode: forwards;
+	  animation-fill-mode: forwards; */
+
   }
-  .hidePencil{
-visibility: hidden;
-  }
+ 
