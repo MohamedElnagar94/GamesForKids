@@ -1,0 +1,138 @@
+
+  #gameTitle{
+	text-align: center;
+  }
+  .container-fluid{
+	background-image: url(./img/drawings.png);
+}
+@font-face{
+	font-family:"MisterVampire";
+	src:url("./fonts/MISTV___.TTF");
+	
+  }
+  h2{
+	
+	margin-top:.5em;
+	/* font-family:Kristen ITC; */ 
+	/* font-family:'Comic Sans MS'; */
+	font-family: Jokerman;
+	font-size:500%;
+  	color:rgb(23,125,193);
+	-webkit-text-stroke: .04em rgb(23,125,193); 
+  }
+ 
+  .container{
+	width:90%;
+	background-color: rgb(120,173,191);
+	margin:0 auto;
+	border:.6em solid #fff;
+	border-radius: .5em;
+	
+  }
+  
+  #cards-2-2{
+    width:100%;
+    
+}
+.playBoard{
+  background-color: rgb(151, 192, 206);
+  width:26em;
+  height:18em;
+  margin:2em auto;
+}
+.number , .matchedNumber{
+    position:absolute;
+    width:100%;
+    height:6em;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+  .number{
+	background-color: #ccc;
+	border-radius: .2em;
+    border:2px solid black;
+    margin-left:-6em;
+    transform: rotateY(180deg);
+    height:7.2em;
+  }
+
+
+  .flip-card{
+    width:42%;
+    height:6em;
+    margin:1em;
+    display:inline-block;
+    background-color: transparent;
+}
+ .flip-class-outer .eachNumber
+ {
+
+     transform: rotateY(180deg);
+ }
+ .matched-cards .eachNumber
+ {
+     transform: rotateY(180deg);
+ }
+ .matched-cards .eachNumber img{
+  opacity: 0.3;
+ }
+ .eachNumber{
+    position: relative;
+    width: 100%;
+    text-align: center;
+    transition: transform .5s;
+    transform-style: preserve-3d;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+ }
+  .flip-card .flip-class-outer>img{
+     margin-left:10em
+ }
+  .matchedNumber{
+	background-color: #333;
+	font-size: large;
+    border-radius: .2em;	
+  }
+
+#gameControlls{
+	width:100%;
+	margin:0em auto;
+	margin-top:1em;
+}
+#gameControlls h4,#gameControlls span, #gameControlls h3{
+color:white;
+font-family: 'Comic Sans MS';
+font-size: xx-large;
+width:25%;
+margin-top: .5em;
+margin-left: .3em;
+display: inline-block;
+}
+#gameControlls h3,#gameControlls span{
+font-size: x-large;
+width:13%;
+margin-left: .1em;
+margin-right: .2em;
+}
+.buttonCard{
+  width:25%;
+  height:2em;
+  margin-top:1em;
+  margin-left:3em;
+  background-color:white;
+  color: rgb(120,173,191);
+  font-family: 'Comic Sans MS';
+  font-size:x-large;
+  border-radius: 2em;
+  border:2px solid rgb(151, 192, 206);
+  transition: all .5s ease-in-out;
+}
+.buttonCard:hover{
+ 
+  transform:scale(.8,.8) ;
+  -webkit-transform: scale(.8,.8);
+  -moz-transform: scale(.8,.8);
+}
+.buttonCard:focus{
+  outline: none;
+}
