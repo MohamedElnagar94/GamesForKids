@@ -3803,7 +3803,7 @@ __webpack_require__.r(__webpack_exports__);
         if ($("#" + targetDivId + " > div").length > 1) {
           alert("you already put one");
           e.target.removeChild(penc);
-          $('.objects').appendChild(penc);
+          $('.objects')[0].appendChild(penc);
         }
       } else if (targetDivId == "box-2") {
         if ($("#" + targetDivId + " > div").length == 2) {
@@ -3813,7 +3813,7 @@ __webpack_require__.r(__webpack_exports__);
         if ($("#" + targetDivId + " > div").length > 2) {
           alert("you already put two");
           e.target.removeChild(penc);
-          $('.objects').appendChild(penc);
+          $('.objects')[0].appendChild(penc);
         }
       } else if (targetDivId == "box-3") {
         if ($("#" + targetDivId + " > div").length == 3) {
@@ -3823,7 +3823,7 @@ __webpack_require__.r(__webpack_exports__);
         if ($("#" + targetDivId + " > div").length > 3) {
           alert("you already put three");
           e.target.removeChild(penc);
-          $('.objects').appendChild(penc);
+          $('.objects')[0].appendChild(penc);
         }
       } else if (targetDivId == "box-4") {
         if ($("#" + targetDivId + " > div").length == 4) {
@@ -3833,7 +3833,7 @@ __webpack_require__.r(__webpack_exports__);
         if ($("#" + targetDivId + " > div").length > 4) {
           alert("you already put four");
           e.target.removeChild(penc);
-          $('.objects').appendChild(penc);
+          $('.objects')[0].appendChild(penc);
         }
       } else if (targetDivId == "box-5") {
         if ($("#" + targetDivId + " > div").length == 5) {
@@ -3843,7 +3843,7 @@ __webpack_require__.r(__webpack_exports__);
         if ($("#" + targetDivId + " > div").length > 5) {
           alert("you already put threfivee");
           e.target.removeChild(penc);
-          $('.objects').appendChild(penc);
+          $('.objects')[0].appendChild(penc);
         }
       } else if (targetDivId == "box-6") {
         if ($("#" + targetDivId + " > div").length == 6) {
@@ -3853,7 +3853,7 @@ __webpack_require__.r(__webpack_exports__);
         if ($("#" + targetDivId + " > div").length > 6) {
           alert("you already put six");
           e.target.removeChild(penc);
-          $('.objects').appendChild(penc);
+          $('.objects')[0].appendChild(penc);
         }
       } else if (targetDivId == "box-7") {
         if ($("#" + targetDivId + " > div").length == 7) {
@@ -3863,7 +3863,7 @@ __webpack_require__.r(__webpack_exports__);
         if ($("#" + targetDivId + " > div").length > 7) {
           alert("you already put seven");
           e.target.removeChild(penc);
-          $('.objects').appendChild(penc);
+          $('.objects')[0].appendChild(penc);
         }
       } else if (targetDivId == "box-8") {
         if ($("#" + targetDivId + " > div").length == 8) {
@@ -3873,7 +3873,7 @@ __webpack_require__.r(__webpack_exports__);
         if ($("#" + targetDivId + " > div").length > 8) {
           alert("you already put eight");
           e.target.removeChild(penc);
-          $('.objects').appendChild(penc);
+          $('.objects')[0].appendChild(penc);
         }
       } else if (targetDivId == "box-9") {
         if ($("#" + targetDivId + " > div").length == 9) {
@@ -3883,7 +3883,7 @@ __webpack_require__.r(__webpack_exports__);
         if ($("#" + targetDivId + " > div").length > 9) {
           alert("you already put nine");
           e.target.removeChild(penc);
-          $('.objects').appendChild(penc);
+          $('.objects')[0].appendChild(penc);
         }
       }
     }
@@ -59303,15 +59303,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!*************************************************************!*\
   !*** ./resources/js/components/Numbers/PencilInBox/Box.vue ***!
   \*************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Box_vue_vue_type_template_id_262a1d16___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Box.vue?vue&type=template&id=262a1d16& */ "./resources/js/components/Numbers/PencilInBox/Box.vue?vue&type=template&id=262a1d16&");
 /* harmony import */ var _Box_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Box.vue?vue&type=script&lang=js& */ "./resources/js/components/Numbers/PencilInBox/Box.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _Box_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _Box_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -59341,7 +59340,7 @@ component.options.__file = "resources/js/components/Numbers/PencilInBox/Box.vue"
 /*!**************************************************************************************!*\
   !*** ./resources/js/components/Numbers/PencilInBox/Box.vue?vue&type=script&lang=js& ***!
   \**************************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -59373,15 +59372,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!*********************************************************************!*\
   !*** ./resources/js/components/Numbers/PencilInBox/PencilInBox.vue ***!
   \*********************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _PencilInBox_vue_vue_type_template_id_c58ccffa___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PencilInBox.vue?vue&type=template&id=c58ccffa& */ "./resources/js/components/Numbers/PencilInBox/PencilInBox.vue?vue&type=template&id=c58ccffa&");
 /* harmony import */ var _PencilInBox_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PencilInBox.vue?vue&type=script&lang=js& */ "./resources/js/components/Numbers/PencilInBox/PencilInBox.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _PencilInBox_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _PencilInBox_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -59411,7 +59409,7 @@ component.options.__file = "resources/js/components/Numbers/PencilInBox/PencilIn
 /*!**********************************************************************************************!*\
   !*** ./resources/js/components/Numbers/PencilInBox/PencilInBox.vue?vue&type=script&lang=js& ***!
   \**********************************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

@@ -28,7 +28,8 @@ export default{
                    if($("#"+targetDivId+" > div").length > 1){
                     alert("you already put one");
                     e.target.removeChild(penc);
-                    $('.objects').appendChild(penc);
+                    $('.objects')[0].appendChild(penc);
+                  
                     }
                     }
                  else if (targetDivId == "box-2"){
@@ -39,7 +40,7 @@ export default{
                     if($("#"+targetDivId+" > div").length > 2){
                     alert("you already put two");
                     e.target.removeChild(penc);
-                    $('.objects').appendChild(penc);
+                    $('.objects')[0].appendChild(penc);
                     }
                 }
                  else if (targetDivId == "box-3"){
@@ -49,7 +50,7 @@ export default{
                       if($("#"+targetDivId+" > div").length > 3){
                     alert("you already put three");
                     e.target.removeChild(penc);
-                    $('.objects').appendChild(penc);
+                    $('.objects')[0].appendChild(penc);
                     }
                 }
                  else if (targetDivId == "box-4"){
@@ -59,7 +60,7 @@ export default{
                       if($("#"+targetDivId+" > div").length > 4){
                     alert("you already put four");
                     e.target.removeChild(penc);
-                    $('.objects').appendChild(penc);
+                    $('.objects')[0].appendChild(penc);
                     }
                 }
                  else if (targetDivId == "box-5"){
@@ -69,7 +70,7 @@ export default{
                       if($("#"+targetDivId+" > div").length > 5){
                     alert("you already put threfivee");
                     e.target.removeChild(penc);
-                    $('.objects').appendChild(penc);
+                    $('.objects')[0].appendChild(penc);
                     }
                 }
                  else if (targetDivId == "box-6"){
@@ -79,7 +80,7 @@ export default{
                       if($("#"+targetDivId+" > div").length > 6){
                     alert("you already put six");
                     e.target.removeChild(penc);
-                    $('.objects').appendChild(penc);
+                    $('.objects')[0].appendChild(penc);
                     }
                 }
                  else if (targetDivId == "box-7"){
@@ -89,7 +90,7 @@ export default{
                       if($("#"+targetDivId+" > div").length > 7){
                     alert("you already put seven");
                     e.target.removeChild(penc);
-                    $('.objects').appendChild(penc);
+                    $('.objects')[0].appendChild(penc);
                     }
                 }
                  else if (targetDivId == "box-8"){
@@ -99,7 +100,7 @@ export default{
                       if($("#"+targetDivId+" > div").length > 8){
                     alert("you already put eight");
                     e.target.removeChild(penc);
-                    $('.objects').appendChild(penc);
+                    $('.objects')[0].appendChild(penc);
                     }
                 }
                 else if (targetDivId == "box-9"){
@@ -112,7 +113,7 @@ export default{
 
                     alert("you already put nine");
                     e.target.removeChild(penc);
-                    $('.objects').appendChild(penc);
+                    $('.objects')[0].appendChild(penc);
                     }
                 }
                 
