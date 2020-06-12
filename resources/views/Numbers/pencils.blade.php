@@ -17,11 +17,12 @@
             </h2>
  </div> -->
  <div id="gameControlls">
-    <h4 >Score :</h4>
-    <h4>Time :</h4>
-</div>
+            <h1 ></h1>
+            <h4 >Score :</h4><span id="scoreText" ></span>
+            <h4 >Time : </h4><span id="timerPencil"> </span><h3>seconds</h>
+        </div>
 
-<div class="container">
+<div class="container" id="gameContainer" >
 
     <div class="row justify-content-center">
         <div class="col-md-10">
@@ -30,4 +31,14 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+
+ seconds=0;
+
+setInterval(function () {
+    document.getElementById('timerPencil').innerText=seconds;
+            seconds++;
+            }, 1000);
+ 
+</script>
 @endsection
