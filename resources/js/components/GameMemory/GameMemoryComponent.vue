@@ -4,11 +4,7 @@
     <img src="/storage/Images/congrates.gif" class="celebrateimg" v-if="left == 0" alt />
 
     <div class="row">
-      <div class="col-md-12 text-center">
-        <div class="header"> 
-          <h1>Memory Game</h1>
-        </div>
-      </div>
+      
     </div>
     <div class="row">
       <div class="col-md-8">
@@ -257,6 +253,7 @@ export default {
 .game-asset {
   width: 100px;
   height: 100px;
+  margin:10px
 }
 .score-board {
   border: 1px solid #ccc;

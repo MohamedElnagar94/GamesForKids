@@ -2017,10 +2017,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "GameBoard",
   mounted: function mounted() {
@@ -8836,7 +8832,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.header[data-v-3dc9dc39] {\n  margin-bottom: 50px;\n}\n.game-board table[data-v-3dc9dc39] {\n  margin: 0 auto;\n  border-collapse: collapse;\n}\n.game-board table td[data-v-3dc9dc39] {\n  width: 86px;\n  height: 86px;\n}\n.game-asset[data-v-3dc9dc39] {\n  width: 100px;\n  height: 100px;\n}\n.score-board[data-v-3dc9dc39] {\n  border: 1px solid #ccc;\n  border-radius: 20px;\n  padding: 10px;\n}\n.score-board button[data-v-3dc9dc39] {\n  font-weight: bold;\n  margin-right: 30px;\n}\n.bold[data-v-3dc9dc39] {\n  font-weight: bold;\n}\n.vloume[data-v-3dc9dc39] {\n  width: 72px;\n  height: 49px;\n  position: absolute;\n  top: 22%;\n  left: 43px;\n  cursor: pointer;\n}\n.celebrateimg[data-v-3dc9dc39] {\n  position: absolute;\n  text-align: center;\n  margin: 10px auto;\n  top: 53%;\n  left: 53%;\n  cursor: pointer;\n}\n\n", ""]);
+exports.push([module.i, "\n.header[data-v-3dc9dc39] {\n  margin-bottom: 50px;\n}\n.game-board table[data-v-3dc9dc39] {\n  margin: 0 auto;\n  border-collapse: collapse;\n}\n.game-board table td[data-v-3dc9dc39] {\n  width: 86px;\n  height: 86px;\n}\n.game-asset[data-v-3dc9dc39] {\n  width: 100px;\n  height: 100px;\n  margin:10px\n}\n.score-board[data-v-3dc9dc39] {\n  border: 1px solid #ccc;\n  border-radius: 20px;\n  padding: 10px;\n}\n.score-board button[data-v-3dc9dc39] {\n  font-weight: bold;\n  margin-right: 30px;\n}\n.bold[data-v-3dc9dc39] {\n  font-weight: bold;\n}\n.vloume[data-v-3dc9dc39] {\n  width: 72px;\n  height: 49px;\n  position: absolute;\n  top: 22%;\n  left: 43px;\n  cursor: pointer;\n}\n.celebrateimg[data-v-3dc9dc39] {\n  position: absolute;\n  text-align: center;\n  margin: 10px auto;\n  top: 53%;\n  left: 53%;\n  cursor: pointer;\n}\n\n", ""]);
 
 // exports
 
@@ -40990,7 +40986,7 @@ var render = function() {
         })
       : _vm._e(),
     _vm._v(" "),
-    _vm._m(0),
+    _c("div", { staticClass: "row" }),
     _vm._v(" "),
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-md-8" }, [
@@ -41105,20 +41101,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-12 text-center" }, [
-        _c("div", { staticClass: "header" }, [
-          _c("h1", [_vm._v("Memory Game")])
-        ])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
