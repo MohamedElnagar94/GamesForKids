@@ -7,11 +7,15 @@
 
                 <div class="col-md-12 justify-content-center align-items-center p-4"
                     :style="[{'margin': '3% 1%'}]">
-                    <div class="col-sm-12" :style="[{'color': 'white'}]">
-                        <div 
-                        :style="[{'background-color': '#FF8C00', 'display': 'inline-block', 'border': '1px solid white', 'width': '20px', 'height': '20px'}]"> </div> 
+                    <div class="col-sm-2" :style="[{'width': '5%'}]" v-on:click="insertionSortVoice()">
+                        <div> 
+                            <i style="font-size: 48px; color: #FF8C00" :class="voiceIcon"></i>
+                        </div> 
+                    </div>
+
+                    <div class="col-sm-10" :style="[{'color': 'white', 'margin-top': '1%'}]">
                         <div :style="[{'margin-bottom': '2px', 'display': 'inline-block'}]"> 
-                            <h3> Insertion sort: <span  :style="[{'font-size': '16px'}]">is a comparison-based algorithm that builds a final sorted array one element at a time..</span> </h3> </div>
+                            <h3> Listen: What is Insertion sort?</h3></div>
                     </div>
                 </div>
 
@@ -35,7 +39,7 @@
                     <div class='col-sm-8' 
                     :style="[{'margin': '0 4%', 'width': '35%', 'height': '75px', 'border': '2px solid white', 'color': 'white', 
                             'font-size': '32px', 'padding': '1%', 'text-align': 'center'}]"> 
-                        <div class='col-sm-4'>{{ numbers[pivot] }} </div><div class='col-sm-4'>{{'<'}}</div><div class='col-sm-4'> {{ numbers[pivot+1] }}</div>
+                        <div class='col-sm-4'>{{ numbers[pivot] }} </div><div class='col-sm-4'> &lt; </div><div class='col-sm-4'> {{ numbers[pivot+1] }}</div>
                     </div>
                     
                 </div>
@@ -71,6 +75,8 @@
                numbers: [],
                pivot: 0,
                temp: 0,
+               voiceIcon: 'fa fa-play-circle',
+               synth: window.speechSynthesis,
             }
         },
 
@@ -91,21 +97,22 @@
                 return array;
             },
 
+            textToVoice: function(text){
+
+                if (speechSynthesis !== undefined) {
+                    let toSpeak = new SpeechSynthesisUtterance(text);
+                    toSpeak.voice = this.synth.getVoices()[0];
+                    this.synth.speak(toSpeak);
+                }
+            },
+
             yesAnswer: function(){
                 if(this.numbers[this.pivot] < this.numbers[this.pivot + 1]){
                     this.pivot++;
                     if(this.pivot === 6){
-                        // Congratt
                         console.log('sorted');
                         this.pivot = this.pivot - 1;
                     }
-
-                    // if(this.temp == 0)
-                    //     this.pivot++;
-                    // else{
-                    //     this.pivot = this.temp;
-                    //     this.temp = 0;
-                    // }
                 }
             },
 
@@ -116,16 +123,25 @@
                     this.numbers[this.pivot + 1] = val;
                     this.numbers = [...this.numbers];
                     this.pivot--;
+                    // this.textToVoice('Great');
                     if(this.pivot == -1)
                         this.pivot = 0;
                 }
             },
 
 
-            restart: function(){
-               
+            insertionSortVoice: function(){
+                this.voiceIcon = 'fa fa-volume-up';
+                this.textToVoice('It is a comparison-based algorithm that builds a final sorted array one element at a time');
+                setTimeout(() => {
+                    this.voiceIcon = 'fa fa-play-circle';
+                }, 7000);
             }
 
+        },
+
+        mounted() {
+            this.textToVoice('Let us start');
         },
 
         created() {
