@@ -27,26 +27,62 @@
 		<ul id="flexiselDemo1">
 				<li>
 					<div class="trend-grid">
-						<h4>Racing Games</h4>
-						<img src="images/tg1.jpg" alt=" " class="img-responsive" />
+						<h4>Math Games</h4>
+						<img src="images/math1.jpg" alt=" " class="img-responsive" />
 					</div>
 				</li>
 				<li>
 					<div class="trend-grid">
-						<h4>3D Games</h4>
-						<img src="images/tg2.jpg" alt=" " class="img-responsive" />
+						<h4>Number Games</h4>
+						<img src="images/numbergame.jpg" alt=" " class="img-responsive" />
 					</div>
 				</li>
 				<li>
 					<div class="trend-grid">
-						<h4>Action Games</h4>
-						<img src="images/tg3.jpg" alt=" " class="img-responsive" />
+						<h4>Order Game</h4>
+						<img src="images/ordernumber.jpg" alt=" " class="img-responsive" />
 					</div>
 				</li>
 				<li>
 					<div class="trend-grid">
-						<h4>Toy Games</h4>
-						<img src="images/tg4.jpg" alt=" " class="img-responsive" />
+						<h4>Bubble Sort Game</h4>
+						<img src="images/bubble.jpg" alt=" " class="img-responsive" />
+					</div>
+                </li>
+                <li>
+					<div class="trend-grid">
+						<h4>Merge Sort Game</h4>
+						<img src="images/merg2.jpg" alt=" " class="img-responsive" />
+					</div>
+                </li>
+                <li>
+					<div class="trend-grid">
+						<h4>Pencil In Box</h4>
+						<img src="images/pencil (1).jpg" alt=" " class="img-responsive" />
+					</div>
+                </li>
+                <li>
+					<div class="trend-grid">
+						<h4>Compare Numbers</h4>
+						<img src="images/compare.jpg" alt=" " class="img-responsive" />
+					</div>
+                </li>
+                <li>
+					<div class="trend-grid">
+						<h4>Count Numbers</h4>
+						<img src="images/count.jpg" alt=" " class="img-responsive" />
+					</div>
+                </li>
+                <li>
+					<div class="trend-grid">
+						<h4>Count Numbers</h4>
+						<img src="images/count.jpg" alt=" " class="img-responsive" />
+					</div>
+                </li>
+                <li>
+					<div class="trend-grid">
+						<h4>Memory Game</h4>
+						<img src="images/memory4.jpg" alt=" " class="img-responsive" />
 					</div>
 				</li>
 			</ul>

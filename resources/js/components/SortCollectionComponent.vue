@@ -31,6 +31,7 @@
                     { level: 1, open: true, href: "/mergesort",img:"mergesort.png",title:"Merge sort"},
                     { level: 2, open: true, href: "/bubblesort",img:"bubblesort.png",title:"Bubble sort"},
                     { level: 3, open: true, href: "/insertionsort",img:"insertionsort.png",title:"Insertion sort" },
+                    { level: 4, open: true, href: "/binarySearch",img:"binarysearch.png",title:"Binary Search" },
                 ];
                 localStorage.setItem("level7Collections", JSON.stringify(allData));
                 this.allData = JSON.parse(localStorage.getItem("level7Collections"));

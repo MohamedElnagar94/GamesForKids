@@ -101,7 +101,7 @@
 
                 if (speechSynthesis !== undefined) {
                     let toSpeak = new SpeechSynthesisUtterance(text);
-                    toSpeak.voice = this.synth.getVoices()[0];
+                    toSpeak.voice = this.synth.getVoices()[1];
                     this.synth.speak(toSpeak);
                 }
             },
@@ -132,7 +132,7 @@
 
             insertionSortVoice: function(){
                 this.voiceIcon = 'fa fa-volume-up';
-                this.textToVoice('It is a comparison-based algorithm that builds a final sorted array one element at a time');
+                this.textToVoice('It is a comparison-based algorithm. that builds a final sorted array one element at a time.');
                 setTimeout(() => {
                     this.voiceIcon = 'fa fa-play-circle';
                 }, 7000);
