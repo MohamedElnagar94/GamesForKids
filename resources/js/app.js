@@ -86,6 +86,10 @@ Vue.component(
     "sort-collection-component",
     require("./components/SortCollectionComponent.vue").default
 );
+Vue.component(
+    "cards-collection-component",
+    require("./components/CardsCollectionComponent.vue").default
+);
 Vue.component('binary-search-component', require('./components/Numbers/BinarySearch/BinarySearchComponent.vue').default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to

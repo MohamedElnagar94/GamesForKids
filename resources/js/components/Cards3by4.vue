@@ -11,12 +11,7 @@
     <button class="buttonCard" v-on:click="newGame">new game</button>
 
     <div class="playBoard">
-      <div
-        class="flip-card"
-        :key="image"
-        v-for="(image,index) in randomImages"
-        v-on:click="addFlipClass"
-      >
+      <div class="flip-card" :key="image" v-for="(image) in randomImages" v-on:click="addFlipClass">
         <div class="eachNumber">
           <div class="matchedNumber"></div>
           <img class="number" :src="'/storage/Images/card/animals/'+image+'.png'" />
@@ -139,7 +134,7 @@ export default {
         this.newGame();
         document.getElementById("nextLevel").style.display = "inline-block";
         let levels = JSON.parse(localStorage.getItem('levels'));
-        levels[3].open = true;
+        levels[4].open = true;
         localStorage.setItem('levels',JSON.stringify(levels))
     },
     newGame() {

@@ -3,12 +3,12 @@
            <div id="gameControlls">
                             <h4 >Score :</h4><span >{{score}}</span>
                              <h4 >Time : <span id="timerPencil"> </span>seconds</h4>
-                          
+
                         </div>
                   <div class="col-md-12 d-flex justify-content-center align-items-center p-4">
                         <h1 >Question : {{count}}</h1>
-                     </div>                            
-                    
+                     </div>
+
                <div class="col-md-12 position-relative d-flex align-items-center" style="justify-content: space-evenly;padding: 30px">
                 <button  class="btn btn-primary btn-lg"  v-on:click="playSound(`/storage/sounds/numbers/${newArray[Math.floor(Math.random() * newArray.length)]}.mp3`)">
                     <span class="glyphicon glyphicon-play"></span>
@@ -16,13 +16,13 @@
                 <button v-on:click="resetGame" class="btn btn-primary btn-lg"> <span class="glyphicon glyphicon-repeat"></span></button>
 
             </div>
-                  
+
                     <br/>
             <div class="col-md-12 d-flex justify-content-center align-items-center p-4">
               <div class="m-4 balloon" v-for="(result,index) in newArray" v-on:click="clickedBallon" :key="index"> <span>{{result}}</span></div>
             </div>
         </div>
- 
+
 </template>
 
 <script>
@@ -67,15 +67,15 @@ import swal from 'sweetalert';
                         if(this.newArray.includes(this.firstNum)== false){
                             this.newArray.push(this.firstNum);
                             this.firstNum=null;
-                            this.randomize(this.ballonNumbers);         
+                            this.randomize(this.ballonNumbers);
                         }else{
                              this.ballonRandom();
-                        }    
+                        }
                     }else{
 
                     }
-                } 
-                           
+                }
+
             },
             resetGame:function(){
                 this.newArray=[];
@@ -88,11 +88,11 @@ import swal from 'sweetalert';
               let success='/storage/sounds/clap.mp3';
               let notSuccess='/storage/sounds/tryAgain.mp3';
                 if(e.target.innerText==this.answerNum){
-                    e.target.classList.addClass="hideBalloon"; 
+                    e.target.classList.addClass="hideBalloon";
                            this.score+=1;
                     this.playSound(balloonPop);
                 }
-              
+
                 if(this.count < 11){
                     this.newArray=[];
                    this.ballonRandom();
@@ -101,9 +101,12 @@ import swal from 'sweetalert';
                 if(this.count === 11){
                     this.showResult = true;
                     this.newArray=[];
+                    let levels = JSON.parse(localStorage.getItem('levels'));
+                    levels[3].open = true;
+                    localStorage.setItem('levels',JSON.stringify(levels))
                 }
                     if(this.showResult==true){
-                    if(this.score > 5 ){    
+                    if(this.score > 5 ){
                    swal("Great You got "+ this.score+" out of  ten " );
                    this.playSound(success);
                     this.showResult=false;
@@ -114,7 +117,7 @@ import swal from 'sweetalert';
                         this.playSound(notSuccess);
                          this.showResult=false;
                    this.resetGame();}
-                  
+
                     }
             }
         },

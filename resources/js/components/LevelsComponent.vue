@@ -73,8 +73,8 @@ export default {
         { level: 1, open: true, href: "/numbers", sound: "level 1.mp3" },
         { level: 2, open: false, href: "/count", sound: "level 2.mp3" },
         { level: 3, open: false, href: "/collections", sound: "level 3.mp3" },
-        { level: 4, open: false, href: "/exam2", sound: "level 4.mp3" },
-        { level: 5, open: false, href: "/order", sound: "level 5.mp3" },
+        { level: 4, open: false, href: "/cardsCollections", sound: "level 4.mp3" },
+        { level: 5, open: false, href: "/exam2", sound: "level 5.mp3" },
         { level: 6, open: false, href: "/numbersExam", sound: "level 6.mp3" },
         { level: 7, open: false, href: "/sortCollections", sound: "level 7.mp3" }
       ];

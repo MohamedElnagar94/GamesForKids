@@ -59,6 +59,9 @@ Route::get('/collections', function () {
 Route::get('/sortCollections', function () {
     return view('sortCollections');
 });
+Route::get('/cardsCollections', function () {
+    return view('cardsCollections');
+});
 Auth::routes();
 Route::get('/order','SortNumberController@sortnumber');
 Route::get('/home', 'HomeController@index')->name('home');
