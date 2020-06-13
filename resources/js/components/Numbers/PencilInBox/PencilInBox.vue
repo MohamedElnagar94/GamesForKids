@@ -1,32 +1,32 @@
 <template>
 
    <div id="test">
-     
-       <div class="row" v-on:mouseover="scoreCalculate">    
+
+       <div class="row" v-on:mouseover="scoreCalculate">
                 <div class="eachNumber col-2">
-                    <div class="number"><span >0</span></div>    
+                    <div class="number"><span >0</span></div>
                     <div id="box-0" class="matchedNumber up"></div>
-                </div>   
+                </div>
             <div class="eachNumber col-2">
-                    <div class="number"><span >1</span></div>    
+                    <div class="number"><span >1</span></div>
                     <Box id="box-1" class="up"></Box>
-                </div> 
+                </div>
                  <div class="eachNumber col-2">
                     <div class="number">
                     <span >2</span>
-                    </div>    
+                    </div>
                     <Box id="box-2" class="up"></Box>
-                </div> 
+                </div>
                  <div class="eachNumber col-2">
-                    <div class="number"><span >3</span></div>    
+                    <div class="number"><span >3</span></div>
                     <Box id="box-3" class="up"></Box>
-                </div> 
+                </div>
                 <div class="eachNumber col-2">
-                    <div class="number"><span >4</span></div>    
+                    <div class="number"><span >4</span></div>
                     <Box id="box-4" class="up">
                     </Box>
-                </div> 
-                
+                </div>
+
                 <div class="objects col-11" id="pencilPlace" >
 
                     <div style="display:inline-block" v-for="index in 50" :key="index">
@@ -36,22 +36,22 @@
                             <div class="pencil-bottom"></div>
                         </Pencil>
                    </div>
-                </div>  
+                </div>
 
             <div class="eachNumber col-2">
               <Box id="box-5" class="down"></Box>
                 <div class="number"><span>5</span></div>
-                
+
             </div>
             <div class="eachNumber col-2">
               <Box id="box-6" class="down"></Box>
                 <div class="number"><span>6</span></div>
-                
-            </div>        
+
+            </div>
             <div class="eachNumber col-2">
               <Box id="box-7" class="down"></Box>
                 <div class="number"><span>7</span></div>
-                
+
             </div>
             <div class="eachNumber col-2">
               <Box id="box-8" class="down"></Box>
@@ -60,7 +60,7 @@
             <div class="eachNumber col-2">
               <Box id="box-9" class="down"></Box>
                 <div class="number"><span>9</span></div>
-            </div> 
+            </div>
             </div>
 
 </div>
@@ -70,20 +70,20 @@
 <script>
 import swal from 'sweetalert';
 new Vue({
-         
+
     "el":"#gameControlls",
     "data":{
 seconds:0,
 
     },
     methods:{
-       
+
     }
-  
+
 });
 
 
-  
+
 
 import Box from './Box';
 import Pencil from './Pencilsbox';
@@ -91,7 +91,9 @@ import Pencil from './Pencilsbox';
         name:"test",
         methods:{
               scoreCalculate:function(){
-   
+                let levels = JSON.parse(localStorage.getItem('levels'));
+                levels[3].open = true;
+                localStorage.setItem('levels',JSON.stringify(levels))
     document.getElementById("scoreText").innerText=$(".boxFull").length;
     //console.log("length"+$(".boxFull").length + "scoretext" +document.getElementById("scoreText").innerText)
              if(document.getElementById("scoreText").innerText==9){

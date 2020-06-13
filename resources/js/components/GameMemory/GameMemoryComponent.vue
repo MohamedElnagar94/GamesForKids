@@ -3,13 +3,7 @@
     <img :src="src" class="vloume" @click="play()" alt />
     <img src="/storage/Images/congrates.gif" class="celebrateimg" v-if="left == 0" alt />
 
-    <div class="row">
-      <div class="col-md-12 text-center">
-        <div class="header"> 
-          <h1>Memory Game</h1>
-        </div>
-      </div>
-    </div>
+    <div class="row"></div>
     <div class="row">
       <div class="col-md-8">
         <div class="game-board">
@@ -17,7 +11,7 @@
             <tr v-for="(row, rowIndex) in board" :key="rowIndex">
               <td v-for="(col, colIndex) in row" :key="colIndex">
                 <img
-                  src="../../assets/0.png"
+                  src="/storage/Images/assets/0.png"
                   v-if="col.status === 0"
                   class="game-asset"
                   v-on:click="showImage(rowIndex, colIndex)"
@@ -51,9 +45,8 @@
           </tr>
           <tr>
             <td class="text-center">
-              <button class="btn btn-primary my-3" v-on:click="newGame()" >New Game</button>
+              <button class="btn btn-primary my-3" v-on:click="newGame()">New Game</button>
               <button class="btn btn-primary" v-on:click="showHint()">Flip Cards ({{hintLeft}})</button>
-              
             </td>
           </tr>
         </table>
@@ -99,18 +92,20 @@ export default {
     },
     // a function to calculate elapsed time
     calculateTime: function() {
-      let currentTime = new Date().getTime();
-      let elapsed = (currentTime - this.startTime) / 1000;
-      this.elapsedTime = {
-        day: Math.floor(elapsed / 86400),
-        hour: Math.floor((elapsed / 3600) % 24),
-        minute: Math.floor((elapsed / 60) % 60),
-        second: Math.floor(elapsed % 60)
-      };
+      if (this.left != 0) {
+        let currentTime = new Date().getTime();
+        let elapsed = (currentTime - this.startTime) / 1000;
+        this.elapsedTime = {
+          day: Math.floor(elapsed / 86400),
+          hour: Math.floor((elapsed / 3600) % 24),
+          minute: Math.floor((elapsed / 60) % 60),
+          second: Math.floor(elapsed % 60)
+        };
+      }
     },
     // requiring card image from the assets directory
     getImgUrl: function(img) {
-      return require("../../assets/" + img + ".png");
+      return "/storage/Images/assets/" + img + ".png";
     },
     // creates card array and suffle items
     createArray: function() {
@@ -157,12 +152,11 @@ export default {
     isGameEnd: function() {
       if (this.left === 0) {
         clearInterval(this.loop);
-        const text =
-          "Congratulations, you have completed the puzzle. Do you want to start new game?";
+        let levels = JSON.parse(localStorage.getItem('levels'));
+        levels[4].open = true;
+        localStorage.setItem('levels',JSON.stringify(levels))
         // const returnedValue = confirm(text);
         // if (returnedValue === true) this.newGame();
-        
-        
       }
     },
     // show the selected card image
@@ -178,7 +172,7 @@ export default {
 
         current.status = 1;
         this.prev.status = 1;
-
+        console.log(this.prev.status);
         this.left -= 1;
         // check if the game is over
         this.isGameEnd();
@@ -222,7 +216,7 @@ export default {
       this.hintLeft -= 1;
       let turnedCards = this.showCards();
       // cards are showed now. After 1 second, hide the turned cards
-      setTimeout(this.hideCards, 1500, turnedCards);
+      setTimeout(this.hideCards, 2000, turnedCards);
     }
   },
   data() {
@@ -255,8 +249,11 @@ export default {
   height: 86px;
 }
 .game-asset {
-  width: 100px;
-  height: 100px;
+  width: 120px;
+  height: 120px;
+  margin: 10px;
+  border: 1px solid #ccc;
+  border-radius: 12px;
 }
 .score-board {
   border: 1px solid #ccc;
@@ -286,5 +283,4 @@ export default {
   left: 53%;
   cursor: pointer;
 }
-
 </style>

@@ -202,7 +202,8 @@
                     operation: this.operation,
                     result: this.result,
                     resultFromDrag: this.resultFromDrag,
-                    answer: this.result === this.resultFromDrag
+                    answer: this.result === this.resultFromDrag,
+                    location: window.location.pathname
                 });
                 localStorage.setItem("finalResult", JSON.stringify(this.questions));
                 if(this.count === 10){

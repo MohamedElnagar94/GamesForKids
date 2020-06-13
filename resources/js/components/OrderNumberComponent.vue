@@ -110,7 +110,7 @@ export default {
       }
         if (this.correctNumber == 10) {
             let levels = JSON.parse(localStorage.getItem('levels'));
-            levels[5].open = true;
+            levels[3].open = true;
             localStorage.setItem('levels',JSON.stringify(levels))
         }
     },

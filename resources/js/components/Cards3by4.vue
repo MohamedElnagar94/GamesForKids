@@ -130,9 +130,12 @@ export default {
       }
     },
     showAlert() {
-      swal("Great You matched all images");
-      this.newGame();
-      document.getElementById("nextLevel").style.display = "inline-block";
+        swal("Great You matched all images");
+        this.newGame();
+        document.getElementById("nextLevel").style.display = "inline-block";
+        let levels = JSON.parse(localStorage.getItem('levels'));
+        levels[4].open = true;
+        localStorage.setItem('levels',JSON.stringify(levels))
     },
     newGame() {
       $(".flip-card").removeClass("flip-class-outer");
