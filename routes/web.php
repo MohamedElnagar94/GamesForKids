@@ -53,11 +53,21 @@ Route::get('/numbersExamResult',"Numbers\NumbersController@result");
 Route::get('/levels', function () {
     return view('levels');
 });
+Route::get('/collections', function () {
+    return view('collections');
+});
+Route::get('/sortCollections', function () {
+    return view('sortCollections');
+});
 Auth::routes();
 Route::get('/order','SortNumberController@sortnumber');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/count',"CountNumbers\CountNumbersController@index");
 Route::get('/mergesort',"Sort\MergeSortController@index");
+Route::get('/quicksort',"Sort\QuickSortController@index");
+Route::get('/binarySearch',function(){
+    return view('BinarySearch.index');
+});
 Route::get('/bubblesort',"BubbleSortController@index");
 Route::get('/insertionsort',"Sort\InsertionSortController@index");
 
