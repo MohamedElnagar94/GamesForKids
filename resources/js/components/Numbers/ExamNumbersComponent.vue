@@ -2,12 +2,12 @@
     <div class="container">
       <img :src="src" class="vloume" @click="play()" alt />
         <div class="row">
+            <div class="col-md-12 d-flex justify-content-center align-items-center p-4">
+                <img style="height: 40px" :src="'/storage/Images/' + count + '.png'" alt="">
+                <img style="height: 40px" src="/storage/Images/slash.png" alt="">
+                <img style="height: 40px" src="/storage/Images/10.png" alt="">
+            </div>
             <div class="col-md-6">
-                <div class="col-md-12 d-flex justify-content-center align-items-center p-4">
-                    <img style="height: 75px" :src="'/storage/Images/' + count + '.png'" alt="">
-                    <img style="height: 75px" src="/storage/Images/slash.png" alt="">
-                    <img style="height: 75px" src="/storage/Images/10.png" alt="">
-                </div>
                 <div class="col-md-12 d-flex justify-content-center align-items-center p-5">
                     <img class="m-3" style="height: 75px" :src="'/storage/Images/' + firstNum + '.png'" alt="">
                     <img class="m-3" :style="operationStyle()" :src="'/storage/Images/' + operation + '.png'" alt="">
@@ -202,7 +202,8 @@
                     operation: this.operation,
                     result: this.result,
                     resultFromDrag: this.resultFromDrag,
-                    answer: this.result === this.resultFromDrag
+                    answer: this.result === this.resultFromDrag,
+                    location: window.location.pathname
                 });
                 localStorage.setItem("finalResult", JSON.stringify(this.questions));
                 if(this.count === 10){
