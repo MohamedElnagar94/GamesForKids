@@ -5204,6 +5204,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "MergeSortComponent",
   data: function data() {
@@ -5273,7 +5278,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       for (var i = 0; i < values.length; i++) {
         var el = document.createElement('DIV');
         el.innerHTML = "\n                    <div  id=".concat(i == 0 || i == 1 ? '-' + values[i] : '-' + values[i], " class=\"col-md-5 d-flex justify-content-center align-items-center p-4\">\n                        <div style=\"font-size: 30px; margin: 0 40px\">").concat(values[i], "</div>\n                    </div>\n                ");
-        elements.push(el); // parent.appendChild(el);
+        elements.push(el);
       }
 
       switch (values.length) {
@@ -5305,7 +5310,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     textToVoice: function textToVoice(text) {
       if (speechSynthesis !== undefined) {
         var toSpeak = new SpeechSynthesisUtterance(text);
-        toSpeak.voice = this.synth.getVoices()[0];
+        toSpeak.voice = this.synth.getVoices()[1];
         this.synth.speak(toSpeak);
       }
     },
@@ -5316,7 +5321,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       this.textToVoice(msg);
       setTimeout(function () {
         _this.voiceIcon = 'fa fa-play-circle';
-      }, 5000);
+      }, 4500);
     }
   },
   created: function created() {
@@ -44784,14 +44789,14 @@ var render = function() {
               style: [{ "margin-left": "12%" }]
             },
             [
-              _vm._v("  Step One \n                    "),
+              _vm._v("  Step One\n                    "),
               _c("i", {
-                class: _vm.voiceIcon,
+                class: _vm.steps < 2 ? _vm.voiceIcon : "",
                 staticStyle: { "font-size": "48px", color: "#FF8C00" },
                 on: {
                   click: function($event) {
                     return _vm.voice(
-                      "Step One. Divide This main array into two sub-arrays"
+                      "Step One. Divide This main array. into two sub-arrays. "
                     )
                   }
                 }
@@ -44941,12 +44946,12 @@ var render = function() {
                 [
                   _vm._v(" Step Two \n                "),
                   _c("i", {
-                    class: _vm.voiceIcon,
+                    class: _vm.steps < 6 ? _vm.voiceIcon : "",
                     staticStyle: { "font-size": "48px", color: "#FF8C00" },
                     on: {
                       click: function($event) {
                         return _vm.voice(
-                          "Step Two. Divide each sub array into two arrays"
+                          "Step Two. Divide each sub array. into two arrays. "
                         )
                       }
                     }
@@ -45300,7 +45305,7 @@ var render = function() {
                     on: {
                       click: function($event) {
                         return _vm.voice(
-                          "Step Three. We seperated each array into elements. Sort elements and conquer into sorted sub-arrays"
+                          "Step Three. We seperated each array into elements. Sort elements. and conquer into sorted sub-arrays. "
                         )
                       }
                     }
@@ -45744,12 +45749,12 @@ var render = function() {
                 [
                   _vm._v(" Step Four \n                "),
                   _c("i", {
-                    class: _vm.voiceIcon,
+                    class: _vm.steps < 18 ? _vm.voiceIcon : "",
                     staticStyle: { "font-size": "48px", color: "#FF8C00" },
                     on: {
                       click: function($event) {
                         return _vm.voice(
-                          "Step Four. Sort each two sub arrays into one array"
+                          "Step Four. Sort each two sub arrays. into one array."
                         )
                       }
                     }
@@ -46444,12 +46449,12 @@ var render = function() {
                 [
                   _vm._v(" Step Five \n                "),
                   _c("i", {
-                    class: _vm.voiceIcon,
+                    class: _vm.steps < 22 ? _vm.voiceIcon : "",
                     staticStyle: { "font-size": "48px", color: "#FF8C00" },
                     on: {
                       click: function($event) {
                         return _vm.voice(
-                          "Great. You get it. Now sort all elements into one main array"
+                          "Great. You get it. Now sort all elements into one main array. "
                         )
                       }
                     }

@@ -12,8 +12,9 @@
             <div class="col-md-10 justify-content-center align-items-center p-4">
 
                 <h2 :style="[{'margin-left': '12%'}]" 
-                    class="col-md-12 justify-content-center align-items-center p-4" >  Step One 
-                        <i style="font-size: 48px; color: #FF8C00" v-on:click="voice('Step One. Divide This main array into two sub-arrays')" :class="voiceIcon"></i>
+                    class="col-md-12 justify-content-center align-items-center p-4" >  Step One
+                        <i style="font-size: 48px; color: #FF8C00" 
+                        v-on:click="voice('Step One. Divide This main array. into two sub-arrays. ')" :class="steps < 2 ? voiceIcon : ''"></i>
                         <br/> <h3>Divide The main array into two sub-arrays</h3> </h2>
 
                 <div class='col-md-12' style="margin-left:25%">
@@ -60,7 +61,8 @@
                     <!-- Start Step Two Result -->
                     <h2 :style="[steps < 2 ? {'opacity': '0'} : {'margin': '10% 0 3% -10%'}]" 
                     class="col-md-12 justify-content-center align-items-center" > Step Two 
-                    <i style="font-size: 48px; color: #FF8C00" v-on:click="voice('Step Two. Divide each sub array into two arrays')" :class="voiceIcon"></i>
+                    <i style="font-size: 48px; color: #FF8C00" 
+                    v-on:click="voice('Step Two. Divide each sub array. into two arrays. ')" :class="steps < 6 ? voiceIcon : ''"></i>
                     <br /> <h3>Divide each sub array into two arrays</h3></h2>
 
                     <div
@@ -173,7 +175,8 @@
                      <!-- Start Step Three Result [SORT] -->
                     <h2 :style="[steps < 6 ? {'opacity': '0'} : {'margin': '10% 0 3% -7%'}]" 
                     class="col-md-12 justify-content-center align-items-center" > Step Three 
-                    <i style="font-size: 48px; color: #FF8C00" v-on:click="voice('Step Three. We seperated each array into elements. Sort elements and conquer into sorted sub-arrays')" :class="voiceIcon"></i>
+                    <i style="font-size: 48px; color: #FF8C00" 
+                    v-on:click="voice('Step Three. We seperated each array into elements. Sort elements. and conquer into sorted sub-arrays. ')" :class="voiceIcon"></i>
                     <br /> <h3>Sort elements and conquer into sorted sub-array</h3> </h2>
 
                     <div
@@ -307,7 +310,8 @@
                     <!-- Start Step Four [SORT] -->
                     <h2 :style="[steps < 14 ? {'opacity': '0'} : {'margin': '10% 0 3% -7%'}]" 
                     class="col-md-12 justify-content-center align-items-center" > Step Four 
-                    <i style="font-size: 48px; color: #FF8C00" v-on:click="voice('Step Four. Sort each two sub arrays into one array')" :class="voiceIcon"></i>
+                    <i style="font-size: 48px; color: #FF8C00" 
+                    v-on:click="voice('Step Four. Sort each two sub arrays. into one array.')" :class="steps < 18 ? voiceIcon : ''"></i>
                     <br /> <h3>Sort Arrays and conquer into sorted sub-array</h3> </h2>
 
                     <div class='col-md-3 d-flex justify-content-center align-items-center p-4'>
@@ -459,7 +463,8 @@
                      <!-- Start Step Four [SORT] -->
                     <h2 :style="[steps < 22 ? {'opacity': '0'} : {'margin': '10% 0 3% 0'}]" 
                     class="col-md-12 justify-content-center align-items-center" > Step Five 
-                    <i style="font-size: 48px; color: #FF8C00" v-on:click="voice('Great. You get it. Now sort all elements into one main array')" :class="voiceIcon"></i>
+                    <i style="font-size: 48px; color: #FF8C00" 
+                    v-on:click="voice('Great. You get it. Now sort all elements into one main array. ')" :class="steps < 22 ? voiceIcon : ''"></i>
                     <br /> <h3>Sort sub-Arrays' elements and conquer into Main Sorted Array</h3>  </h2>
 
                     <div class='col-md-6 d-flex justify-content-center align-items-center p-4'>
@@ -622,19 +627,23 @@
                 return array;
             },
 
+
             onDragging(event){
                 event.dataTransfer.setData("text", event.target.id);
                 console.log('EvEnT ==>', event);
             },
-                
+
+
             allowDrop(event) {
                 event.preventDefault();
             },
-                
+
+
             drag(event) {
                 event.dataTransfer.setData("text", event.target.id);
             },
-                
+
+
             drop(event) {
                 event.preventDefault();
                 let data = event.dataTransfer.getData("text");
@@ -655,6 +664,7 @@
                 }
             },
 
+
             newEle(parent, values){
                 let elements = [];
                 for(let i =0; i<values.length; i++){
@@ -666,7 +676,6 @@
                     `;
 
                     elements.push(el);
-                    // parent.appendChild(el);
                 }
                 
                 switch(values.length){
@@ -726,21 +735,22 @@
                 }
             },
 
-            textToVoice: function(text){
 
+            textToVoice: function(text){
                 if (speechSynthesis !== undefined) {
                     let toSpeak = new SpeechSynthesisUtterance(text);
-                    toSpeak.voice = this.synth.getVoices()[0];
+                    toSpeak.voice = this.synth.getVoices()[1];
                     this.synth.speak(toSpeak);
                 }
             },
+
 
             voice: function(msg){
                 this.voiceIcon = 'fa fa-volume-up';
                 this.textToVoice(msg);
                 setTimeout(() => {
                     this.voiceIcon = 'fa fa-play-circle';
-                }, 5000);
+                }, 4500);
             }
 
         },
