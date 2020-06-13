@@ -2224,11 +2224,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "cards-3-4",
@@ -5162,39 +5157,6 @@ var _name$data$data$metho;
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -10036,7 +9998,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.vloume[data-v-74e2742d] {\r\n    width: 72px;\r\n    height: 49px;\r\n    position: absolute;\r\n    top: 20%;\r\n    left: 50px;\n}\n.selected[data-v-74e2742d] {\r\n    font-size: 30px;\r\n    margin: 0 40px;\r\n    position: relative;\r\n    background-color: blue;\r\n    -webkit-animation-duration: 4s;\r\n            animation-duration: 4s;\n}\n.arrow[data-v-74e2742d] {\r\n    width: 50px;\r\n    height: 50px;\r\n    display: block;\n}\n.popup[data-v-74e2742d] {\r\n    position: fixed;\r\n    top: 50%;\r\n    left: 50%;\r\n    width: 90%;\r\n    height: 100%;\r\n    transform: translate(-50%, -50%);\r\n    background-color: rgba(1, 1, 22, 0.959);\r\n    color: white;\r\n    display: none;\r\n    padding-top: 30px;\n}\n.swapFirst[data-v-74e2742d] {\r\n    -webkit-animation: firstSelect-data-v-74e2742d;\r\n            animation: firstSelect-data-v-74e2742d;\r\n    -webkit-animation-duration: 4s;\r\n            animation-duration: 4s;\r\n    -webkit-animation-delay: 1s;\r\n            animation-delay: 1s;\r\n    -webkit-animation-iteration-count: 2;\r\n            animation-iteration-count: 2;\n}\n.swapSecond[data-v-74e2742d] {\r\n    -webkit-animation: secondSelect-data-v-74e2742d;\r\n            animation: secondSelect-data-v-74e2742d;\r\n    -webkit-animation-duration: 4s;\r\n            animation-duration: 4s;\r\n    -webkit-animation-delay: 1s;\r\n            animation-delay: 1s;\r\n    -webkit-animation-iteration-count: 2;\r\n            animation-iteration-count: 2;\n}\n.speech-bubble[data-v-74e2742d] {\r\n    position: relative;\r\n    background: #cc6dc7d8;\r\n    border-radius: 30%;\r\n    padding: 30px;\r\n    margin-top: 10px;\n}\n#h3steps[data-v-74e2742d] {\r\n    position: relative;\r\n    background: #ff9dde;\r\n    border-radius: 40%;\r\n    padding: 25px;\r\n    margin-right: 10px;\n}\n.speech-bubble[data-v-74e2742d]:after {\r\n    content: \"\";\r\n    position: absolute;\r\n    right: 0;\r\n    top: 50%;\r\n    width: 0;\r\n    height: 0;\r\n    border: 24px solid transparent;\r\n    border-left-color: #cc6dc7d8;\r\n    border-right: 0;\r\n    border-top: 0;\r\n    margin-top: -12px;\r\n    margin-right: -24px;\n}\n@-webkit-keyframes firstSelect-data-v-74e2742d {\nfrom {\r\n        background-color: red;\r\n        left: 0px;\r\n        top: 0px;\n}\n25% {\r\n        background-color: yellow;\r\n        left: 0px;\r\n        top: 50px;\n}\n50% {\r\n        background-color: blue;\r\n        left: 100px;\r\n        top: 50px;\n}\nto {\r\n        background-color: green;\r\n        left: 100px;\r\n        top: 0px;\n}\n}\n@keyframes firstSelect-data-v-74e2742d {\nfrom {\r\n        background-color: red;\r\n        left: 0px;\r\n        top: 0px;\n}\n25% {\r\n        background-color: yellow;\r\n        left: 0px;\r\n        top: 50px;\n}\n50% {\r\n        background-color: blue;\r\n        left: 100px;\r\n        top: 50px;\n}\nto {\r\n        background-color: green;\r\n        left: 100px;\r\n        top: 0px;\n}\n}\n@-webkit-keyframes secondSelect-data-v-74e2742d {\nfrom {\r\n        background-color: red;\r\n        left: 0px;\r\n        top: 0px;\n}\n25% {\r\n        background-color: yellow;\r\n        left: 0px;\r\n        top: -50px;\n}\n50% {\r\n        background-color: blue;\r\n        left: -100px;\r\n        top: -50px;\n}\nto {\r\n        background-color: green;\r\n        left: -100px;\r\n        top: 0px;\n}\n}\n@keyframes secondSelect-data-v-74e2742d {\nfrom {\r\n        background-color: red;\r\n        left: 0px;\r\n        top: 0px;\n}\n25% {\r\n        background-color: yellow;\r\n        left: 0px;\r\n        top: -50px;\n}\n50% {\r\n        background-color: blue;\r\n        left: -100px;\r\n        top: -50px;\n}\nto {\r\n        background-color: green;\r\n        left: -100px;\r\n        top: 0px;\n}\n}\r\n", ""]);
+exports.push([module.i, "\n.vloume[data-v-74e2742d] {\r\n  width: 72px;\r\n  height: 49px;\r\n  position: absolute;\r\n  top: 20%;\r\n  left: 50px;\n}\n.selected[data-v-74e2742d] {\r\n  font-size: 30px;\r\n  margin: 0 40px;\r\n  position: relative;\r\n  background-color: blue;\r\n  -webkit-animation-duration: 4s;\r\n          animation-duration: 4s;\n}\n.arrow[data-v-74e2742d] {\r\n  width: 50px;\r\n  height: 50px;\r\n  display: block;\n}\n.popup[data-v-74e2742d] {\r\n  position: fixed;\r\n  top: 50%;\r\n  left: 50%;\r\n  width: 90%;\r\n  height: 100%;\r\n  transform: translate(-50%, -50%);\r\n  background-color: rgba(1, 1, 22, 0.959);\r\n  color: white;\r\n  display: none;\r\n  padding-top: 30px;\n}\n.swapFirst[data-v-74e2742d] {\r\n  -webkit-animation: firstSelect-data-v-74e2742d;\r\n          animation: firstSelect-data-v-74e2742d;\r\n  -webkit-animation-duration: 4s;\r\n          animation-duration: 4s;\r\n  -webkit-animation-delay: 1s;\r\n          animation-delay: 1s;\r\n  -webkit-animation-iteration-count: 2;\r\n          animation-iteration-count: 2;\n}\n.swapSecond[data-v-74e2742d] {\r\n  -webkit-animation: secondSelect-data-v-74e2742d;\r\n          animation: secondSelect-data-v-74e2742d;\r\n  -webkit-animation-duration: 4s;\r\n          animation-duration: 4s;\r\n  -webkit-animation-delay: 1s;\r\n          animation-delay: 1s;\r\n  -webkit-animation-iteration-count: 2;\r\n          animation-iteration-count: 2;\n}\n.speech-bubble[data-v-74e2742d] {\r\n  position: relative;\r\n  background: #cc6dc7d8;\r\n  border-radius: 30%;\r\n  padding: 30px;\r\n  margin-top: 10px;\n}\n#h3steps[data-v-74e2742d] {\r\n  position: relative;\r\n  background: #ff9dde;\r\n  border-radius: 40%;\r\n  padding: 25px;\r\n  margin-right: 10px;\n}\n.speech-bubble[data-v-74e2742d]:after {\r\n  content: \"\";\r\n  position: absolute;\r\n  right: 0;\r\n  top: 50%;\r\n  width: 0;\r\n  height: 0;\r\n  border: 24px solid transparent;\r\n  border-left-color: #cc6dc7d8;\r\n  border-right: 0;\r\n  border-top: 0;\r\n  margin-top: -12px;\r\n  margin-right: -24px;\n}\n@-webkit-keyframes firstSelect-data-v-74e2742d {\nfrom {\r\n    background-color: red;\r\n    left: 0px;\r\n    top: 0px;\n}\n25% {\r\n    background-color: yellow;\r\n    left: 0px;\r\n    top: 50px;\n}\n50% {\r\n    background-color: blue;\r\n    left: 100px;\r\n    top: 50px;\n}\nto {\r\n    background-color: green;\r\n    left: 100px;\r\n    top: 0px;\n}\n}\n@keyframes firstSelect-data-v-74e2742d {\nfrom {\r\n    background-color: red;\r\n    left: 0px;\r\n    top: 0px;\n}\n25% {\r\n    background-color: yellow;\r\n    left: 0px;\r\n    top: 50px;\n}\n50% {\r\n    background-color: blue;\r\n    left: 100px;\r\n    top: 50px;\n}\nto {\r\n    background-color: green;\r\n    left: 100px;\r\n    top: 0px;\n}\n}\n@-webkit-keyframes secondSelect-data-v-74e2742d {\nfrom {\r\n    background-color: red;\r\n    left: 0px;\r\n    top: 0px;\n}\n25% {\r\n    background-color: yellow;\r\n    left: 0px;\r\n    top: -50px;\n}\n50% {\r\n    background-color: blue;\r\n    left: -100px;\r\n    top: -50px;\n}\nto {\r\n    background-color: green;\r\n    left: -100px;\r\n    top: 0px;\n}\n}\n@keyframes secondSelect-data-v-74e2742d {\nfrom {\r\n    background-color: red;\r\n    left: 0px;\r\n    top: 0px;\n}\n25% {\r\n    background-color: yellow;\r\n    left: 0px;\r\n    top: -50px;\n}\n50% {\r\n    background-color: blue;\r\n    left: -100px;\r\n    top: -50px;\n}\nto {\r\n    background-color: green;\r\n    left: -100px;\r\n    top: 0px;\n}\n}\r\n", ""]);
 
 // exports
 
@@ -42114,7 +42076,7 @@ var render = function() {
     _c(
       "div",
       { staticClass: "playBoard" },
-      _vm._l(_vm.randomImages, function(image, index) {
+      _vm._l(_vm.randomImages, function(image) {
         return _c(
           "div",
           {
@@ -42194,7 +42156,7 @@ var render = function() {
     _c(
       "div",
       { staticClass: "playBoard" },
-      _vm._l(_vm.randomImages, function(image, index) {
+      _vm._l(_vm.randomImages, function(image) {
         return _c(
           "div",
           {
@@ -46752,13 +46714,7 @@ var render = function() {
                       staticClass:
                         "d-block justify-content-center align-items-center"
                     },
-                    [
-                      _vm._v(
-                        "\n                    Step : " +
-                          _vm._s(obj.step) +
-                          "\n                "
-                      )
-                    ]
+                    [_vm._v("Step : " + _vm._s(obj.step))]
                   ),
                   _vm._v(" "),
                   _vm._l(obj.numberArraySteps, function(element) {
@@ -46822,13 +46778,7 @@ var render = function() {
                     "col-md-2 d-flex justify-content-center align-text-center",
                   attrs: { id: "h3steps" }
                 },
-                [
-                  _vm._v(
-                    "\n                Step: " +
-                      _vm._s(_vm.steps + 1) +
-                      "\n            "
-                  )
-                ]
+                [_vm._v("Step: " + _vm._s(_vm.steps + 1))]
               ),
               _vm._v(" "),
               _c(
@@ -46923,11 +46873,11 @@ var render = function() {
             _c("hgroup", { staticClass: "col-md-3 speech-bubble" }, [
               _c("h1", { attrs: { id: "question" } }, [
                 _vm._v(
-                  "\n                    Is number " +
+                  "\n          Is number " +
                     _vm._s(_vm.numbersArr[_vm.start]) +
-                    " BIGGER than number\n                    " +
+                    " BIGGER than number\n          " +
                     _vm._s(_vm.numbersArr[_vm.start + 1]) +
-                    " ??\n                "
+                    " ??\n        "
                 )
               ])
             ]),
@@ -46997,7 +46947,7 @@ var render = function() {
               },
               [
                 _c("i", { staticClass: "fa fa-check" }),
-                _vm._v("\n                Yes, Swap\n            ")
+                _vm._v("\n        Yes, Swap\n      ")
               ]
             ),
             _vm._v(" "),
@@ -47018,7 +46968,7 @@ var render = function() {
               },
               [
                 _c("i", { staticClass: "fa fa-times" }),
-                _vm._v("\n                No, Don't Swap\n            ")
+                _vm._v("\n        No, Don't Swap\n      ")
               ]
             )
           ]

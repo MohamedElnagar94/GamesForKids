@@ -13,7 +13,7 @@
     <div class="playBoard">
       <div
         class="flip-card"
-        v-for="(image,index)  in randomImages"
+        v-for="(image)  in randomImages"
         :key="image"
         v-on:click="addFlipClass"
       >
