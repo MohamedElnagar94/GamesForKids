@@ -139,7 +139,7 @@ export default {
         this.newGame();
         document.getElementById("nextLevel").style.display = "inline-block";
         let levels = JSON.parse(localStorage.getItem('levels'));
-        levels[3].open = true;
+        levels[4].open = true;
         localStorage.setItem('levels',JSON.stringify(levels))
     },
     newGame() {

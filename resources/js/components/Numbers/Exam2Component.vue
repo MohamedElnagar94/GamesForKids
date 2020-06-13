@@ -156,7 +156,7 @@ export default {
             console.log("dragFinish", index, ev);
             if(this.count === 10){
                 let levels = JSON.parse(localStorage.getItem('levels'));
-                levels[4].open = true;
+                levels[5].open = true;
                 localStorage.setItem('levels',JSON.stringify(levels))
             }
         },

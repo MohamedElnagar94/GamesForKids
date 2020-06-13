@@ -24,17 +24,18 @@
             }
         },
         created(){
-            let checkCollections = JSON.parse(localStorage.getItem("level3Collections"));
+            let checkCollections = JSON.parse(localStorage.getItem("CardsCollections"));
             if (checkCollections === null) {
                 let allData = [
-                    { level: 1, open: true, href: "/pencilInBox",img:"pencilInBox.png",title:"Pencils in box"},
-                    { level: 2, open: true, href: "/order",img:"order.png",title:"Sort numbers"},
-                    { level: 3, open: true, href: "/ballons",img:"ballons.png",title:"Ballons" },
+                    { level: 1, open: true, href: "/cards-2-2",img:"card2-2.png",title:"2 * 2"},
+                    { level: 2, open: true, href: "/cards-2-3",img:"card2-3.png",title:"3 * 2" },
+                    { level: 3, open: true, href: "/cards-3-4",img:"card4-3.png",title:"3 * 4" },
+                    { level: 4, open: true, href: "/cards-4-4",img:"card4-4.png",title:"4 * 4" },
                 ];
-                localStorage.setItem("level3Collections", JSON.stringify(allData));
-                this.allData = JSON.parse(localStorage.getItem("level3Collections"));
+                localStorage.setItem("CardsCollections", JSON.stringify(allData));
+                this.allData = JSON.parse(localStorage.getItem("CardsCollections"));
             } else {
-                this.allData = JSON.parse(localStorage.getItem("level3Collections"));
+                this.allData = JSON.parse(localStorage.getItem("CardsCollections"));
             }
         }
     }
