@@ -9,10 +9,16 @@
             <div class="col-md-12 d-flex justify-content-center align-items-center font-weight-bold" style="font-size: 90px;color: orange;">
                 <p>{{checkAppreciation}}</p>
             </div>
-            <div class="col-md-12 d-flex align-items-center" style="justify-content: space-evenly;">
-                <img style="width: 100px" src="/storage/Images/door.png" alt="Next Exam">
+            <!-- <div class="col-md-12 d-flex align-items-center" style="justify-content: space-evenly;">
+                <img style="width: 100px" src="/storage/Images/door.png" alt="Next level">
                 <img style="width: 100px" src="/storage/Images/door.png" alt="Prev Exam">
-            </div>
+            </div> -->
+            <div class="col-md-12 d-flex align-items-center" style="justify-content: space-evenly;">
+            <a :href="finalResult[0].location" class="d-inline-block" data-toggle="tooltip" title="Play Again" data-placement="top">
+                <i class="fa fa-repeat btn btn-success" style="font-size:50px;padding: 15px 40px"></i>
+            </a>
+            <a href="/levels" ><img style="width: 100px" src="/storage/Images/door.png" alt="Next Level" data-toggle="tooltip" title="Next Level" data-placement="top"></a>
+        </div>
         </div>
     </div>
 </template>

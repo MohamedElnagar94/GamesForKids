@@ -76,7 +76,15 @@ Vue.component(
 );
 Vue.component(
     "bubble-sort-component",
-    require("./components/Sort/BubbleSortComponent.vue").default
+    require("./components/Numbers/Sort/BubbleSortComponent.vue").default
+);
+Vue.component(
+    "collection-component",
+    require("./components/CollectionComponent.vue").default
+);
+Vue.component(
+    "sort-collection-component",
+    require("./components/SortCollectionComponent.vue").default
 );
 /**
  * Next, we will create a fresh Vue application instance and attach it to

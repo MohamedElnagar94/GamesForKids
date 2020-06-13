@@ -4,7 +4,7 @@
             <div class="col-md-2 d-flex justify-content-center align-items-center p-4">
                 <div style="text-align:center; line-height: 5">
                     <img
-                        :style="[{ 'position': 'fixed', 'top': '50%', 'left': '15%'}]"
+                        :style="[{ 'position': 'fixed', 'top': '30%', 'left': '15%'}]"
                         :src="'/storage/Images/' + answer + '.gif'" alt="">
                 </div>
             </div>
@@ -12,7 +12,9 @@
             <div class="col-md-10 justify-content-center align-items-center p-4">
 
                 <h2 :style="[{'margin-left': '12%'}]" 
-                    class="col-md-12 justify-content-center align-items-center p-4" >  Step One <br/> <h3>Divide The main array into two sub-arrays</h3> </h2>
+                    class="col-md-12 justify-content-center align-items-center p-4" >  Step One 
+                        <i style="font-size: 48px; color: #FF8C00" v-on:click="voice('Step One. Divide This main array into two sub-arrays')" :class="voiceIcon"></i>
+                        <br/> <h3>Divide The main array into two sub-arrays</h3> </h2>
 
                 <div class='col-md-12' style="margin-left:25%">
                     <div id = "left-container" :draggable="status" @dragstart="onDragging">
@@ -57,7 +59,9 @@
 
                     <!-- Start Step Two Result -->
                     <h2 :style="[steps < 2 ? {'opacity': '0'} : {'margin': '10% 0 3% -10%'}]" 
-                    class="col-md-12 justify-content-center align-items-center" > Step Two <br /> <h3>Divide each sub array into two arrays</h3></h2>
+                    class="col-md-12 justify-content-center align-items-center" > Step Two 
+                    <i style="font-size: 48px; color: #FF8C00" v-on:click="voice('Step Two. Divide each sub array into two arrays')" :class="voiceIcon"></i>
+                    <br /> <h3>Divide each sub array into two arrays</h3></h2>
 
                     <div
                         class="col-md-5 d-flex justify-content-center align-items-center p-4"
@@ -168,7 +172,9 @@
 
                      <!-- Start Step Three Result [SORT] -->
                     <h2 :style="[steps < 6 ? {'opacity': '0'} : {'margin': '10% 0 3% -7%'}]" 
-                    class="col-md-12 justify-content-center align-items-center" > Step Three <br /> <h3>Sort elements and conquer into sorted sub-array</h3> </h2>
+                    class="col-md-12 justify-content-center align-items-center" > Step Three 
+                    <i style="font-size: 48px; color: #FF8C00" v-on:click="voice('Step Three. We seperated each array into elements. Sort elements and conquer into sorted sub-arrays')" :class="voiceIcon"></i>
+                    <br /> <h3>Sort elements and conquer into sorted sub-array</h3> </h2>
 
                     <div
                         class="col-md-6 d-flex justify-content-center align-items-center p-4"
@@ -186,7 +192,7 @@
                                         :id = "i + '-element'"
                                         draggable="true" @dragstart="onDragging"
                                         class="col-md-4 d-flex justify-content-center align-items-center p-4" 
-                                        :style="[steps < 6 ? {'display': 'none'} : {'background-color': '#DEB887', 'margin': '0 5%'}]"
+                                        :style="[steps < 6 ? {'display': 'none'} : {'background-color': '#FAEBD7', 'margin': '0 5%'}]"
                                         >
                                         <div style="font-size: 30px; margin: 0 40px">{{ i }}</div>
                                     </div>
@@ -202,7 +208,7 @@
                                         :id = "i + '-element'"
                                         draggable="true" @dragstart="onDragging"
                                         class="col-md-4 d-flex justify-content-center align-items-center p-4" 
-                                        :style="[steps < 6 ? {'display': 'none'} : {'background-color': '#DEB887', 'margin': '0 5%'}]">
+                                        :style="[steps < 6 ? {'display': 'none'} : {'background-color': '#FAEBD7', 'margin': '0 5%'}]">
                                         <div style="font-size: 30px; margin: 0 40px">{{ i }}</div>
                                     </div>
 
@@ -224,7 +230,7 @@
                                         :id = "i + '-element'"
                                         draggable="true" @dragstart="onDragging"
                                         class="col-md-4 d-flex justify-content-center align-items-center p-4" 
-                                        :style="[steps < 6 ? {'display': 'none'} : {'background-color': '#DEB887', 'margin': '0 5%'}]">
+                                        :style="[steps < 6 ? {'display': 'none'} : {'background-color': '#F5F5DC', 'margin': '0 5%'}]">
                                         <div style="font-size: 30px; margin: 0 40px">{{ i }}</div>
                                     </div>
 
@@ -239,7 +245,7 @@
                                         :id = "i + '-element'"
                                         draggable="true" @dragstart="onDragging"
                                         class="col-md-4 d-flex justify-content-center align-items-center p-4" 
-                                        :style="[steps < 6 ? {'display': 'none'} : {'background-color': '#DEB887', 'margin': '0 5%'}]">
+                                        :style="[steps < 6 ? {'display': 'none'} : {'background-color': '#F5F5DC', 'margin': '0 5%'}]">
                                         <div style="font-size: 30px; margin: 0 40px">{{ i }}</div>
                                     </div>
 
@@ -247,6 +253,7 @@
                         </div>
                     </div>
 
+                    <!--
                     <div>
                         <img
                             :style="[   steps === 6 || steps === 7 ?   {'height': '150px', 'float': 'right', 'margin-right': '11%'} : 
@@ -256,7 +263,7 @@
                                 ]   "
                             src="/storage/Images/drop.gif" alt="" />
                     </div>
-    
+                    -->
                     
                     <div class='col-md-12 d-flex justify-content-center align-items-center p-4' style="margin-left: -5%">
                         <div class='col-md-3 d-flex justify-content-center align-items-center p-4'>
@@ -299,7 +306,9 @@
 
                     <!-- Start Step Four [SORT] -->
                     <h2 :style="[steps < 14 ? {'opacity': '0'} : {'margin': '10% 0 3% -7%'}]" 
-                    class="col-md-12 justify-content-center align-items-center" > Step Four <br /> <h3>Sort Arrays and conquer into sorted sub-array</h3> </h2>
+                    class="col-md-12 justify-content-center align-items-center" > Step Four 
+                    <i style="font-size: 48px; color: #FF8C00" v-on:click="voice('Step Four. Sort each two sub arrays into one array')" :class="voiceIcon"></i>
+                    <br /> <h3>Sort Arrays and conquer into sorted sub-array</h3> </h2>
 
                     <div class='col-md-3 d-flex justify-content-center align-items-center p-4'>
                         <div class=" col-md-6" 
@@ -401,6 +410,7 @@
                         </div>
                     </div>
 
+                    <!--
                     <div>
                       <img
                             :style="[   steps === 14 || steps === 15 || steps === 16 || steps === 17 ?   {'height': '150px', 'float': 'right', 'margin-right': '17%'} : 
@@ -409,37 +419,37 @@
                                 ]   "
                             src="/storage/Images/drop.gif" alt="" />
                     </div>
-    
+                    -->
                     
                     <div class='col-md-12 d-flex justify-content-center align-items-center p-4' style="margin-left: -5%">
                         <div class='col-md-6 d-flex justify-content-center align-items-center p-4'>
                             <div class=" col-md-3" :id="leftSortedArray[0] + '-sortstep4'" @drop="drop" @dragover="allowDrop" 
-                            :style="[steps < 14 ? {'display': 'none'} : {'width': '100%', 'border-right': '2px solid white', 'height': '74px', 'background-color': '#FAEBD7'}]"></div>
+                            :style="[steps < 14 ? {'display': 'none'} : {'width': '100%', 'border-right': '2px solid white', 'height': '74px', 'background-color': 'lightgreen'}]"></div>
 
                             
                             <div class=" col-md-3" :id="leftSortedArray[1] + '-sortstep4'" @drop="drop" @dragover="allowDrop" 
-                            :style="[steps < 14 ? {'display': 'none'} :{'width': '100%', 'border-right': '2px solid white', 'height': '74px', 'background-color': '#FAEBD7'}]"></div>
+                            :style="[steps < 14 ? {'display': 'none'} :{'width': '100%', 'border-right': '2px solid white', 'height': '74px', 'background-color': 'lightgreen'}]"></div>
 
                             <div class=" col-md-3" :id="leftSortedArray[2] + '-sortstep4'" @drop="drop" @dragover="allowDrop"
-                            :style="[steps < 14 ? {'display': 'none'} : {'width': '100%', 'height': '74px','border-right': '2px solid white',  'background-color': '#FAEBD7'}]"></div>
+                            :style="[steps < 14 ? {'display': 'none'} : {'width': '100%', 'height': '74px','border-right': '2px solid white',  'background-color': 'lightgreen'}]"></div>
 
                             
                             <div class=" col-md-3" :id="leftSortedArray[3] + '-sortstep4'" @drop="drop" @dragover="allowDrop" 
-                            :style="[steps < 14 ? {'display': 'none'} :{'width': '100%', 'height': '74px', 'background-color': '#FAEBD7'}]"></div>
+                            :style="[steps < 14 ? {'display': 'none'} :{'width': '100%', 'height': '74px', 'background-color': 'lightgreen'}]"></div>
                         </div>
 
                         <div class='col-md-6 d-flex justify-content-center align-items-center p-4'>
                             <div class=" col-md-3" :id="rightSortedArray[0] + '-sortstep4'" @drop="drop" @dragover="allowDrop" 
-                            :style="[steps < 14 ? {'display': 'none'} :{'width': '100%', 'height': '74px', 'border-right': '2px solid white', 'background-color': '#F5F5DC'}]"></div>
+                            :style="[steps < 14 ? {'display': 'none'} :{'width': '100%', 'height': '74px', 'border-right': '2px solid white', 'background-color': 'lightblue'}]"></div>
                             
                             <div class=" col-md-3" :id="rightSortedArray[1] + '-sortstep4'" @drop="drop" @dragover="allowDrop" 
-                            :style="[steps < 14 ? {'display': 'none'} :{'width': '100%', 'height': '74px', 'border-right': '2px solid white', 'background-color': '#F5F5DC'}]"></div>
+                            :style="[steps < 14 ? {'display': 'none'} :{'width': '100%', 'height': '74px', 'border-right': '2px solid white', 'background-color': 'lightblue'}]"></div>
 
                             <div class=" col-md-3" :id="rightSortedArray[2] + '-sortstep4'" @drop="drop" @dragover="allowDrop" 
-                            :style="[steps < 14 ? {'display': 'none'} :{'width': '100%', 'height': '74px', 'border-right': '2px solid white', 'background-color': '#F5F5DC'}]"></div>
+                            :style="[steps < 14 ? {'display': 'none'} :{'width': '100%', 'height': '74px', 'border-right': '2px solid white', 'background-color': 'lightblue'}]"></div>
                            
                             <div class=" col-md-3" :id="rightSortedArray[3] + '-sortstep4'" @drop="drop" @dragover="allowDrop" 
-                            :style="[steps < 14 ? {'display': 'none'} :{'width': '100%', 'height': '74px', 'border-right': '2px solid white', 'background-color': '#F5F5DC'}]"></div>
+                            :style="[steps < 14 ? {'display': 'none'} :{'width': '100%', 'height': '74px', 'border-right': '2px solid white', 'background-color': 'lightblue'}]"></div>
                         </div>
                     </div>
 
@@ -448,11 +458,13 @@
 
                      <!-- Start Step Four [SORT] -->
                     <h2 :style="[steps < 22 ? {'opacity': '0'} : {'margin': '10% 0 3% 0'}]" 
-                    class="col-md-12 justify-content-center align-items-center" > Step Five <br /> <h3>Sort sub-Arrays' elements and conquer into Main Sorted Array</h3>  </h2>
+                    class="col-md-12 justify-content-center align-items-center" > Step Five 
+                    <i style="font-size: 48px; color: #FF8C00" v-on:click="voice('Great. You get it. Now sort all elements into one main array')" :class="voiceIcon"></i>
+                    <br /> <h3>Sort sub-Arrays' elements and conquer into Main Sorted Array</h3>  </h2>
 
                     <div class='col-md-6 d-flex justify-content-center align-items-center p-4'>
                         <div class=" col-md-3"
-                        :style="[steps < 22 ? {'display': 'none'} : {'width': '100%', 'border-right': '2px solid white', 'height': '74px', 'background-color': '#FAEBD7'}]">
+                        :style="[steps < 22 ? {'display': 'none'} : {'width': '100%', 'border-right': '2px solid white', 'height': '74px', 'background-color': 'lightgreen'}]">
                             <div
                                 :key="leftSortedArray[0]"
                                 :id="leftSortedArray[0] + '-step5'"
@@ -464,7 +476,7 @@
 
                         
                         <div class=" col-md-3" 
-                        :style="[steps < 22 ? {'display': 'none'} :{'width': '100%', 'border-right': '2px solid white', 'height': '74px', 'background-color': '#FAEBD7'}]">
+                        :style="[steps < 22 ? {'display': 'none'} :{'width': '100%', 'border-right': '2px solid white', 'height': '74px', 'background-color': 'lightgreen'}]">
                             <div
                                 :key="leftSortedArray[1]"
                                 :id="leftSortedArray[1] + '-step5'"
@@ -475,7 +487,7 @@
                         </div>
 
                         <div class=" col-md-3"
-                        :style="[steps < 22 ? {'display': 'none'} : {'width': '100%', 'height': '74px','border-right': '2px solid white',  'background-color': '#FAEBD7'}]">
+                        :style="[steps < 22 ? {'display': 'none'} : {'width': '100%', 'height': '74px','border-right': '2px solid white',  'background-color': 'lightgreen'}]">
                             <div
                                 :key="leftSortedArray[2]"
                                 :id="leftSortedArray[2] + '-step5'"
@@ -487,7 +499,7 @@
 
                         
                         <div class=" col-md-3"
-                        :style="[steps < 22 ? {'display': 'none'} :{'width': '100%', 'height': '74px', 'background-color': '#FAEBD7'}]">
+                        :style="[steps < 22 ? {'display': 'none'} :{'width': '100%', 'height': '74px', 'background-color': 'lightgreen'}]">
                             <div
                                 :key="leftSortedArray[3]"
                                 :id="leftSortedArray[3] + '-step5'"
@@ -500,7 +512,7 @@
 
                     <div class='col-md-6 d-flex justify-content-center align-items-center p-4'>
                         <div class=" col-md-3"
-                        :style="[steps < 22 ? {'display': 'none'} :{'width': '100%', 'height': '74px', 'border-right': '2px solid white', 'background-color': '#F5F5DC'}]">
+                        :style="[steps < 22 ? {'display': 'none'} :{'width': '100%', 'height': '74px', 'border-right': '2px solid white', 'background-color': 'lightblue'}]">
                             <div
                                 :key="rightSortedArray[0]"
                                 :id="rightSortedArray[0] + '-step5'"
@@ -511,7 +523,7 @@
                         </div>
                         
                         <div class=" col-md-3"
-                        :style="[steps < 22 ? {'display': 'none'} :{'width': '100%', 'height': '74px', 'border-right': '2px solid white', 'background-color': '#F5F5DC'}]">
+                        :style="[steps < 22 ? {'display': 'none'} :{'width': '100%', 'height': '74px', 'border-right': '2px solid white', 'background-color': 'lightblue'}]">
                             <div
                                 :key="rightSortedArray[1]"
                                 :id="rightSortedArray[1] + '-step5'"
@@ -522,7 +534,7 @@
                         </div>
 
                         <div class=" col-md-3" :id="rightSortedArray[2] + '-sortstep4'" 
-                        :style="[steps < 22 ? {'display': 'none'} :{'width': '100%', 'height': '74px', 'border-right': '2px solid white', 'background-color': '#F5F5DC'}]">
+                        :style="[steps < 22 ? {'display': 'none'} :{'width': '100%', 'height': '74px', 'border-right': '2px solid white', 'background-color': 'lightblue'}]">
 
                             <div
                                 :key="rightSortedArray[2]"
@@ -535,7 +547,7 @@
                         </div>
                         
                         <div class=" col-md-3" :id="rightSortedArray[3] + '-sortstep4'" 
-                        :style="[steps < 22 ? {'display': 'none'} :{'width': '100%', 'height': '74px', 'border-right': '2px solid white', 'background-color': '#F5F5DC'}]">
+                        :style="[steps < 22 ? {'display': 'none'} :{'width': '100%', 'height': '74px', 'border-right': '2px solid white', 'background-color': 'lightblue'}]">
                             <div
                                 :key="rightSortedArray[3]"
                                 :id="rightSortedArray[3] + '-step5'"
@@ -546,12 +558,14 @@
                         </div>
                     </div>
 
+                    <!--
                     <div>
+                    
                        <img
                             :style="[ steps > 21 && steps < 30 ?   {'height': '150px', 'float': 'right', 'margin-right': '44%'} : {'display' : 'none'}]"
                             src="/storage/Images/drop.gif" alt="" />
                     </div>
-    
+                    -->
                     
                     <div class='col-md-12 d-flex justify-content-center align-items-center p-4' style="margin-left: -5%">
                         <div class='col-md-12' style="margin-left:25%">
@@ -586,6 +600,8 @@
                 sortedArray: [],
                 rightSortedArray: [],
                 leftSortedArray: [],
+                voiceIcon: 'fa fa-play-circle',
+               synth: window.speechSynthesis,
             }
         },
 
@@ -708,7 +724,25 @@
                         parent.appendChild(singleNum);
                     break;
                 }
-            }   
+            },
+
+            textToVoice: function(text){
+
+                if (speechSynthesis !== undefined) {
+                    let toSpeak = new SpeechSynthesisUtterance(text);
+                    toSpeak.voice = this.synth.getVoices()[0];
+                    this.synth.speak(toSpeak);
+                }
+            },
+
+            voice: function(msg){
+                this.voiceIcon = 'fa fa-volume-up';
+                this.textToVoice(msg);
+                setTimeout(() => {
+                    this.voiceIcon = 'fa fa-play-circle';
+                }, 5000);
+            }
+
         },
 
         created() {

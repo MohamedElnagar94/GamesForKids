@@ -152,6 +152,9 @@ export default {
     isGameEnd: function() {
       if (this.left === 0) {
         clearInterval(this.loop);
+        let levels = JSON.parse(localStorage.getItem('levels'));
+        levels[3].open = true;
+        localStorage.setItem('levels',JSON.stringify(levels))
         // const returnedValue = confirm(text);
         // if (returnedValue === true) this.newGame();
       }
