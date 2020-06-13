@@ -32,6 +32,7 @@ Vue.component('result-component', require('./components/Numbers/ResultComponent.
 Vue.component('count-numbers-component', require('./components/Numbers/CountNumbers/CountNumbersComponent.vue').default);
 Vue.component('merge-sort-component', require('./components/Numbers/Sort/MergeSortComponent.vue').default);
 Vue.component('quick-sort-component', require('./components/Numbers/Sort/QuickSortComponent.vue').default);
+Vue.component('binary-search-component', require('./components/Numbers/BinarySearch/BinarySearchComponent.vue').default);
 Vue.component('levels-component', require('./components/LevelsComponent.vue').default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
