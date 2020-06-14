@@ -130,8 +130,9 @@
     @stack('script')
 
     <!-- footer -->
-    <div class="">
-        <div class="containers">
+   
+   
+        <div class="container mt-3">
             <div class="row">
                 <div class="col-12 col-md-3 footer-left-w3">
                     <h4>Contact</h4>
@@ -199,8 +200,7 @@
                 </div>                
             </div>
         </div>
-    </div>
-
+   
     <!-- //footer -->
 
 </body>

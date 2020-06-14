@@ -99,7 +99,6 @@
 									<li><a href="#" class="facebook"></a></li>
 								</ul>
 							</div>
-							<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.</p>
 						</div>
 					</div>
 					<h4>Mohamed Elnagar</h4>
@@ -118,7 +117,6 @@
 									<li><a href="#" class="facebook"></a></li>
 								</ul>
 							</div>
-							<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.</p>
 						</div>
 					</div>
 					<h4>Eslam Taher</h4>
@@ -137,7 +135,6 @@
 									<li><a href="#" class="facebook"></a></li>
 								</ul>
 							</div>
-							<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.</p>
 						</div>
 					</div>
 					<h4>Mohamed Farag</h4>
@@ -156,7 +153,6 @@
 									<li><a href="#" class="facebook"></a></li>
 								</ul>
 							</div>
-							<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.</p>
 						</div>
 					</div>
 					<h4>AshRaf Amer</h4>
