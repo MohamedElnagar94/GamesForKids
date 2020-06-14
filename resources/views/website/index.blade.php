@@ -39,14 +39,14 @@
 				</li>
 				<li>
 					<div class="trend-grid">
-						<h4>Order Game</h4>
-						<img src="images/ordernumber.jpg" alt=" " class="img-responsive" />
+						<h4>Sort Game</h4>
+						<img src="images/order.png" alt=" " class="img-responsive" />
 					</div>
 				</li>
 				<li>
 					<div class="trend-grid">
 						<h4>Bubble Sort Game</h4>
-						<img src="images/bubble.jpg" alt=" " class="img-responsive" />
+						<img src="images/bubblesort.png" alt=" " class="img-responsive" />
 					</div>
                 </li>
                 <li>
@@ -54,11 +54,23 @@
 						<h4>Merge Sort Game</h4>
 						<img src="images/merg2.jpg" alt=" " class="img-responsive" />
 					</div>
-                </li>
+				</li>
+				<li>
+					<div class="trend-grid">
+						<h4>Memory Game</h4>
+						<img src="images/card4-3.png" alt=" " class="img-responsive" />
+					</div>
+				</li>
                 <li>
 					<div class="trend-grid">
 						<h4>Pencil In Box</h4>
-						<img src="images/pencil (1).jpg" alt=" " class="img-responsive" />
+						<img src="images/pencilInBox.png" alt=" " class="img-responsive" />
+					</div>
+				</li>
+				<li>
+					<div class="trend-grid">
+						<h4>Ballons Game</h4>
+						<img src="images/ballons.png" alt=" " class="img-responsive" />
 					</div>
                 </li>
                 <li>
@@ -66,11 +78,11 @@
 						<h4>Compare Numbers</h4>
 						<img src="images/compare.jpg" alt=" " class="img-responsive" />
 					</div>
-                </li>
-                <li>
+				</li>
+				<li>
 					<div class="trend-grid">
-						<h4>Count Numbers</h4>
-						<img src="images/count.jpg" alt=" " class="img-responsive" />
+						<h4>Insertion Sort</h4>
+						<img src="images/insertionsort.png" alt=" " class="img-responsive" />
 					</div>
                 </li>
                 <li>
@@ -78,11 +90,13 @@
 						<h4>Count Numbers</h4>
 						<img src="images/count.jpg" alt=" " class="img-responsive" />
 					</div>
-                </li>
+				</li>
+				
+				
                 <li>
 					<div class="trend-grid">
 						<h4>Memory Game</h4>
-						<img src="images/memory4.jpg" alt=" " class="img-responsive" />
+						<img src="images/card4-4.png" alt=" " class="img-responsive" />
 					</div>
 				</li>
 			</ul>
