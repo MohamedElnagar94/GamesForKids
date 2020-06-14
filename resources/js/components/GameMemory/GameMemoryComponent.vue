@@ -205,7 +205,7 @@ export default {
     // hide the cards back
     hideCards: function(cards) {
       for (let i = 0; i < cards.length; i += 1) {
-        this.board[cards[i].row][cards[i].col].status = 0;
+        this.board[cards[i].row][cards[i].col].status = 0; 
       }
     },
     // a little help for the player

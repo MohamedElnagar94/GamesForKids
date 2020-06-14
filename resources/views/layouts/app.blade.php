@@ -70,7 +70,7 @@
                         <li class="hover-effect"><a href="/">Home</a></li>
                         <li class="hover-effect"><a href="/about">About</a></li>
                         <li class="hover-effect"><a href="/games">Games</a></li>
-                        <li class="hover-effect"><a href="/news">News</a></li>
+                        {{-- <li class="hover-effect"><a href="/news">News</a></li> --}}
                         <li class="hover-effect"><a href="/contact">Contact</a></li>
                         @guest
                         <li class="hover-effect">
@@ -137,54 +137,54 @@
                     <h4>Contact</h4>
                     <ul>
                         <li><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></li>
-                        <li><a href="mailto:example@mail.com">
-                                <h6>ex@mail.com</h6>
+                        <li><a href="mailto:sara@gmail.com">
+                                <h6>sara@gmail.com</h6>
                             </a></li>
                     </ul>
                     <ul>
                         <li><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span></li>
                         <li>
-                            <h6>+18045678834</h6>
+                            <h6>+01009025897</h6>
                         </li>
                     </ul>
                     <ul>
                         <li><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span></li>
                         <li>
-                            <h6>4th Avenue,London</h6>
+                            <h6>Faruq Street Zagazig, Egypt</h6>
                         </li>
                     </ul>
                     <ul>
                         <li><span class="glyphicon glyphicon-phone-alt" aria-hidden="true"></span></li>
                         <li>
-                            <h6>(0033)6544 5453 644</h6>
+                            <h6>(055)2071254</h6>
                         </li>
                     </ul>
                 </div>
                 <div class="col-12 col-md-5 footer-middle-w3">
                     <h4>Latest Games</h4>
                     <div class="col-12 col-md-3 img-w3-agile">
-                        <a href="single.html"><img class="image" src="images/ng1.jpg" alt=" " /></a>
+                        <a href="/"><img class="img-fluid" src="images/ballons.png" width="100%" height="130px" alt=" " /></a>
                     </div>
                     <div class="col-12 col-md-3 img-w3-agile">
-                        <a href="single.html"><img class="image" src="images/ng2.jpg" alt=" " /></a>
+                        <a href="/"><img class="img-fluid" src="images/order.png"  width="100%" height="130px" alt=" " /></a>
                     </div>
                     <div class="col-12 col-md-3 img-w3-agile">
-                        <a href="single.html"><img class="image" src="images/ng3.jpg" alt=" " /></a>
+                        <a href="/"><img class="img-fluid" src="images/numbergame.jpg" width="100%" height="130px" alt=" " /></a>
                     </div>
                     <div class="col-12 col-md-3 img-w3-agile">
-                        <a href="single.html"><img class="image" src="images/ng4.jpg" alt=" " /></a>
+                        <a href="/"><img class="img-fluid" src="images/card2-2.png" width="100%" height="130px" alt=" " /></a>
                     </div>
                     <div class="col-12 col-md-3 img-w3-agile footer-middle-wthree">
-                        <a href="single.html"><img class="image" src="images/ng5.jpg" alt=" " /></a>
+                        <a href="/"><img class="img-fluid" src="images/bubblesort.png" width="100%" height="130px" alt=" " /></a>
                     </div>
                     <div class="col-12 col-md-3 img-w3-agile footer-middle-wthree">
-                        <a href="single.html"><img class="image" src="images/ng6.jpg" alt=" " /></a>
+                        <a href="/"><img class="img-fluid" src="images/binarysearch.png" width="100%" height="130px" alt=" " /></a>
                     </div>
                     <div class="col-12 col-md-3 img-w3-agile footer-middle-wthree">
-                        <a href="single.html"><img class="image" src="images/ng7.jpg" alt=" " /></a>
+                        <a href="/"><img class="img-fluid" src="images/card4-4.png" width="100%" height="130px" alt=" " /></a>
                     </div>
                     <div class="col-12 col-md-3 img-w3-agile footer-middle-wthree">
-                        <a href="single.html"><img class="image" src="images/ng8.jpg" alt=" " /></a>
+                        <a href="/"><img class="img-fluid" src="images/merg2.jpg" width="100%" height="130px" alt=" " /></a>
                     </div>
                     <div class="clearfix"></div>
                 </div>
@@ -192,10 +192,10 @@
                     <a href="/">
                         <h4>Kids <img src="images/f1.png" alt=" " /> Game</h4>
                     </a>
-                    <p>Donec lobortis diam eu auctor porta. Phasellus in elementum tortor, sit amet imperdiet urna
-                        pellentesque non risus porta.</p>
-                    <p class="agileinfo">Suspendisse convallis malesuada libero, non rutrum arcu pellentesque lacinia.
-                    </p>
+                    <p>The website that can be used in teaching mathematics principles in simple attractive way, using 
+                        simple games which focused on learning numbers, mathematical operations.</p>
+                    <p class="agileinfo">There are some entertainment games to help improving the children skills</p>
+                    <p >Games for data structure algorithms for elder children </p>
                 </div>                
             </div>
         </div>

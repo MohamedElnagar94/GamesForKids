@@ -176,7 +176,7 @@
                     <h2 :style="[steps < 6 ? {'opacity': '0'} : {'margin': '10% 0 3% -7%'}]" 
                     class="col-md-12 justify-content-center align-items-center" > Step Three 
                     <i style="font-size: 48px; color: #FF8C00" 
-                    v-on:click="voice('Step Three. We seperated each array into elements. Sort elements. and conquer into sorted sub-arrays. ')" :class="voiceIcon"></i>
+                    v-on:click="voice('Step Three. We seperated each array into elements. Sort elements. and conquer into sorted sub-arrays. ')" :class="steps < 14 ? voiceIcon : ''"></i>
                     <br /> <h3>Sort elements and conquer into sorted sub-array</h3> </h2>
 
                     <div

@@ -86,7 +86,7 @@
 		<div class="container">
 			<h3>Our Team</h3>
 			<div class="w3l_team_grids-agile">
-				<div class="col-md-3 w3l_team_grid">
+				<div class="col-md-2 w3l_team_grid">
 					<div class="view view-second">
 						<img src="images/t1.jpg" alt=" " class="img-responsive" />
 						<div class="mask"></div>
@@ -102,12 +102,12 @@
 							<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.</p>
 						</div>
 					</div>
-					<h4>Mariya Thomas</h4>
-					<p>Games Designer</p>
+					<h4>Mohamed Elnagar</h4>
+					<p>Full Stack Developer</p>
 				</div>
-				<div class="col-md-3 w3l_team_grid">
+				<div class="col-md-2 w3l_team_grid">
 					<div class="view view-second">
-						<img src="images/t2.jpg" alt=" " class="img-responsive" />
+						<img src="images/t2.jpeg" alt=" " class="img-responsive" />
 						<div class="mask"></div>
 						<div class="content">
 							<div class="w3l_social_icons w3l_social_icons1">
@@ -121,12 +121,12 @@
 							<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.</p>
 						</div>
 					</div>
-					<h4>Dino Jass</h4>
-					<p>Games Designer</p>
+					<h4>Eslam Taher</h4>
+					<p>Full Stack Developer</p>
 				</div>
-				<div class="col-md-3 w3l_team_grid">
+				<div class="col-md-2 w3l_team_grid">
 					<div class="view view-second">
-						<img src="images/t3.jpg" alt=" " class="img-responsive" />
+						<img src="images/t3.jpeg" alt=" " class="img-responsive" />
 						<div class="mask"></div>
 						<div class="content">
 							<div class="w3l_social_icons w3l_social_icons1">
@@ -140,10 +140,10 @@
 							<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.</p>
 						</div>
 					</div>
-					<h4>Michael Doe</h4>
-					<p>Games Designer</p>
+					<h4>Mohamed Farag</h4>
+					<p>Full Stack Developer</p>
 				</div>
-				<div class="col-md-3 w3l_team_grid">
+				<div class="col-md-2 w3l_team_grid">
 					<div class="view view-second">
 						<img src="images/t4.jpg" alt=" " class="img-responsive" />
 						<div class="mask"></div>
@@ -159,8 +159,27 @@
 							<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.</p>
 						</div>
 					</div>
-					<h4>Rita James</h4>
-					<p>Games Designer</p>
+					<h4>AshRaf Amer</h4>
+					<p>Full Stack Developer</p>
+				</div>
+				<div class="col-md-2 w3l_team_grid">
+					<div class="view view-second">
+						<img src="images/t5.jpeg" alt=" " class="img-responsive" />
+						<div class="mask"></div>
+						<div class="content">
+							<div class="w3l_social_icons w3l_social_icons1">
+								<ul>
+									<li><a href="#" class="linkedin"></a></li>
+									<li><a href="#" class="google"></a></li>
+									<li><a href="#" class="twitter"></a></li>
+									<li><a href="#" class="facebook"></a></li>
+								</ul>
+							</div>
+							<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.</p>
+						</div>
+					</div>
+					<h4>Banan Emad</h4>
+					<p>Full Stack Developer</p>
 				</div>
 				<div class="clearfix"> </div>
 			</div>
