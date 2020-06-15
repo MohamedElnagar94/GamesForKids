@@ -1,5 +1,5 @@
 <template>
-                <div class="matchedNumber" :id="id"   @dragover.prevent    @drop.prevent="drop">
+                <div class="matchedNumber" :id="id"   @dragover.prevent  @drop.prevent="drop">
 
                 <slot/>
                 </div>
@@ -12,14 +12,19 @@ export default{
     props:["id"],
     methods:{
         drop: e=>{
-
                 const pencil_id= e.dataTransfer.getData('pencil_id');
                 const penc=document.getElementById(pencil_id);
                 penc.style.display="inline-block";
 
                 e.target.appendChild(penc);
                 const targetDivId=e.target.id;
-              
+                if (targetDivId == "box-0"){
+                   if($("#"+targetDivId+" > div").length > 0){
+                    alert("you can't put any pencils ");
+                    e.target.removeChild(penc);
+                    $('.objects')[0].appendChild(penc);
+                    }
+                    }
                 if (targetDivId == "box-1"){
 
                     if($("#"+targetDivId+" > div").length == 1){
@@ -117,8 +122,7 @@ export default{
                     }
                 }
                 
-                
-        }                           
+        }  
     }
 }
 </script>

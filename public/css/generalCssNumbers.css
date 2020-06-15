@@ -1,0 +1,61 @@
+
+
+  .container-fluid{
+	background-image: url(./img/drawings.png);
+}
+@font-face{
+	font-family:"MisterVampire";
+	src:url("./fonts/MISTV___.TTF");
+  }
+  .container{
+	width:90%;
+	background-color: rgb(120,173,191); 
+	margin:0 auto;
+	border:.6em solid #fff;
+	border-radius: .5em;
+	
+  }
+#gameControlls{
+	width:100%;
+	margin:0em auto;
+    margin-top:1em;
+    border-bottom:2px solid white;
+}
+#gameControlls h4,#gameControlls span, #gameControlls h3{
+color:white;
+font-family: 'Comic Sans MS';
+font-size: xx-large;
+width:25%;
+margin-top: .5em;
+margin-left: .3em;
+display: inline-block;
+}
+#gameControlls h3,#gameControlls span{
+font-size: x-large;
+width:13%;
+margin-left: .1em;
+margin-right: .2em;
+}
+.nextButton{
+	width:25%;
+	height:2em;
+	margin :1em auto;
+	text-align:center;
+	background-color:white;
+	color: rgb(120,173,191);
+	font-family: 'Comic Sans MS';
+	font-size:x-large;
+	border-radius: 2em;
+	border:2px solid rgb(151, 192, 206);
+	transition: all .3s ease-in-out;
+  }
+  .nextButton:hover{
+	color: rgb(120,173,191);
+	transform:scale(.95,.95) ;
+	-webkit-transform: scale(.9,.9);
+	-moz-transform: scale(.9,.9);
+  }
+  .nextButton:focus{
+	color: rgb(120,173,191);
+	outline: none;
+  }

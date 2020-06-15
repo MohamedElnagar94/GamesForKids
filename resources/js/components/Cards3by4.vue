@@ -4,10 +4,12 @@
     <div id="gameControlls">
           
             <h4 >Score :</h4><span id="scoreText">{{score}} /6</span>
-            <h4 >Time : </h4><span id="timercards"> </span><h3>seconds</h3>
+            <h4 >Time : </h4><span id="timerPencil" v-text="testSeconds"> </span><h3>seconds</h3>
         </div>
-        <button class="buttonCard"id="nextLevel" style="display:none;" >next level</button>
-        <button class="buttonCard"v-on:click="newGame" >new game</button>    
+    
+
+        <div class="row">   <a class="nextButton"id="nextLevel" style="display:none;"  href="/gameMemory"> next level </a>
+        <button class="nextButton"v-on:click="newGame" >new game</button>    </div>
    
         <div class="playBoard"  >
             <div class="flip-card"  v-for="(image,index) in randomImages" v-on:click="addFlipClass">
@@ -23,7 +25,6 @@
 </template>
 
 <script >
-import swal from 'sweetalert';
     export default {
         name:"cards-3-4",
           data() {
@@ -54,7 +55,8 @@ import swal from 'sweetalert';
     selectedImage6:'',
     randomImages:[],
     score:0,
-     seconds:0
+    timing:null,
+    testSeconds:0,
   }
   },
   created () {
@@ -68,9 +70,9 @@ import swal from 'sweetalert';
       this.selectedImage = this.images[idx];
       this.selectedImage2 = this.images2[idx2];
       this.selectedImage3 = this.images3[idx3];
-       this.selectedImage4 = this.images[idx4];
-      this.selectedImage5 = this.images2[idx5];
-      this.selectedImage6 = this.images3[idx6];
+       this.selectedImage4 = this.images4[idx4];
+      this.selectedImage5 = this.images5[idx5];
+      this.selectedImage6 = this.images6[idx6];
       for(let n=0;n<2;n++){
           this.randomImages.push(this.selectedImage);
           this.randomImages.push(this.selectedImage2);
@@ -80,16 +82,8 @@ import swal from 'sweetalert';
           this.randomImages.push(this.selectedImage6);
       } 
      
-
-setInterval(function () {
-    document.getElementById('timercards').innerText=this.seconds;
-           this.seconds++;
-            }.bind(this), 1000);
-      this.randomize();
-      document.getElementById("scoreText").innerText=this.score;
-      
-  },
-        methods:{
+},
+   methods:{
               randomize() {
       for (let i = this.randomImages.length - 1; i > 0; i--) {
         let randomIndex = Math.floor(Math.random() * i)
@@ -99,15 +93,26 @@ setInterval(function () {
       }
         },
         
+                 timeDisplay() {
+                this.timing= setInterval(() => {
+		        document.getElementById('timerPencil').innerText=this.testSeconds;
+                this.testSeconds++;
+		        }, 1000)
+            
+	    },
+        clearSetInterval(){
+            clearInterval(this.timing);
+        },
         removeFlipCard(img1,img2){
            $(img1.parentElement.parentElement).removeClass("flip-class-outer");
             $(img2.parentElement.parentElement).removeClass("flip-class-outer");
         },
         addFlipClass(e){
-        
+         this.clearSetInterval();
+            this.timeDisplay();
          $(e.target.parentElement.parentElement).addClass("flip-class-outer");
-           let firstImage=$(".flip-class-outer .eachNumber")[0].childNodes[2];
-          let secondImage=$(".flip-class-outer .eachNumber")[1].childNodes[2];
+           let firstImage=$(".flip-class-outer .eachNumber img")[0];
+          let secondImage=$(".flip-class-outer .eachNumber img")[1];
        console.log("inner text"+document.getElementById("scoreText"));
              if($(".matched-cards").length < 12){
                 if($(".flip-class-outer").length==2){
@@ -135,6 +140,8 @@ setInterval(function () {
                    document.getElementById("nextLevel").style.display="inline-block";
         },
         newGame(){
+            this.testSeconds=0;
+            this.clearSetInterval();
           $(".flip-card").removeClass("flip-class-outer");
            $(".flip-card").removeClass("matched-cards");
           this.randomImages=[];
