@@ -8,7 +8,7 @@
           v-for="(level,index) in levels"
           v-on:mouseover="playSound(index)"
           v-on:click="stopPreventDefult($event,index)"
-          class="allLevels" 
+          class="allLevels"
           :class="['level' + level.level,level.open === true ?'outer-circle level'+level.level+'active': '']"
           :key="index"
           :href="level.open === true ? level.href : '#'"
@@ -63,7 +63,7 @@ export default {
         `soundLevel${this.levels[index].level}`
       );
       hoverLevel.currentTime = 0;
-      hoverLevel.play(); 
+      hoverLevel.play();
     }
   },
   created() {
@@ -72,11 +72,11 @@ export default {
       let allLevels = [
         { level: 1, open: true, href: "/numbers", sound: "level 1.mp3" },
         { level: 2, open: false, href: "/count", sound: "level 2.mp3" },
-        { level: 3, open: false, href: "/pencilInBox", sound: "level 3.mp3" },
-        { level: 4, open: false, href: "/exam2", sound: "level 4.mp3" },
-        { level: 5, open: false, href: "/order", sound: "level 5.mp3" },
+        { level: 3, open: false, href: "/collections", sound: "level 3.mp3" },
+        { level: 4, open: false, href: "/cardsCollections", sound: "level 4.mp3" },
+        { level: 5, open: false, href: "/exam2", sound: "level 5.mp3" },
         { level: 6, open: false, href: "/numbersExam", sound: "level 6.mp3" },
-        { level: 7, open: false, href: "#", sound: "level 7.mp3" }
+        { level: 7, open: false, href: "/sortCollections", sound: "level 7.mp3" }
       ];
       localStorage.setItem("levels", JSON.stringify(allLevels));
       this.levels = JSON.parse(localStorage.getItem("levels"));

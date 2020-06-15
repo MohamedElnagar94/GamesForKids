@@ -12,7 +12,7 @@
             <div class="flip-card"  v-for="(image,index) in randomImages" v-on:click="addFlipClass">
                 <div class="eachNumber" >     
                    <div  class="matchedNumber"></div>
-                    <img class="number" :src="'/storage/Images/card/fruits/'+image+'.png'"/> 
+                    <img class="number" :src="'images/card/fruits/'+image+'.png'"/> 
                 </div>  
             </div>  
          </div> 

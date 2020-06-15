@@ -10,7 +10,7 @@
                      </div>                            
                     
                <div class="col-md-12 position-relative d-flex align-items-center" style="justify-content: space-evenly;padding: 30px">
-                <button  class="btn btn-primary btn-lg"  v-on:click="playSound(`/storage/sounds/numbers/${newArray[Math.floor(Math.random() * newArray.length)]}.mp3`)">
+                <button  class="btn btn-primary btn-lg" id="mp3" v-on:click="playSound(`/sounds/numbers/${newArray[Math.floor(Math.random() * newArray.length)]}.mp3`)">
                     <span class="glyphicon glyphicon-play"></span>
                     </button>
                 <button v-on:click="resetGame" class="btn btn-primary btn-lg"> <span class="glyphicon glyphicon-repeat"></span></button>

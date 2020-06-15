@@ -7,7 +7,7 @@
                 <img style="height: 40px" src="/storage/Images/slash.png" alt="" />
                 <img style="height: 40px" src="/storage/Images/10.png" alt="" />
             </div>
-            <div class="col-md-6">                
+            <div class="col-md-6">
                 <div class="col-md-12 d-flex justify-content-center align-items-center p-5">
                     <img class="m-3" style="height: 75px" :src="'/storage/Images/' + firstNum + '.png'" alt="" />
                     <div class="result d-flex justify-content-center align-items-center" :class="{ divBg: changeColor === true }" id="result" @dragover.prevent @drop="dragFinish(-1, $event)"></div>
@@ -148,14 +148,15 @@ export default {
                 secondNum: this.secondNum,
                 result: this.result,
                 resultFromDrag: this.resultFromDrag,
-                answer: this.result === this.resultFromDrag
+                answer: this.result === this.resultFromDrag,
+                location: window.location.pathname
             });
             localStorage.setItem("finalResult", JSON.stringify(this.questions));
             console.log(localStorage.getItem("finalResult"));
             console.log("dragFinish", index, ev);
             if(this.count === 10){
                 let levels = JSON.parse(localStorage.getItem('levels'));
-                levels[4].open = true;
+                levels[5].open = true;
                 localStorage.setItem('levels',JSON.stringify(levels))
             }
         },

@@ -107,7 +107,7 @@
                 <hgroup class="col-md-3 speech-bubble">
                     <h1 id="question">
                         Is number {{ numbersArr[start] }} BIGGER than number
-                        {{ numbersArr[start + 1] }} ??
+                        {{ numbersArr[start + 1] }}?
                     </h1>
                 </hgroup>
                 <img
@@ -207,7 +207,7 @@ export default {
                 this.numbersArr[this.start] +
                 " BIGGER than number" +
                 this.numbersArr[this.start + 1] +
-                " ?";
+                "? ";
             $("#character")[0].src = "/storage/Images/hello2.gif";
             $("#question")[0].innerText = txtInput;
             this.speake(txtInput);
@@ -336,14 +336,15 @@ export default {
     position: fixed;
     top: 50%;
     left: 50%;
-    width: 90%;
+    width: 100%;
     height: 100%;
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
-    background-color: rgba(1, 1, 22, 0.959);
+    background-color: rgba(1, 1, 34, 0.979);
     color: white;
     display: none;
     padding-top: 30px;
+    z-index: 999;
 }
 .swapFirst {
     animation: firstSelect;
