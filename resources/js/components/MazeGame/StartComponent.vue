@@ -1,7 +1,10 @@
 <template>
   <div id="app" class="h-screen flex flex-col">
+    <!-- <img :src="src" class="vloume" @click="play()" alt /> -->
     <div class="top-bar flex items-center shadow-md px-4 h-12">
       <p class="flex-1 text-center text-lg bold">Level {{ level }}</p>
+        <img src="/storage/Images/congrates.gif" class="celebrateimg" v-if="level == 8"/>
+
       <i class="material-icons hamburger cursor-pointer" @click="menuOpen = true">menu</i>
     </div>
     <div class="flex-1 flex flex-col h-full">
@@ -13,6 +16,9 @@
         </div>
       </div>
     </div>
+    <div class="w-100 text-center">
+        <button class="btn btn-primary mt-3 playAgain" @click="forceRerender()" v-if="level == 8">Play Again</button>
+    </div>
     <div v-if="menuOpen" class="menu-container absolute pin h-screen w-screen py-16">
       <div class="container mx-auto shadow-md flex flex-col h-full">
         <div class="menu-bar flex items-center px-4 h-12">
@@ -21,6 +27,10 @@
         </div>
         <Menu class="flex-1" padding="6"/>
       </div>
+      <!--  audio -->
+      <audio ref="audioElm" src="/storage/Images/happy.mp3"></audio>
+
+      <!--  audio -->
     </div>
   </div>
 </template>
@@ -43,6 +53,7 @@ const congratulations = [
 const congratsMap = []
 
 export default {
+  name:'StartComponent',
   components: {
     Maze, Menu
   },
@@ -64,10 +75,22 @@ export default {
       intermission: 0,
       ws: null,
       offline: true,
-      menuOpen: false
+      menuOpen: false,
+      src: "/storage/Images/close.png"
     }
   },
   methods: {
+    play: function(event) {
+      var a = this.$refs.audioElm;
+      if (a.paused) {
+        a.play();
+        this.src = "/storage/Images/open.png";
+      } else {
+        a.pause();
+        this.src = "/storage/Images/close.png";
+      }
+    },
+    
     onKeyDown (e) {
       if (this.$refs.maze && !this.intermission && !this.menuOpen)
         this.$refs.maze.onKeyDown(e)
@@ -79,8 +102,9 @@ export default {
         }
     },
     win () {
-      this.intermission = 3
-      this.level++
+      this.intermission = 2
+      if(this.level <= 8)
+        this.level++
     },
     newMaze () {
       let s = this.level + 2
@@ -121,7 +145,26 @@ export default {
         this.ws = null
       }
       this.offline = true
+    },
+    forceRerender: function() {
+      if (this.level == 8) {
+        // this.newMaze()
+        this.error = null
+        this.maze= null
+        this.level=1
+        this.intermission= 0
+        this.ws =null
+        this.offline =true
+        this.menuOpen = false
+        if (e.key === "ArrowUp" || e.key === "ArrowDown") {
+          e.stopPropagation();
+          e.preventDefault();
+          console.log(e.key);
+          return false;
+        }
+      }
     }
+    
   },
   created () {
     this.newMaze()
@@ -183,6 +226,29 @@ body {
 .bold{
   font-size: 24px;
   font-weight: bold;
+}
+.celebrateimg {
+    position: absolute;
+    /* text-align: center; */
+    /* margin: 10px auto; */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 320px;
+    z-index: 999;
+}
+.playAgain{
+  top: 73%;
+  left: 45%;
+  position: absolute;
+}
+.vloume {
+  width: 72px;
+  height: 49px;
+  position: absolute;
+  top: 22%;
+  left: 43px;
+  cursor: pointer;
 }
 
 </style>
