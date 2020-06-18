@@ -163,30 +163,30 @@
                 </div>
                 <div class="col-12 col-md-5 footer-middle-w3">
                     <h4>Latest Games</h4>
-                    <div class="col-12 col-md-3 img-w3-agile">
-                        <a href="/"><img class="img-fluid" src="images/ballons.png" width="100%" height="130px" alt=" " /></a>
+                    <div class="col-6 col-sm-6 col-md-4">
+                        <a href="/"><img class="img-fluid" src="images/ballons.png" style="height:120px"  alt=" " /></a>
                     </div>
-                    <div class="col-12 col-md-3 img-w3-agile">
-                        <a href="/"><img class="img-fluid" src="images/order.png"  width="100%" height="130px" alt=" " /></a>
+                    <div class="col-6 col-sm-6 col-md-4">
+                        <a href="/"><img class="img-fluid" src="images/order.png" style="height:120px"   alt=" " /></a>
                     </div>
-                    <div class="col-12 col-md-3 img-w3-agile">
-                        <a href="/"><img class="img-fluid" src="images/numbergame.jpg" width="100%" height="130px" alt=" " /></a>
+                    <div class="col-6 col-sm-6 col-md-4">
+                        <a href="/"><img class="img-fluid" src="images/numbergame.jpg"  style="height:120px" alt=" " /></a>
                     </div>
-                    <div class="col-12 col-md-3 img-w3-agile">
-                        <a href="/"><img class="img-fluid" src="images/card2-2.png" width="100%" height="130px" alt=" " /></a>
+                    <div class="col-6 col-sm-6 col-md-4 mt-3">
+                        <a href="/"><img class="img-fluid" src="images/card2-2.png"  style="height:120px" alt=" " /></a>
                     </div>
-                    <div class="col-12 col-md-3 img-w3-agile footer-middle-wthree">
-                        <a href="/"><img class="img-fluid" src="images/bubblesort.png" width="100%" height="130px" alt=" " /></a>
+                    <div class="col-6 col-sm-6 col-md-4 mt-3">
+                        <a href="/"><img class="img-fluid" src="images/bubblesort.png"  style="height:120px" alt=" " /></a>
                     </div>
-                    <div class="col-12 col-md-3 img-w3-agile footer-middle-wthree">
-                        <a href="/"><img class="img-fluid" src="images/binarysearch.png" width="100%" height="130px" alt=" " /></a>
+                    <div class="col-6 col-sm-6 col-md-4 mt-3">
+                        <a href="/"><img class="img-fluid" src="images/binarysearch.png"  style="height:120px" alt=" " /></a>
                     </div>
-                    <div class="col-12 col-md-3 img-w3-agile footer-middle-wthree">
+                    {{-- <div class="col-12 col-md-3 img-w3-agile footer-middle-wthree">
                         <a href="/"><img class="img-fluid" src="images/card4-4.png" width="100%" height="130px" alt=" " /></a>
                     </div>
                     <div class="col-12 col-md-3 img-w3-agile footer-middle-wthree">
                         <a href="/"><img class="img-fluid" src="images/merg2.jpg" width="100%" height="130px" alt=" " /></a>
-                    </div>
+                    </div> --}}
                     <div class="clearfix"></div>
                 </div>
                 <div class="col-12 col-md-4 footer-right-w3">

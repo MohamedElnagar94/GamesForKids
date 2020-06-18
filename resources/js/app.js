@@ -75,6 +75,10 @@ Vue.component(
     require("./components/GameMemory/GameMemoryComponent.vue").default
 );
 Vue.component(
+    "maze-game-component",
+    require("./components/MazeGame/StartComponent.vue").default
+);
+Vue.component(
     "bubble-sort-component",
     require("./components/Numbers/Sort/BubbleSortComponent.vue").default
 );

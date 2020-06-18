@@ -2932,6 +2932,356 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MazeGame/MazeComponent.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/MazeGame/MazeComponent.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'MazeComponent',
+  props: {
+    maze: {
+      type: Array,
+      required: true
+    }
+  },
+  watch: {
+    maze: function maze() {
+      this.player.x = 1;
+      this.player.y = 0;
+      this.createWalls();
+    }
+  },
+  data: function data() {
+    return {
+      player: {
+        x: 1,
+        y: 0
+      },
+      walls: []
+    };
+  },
+  methods: {
+    isWall: function isWall(x, y, noBounds) {
+      if (x < 0 || y < 0 || x > this.maze[0].length * 2 || y > this.maze.length * 2) return !noBounds;
+      if (x % 2 && y % 2) return false;
+      if (x === 1 && y === 0) return false;
+      if (x === this.maze[0].length * 2 && y === this.maze.length * 2 - 1) return false;
+      var wallX = !(x % 2);
+      var wallY = !(y % 2);
+      var corner = wallX && wallY;
+
+      if (corner) {
+        return true;
+      } else if (wallX) {
+        if (x) return !this.maze[(y - 1) / 2][x / 2 - 1][1];else return !this.maze[(y - 1) / 2][0][3];
+      } else if (wallY) {
+        if (y) return !this.maze[y / 2 - 1][(x - 1) / 2][2];else return !this.maze[0][(x - 1) / 2][0];
+      }
+    },
+    onKeyDown: function onKeyDown(e) {
+      switch (e.code) {
+        case 'KeyW':
+        case 'ArrowUp':
+          if (!this.isWall(this.player.x, this.player.y - 1)) this.player.y--;
+          break;
+
+        case 'KeyD':
+        case 'ArrowRight':
+          if (!this.isWall(this.player.x + 1, this.player.y)) this.player.x++;
+          break;
+
+        case 'KeyS':
+        case 'ArrowDown':
+          if (!this.isWall(this.player.x, this.player.y + 1)) this.player.y++;
+          break;
+
+        case 'KeyA':
+        case 'ArrowLeft':
+          if (!this.isWall(this.player.x - 1, this.player.y)) this.player.x--;
+          break;
+      }
+
+      if (this.player.x === this.maze[0].length * 2 && this.player.y === this.maze.length * 2 - 1) {
+        this.win();
+      }
+    },
+    createWalls: function createWalls() {
+      this.walls = [];
+
+      for (var i = 0; i < 2; i++) {
+        var start = {
+          x: i * 2,
+          y: 0
+        };
+
+        var pos = _objectSpread({}, start);
+
+        var wall = "M".concat(start.x, ",").concat(start.y);
+
+        while (true) {
+          var walls = this.isWall(pos.x - 1, pos.y - 1, true) * 8 + this.isWall(pos.x, pos.y - 1, true) * 4 + this.isWall(pos.x - 1, pos.y, true) * 2 + this.isWall(pos.x, pos.y, true) * 1;
+
+          switch (walls) {
+            case 1:
+            case 5:
+            case 13:
+              pos.y++;
+              break;
+
+            case 4:
+            case 12:
+            case 14:
+              pos.x++;
+              break;
+
+            case 8:
+            case 10:
+            case 11:
+              pos.y--;
+              break;
+
+            case 2:
+            case 3:
+            case 7:
+              pos.x--;
+              break;
+          }
+
+          wall += "L".concat(pos.x, ",").concat(pos.y);
+
+          if (start.x === pos.x && start.y === pos.y) {
+            break;
+          }
+        }
+
+        var minifiedWall = wall.replace(/([ML])(\d+),(\d+)(?: L\d+,\3)+( L\d+,\3)/g, '$1$2,$3$4').replace(/([ML])(\d+),(\d+)(?: L\2,\d+)+( L\2,\d+)/g, '$1$2,$3$4');
+        this.walls.push(minifiedWall + 'Z');
+      }
+    },
+    win: function win() {
+      this.$emit('win');
+    }
+  },
+  created: function created() {
+    this.createWalls();
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MazeGame/MenuComponent.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/MazeGame/MenuComponent.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['padding'],
+  data: function data() {
+    return {
+      pad: this.padding || 0
+    };
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MazeGame/StartComponent.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/MazeGame/StartComponent.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _utils_genMaze_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils/genMaze.js */ "./resources/js/components/MazeGame/utils/genMaze.js");
+/* harmony import */ var _utils_genMaze_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_utils_genMaze_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _MazeComponent_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MazeComponent.vue */ "./resources/js/components/MazeGame/MazeComponent.vue");
+/* harmony import */ var _MenuComponent_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./MenuComponent.vue */ "./resources/js/components/MazeGame/MenuComponent.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+var congratulations = ['Congratulations!', 'Good job!', 'Amazing!', 'Outstanding!', 'Too fast!', 'Navigation expert!', 'Speedy gonzales!!', 'Keep it up!'];
+var congratsMap = [];
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    Maze: _MazeComponent_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+    Menu: _MenuComponent_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
+  watch: {
+    level: function level() {
+      if (this.offline) this.newMaze();
+    },
+    intermission: function intermission() {
+      var _this = this;
+
+      if (this.intermission) setTimeout(function () {
+        return _this.intermission--;
+      }, 1000);
+    }
+  },
+  data: function data() {
+    return {
+      error: null,
+      maze: null,
+      level: 1,
+      intermission: 0,
+      ws: null,
+      offline: true,
+      menuOpen: false
+    };
+  },
+  methods: {
+    onKeyDown: function onKeyDown(e) {
+      if (this.$refs.maze && !this.intermission && !this.menuOpen) this.$refs.maze.onKeyDown(e);
+
+      if (e.key === "ArrowUp" || e.key === "ArrowDown") {
+        e.stopPropagation();
+        e.preventDefault();
+        console.log(e.key);
+        return false;
+      }
+    },
+    win: function win() {
+      this.intermission = 3;
+      this.level++;
+    },
+    newMaze: function newMaze() {
+      var s = this.level + 2;
+      this.maze = _utils_genMaze_js__WEBPACK_IMPORTED_MODULE_0___default()(s, s);
+    },
+    getCongratulation: function getCongratulation() {
+      if (!congratsMap[this.level]) congratsMap[this.level] = congratulations[Math.floor(Math.random() * congratulations.length)];
+      return congratsMap[this.level];
+    },
+    onOpen: function onOpen() {// idk
+    },
+    onMessage: function onMessage(msg) {
+      if (this.offline) return;
+      var data = msg.d;
+
+      switch (msg.e) {
+        case 'NEW_MAZE':
+          this.maze = data;
+          break;
+      }
+    },
+    goOnline: function goOnline() {
+      var _this2 = this;
+
+      var ws = this.ws = new WebSocket("".concat(location.protocol.replace('http', 'ws'), "//").concat(location.hostname, ":8880"));
+      ws.onopen = this.onOpen;
+
+      ws.onmessage = function (message) {
+        try {
+          _this2.onMessage(JSON.parse(message.data));
+        } catch (err) {
+          _this2.error = err;
+        }
+      };
+
+      this.offline = false;
+    },
+    goOffline: function goOffline() {
+      if (this.ws) {
+        this.ws.close();
+        this.ws = null;
+      }
+
+      this.offline = true;
+    }
+  },
+  created: function created() {
+    this.newMaze();
+  },
+  mounted: function mounted() {
+    var _this3 = this;
+
+    window.addEventListener('keydown', function (e) {
+      _this3.onKeyDown(e);
+    });
+  },
+  beforeDestroy: function beforeDestroy() {
+    this.goOffline();
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Numbers/Ballons.vue?vue&type=script&lang=js&":
 /*!**************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Numbers/Ballons.vue?vue&type=script&lang=js& ***!
@@ -10440,6 +10790,25 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MazeGame/StartComponent.vue?vue&type=style&index=0&lang=scss&":
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/MazeGame/StartComponent.vue?vue&type=style&index=0&lang=scss& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "#app {\n  color: #fff;\n  font-family: Catamaran, Lato, Helvetica, Arial, sans-serif;\n}\n.top-bar {\n  background: #444446;\n  width: 70%;\n  text-align: center;\n  margin-left: 14%;\n}\n.intermission {\n  background: #A96F4A;\n}\n.scroller::-webkit-scrollbar {\n  width: 14px;\n  height: 14px;\n}\n.scroller::-webkit-scrollbar-thumb {\n  background: #202225;\n}\n.scroller::-webkit-scrollbar-track, .scroller::-webkit-scrollbar-corner {\n  background: #2f3136;\n}\n.scroller::-webkit-scrollbar-thumb, .scroller::-webkit-scrollbar-track {\n  border: 3px solid #36393f;\n  border-radius: 7px;\n}\n.material-icons {\n  transition: 0.2s color ease;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n.menu-bar .material-icons, .top-bar .material-icons {\n  color: #a6a7a8;\n}\n.material-icons.close:hover {\n  color: #f04747;\n}\n.material-icons.hamburger:hover {\n  color: #fff;\n}\n.winMessage {\n  position: absolute;\n  top: 50%;\n  left: 45%;\n}\n.bold {\n  font-size: 24px;\n  font-weight: bold;\n}", ""]);
+
+// exports
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CardsCollectionComponent.vue?vue&type=style&index=0&id=3b0c6907&scoped=true&lang=css&":
 /*!******************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/CardsCollectionComponent.vue?vue&type=style&index=0&id=3b0c6907&scoped=true&lang=css& ***!
@@ -10510,6 +10879,44 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 // module
 exports.push([module.i, "\n.allLevels[data-v-224449b3] {\n  width: 5.8%;\n  height: 5.8%;\n  position: absolute;\n  border-radius: 14% 14% 50% 50%;\n}\n.level7[data-v-224449b3] {\n  top: 35%;\n  left: 9%;\n}\n.level7active[data-v-224449b3] {\n  top: 28%;\n  left: 7%;\n}\n.level6[data-v-224449b3] {\n  top: 46.5%;\n  left: 24.4%;\n}\n.level6active[data-v-224449b3] {\n  top: 39.5%;\n  left: 22.5%;\n}\n.level5[data-v-224449b3] {\n  top: 38.5%;\n  left: 44.4%;\n}\n.level5active[data-v-224449b3] {\n  top: 31.5%;\n  left: 42.5%;\n}\n.level4[data-v-224449b3] {\n  top: 43.8%;\n  left: 63.7%;\n}\n.level4active[data-v-224449b3] {\n  top: 36.8%;\n  left: 61.8%;\n}\n.level3[data-v-224449b3] {\n  top: 66.8%;\n  left: 56.8%;\n}\n.level3active[data-v-224449b3] {\n  top: 59.6%;\n  left: 54.8%;\n}\n.level2[data-v-224449b3] {\n  top: 83.7%;\n  left: 54.8%;\n}\n.level2active[data-v-224449b3] {\n  top: 76.6%;\n  left: 52.8%;\n}\n.level1[data-v-224449b3] {\n  top: 82%;\n  left: 77.7%;\n}\n.level1active[data-v-224449b3] {\n  top: 74.9%;\n  left: 75.8%;\n}\n.outer-circle[data-v-224449b3] {\n  box-shadow: 0 0 50px 10px #453d9b;\n  border: 7px solid #ecebfa;\n  border-top-color: #00ff08;\n  border-right-color: yellow;\n  border-bottom-color: #ff0101;\n  border-left-color: blueviolet;\n  text-align: center;\n  width: 9.8%;\n  height: 9.8%;\n  border-radius: 220px;\n\n  -webkit-animation: turning_cw-data-v-224449b3 5s infinite;\n  animation: turning_cw-data-v-224449b3 5s infinite;\n  opacity: 1;\n}\n.outer-circle[data-v-224449b3]:hover {\n  box-shadow: 0 0 100px 15px #453d9b;\n}\n.vloume[data-v-224449b3] {\n  width: 72px;\n  height: 49px;\n  position: absolute;\n  top: 20%;\n  left: 50px;\n}\n@-webkit-keyframes aura-data-v-224449b3 {\n0% {\n    text-shadow: 0 2px 2px #000;\n}\n50% {\n    text-shadow: 0 10px 10px #000;\n    line-height: 190px;\n}\n100% {\n    text-shadow: 0 2px 10px #000;\n}\n}\n@-webkit-keyframes turning_cw-data-v-224449b3 {\n0% {\n    -webkit-transform: rotate(0deg);\n}\n100% {\n    -webkit-transform: rotate(360deg);\n}\n}\n@-webkit-keyframes turning_acw-data-v-224449b3 {\n0% {\n    -webkit-transform: rotate(360deg);\n}\n100% {\n    -webkit-transform: rotate(0deg);\n}\n}\n@keyframes aura-data-v-224449b3 {\n0% {\n    text-shadow: 0 2px 2px #000;\n}\n50% {\n    text-shadow: 0 10px 10px #000;\n    line-height: 190px;\n}\n100% {\n    text-shadow: 0 2px 10px #000;\n}\n}\n@keyframes turning_cw-data-v-224449b3 {\n0% {\n    transform: rotate(0deg);\n}\n100% {\n    transform: rotate(360deg);\n}\n}\n@keyframes turning_acw-data-v-224449b3 {\n0% {\n    transform: rotate(360deg);\n}\n100% {\n    transform: rotate(0deg);\n}\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MazeGame/MazeComponent.vue?vue&type=style&index=0&id=b2dc126a&scoped=true&lang=css&":
+/*!****************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/MazeGame/MazeComponent.vue?vue&type=style&index=0&id=b2dc126a&scoped=true&lang=css& ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.maze[data-v-b2dc126a]{\n    height: 570px;\n}\n.runboy[data-v-b2dc126a]{\n    position: absolute;\n}\n.player[data-v-b2dc126a]{\n    background-image: url('/storage/Images/boy.gif');\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MazeGame/MenuComponent.vue?vue&type=style&index=0&id=146d0d2b&scoped=true&lang=css&":
+/*!****************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/MazeGame/MenuComponent.vue?vue&type=style&index=0&id=146d0d2b&scoped=true&lang=css& ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.menu-container[data-v-146d0d2b] {\n  background: #444446;\n}\n.menu-bar[data-v-146d0d2b] {\n  background: #2a2c31;\n}\n.menu[data-v-146d0d2b] {\n  background: #36393f;\n}\n", ""]);
 
 // exports
 
@@ -41778,6 +42185,36 @@ process.umask = function() { return 0; };
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MazeGame/StartComponent.vue?vue&type=style&index=0&lang=scss&":
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/MazeGame/StartComponent.vue?vue&type=style&index=0&lang=scss& ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--7-2!../../../../node_modules/sass-loader/dist/cjs.js??ref--7-3!../../../../node_modules/vue-loader/lib??vue-loader-options!./StartComponent.vue?vue&type=style&index=0&lang=scss& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MazeGame/StartComponent.vue?vue&type=style&index=0&lang=scss&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CardsCollectionComponent.vue?vue&type=style&index=0&id=3b0c6907&scoped=true&lang=css&":
 /*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/CardsCollectionComponent.vue?vue&type=style&index=0&id=3b0c6907&scoped=true&lang=css& ***!
@@ -41891,6 +42328,66 @@ options.transform = transform
 options.insertInto = undefined;
 
 var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MazeGame/MazeComponent.vue?vue&type=style&index=0&id=b2dc126a&scoped=true&lang=css&":
+/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/MazeGame/MazeComponent.vue?vue&type=style&index=0&id=b2dc126a&scoped=true&lang=css& ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./MazeComponent.vue?vue&type=style&index=0&id=b2dc126a&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MazeGame/MazeComponent.vue?vue&type=style&index=0&id=b2dc126a&scoped=true&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MazeGame/MenuComponent.vue?vue&type=style&index=0&id=146d0d2b&scoped=true&lang=css&":
+/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/MazeGame/MenuComponent.vue?vue&type=style&index=0&id=146d0d2b&scoped=true&lang=css& ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./MenuComponent.vue?vue&type=style&index=0&id=146d0d2b&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MazeGame/MenuComponent.vue?vue&type=style&index=0&id=146d0d2b&scoped=true&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
 
 if(content.locals) module.exports = content.locals;
 
@@ -46572,6 +47069,310 @@ var render = function() {
       attrs: { src: "/storage/Images/happy.mp3" }
     })
   ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MazeGame/MazeComponent.vue?vue&type=template&id=b2dc126a&scoped=true&":
+/*!*************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/MazeGame/MazeComponent.vue?vue&type=template&id=b2dc126a&scoped=true& ***!
+  \*************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "h-full" }, [
+    _c(
+      "svg",
+      {
+        staticClass: "maze",
+        attrs: {
+          width: "100%",
+          height: "100%",
+          viewBox:
+            "0 0 " +
+            (_vm.maze.length * 2 + 1) +
+            " " +
+            (_vm.maze[0].length * 2 + 1),
+          "shape-rendering": "crispEdges"
+        }
+      },
+      [
+        _c("defs", [
+          _c(
+            "pattern",
+            {
+              attrs: {
+                id: "imgpattern",
+                x: "0",
+                y: "0",
+                width: "1",
+                height: "1",
+                viewBox: "0 0 1024 576",
+                preserveAspectRatio: "xMidYMid slice"
+              }
+            },
+            [
+              _c("image", {
+                attrs: {
+                  width: "1024",
+                  height: "576",
+                  "xlink:href": "/storage/Images/boy.gif"
+                }
+              })
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "pattern",
+            {
+              attrs: {
+                id: "imggold",
+                x: "0",
+                y: "0",
+                width: "1",
+                height: "1",
+                viewBox: "0 0 1024 576",
+                preserveAspectRatio: "xMidYMid slice"
+              }
+            },
+            [
+              _c("image", {
+                attrs: {
+                  width: "1024",
+                  height: "576",
+                  "xlink:href": "/storage/Images/gold.jpg"
+                }
+              })
+            ]
+          )
+        ]),
+        _vm._v(" "),
+        _c("rect", {
+          attrs: {
+            x: "0",
+            y: "0",
+            width: _vm.maze.length * 2 + 1,
+            height: _vm.maze[0].length * 2 + 1,
+            fill: "#494949"
+          }
+        }),
+        _vm._v(" "),
+        _vm._l(_vm.walls.length, function(i) {
+          return _c("path", {
+            key: i,
+            attrs: { fill: "#B46B42", d: _vm.walls[i - 1] }
+          })
+        }),
+        _vm._v(" "),
+        _c("rect", {
+          staticClass: "start",
+          attrs: { x: "1", y: "0", width: "1", height: "1", fill: "#43b581" }
+        }),
+        _vm._v(" "),
+        _c("rect", {
+          staticClass: "end",
+          attrs: {
+            x: _vm.maze[0].length * 2,
+            y: _vm.maze.length * 2 - 1,
+            width: "1",
+            height: "1",
+            fill: "url(#imggold)"
+          }
+        }),
+        _vm._v(" "),
+        _c("rect", {
+          staticClass: "player",
+          attrs: {
+            x: _vm.player.x,
+            y: _vm.player.y,
+            width: "1",
+            height: "1",
+            fill: "url(#imgpattern)"
+          }
+        })
+      ],
+      2
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MazeGame/MenuComponent.vue?vue&type=template&id=146d0d2b&scoped=true&":
+/*!*************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/MazeGame/MenuComponent.vue?vue&type=template&id=146d0d2b&scoped=true& ***!
+  \*************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "menu scroller", class: ["px-" + _vm.pad] }, [
+    _c("div", { staticClass: "h-full", class: ["py-" + _vm.pad] }, [
+      _c(
+        "p",
+        { staticClass: "text-center text-4xl select-none opacity-25 mt-12" },
+        [_vm._v("Menu in progress")]
+      )
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MazeGame/StartComponent.vue?vue&type=template&id=271a133e&":
+/*!**************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/MazeGame/StartComponent.vue?vue&type=template&id=271a133e& ***!
+  \**************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "h-screen flex flex-col", attrs: { id: "app" } },
+    [
+      _c(
+        "div",
+        { staticClass: "top-bar flex items-center shadow-md px-4 h-12" },
+        [
+          _c("p", { staticClass: "flex-1 text-center text-lg bold" }, [
+            _vm._v("Level " + _vm._s(_vm.level))
+          ]),
+          _vm._v(" "),
+          _c(
+            "i",
+            {
+              staticClass: "material-icons hamburger cursor-pointer",
+              on: {
+                click: function($event) {
+                  _vm.menuOpen = true
+                }
+              }
+            },
+            [_vm._v("menu")]
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "flex-1 flex flex-col h-full" },
+        [
+          _vm.maze
+            ? _c("Maze", {
+                ref: "maze",
+                staticClass: "flex-1",
+                attrs: { maze: _vm.maze },
+                on: { win: _vm.win }
+              })
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.intermission
+            ? _c("div", { staticClass: "intermission absolute pin h-full" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "flex flex-col justify-center items-center h-full winMessage"
+                  },
+                  [
+                    _c(
+                      "p",
+                      { staticClass: "text-4xl font-semibold mb-1 bold" },
+                      [_vm._v(_vm._s(_vm.getCongratulation()))]
+                    ),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "text-6xl bold" }, [
+                      _vm._v("Next level in " + _vm._s(_vm.intermission))
+                    ])
+                  ]
+                )
+              ])
+            : _vm._e()
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _vm.menuOpen
+        ? _c(
+            "div",
+            {
+              staticClass: "menu-container absolute pin h-screen w-screen py-16"
+            },
+            [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "container mx-auto shadow-md flex flex-col h-full"
+                },
+                [
+                  _c(
+                    "div",
+                    { staticClass: "menu-bar flex items-center px-4 h-12" },
+                    [
+                      _c("p", { staticClass: "text-2xl flex-1 text-center" }, [
+                        _vm._v("Menu")
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "i",
+                        {
+                          staticClass: "material-icons close cursor-pointer",
+                          on: {
+                            click: function($event) {
+                              _vm.menuOpen = false
+                            }
+                          }
+                        },
+                        [_vm._v("close")]
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("Menu", { staticClass: "flex-1", attrs: { padding: "6" } })
+                ],
+                1
+              )
+            ]
+          )
+        : _vm._e()
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -63662,6 +64463,7 @@ Vue.component("merge-sort-component", __webpack_require__(/*! ./components/Numbe
 Vue.component("insertion-sort-component", __webpack_require__(/*! ./components/Numbers/Sort/InsertionSortComponent.vue */ "./resources/js/components/Numbers/Sort/InsertionSortComponent.vue")["default"]);
 Vue.component("levels-component", __webpack_require__(/*! ./components/LevelsComponent.vue */ "./resources/js/components/LevelsComponent.vue")["default"]);
 Vue.component("game-memory-component", __webpack_require__(/*! ./components/GameMemory/GameMemoryComponent.vue */ "./resources/js/components/GameMemory/GameMemoryComponent.vue")["default"]);
+Vue.component("maze-game-component", __webpack_require__(/*! ./components/MazeGame/StartComponent.vue */ "./resources/js/components/MazeGame/StartComponent.vue")["default"]);
 Vue.component("bubble-sort-component", __webpack_require__(/*! ./components/Numbers/Sort/BubbleSortComponent.vue */ "./resources/js/components/Numbers/Sort/BubbleSortComponent.vue")["default"]);
 Vue.component("collection-component", __webpack_require__(/*! ./components/CollectionComponent.vue */ "./resources/js/components/CollectionComponent.vue")["default"]);
 Vue.component("sort-collection-component", __webpack_require__(/*! ./components/SortCollectionComponent.vue */ "./resources/js/components/SortCollectionComponent.vue")["default"]);
@@ -64347,6 +65149,321 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LevelsComponent_vue_vue_type_template_id_224449b3_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/js/components/MazeGame/MazeComponent.vue":
+/*!************************************************************!*\
+  !*** ./resources/js/components/MazeGame/MazeComponent.vue ***!
+  \************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _MazeComponent_vue_vue_type_template_id_b2dc126a_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MazeComponent.vue?vue&type=template&id=b2dc126a&scoped=true& */ "./resources/js/components/MazeGame/MazeComponent.vue?vue&type=template&id=b2dc126a&scoped=true&");
+/* harmony import */ var _MazeComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MazeComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/MazeGame/MazeComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _MazeComponent_vue_vue_type_style_index_0_id_b2dc126a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./MazeComponent.vue?vue&type=style&index=0&id=b2dc126a&scoped=true&lang=css& */ "./resources/js/components/MazeGame/MazeComponent.vue?vue&type=style&index=0&id=b2dc126a&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _MazeComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _MazeComponent_vue_vue_type_template_id_b2dc126a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _MazeComponent_vue_vue_type_template_id_b2dc126a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "b2dc126a",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/MazeGame/MazeComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/MazeGame/MazeComponent.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************!*\
+  !*** ./resources/js/components/MazeGame/MazeComponent.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MazeComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./MazeComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MazeGame/MazeComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MazeComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/MazeGame/MazeComponent.vue?vue&type=style&index=0&id=b2dc126a&scoped=true&lang=css&":
+/*!*********************************************************************************************************************!*\
+  !*** ./resources/js/components/MazeGame/MazeComponent.vue?vue&type=style&index=0&id=b2dc126a&scoped=true&lang=css& ***!
+  \*********************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_MazeComponent_vue_vue_type_style_index_0_id_b2dc126a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./MazeComponent.vue?vue&type=style&index=0&id=b2dc126a&scoped=true&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MazeGame/MazeComponent.vue?vue&type=style&index=0&id=b2dc126a&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_MazeComponent_vue_vue_type_style_index_0_id_b2dc126a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_MazeComponent_vue_vue_type_style_index_0_id_b2dc126a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_MazeComponent_vue_vue_type_style_index_0_id_b2dc126a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_MazeComponent_vue_vue_type_style_index_0_id_b2dc126a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_MazeComponent_vue_vue_type_style_index_0_id_b2dc126a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/js/components/MazeGame/MazeComponent.vue?vue&type=template&id=b2dc126a&scoped=true&":
+/*!*******************************************************************************************************!*\
+  !*** ./resources/js/components/MazeGame/MazeComponent.vue?vue&type=template&id=b2dc126a&scoped=true& ***!
+  \*******************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MazeComponent_vue_vue_type_template_id_b2dc126a_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./MazeComponent.vue?vue&type=template&id=b2dc126a&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MazeGame/MazeComponent.vue?vue&type=template&id=b2dc126a&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MazeComponent_vue_vue_type_template_id_b2dc126a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MazeComponent_vue_vue_type_template_id_b2dc126a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/MazeGame/MenuComponent.vue":
+/*!************************************************************!*\
+  !*** ./resources/js/components/MazeGame/MenuComponent.vue ***!
+  \************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _MenuComponent_vue_vue_type_template_id_146d0d2b_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MenuComponent.vue?vue&type=template&id=146d0d2b&scoped=true& */ "./resources/js/components/MazeGame/MenuComponent.vue?vue&type=template&id=146d0d2b&scoped=true&");
+/* harmony import */ var _MenuComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MenuComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/MazeGame/MenuComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _MenuComponent_vue_vue_type_style_index_0_id_146d0d2b_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./MenuComponent.vue?vue&type=style&index=0&id=146d0d2b&scoped=true&lang=css& */ "./resources/js/components/MazeGame/MenuComponent.vue?vue&type=style&index=0&id=146d0d2b&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _MenuComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _MenuComponent_vue_vue_type_template_id_146d0d2b_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _MenuComponent_vue_vue_type_template_id_146d0d2b_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "146d0d2b",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/MazeGame/MenuComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/MazeGame/MenuComponent.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************!*\
+  !*** ./resources/js/components/MazeGame/MenuComponent.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MenuComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./MenuComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MazeGame/MenuComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MenuComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/MazeGame/MenuComponent.vue?vue&type=style&index=0&id=146d0d2b&scoped=true&lang=css&":
+/*!*********************************************************************************************************************!*\
+  !*** ./resources/js/components/MazeGame/MenuComponent.vue?vue&type=style&index=0&id=146d0d2b&scoped=true&lang=css& ***!
+  \*********************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_MenuComponent_vue_vue_type_style_index_0_id_146d0d2b_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./MenuComponent.vue?vue&type=style&index=0&id=146d0d2b&scoped=true&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MazeGame/MenuComponent.vue?vue&type=style&index=0&id=146d0d2b&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_MenuComponent_vue_vue_type_style_index_0_id_146d0d2b_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_MenuComponent_vue_vue_type_style_index_0_id_146d0d2b_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_MenuComponent_vue_vue_type_style_index_0_id_146d0d2b_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_MenuComponent_vue_vue_type_style_index_0_id_146d0d2b_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_MenuComponent_vue_vue_type_style_index_0_id_146d0d2b_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/js/components/MazeGame/MenuComponent.vue?vue&type=template&id=146d0d2b&scoped=true&":
+/*!*******************************************************************************************************!*\
+  !*** ./resources/js/components/MazeGame/MenuComponent.vue?vue&type=template&id=146d0d2b&scoped=true& ***!
+  \*******************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MenuComponent_vue_vue_type_template_id_146d0d2b_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./MenuComponent.vue?vue&type=template&id=146d0d2b&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MazeGame/MenuComponent.vue?vue&type=template&id=146d0d2b&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MenuComponent_vue_vue_type_template_id_146d0d2b_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MenuComponent_vue_vue_type_template_id_146d0d2b_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/MazeGame/StartComponent.vue":
+/*!*************************************************************!*\
+  !*** ./resources/js/components/MazeGame/StartComponent.vue ***!
+  \*************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _StartComponent_vue_vue_type_template_id_271a133e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./StartComponent.vue?vue&type=template&id=271a133e& */ "./resources/js/components/MazeGame/StartComponent.vue?vue&type=template&id=271a133e&");
+/* harmony import */ var _StartComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./StartComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/MazeGame/StartComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _StartComponent_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./StartComponent.vue?vue&type=style&index=0&lang=scss& */ "./resources/js/components/MazeGame/StartComponent.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _StartComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _StartComponent_vue_vue_type_template_id_271a133e___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _StartComponent_vue_vue_type_template_id_271a133e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/MazeGame/StartComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/MazeGame/StartComponent.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************!*\
+  !*** ./resources/js/components/MazeGame/StartComponent.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_StartComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./StartComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MazeGame/StartComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_StartComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/MazeGame/StartComponent.vue?vue&type=style&index=0&lang=scss&":
+/*!***********************************************************************************************!*\
+  !*** ./resources/js/components/MazeGame/StartComponent.vue?vue&type=style&index=0&lang=scss& ***!
+  \***********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_StartComponent_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--7-2!../../../../node_modules/sass-loader/dist/cjs.js??ref--7-3!../../../../node_modules/vue-loader/lib??vue-loader-options!./StartComponent.vue?vue&type=style&index=0&lang=scss& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MazeGame/StartComponent.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_StartComponent_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_StartComponent_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_StartComponent_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_StartComponent_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_StartComponent_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/js/components/MazeGame/StartComponent.vue?vue&type=template&id=271a133e&":
+/*!********************************************************************************************!*\
+  !*** ./resources/js/components/MazeGame/StartComponent.vue?vue&type=template&id=271a133e& ***!
+  \********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_StartComponent_vue_vue_type_template_id_271a133e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./StartComponent.vue?vue&type=template&id=271a133e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MazeGame/StartComponent.vue?vue&type=template&id=271a133e&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_StartComponent_vue_vue_type_template_id_271a133e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_StartComponent_vue_vue_type_template_id_271a133e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/MazeGame/utils/genMaze.js":
+/*!***********************************************************!*\
+  !*** ./resources/js/components/MazeGame/utils/genMaze.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = function genMaze(x, y) {
+  var totalCells = x * y;
+  var cells = new Array();
+  var unvis = new Array();
+
+  for (var i = 0; i < y; i++) {
+    cells[i] = new Array();
+    unvis[i] = new Array();
+
+    for (var j = 0; j < x; j++) {
+      cells[i][j] = [0, 0, 0, 0];
+      unvis[i][j] = true;
+    }
+  } // Set a random position to start from
+
+
+  var currentCell = [Math.floor(Math.random() * y), Math.floor(Math.random() * x)];
+  var path = [currentCell];
+  unvis[currentCell[0]][currentCell[1]] = false;
+  var visited = 1;
+
+  while (visited < totalCells) {
+    var pot = [[currentCell[0] - 1, currentCell[1], 0, 2], [currentCell[0], currentCell[1] + 1, 1, 3], [currentCell[0] + 1, currentCell[1], 2, 0], [currentCell[0], currentCell[1] - 1, 3, 1]];
+    var neighbors = new Array();
+
+    for (var l = 0; l < 4; l++) {
+      if (pot[l][0] > -1 && pot[l][0] < y && pot[l][1] > -1 && pot[l][1] < x && unvis[pot[l][0]][pot[l][1]]) neighbors.push(pot[l]);
+    }
+
+    if (neighbors.length) {
+      var next = neighbors[Math.floor(Math.random() * neighbors.length)];
+      cells[currentCell[0]][currentCell[1]][next[2]] = 1;
+      cells[next[0]][next[1]][next[3]] = 1;
+      unvis[next[0]][next[1]] = false;
+      visited++;
+      currentCell = [next[0], next[1]];
+      path.push(currentCell);
+    } else {
+      currentCell = path.pop();
+    }
+  }
+
+  return cells;
+};
 
 /***/ }),
 
