@@ -4,8 +4,8 @@
     :id="id" 
     class="pencil"
     :draggable="draggable"
-     @dragstart="dragStart"
-     @dragover.stop
+     v-on:dragstart="dragStart"
+     v-on:dragover.stop
      >
         <slot/>
     </div>

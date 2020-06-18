@@ -5,33 +5,17 @@
   .container-fluid{
 	background-image: url(./img/drawings.png);
 }
-  h2{
-	
-	margin-top:.5em;
-	/* font-family:Kristen ITC; */ 
-	/* font-family:'Comic Sans MS'; */
-	font-family: Jokerman;
-	font-size:500%;
-  	color:rgb(23,125,193);
-	-webkit-text-stroke: .04em rgb(23,125,193); 
-  }
- 
   .container{
 	width:90%;
-	/* background-color: rgb(23,125,193); */
-	background-color: rgb(120,173,191);
+	background-color: rgb(120,173,191); 
 	margin:0 auto;
-	border:.6em solid #fff;
-	border-radius: .5em;
-	
+	border-radius: .5em;	
   }
-  /* .row{
-	margin:0em 4em;
-  } */
   .number{
 	width:6.5em;
-	height:6em;
-	background-color: #ccc;
+	height:4.2em;
+	background-color: #eee;/* old >>> #ccc ... edit 2 >>> #eee */
+
 	font-size: large;
 	border-radius: .2em;
 	box-shadow: .6em .6em -.5em #888;
@@ -47,21 +31,52 @@
 	src:url("./fonts/burnstown dam.ttf");
 	
   }
-  .number span{
+  .number span,.number h6{
 	display: inline-block;
-	margin:15% 35%;
+	margin:10% 35%;
 	color: rgb(68, 141, 165);
-	/* font:3em 'Comic Sans MS'   ; */
-	/* font:3em 'Ravie'  ;  */
-	font:4em  'Burnstown Dam', 'Showcard Gothic'  ; 
-	font-weight: bold;
-	/* -webkit-text-stroke:  .04em  rgb(23,125,193) ;  */
-	
+	font:3em  'Showcard Gothic' ,'Comic Sans MS'  ; 
+	font-weight: bold
   }
-  
+  .number h6{
+	color:rgb(237,207,0);
+	font:1em 'Comic Sans MS';
+  }
+   .eachNumber:nth-child(1) span{
+	color:rgb(237,207,0);
+
+  }
+  .eachNumber:nth-child(2) span{
+	color:rgb(229,69,67);
+  }
+  .eachNumber:nth-child(3) span{
+	color:rgb(92,96,148);
+  }
+  .eachNumber:nth-child(4) span{
+	color:rgb(251,127,0);
+  }
+  .eachNumber:nth-child(5) span{
+	color:rgb(159,181,0);
+  }
+  .eachNumber:nth-child(7) span{
+	color:rgb(113,30,91);
+  }
+  .eachNumber:nth-child(8) span{
+	color:rgb(253,9,113);
+  }
+  .eachNumber:nth-child(9) span{
+	color:rgb(70,75,136);
+  }
+  .eachNumber:nth-child(10) span{
+	color:rgb(68, 141, 165);
+  }
+  .eachNumber:nth-child(11) span{
+	color:rgb(237,207,0);
+  }
+
   .matchedNumber{
 	width:6.5em;
-	height:6em;
+	height:4.8em;
 	background-color: #333;
 	font-size: large;
 	border-radius: .2em;
@@ -82,16 +97,14 @@
 	box-shadow:inset .3em -.3em 0em .3em #555;
   }
   .eachNumber{
-	margin:1em;
+	margin:.8em;
 	display:inline-block
   }
   .objects{
-  
 	background-color: white;
 	margin:.1em auto;
   }
   #pencilPlace div.pencil {
-    /* transform: translate(-50%,-50%) ; */
     display: inline-block;
 	width:1.3em;
 	margin-top:1em;
@@ -108,7 +121,6 @@
     background: #FFEB3B;
 }
 #pencilPlace div .pencil-bottom {
-	/* border-top: .7em solid #FFCC99; */
 	border-top: .7em solid #444;
     border-left: .6em solid transparent;
     border-right: .6em solid transparent;
@@ -117,23 +129,19 @@
 .matchedNumber .pencil{
 	display: inline-block;
 	width:.5em;
-	margin-top:.6em;
-	margin-right:.09em;
-	margin-left: .09em;
+	margin-top:.3em;
+	margin-right:.08em;
+	margin-left: .08em;
 }
-
-	
-	
-
 .matchedNumber .pencil-top {
 	
-    height: .4em;
+    height: .3em;
     background-color: #ec8787;
     border-top-left-radius: .3em;
     border-top-right-radius: .3em;
 }
 .matchedNumber  .pencil-body {
-	height: 4em;
+	height: 3.5em;
     background: #FFEB3B;
 }
 .matchedNumber  .pencil-bottom {
@@ -143,40 +151,64 @@
 }
 
 
-#gameControlls{
-	height:5em;
-	width:84%;
-	margin:0em auto;
-	margin-top:4em;
-	background-color: rgb(120,173,191);
-	border-top-left-radius: .6em;
-	border-top-right-radius: .6em;
-	
-}
-#gameControlls h4,#gameControlls span, #gameControlls h3{
-color:white;
-font-family: 'Comic Sans MS';
-font-size: xx-large;
-width:23%;
-margin-top: .5em;
-margin-left: .3em;
-display: inline-block;
-}
-#gameControlls h3,#gameControlls span{
-font-size: x-large;
-width:13%;
-margin-left: .1em;
-margin-right: .2em;
-}
 @keyframes example {
 	from {height:6.5em;}
 	to {height:0px ;}
   }
  
-  .boxFull{
-	  /* animation-name: example;
-	  animation-duration: 4s;
-	  animation-fill-mode: forwards; */
-
+  .popup {
+	position: relative;
+	display: inline-block;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+  }
+  
+  /* The actual popup */
+  .popup .popuptext {
+	visibility: hidden;
+	width: 160px;
+	background-color: #555;
+	color: #fff;
+	text-align: center;
+	border-radius: 6px;
+	padding: 8px 0;
+	position: absolute;
+	z-index: 4;
+	bottom: 100%;
+	left: 50%;
+	margin-left: -80px;
+  }
+  
+  /* Popup arrow */
+  .popup .popuptext::after {
+	content: "";
+	position: absolute;
+	top: 100%;
+	left: 50%;
+	margin-left: -5px;
+	border-width: 5px;
+	border-style: solid;
+	border-color: #555 transparent transparent transparent;
+  }
+  
+  /* Toggle this class - hide and show the popup */
+  .popup .show {
+	visibility: visible;
+	-webkit-animation: fadeIn 1s;
+	animation: fadeIn 1s;
+  }
+  
+  /* Add animation (fade in the popup) */
+  @-webkit-keyframes fadeIn {
+	from {opacity: 0;} 
+	to {opacity: 1;}
+  }
+  
+  @keyframes fadeIn {
+	from {opacity: 0;}
+	to {opacity:1 ;}
   }
  
