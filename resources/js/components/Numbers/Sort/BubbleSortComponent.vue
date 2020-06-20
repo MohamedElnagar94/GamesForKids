@@ -302,7 +302,7 @@ export default {
   height: 100%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-  background-color: rgba(1, 1, 22, 0.959);
+  background-color: rgba(1, 1, 22, 0.986);
   color: white;
   display: none;
   padding-top: 30px;

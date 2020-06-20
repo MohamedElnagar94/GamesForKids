@@ -5635,18 +5635,372 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "MergeSortComponent",
   data: function data() {
     return {
-      answer: '',
+      answer: "",
       steps: 0,
-      status: 'false',
+      status: "false",
       numbersArray: [],
       sortedArray: [],
       rightSortedArray: [],
       leftSortedArray: [],
-      voiceIcon: 'fa fa-play-circle',
+      voiceIcon: "fa fa-play-circle",
       synth: window.speechSynthesis
     };
   },
@@ -5668,68 +6022,79 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
       return array;
     },
-    onDragging: function onDragging(event) {
+    onDragging: function onDragging(arr, event) {
       event.dataTransfer.setData("text", event.target.id);
-      console.log('EvEnT ==>', event);
+      event.dataTransfer.setData("imagElements", arr);
+      console.log("EvEnT ==>", event);
     },
     allowDrop: function allowDrop(event) {
       event.preventDefault();
     },
     drag: function drag(event) {
+      this.voice("drag,me");
       event.dataTransfer.setData("text", event.target.id);
     },
     drop: function drop(event) {
       event.preventDefault();
       var data = event.dataTransfer.getData("text");
-      console.log('data =>' + data + 'event => ' + event.target.id);
+      var arr = event.dataTransfer.getData("imagElements");
 
-      if (event.target.id.split('-')[0] === data.split('-')[0]) {
-        var newElementsArray = _toConsumableArray(document.getElementById(data).innerText.replace(/\r?\n|\r/g, ''));
-
-        this.newEle(event.target, newElementsArray);
-        this.answer = 'Yes';
+      if (event.target.id.split("-")[0] === data.split("-")[0]) {
+        this.newEle(event.target, arr.split(","));
+        $("#correctElm")[0].play();
+        $("#appluaseElm")[0].play();
+        this.answer = "Yes";
         this.steps++;
-        this.status = 'true';
+        this.status = "true";
+
+        if (this.steps === 30) {
+          this.endGame();
+        }
 
         if (this.steps === 2 || this.steps === 6 || this.steps === 14 || this.steps === 22) {
-          this.answer = 'Think';
+          this.answer = "Think";
         }
       } else {
-        this.answer = 'No';
+        this.answer = "No";
+        $("#WrongElm")[0].play();
       }
     },
     newEle: function newEle(parent, values) {
       var elements = [];
 
       for (var i = 0; i < values.length; i++) {
-        var el = document.createElement('DIV');
-        el.innerHTML = "\n                    <div  id=".concat(i == 0 || i == 1 ? '-' + values[i] : '-' + values[i], " class=\"col-md-5 d-flex justify-content-center align-items-center p-4\">\n                        <div style=\"font-size: 30px; margin: 0 40px\">").concat(values[i], "</div>\n                    </div>\n                ");
+        var el = document.createElement("DIV");
+        el.innerHTML = "\n                        <div  id=".concat(i == 0 || i == 1 ? "-" + values[i] : "-" + values[i], " >\n                          \n                            <img style=\"height:50px\" src=\"/storage/Images/").concat(values[i], ".png\" />\n                            \n                          \n                        </div>\n                    ");
         elements.push(el);
       }
 
+      console.log("value", values);
+
       switch (values.length) {
         case 4:
-          var leftRegion = document.createElement('DIV');
-          leftRegion.innerHTML = "\n                        <div class=\"row\"  style=\"margin: 15px;\">\n                            ".concat(elements[0].innerHTML, "\n                            ").concat(elements[1].innerHTML, "\n                        </div>\n                    ");
+          var leftRegion = document.createElement("DIV");
+          leftRegion.innerHTML = "\n                             <div>\n                            <div class=\"col-md-1 d-flex justify-content-center align-items-center m-5\">\n                                ".concat(elements[0].innerHTML, "\n                               \n                            </div>\n                              <div class=\"col-md-1 d-flex justify-content-center align-items-center m-5\">\n                                \n                                ").concat(elements[1].innerHTML, "\n                            </div>\n                             </div>\n                        ");
+          console.log("elements[0].innerHTML==>", elements[0].innerHTML);
           parent.appendChild(leftRegion);
-          var rightRegion = document.createElement('DIV');
-          rightRegion.innerHTML = "\n                        <div class=\"row\"  style=\"margin: 15px;\">\n                            ".concat(elements[2].innerHTML, "\n                            ").concat(elements[3].innerHTML, "\n                        </div>\n                    ");
+          var rightRegion = document.createElement("DIV");
+          rightRegion.innerHTML = "\n                            <div>\n                            <div class=\"col-md-1 d-flex justify-content-center align-items-center m-5\">\n                                ".concat(elements[2].innerHTML, "\n                               \n                            </div>\n                              <div class=\"col-md-1 d-flex justify-content-center align-items-center m-5\">\n                                \n                                ").concat(elements[3].innerHTML, "\n                            </div>\n                             </div>\n                        ");
           parent.appendChild(rightRegion);
           break;
 
         case 2:
-          var firstItem = document.createElement('DIV');
-          firstItem.innerHTML = "\n                        <div class=\"col-md-4\"  style=\"margin: 0 5%;\">\n                            ".concat(elements[0].innerHTML, "\n                        </div>\n                    ");
+          var firstItem = document.createElement("DIV");
+          firstItem.innerHTML = "\n                            <div class=\"col-md-1 d-flex justify-content-center align-items-center m-3 pr-5\">\n                                ".concat(elements[0].innerHTML, "\n                            </div>\n                        ");
           parent.appendChild(firstItem);
-          var sectItem = document.createElement('DIV');
-          sectItem.innerHTML = "\n                        <div class=\"col-md-4\"  style=\"margin: 0 5%;\">\n                            ".concat(elements[1].innerHTML, "\n                        </div>\n                    ");
+          var sectItem = document.createElement("DIV");
+          sectItem.innerHTML = "\n                            <div  class=\"col-md-1 d-flex justify-content-center align-items-center m-3 \">\n                                ".concat(elements[1].innerHTML, "\n                            </div>\n                        ");
           parent.appendChild(sectItem);
           break;
 
         case 1:
-          var singleNum = document.createElement('DIV');
-          singleNum.innerHTML = "\n                        <div style=\"margin-left: 15%\">\n                            ".concat(elements[0].innerHTML, "\n                        </div>\n                    ");
+          var singleNum = document.createElement("DIV");
+          singleNum.innerHTML = "\n                            <div  class=\"col-md-1 d-flex justify-content-center align-items-center p-3>\n                                ".concat(elements[0].innerHTML, "\n                            </div>\n                        ");
           parent.appendChild(singleNum);
+          console.log(singleNum);
           break;
       }
     },
@@ -5740,14 +6105,19 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         this.synth.speak(toSpeak);
       }
     },
+    endGame: function endGame() {
+      $("#applausElm")[0].play();
+      $("#congrats").show();
+      $("#fireworkElm")[0].play();
+    },
     voice: function voice(msg) {
       var _this = this;
 
-      this.voiceIcon = 'fa fa-volume-up';
+      this.voiceIcon = "fa fa-volume-up";
       this.textToVoice(msg);
       setTimeout(function () {
-        _this.voiceIcon = 'fa fa-play-circle';
-      }, 4500);
+        _this.voiceIcon = "fa fa-play-circle";
+      }, 1000);
     }
   },
   created: function created() {
@@ -5761,7 +6131,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     this.rightSortedArray = _toConsumableArray(this.numbersArray.slice(4, 8)).sort(function (a, b) {
       return a - b;
     });
-    this.answer = 'Think'; // Values ==> [Think, Yes, No].
+    this.answer = "Think"; // Values ==> [Think, Yes, No].
   }
 });
 
@@ -10452,7 +10822,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.move[data-v-3b0c6907]{\n    position: relative;\n}\n.move img[data-v-3b0c6907]:hover{\n    position: absolute;\n    /* transition: 1s infinite linear; */\n    -webkit-animation: moveimage-data-v-3b0c6907 1s infinite linear alternate;\n            animation: moveimage-data-v-3b0c6907 1s infinite linear alternate\n    /* animation-name: moveimage;\n    animation-duration: 4s; */\n}\n@-webkit-keyframes moveimage-data-v-3b0c6907 {\n0%  {top: 0px;}\n50%  {top: 20px;}\n50% {top: -10px;}\n100% {top: 0px;}\n}\n@keyframes moveimage-data-v-3b0c6907 {\n0%  {top: 0px;}\n50%  {top: 20px;}\n50% {top: -10px;}\n100% {top: 0px;}\n}\n", ""]);
+exports.push([module.i, "\n.move[data-v-3b0c6907]{\r\n    position: relative;\n}\n.move img[data-v-3b0c6907]:hover{\r\n    position: absolute;\r\n    /* transition: 1s infinite linear; */\r\n    -webkit-animation: moveimage-data-v-3b0c6907 1s infinite linear alternate;\r\n            animation: moveimage-data-v-3b0c6907 1s infinite linear alternate\r\n    /* animation-name: moveimage;\r\n    animation-duration: 4s; */\n}\n@-webkit-keyframes moveimage-data-v-3b0c6907 {\n0%  {top: 0px;}\n50%  {top: 20px;}\n50% {top: -10px;}\n100% {top: 0px;}\n}\n@keyframes moveimage-data-v-3b0c6907 {\n0%  {top: 0px;}\n50%  {top: 20px;}\n50% {top: -10px;}\n100% {top: 0px;}\n}\r\n", ""]);
 
 // exports
 
@@ -10471,7 +10841,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.move[data-v-37956664]{\n    position: relative;\n}\n.move img[data-v-37956664]:hover{\n    position: absolute;\n    /* transition: 1s infinite linear; */\n    -webkit-animation: moveimage-data-v-37956664 1s infinite linear alternate;\n            animation: moveimage-data-v-37956664 1s infinite linear alternate\n    /* animation-name: moveimage;\n    animation-duration: 4s; */\n}\n@-webkit-keyframes moveimage-data-v-37956664 {\n0%  {top: 0px;}\n50%  {top: 20px;}\n50% {top: -10px;}\n100% {top: 0px;}\n}\n@keyframes moveimage-data-v-37956664 {\n0%  {top: 0px;}\n50%  {top: 20px;}\n50% {top: -10px;}\n100% {top: 0px;}\n}\n", ""]);
+exports.push([module.i, "\n.move[data-v-37956664]{\r\n    position: relative;\n}\n.move img[data-v-37956664]:hover{\r\n    position: absolute;\r\n    /* transition: 1s infinite linear; */\r\n    -webkit-animation: moveimage-data-v-37956664 1s infinite linear alternate;\r\n            animation: moveimage-data-v-37956664 1s infinite linear alternate\r\n    /* animation-name: moveimage;\r\n    animation-duration: 4s; */\n}\n@-webkit-keyframes moveimage-data-v-37956664 {\n0%  {top: 0px;}\n50%  {top: 20px;}\n50% {top: -10px;}\n100% {top: 0px;}\n}\n@keyframes moveimage-data-v-37956664 {\n0%  {top: 0px;}\n50%  {top: 20px;}\n50% {top: -10px;}\n100% {top: 0px;}\n}\r\n", ""]);
 
 // exports
 
@@ -10490,7 +10860,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.header[data-v-3dc9dc39] {\n  margin-bottom: 50px;\n}\n.game-board table[data-v-3dc9dc39] {\n  margin: 0 auto;\n  border-collapse: collapse;\n}\n.game-board table td[data-v-3dc9dc39] {\n  width: 86px;\n  height: 86px;\n}\n.game-asset[data-v-3dc9dc39] {\n  width: 120px;\n  height: 120px;\n  margin: 10px;\n  border: 1px solid #ccc;\n  border-radius: 12px;\n}\n.score-board[data-v-3dc9dc39] {\n  border: 1px solid #ccc;\n  border-radius: 20px;\n  padding: 10px;\n}\n.score-board button[data-v-3dc9dc39] {\n  font-weight: bold;\n  margin-right: 30px;\n}\n.bold[data-v-3dc9dc39] {\n  font-weight: bold;\n}\n.vloume[data-v-3dc9dc39] {\n  width: 72px;\n  height: 49px;\n  position: absolute;\n  top: 22%;\n  left: 43px;\n  cursor: pointer;\n}\n.celebrateimg[data-v-3dc9dc39] {\n  position: absolute;\n  text-align: center;\n  margin: 10px auto;\n  top: 53%;\n  left: 53%;\n  cursor: pointer;\n}\n", ""]);
+exports.push([module.i, "\n.header[data-v-3dc9dc39] {\r\n  margin-bottom: 50px;\n}\n.game-board table[data-v-3dc9dc39] {\r\n  margin: 0 auto;\r\n  border-collapse: collapse;\n}\n.game-board table td[data-v-3dc9dc39] {\r\n  width: 86px;\r\n  height: 86px;\n}\n.game-asset[data-v-3dc9dc39] {\r\n  width: 120px;\r\n  height: 120px;\r\n  margin: 10px;\r\n  border: 1px solid #ccc;\r\n  border-radius: 12px;\n}\n.score-board[data-v-3dc9dc39] {\r\n  border: 1px solid #ccc;\r\n  border-radius: 20px;\r\n  padding: 10px;\n}\n.score-board button[data-v-3dc9dc39] {\r\n  font-weight: bold;\r\n  margin-right: 30px;\n}\n.bold[data-v-3dc9dc39] {\r\n  font-weight: bold;\n}\n.vloume[data-v-3dc9dc39] {\r\n  width: 72px;\r\n  height: 49px;\r\n  position: absolute;\r\n  top: 22%;\r\n  left: 43px;\r\n  cursor: pointer;\n}\n.celebrateimg[data-v-3dc9dc39] {\r\n  position: absolute;\r\n  text-align: center;\r\n  margin: 10px auto;\r\n  top: 53%;\r\n  left: 53%;\r\n  cursor: pointer;\n}\r\n", ""]);
 
 // exports
 
@@ -10509,7 +10879,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.allLevels[data-v-224449b3] {\n  width: 5.8%;\n  height: 5.8%;\n  position: absolute;\n  border-radius: 14% 14% 50% 50%;\n}\n.level7[data-v-224449b3] {\n  top: 35%;\n  left: 9%;\n}\n.level7active[data-v-224449b3] {\n  top: 28%;\n  left: 7%;\n}\n.level6[data-v-224449b3] {\n  top: 46.5%;\n  left: 24.4%;\n}\n.level6active[data-v-224449b3] {\n  top: 39.5%;\n  left: 22.5%;\n}\n.level5[data-v-224449b3] {\n  top: 38.5%;\n  left: 44.4%;\n}\n.level5active[data-v-224449b3] {\n  top: 31.5%;\n  left: 42.5%;\n}\n.level4[data-v-224449b3] {\n  top: 43.8%;\n  left: 63.7%;\n}\n.level4active[data-v-224449b3] {\n  top: 36.8%;\n  left: 61.8%;\n}\n.level3[data-v-224449b3] {\n  top: 66.8%;\n  left: 56.8%;\n}\n.level3active[data-v-224449b3] {\n  top: 59.6%;\n  left: 54.8%;\n}\n.level2[data-v-224449b3] {\n  top: 83.7%;\n  left: 54.8%;\n}\n.level2active[data-v-224449b3] {\n  top: 76.6%;\n  left: 52.8%;\n}\n.level1[data-v-224449b3] {\n  top: 82%;\n  left: 77.7%;\n}\n.level1active[data-v-224449b3] {\n  top: 74.9%;\n  left: 75.8%;\n}\n.outer-circle[data-v-224449b3] {\n  box-shadow: 0 0 50px 10px #453d9b;\n  border: 7px solid #ecebfa;\n  border-top-color: #00ff08;\n  border-right-color: yellow;\n  border-bottom-color: #ff0101;\n  border-left-color: blueviolet;\n  text-align: center;\n  width: 9.8%;\n  height: 9.8%;\n  border-radius: 220px;\n\n  -webkit-animation: turning_cw-data-v-224449b3 5s infinite;\n  animation: turning_cw-data-v-224449b3 5s infinite;\n  opacity: 1;\n}\n.outer-circle[data-v-224449b3]:hover {\n  box-shadow: 0 0 100px 15px #453d9b;\n}\n.vloume[data-v-224449b3] {\n  width: 72px;\n  height: 49px;\n  position: absolute;\n  top: 20%;\n  left: 50px;\n}\n@-webkit-keyframes aura-data-v-224449b3 {\n0% {\n    text-shadow: 0 2px 2px #000;\n}\n50% {\n    text-shadow: 0 10px 10px #000;\n    line-height: 190px;\n}\n100% {\n    text-shadow: 0 2px 10px #000;\n}\n}\n@-webkit-keyframes turning_cw-data-v-224449b3 {\n0% {\n    -webkit-transform: rotate(0deg);\n}\n100% {\n    -webkit-transform: rotate(360deg);\n}\n}\n@-webkit-keyframes turning_acw-data-v-224449b3 {\n0% {\n    -webkit-transform: rotate(360deg);\n}\n100% {\n    -webkit-transform: rotate(0deg);\n}\n}\n@keyframes aura-data-v-224449b3 {\n0% {\n    text-shadow: 0 2px 2px #000;\n}\n50% {\n    text-shadow: 0 10px 10px #000;\n    line-height: 190px;\n}\n100% {\n    text-shadow: 0 2px 10px #000;\n}\n}\n@keyframes turning_cw-data-v-224449b3 {\n0% {\n    transform: rotate(0deg);\n}\n100% {\n    transform: rotate(360deg);\n}\n}\n@keyframes turning_acw-data-v-224449b3 {\n0% {\n    transform: rotate(360deg);\n}\n100% {\n    transform: rotate(0deg);\n}\n}\n", ""]);
+exports.push([module.i, "\n.allLevels[data-v-224449b3] {\r\n  width: 5.8%;\r\n  height: 5.8%;\r\n  position: absolute;\r\n  border-radius: 14% 14% 50% 50%;\n}\n.level7[data-v-224449b3] {\r\n  top: 35%;\r\n  left: 9%;\n}\n.level7active[data-v-224449b3] {\r\n  top: 28%;\r\n  left: 7%;\n}\n.level6[data-v-224449b3] {\r\n  top: 46.5%;\r\n  left: 24.4%;\n}\n.level6active[data-v-224449b3] {\r\n  top: 39.5%;\r\n  left: 22.5%;\n}\n.level5[data-v-224449b3] {\r\n  top: 38.5%;\r\n  left: 44.4%;\n}\n.level5active[data-v-224449b3] {\r\n  top: 31.5%;\r\n  left: 42.5%;\n}\n.level4[data-v-224449b3] {\r\n  top: 43.8%;\r\n  left: 63.7%;\n}\n.level4active[data-v-224449b3] {\r\n  top: 36.8%;\r\n  left: 61.8%;\n}\n.level3[data-v-224449b3] {\r\n  top: 66.8%;\r\n  left: 56.8%;\n}\n.level3active[data-v-224449b3] {\r\n  top: 59.6%;\r\n  left: 54.8%;\n}\n.level2[data-v-224449b3] {\r\n  top: 83.7%;\r\n  left: 54.8%;\n}\n.level2active[data-v-224449b3] {\r\n  top: 76.6%;\r\n  left: 52.8%;\n}\n.level1[data-v-224449b3] {\r\n  top: 82%;\r\n  left: 77.7%;\n}\n.level1active[data-v-224449b3] {\r\n  top: 74.9%;\r\n  left: 75.8%;\n}\n.outer-circle[data-v-224449b3] {\r\n  box-shadow: 0 0 50px 10px #453d9b;\r\n  border: 7px solid #ecebfa;\r\n  border-top-color: #00ff08;\r\n  border-right-color: yellow;\r\n  border-bottom-color: #ff0101;\r\n  border-left-color: blueviolet;\r\n  text-align: center;\r\n  width: 9.8%;\r\n  height: 9.8%;\r\n  border-radius: 220px;\r\n\r\n  -webkit-animation: turning_cw-data-v-224449b3 5s infinite;\r\n  animation: turning_cw-data-v-224449b3 5s infinite;\r\n  opacity: 1;\n}\n.outer-circle[data-v-224449b3]:hover {\r\n  box-shadow: 0 0 100px 15px #453d9b;\n}\n.vloume[data-v-224449b3] {\r\n  width: 72px;\r\n  height: 49px;\r\n  position: absolute;\r\n  top: 20%;\r\n  left: 50px;\n}\n@-webkit-keyframes aura-data-v-224449b3 {\n0% {\r\n    text-shadow: 0 2px 2px #000;\n}\n50% {\r\n    text-shadow: 0 10px 10px #000;\r\n    line-height: 190px;\n}\n100% {\r\n    text-shadow: 0 2px 10px #000;\n}\n}\n@-webkit-keyframes turning_cw-data-v-224449b3 {\n0% {\r\n    -webkit-transform: rotate(0deg);\n}\n100% {\r\n    -webkit-transform: rotate(360deg);\n}\n}\n@-webkit-keyframes turning_acw-data-v-224449b3 {\n0% {\r\n    -webkit-transform: rotate(360deg);\n}\n100% {\r\n    -webkit-transform: rotate(0deg);\n}\n}\n@keyframes aura-data-v-224449b3 {\n0% {\r\n    text-shadow: 0 2px 2px #000;\n}\n50% {\r\n    text-shadow: 0 10px 10px #000;\r\n    line-height: 190px;\n}\n100% {\r\n    text-shadow: 0 2px 10px #000;\n}\n}\n@keyframes turning_cw-data-v-224449b3 {\n0% {\r\n    transform: rotate(0deg);\n}\n100% {\r\n    transform: rotate(360deg);\n}\n}\n@keyframes turning_acw-data-v-224449b3 {\n0% {\r\n    transform: rotate(360deg);\n}\n100% {\r\n    transform: rotate(0deg);\n}\n}\r\n", ""]);
 
 // exports
 
@@ -10528,7 +10898,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.divBg[data-v-4872fa7e] {\n    background-color: rgba(85, 169, 56, 0.5);\n}\n.divBg2[data-v-4872fa7e] {\n    background-color: rgba(85, 169, 56, 0.5);\n}\n.result[data-v-4872fa7e] {\n    width: 100px;\n    height: 100px;\n    border: 1px solid gray;\n    box-shadow: 0 0 3px 0 gray, inset 0 0 7px 0 gray;\n}\n", ""]);
+exports.push([module.i, "\n.divBg[data-v-4872fa7e] {\r\n    background-color: rgba(85, 169, 56, 0.5);\n}\n.divBg2[data-v-4872fa7e] {\r\n    background-color: rgba(85, 169, 56, 0.5);\n}\n.result[data-v-4872fa7e] {\r\n    width: 100px;\r\n    height: 100px;\r\n    border: 1px solid gray;\r\n    box-shadow: 0 0 3px 0 gray, inset 0 0 7px 0 gray;\n}\r\n", ""]);
 
 // exports
 
@@ -10547,7 +10917,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.vloume[data-v-4e9afd84] {\n  width: 72px;\n  height: 49px;\n  position: absolute;\n  top: 20%;\n  left: 50px;\n}\n.celebrateimg[data-v-4e9afd84] {\n    position: absolute;\n    /* text-align: center; */\n    /* margin: 10px auto; */\n    top: 35%;\n    left: 35%;\n    transform: translate(-50%, -50%);\n    width: 320px;\n    z-index: 999;\n}\n", ""]);
+exports.push([module.i, "\n.vloume[data-v-4e9afd84] {\r\n  width: 72px;\r\n  height: 49px;\r\n  position: absolute;\r\n  top: 20%;\r\n  left: 50px;\n}\n.celebrateimg[data-v-4e9afd84] {\r\n    position: absolute;\r\n    /* text-align: center; */\r\n    /* margin: 10px auto; */\r\n    top: 35%;\r\n    left: 35%;\r\n    transform: translate(-50%, -50%);\r\n    width: 320px;\r\n    z-index: 999;\n}\r\n", ""]);
 
 // exports
 
@@ -10566,7 +10936,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.button[data-v-4e16050c] {\n    padding: 15px 25px;\n    font-size: 24px;\n    text-align: center;\n    cursor: pointer;\n    outline: none;\n    color: #fff;\n    background-color: #4caf50;\n    border: none;\n    border-radius: 15px;\n    box-shadow: 0 9px #999;\n}\n.button[data-v-4e16050c]:hover {\n    background-color: #3e8e41;\n}\n.button[data-v-4e16050c]:active {\n    background-color: #3e8e41;\n    box-shadow: 0 5px #666;\n    transform: translateY(4px);\n}\n.result[data-v-4e16050c] {\n    width: 100px;\n    height: 100px;\n    border: 1px solid gray;\n    box-shadow: 0 0 3px 0 gray, inset 0 0 7px 0 gray;\n}\n.divBg[data-v-4e16050c] {\n    background-color: rgba(85, 169, 56, 0.5);\n}\n.vloume[data-v-4e16050c] {\n    width: 72px;\n    height: 49px;\n    position: absolute;\n    top: 20%;\n    left: 50px;\n}\n", ""]);
+exports.push([module.i, "\n.button[data-v-4e16050c] {\r\n    padding: 15px 25px;\r\n    font-size: 24px;\r\n    text-align: center;\r\n    cursor: pointer;\r\n    outline: none;\r\n    color: #fff;\r\n    background-color: #4caf50;\r\n    border: none;\r\n    border-radius: 15px;\r\n    box-shadow: 0 9px #999;\n}\n.button[data-v-4e16050c]:hover {\r\n    background-color: #3e8e41;\n}\n.button[data-v-4e16050c]:active {\r\n    background-color: #3e8e41;\r\n    box-shadow: 0 5px #666;\r\n    transform: translateY(4px);\n}\n.result[data-v-4e16050c] {\r\n    width: 100px;\r\n    height: 100px;\r\n    border: 1px solid gray;\r\n    box-shadow: 0 0 3px 0 gray, inset 0 0 7px 0 gray;\n}\n.divBg[data-v-4e16050c] {\r\n    background-color: rgba(85, 169, 56, 0.5);\n}\n.vloume[data-v-4e16050c] {\r\n    width: 72px;\r\n    height: 49px;\r\n    position: absolute;\r\n    top: 20%;\r\n    left: 50px;\n}\r\n", ""]);
 
 // exports
 
@@ -10585,7 +10955,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.button[data-v-76889542] {\n    padding: 15px 25px;\n    font-size: 24px;\n    text-align: center;\n    cursor: pointer;\n    outline: none;\n    color: #fff;\n    background-color: #4caf50;\n    border: none;\n    border-radius: 15px;\n    box-shadow: 0 9px #999;\n}\n.button[data-v-76889542]:hover {\n    background-color: #3e8e41;\n}\n.button[data-v-76889542]:active {\n    background-color: #3e8e41;\n    box-shadow: 0 5px #666;\n    transform: translateY(4px);\n}\n.result[data-v-76889542] {\n    width: 100px;\n    height: 100px;\n    border: 1px solid gray;\n    box-shadow: 0 0 3px 0 gray, inset 0 0 7px 0 gray;\n}\n.divBg[data-v-76889542] {\n    background-color: rgba(85, 169, 56, 0.5);\n}\n.vloume[data-v-76889542] {\n  width: 72px;\n  height: 49px;\n  position: absolute;\n  top: 20%;\n  left: 50px;\n}\n", ""]);
+exports.push([module.i, "\n.button[data-v-76889542] {\r\n    padding: 15px 25px;\r\n    font-size: 24px;\r\n    text-align: center;\r\n    cursor: pointer;\r\n    outline: none;\r\n    color: #fff;\r\n    background-color: #4caf50;\r\n    border: none;\r\n    border-radius: 15px;\r\n    box-shadow: 0 9px #999;\n}\n.button[data-v-76889542]:hover {\r\n    background-color: #3e8e41;\n}\n.button[data-v-76889542]:active {\r\n    background-color: #3e8e41;\r\n    box-shadow: 0 5px #666;\r\n    transform: translateY(4px);\n}\n.result[data-v-76889542] {\r\n    width: 100px;\r\n    height: 100px;\r\n    border: 1px solid gray;\r\n    box-shadow: 0 0 3px 0 gray, inset 0 0 7px 0 gray;\n}\n.divBg[data-v-76889542] {\r\n    background-color: rgba(85, 169, 56, 0.5);\n}\n.vloume[data-v-76889542] {\r\n  width: 72px;\r\n  height: 49px;\r\n  position: absolute;\r\n  top: 20%;\r\n  left: 50px;\n}\r\n", ""]);
 
 // exports
 
@@ -10604,7 +10974,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.lineResult[data-v-0f352d60]{\n    width: 200px;\n    height: 15px;\n    border: 1px solid black;\n    border-radius: 20px;\n    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(220,219,224,1) 27%, rgba(255,255,255,1) 50%, rgba(224,224,224,1) 73%, rgba(0,0,0,1) 100%);\n}\n", ""]);
+exports.push([module.i, "\n.lineResult[data-v-0f352d60]{\r\n    width: 200px;\r\n    height: 15px;\r\n    border: 1px solid black;\r\n    border-radius: 20px;\r\n    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(220,219,224,1) 27%, rgba(255,255,255,1) 50%, rgba(224,224,224,1) 73%, rgba(0,0,0,1) 100%);\n}\r\n", ""]);
 
 // exports
 
@@ -10623,7 +10993,26 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.vloume[data-v-1e51c6f2] {\n  width: 72px;\n  height: 49px;\n  position: absolute;\n  top: 20%;\n  left: 50px;\n}\n.selected[data-v-1e51c6f2] {\n  font-size: 30px;\n  margin: 0 40px;\n  position: relative;\n  background-color: blue;\n  -webkit-animation-duration: 4s;\n          animation-duration: 4s;\n}\n.arrow[data-v-1e51c6f2] {\n  width: 50px;\n  height: 50px;\n  display: block;\n}\n.popup[data-v-1e51c6f2] {\n  position: fixed;\n  top: 50%;\n  left: 50%;\n  width: 90%;\n  height: 100%;\n  transform: translate(-50%, -50%);\n  background-color: rgba(1, 1, 22, 0.959);\n  color: white;\n  display: none;\n  padding-top: 30px;\n  z-index: 999;\n}\n.swapFirst[data-v-1e51c6f2] {\n  -webkit-animation: firstSelect-data-v-1e51c6f2;\n          animation: firstSelect-data-v-1e51c6f2;\n  -webkit-animation-duration: 4s;\n          animation-duration: 4s;\n  -webkit-animation-delay: 1s;\n          animation-delay: 1s;\n  -webkit-animation-iteration-count: 2;\n          animation-iteration-count: 2;\n}\n.swapSecond[data-v-1e51c6f2] {\n  -webkit-animation: secondSelect-data-v-1e51c6f2;\n          animation: secondSelect-data-v-1e51c6f2;\n  -webkit-animation-duration: 4s;\n          animation-duration: 4s;\n  -webkit-animation-delay: 1s;\n          animation-delay: 1s;\n  -webkit-animation-iteration-count: 2;\n          animation-iteration-count: 2;\n}\n.speech-bubble[data-v-1e51c6f2] {\n  position: relative;\n  background: #cc6dc7d8;\n  border-radius: 30%;\n  padding: 30px;\n  margin-top: 10px;\n}\n#h3steps[data-v-1e51c6f2] {\n  position: relative;\n  background: #ff9dde;\n  border-radius: 40%;\n  padding: 25px;\n  margin-right: 10px;\n}\n.speech-bubble[data-v-1e51c6f2]:after {\n  content: \"\";\n  position: absolute;\n  right: 0;\n  top: 50%;\n  width: 0;\n  height: 0;\n  border: 24px solid transparent;\n  border-left-color: #cc6dc7d8;\n  border-right: 0;\n  border-top: 0;\n  margin-top: -12px;\n  margin-right: -24px;\n}\n@-webkit-keyframes firstSelect-data-v-1e51c6f2 {\nfrom {\n    background-color: red;\n    left: 0px;\n    top: 0px;\n}\n25% {\n    background-color: yellow;\n    left: 0px;\n    top: 50px;\n}\n50% {\n    background-color: blue;\n    left: 100px;\n    top: 50px;\n}\nto {\n    background-color: green;\n    left: 100px;\n    top: 0px;\n}\n}\n@keyframes firstSelect-data-v-1e51c6f2 {\nfrom {\n    background-color: red;\n    left: 0px;\n    top: 0px;\n}\n25% {\n    background-color: yellow;\n    left: 0px;\n    top: 50px;\n}\n50% {\n    background-color: blue;\n    left: 100px;\n    top: 50px;\n}\nto {\n    background-color: green;\n    left: 100px;\n    top: 0px;\n}\n}\n@-webkit-keyframes secondSelect-data-v-1e51c6f2 {\nfrom {\n    background-color: red;\n    left: 0px;\n    top: 0px;\n}\n25% {\n    background-color: yellow;\n    left: 0px;\n    top: -50px;\n}\n50% {\n    background-color: blue;\n    left: -100px;\n    top: -50px;\n}\nto {\n    background-color: green;\n    left: -100px;\n    top: 0px;\n}\n}\n@keyframes secondSelect-data-v-1e51c6f2 {\nfrom {\n    background-color: red;\n    left: 0px;\n    top: 0px;\n}\n25% {\n    background-color: yellow;\n    left: 0px;\n    top: -50px;\n}\n50% {\n    background-color: blue;\n    left: -100px;\n    top: -50px;\n}\nto {\n    background-color: green;\n    left: -100px;\n    top: 0px;\n}\n}\n", ""]);
+exports.push([module.i, "\n.vloume[data-v-1e51c6f2] {\r\n  width: 72px;\r\n  height: 49px;\r\n  position: absolute;\r\n  top: 20%;\r\n  left: 50px;\n}\n.selected[data-v-1e51c6f2] {\r\n  font-size: 30px;\r\n  margin: 0 40px;\r\n  position: relative;\r\n  background-color: blue;\r\n  -webkit-animation-duration: 4s;\r\n          animation-duration: 4s;\n}\n.arrow[data-v-1e51c6f2] {\r\n  width: 50px;\r\n  height: 50px;\r\n  display: block;\n}\n.popup[data-v-1e51c6f2] {\r\n  position: fixed;\r\n  top: 50%;\r\n  left: 50%;\r\n  width: 90%;\r\n  height: 100%;\r\n  transform: translate(-50%, -50%);\r\n  background-color: rgba(1, 1, 22, 0.986);\r\n  color: white;\r\n  display: none;\r\n  padding-top: 30px;\r\n  z-index: 999;\n}\n.swapFirst[data-v-1e51c6f2] {\r\n  -webkit-animation: firstSelect-data-v-1e51c6f2;\r\n          animation: firstSelect-data-v-1e51c6f2;\r\n  -webkit-animation-duration: 4s;\r\n          animation-duration: 4s;\r\n  -webkit-animation-delay: 1s;\r\n          animation-delay: 1s;\r\n  -webkit-animation-iteration-count: 2;\r\n          animation-iteration-count: 2;\n}\n.swapSecond[data-v-1e51c6f2] {\r\n  -webkit-animation: secondSelect-data-v-1e51c6f2;\r\n          animation: secondSelect-data-v-1e51c6f2;\r\n  -webkit-animation-duration: 4s;\r\n          animation-duration: 4s;\r\n  -webkit-animation-delay: 1s;\r\n          animation-delay: 1s;\r\n  -webkit-animation-iteration-count: 2;\r\n          animation-iteration-count: 2;\n}\n.speech-bubble[data-v-1e51c6f2] {\r\n  position: relative;\r\n  background: #cc6dc7d8;\r\n  border-radius: 30%;\r\n  padding: 30px;\r\n  margin-top: 10px;\n}\n#h3steps[data-v-1e51c6f2] {\r\n  position: relative;\r\n  background: #ff9dde;\r\n  border-radius: 40%;\r\n  padding: 25px;\r\n  margin-right: 10px;\n}\n.speech-bubble[data-v-1e51c6f2]:after {\r\n  content: \"\";\r\n  position: absolute;\r\n  right: 0;\r\n  top: 50%;\r\n  width: 0;\r\n  height: 0;\r\n  border: 24px solid transparent;\r\n  border-left-color: #cc6dc7d8;\r\n  border-right: 0;\r\n  border-top: 0;\r\n  margin-top: -12px;\r\n  margin-right: -24px;\n}\n@-webkit-keyframes firstSelect-data-v-1e51c6f2 {\nfrom {\r\n    background-color: red;\r\n    left: 0px;\r\n    top: 0px;\n}\n25% {\r\n    background-color: yellow;\r\n    left: 0px;\r\n    top: 50px;\n}\n50% {\r\n    background-color: blue;\r\n    left: 100px;\r\n    top: 50px;\n}\nto {\r\n    background-color: green;\r\n    left: 100px;\r\n    top: 0px;\n}\n}\n@keyframes firstSelect-data-v-1e51c6f2 {\nfrom {\r\n    background-color: red;\r\n    left: 0px;\r\n    top: 0px;\n}\n25% {\r\n    background-color: yellow;\r\n    left: 0px;\r\n    top: 50px;\n}\n50% {\r\n    background-color: blue;\r\n    left: 100px;\r\n    top: 50px;\n}\nto {\r\n    background-color: green;\r\n    left: 100px;\r\n    top: 0px;\n}\n}\n@-webkit-keyframes secondSelect-data-v-1e51c6f2 {\nfrom {\r\n    background-color: red;\r\n    left: 0px;\r\n    top: 0px;\n}\n25% {\r\n    background-color: yellow;\r\n    left: 0px;\r\n    top: -50px;\n}\n50% {\r\n    background-color: blue;\r\n    left: -100px;\r\n    top: -50px;\n}\nto {\r\n    background-color: green;\r\n    left: -100px;\r\n    top: 0px;\n}\n}\n@keyframes secondSelect-data-v-1e51c6f2 {\nfrom {\r\n    background-color: red;\r\n    left: 0px;\r\n    top: 0px;\n}\n25% {\r\n    background-color: yellow;\r\n    left: 0px;\r\n    top: -50px;\n}\n50% {\r\n    background-color: blue;\r\n    left: -100px;\r\n    top: -50px;\n}\nto {\r\n    background-color: green;\r\n    left: -100px;\r\n    top: 0px;\n}\n}\r\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Numbers/Sort/MergeSortComponent.vue?vue&type=style&index=0&id=a3d86850&scoped=true&lang=css&":
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Numbers/Sort/MergeSortComponent.vue?vue&type=style&index=0&id=a3d86850&scoped=true&lang=css& ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.animatediv[data-v-a3d86850] {\r\n  -webkit-animation: firstSelect-data-v-a3d86850;\r\n          animation: firstSelect-data-v-a3d86850;\r\n  -webkit-animation-duration: 4s;\r\n          animation-duration: 4s;\r\n  -webkit-animation-delay: 1s;\r\n          animation-delay: 1s;\r\n  -webkit-animation-iteration-count: 2;\r\n          animation-iteration-count: 2;\r\n  margin: 0 2px;\n}\n@-webkit-keyframes firstSelect-data-v-a3d86850 {\nfrom {\r\n    background-color: pink;\r\n\r\n    top: 0px;\n}\n50% {\r\n    background-color: yellow;\r\n\r\n    top: 200px;\n}\nto {\r\n    background-color: green;\r\n\r\n    top: 0px;\n}\n}\n@keyframes firstSelect-data-v-a3d86850 {\nfrom {\r\n    background-color: pink;\r\n\r\n    top: 0px;\n}\n50% {\r\n    background-color: yellow;\r\n\r\n    top: 200px;\n}\nto {\r\n    background-color: green;\r\n\r\n    top: 0px;\n}\n}\n.popup[data-v-a3d86850] {\r\n  position: fixed;\r\n  top: 50%;\r\n  left: 50%;\r\n  width:100%;\r\n  height: 100%;\r\n  transform: translate(-50%, -50%);\r\n  background-color: rgba(1, 1, 22, 0.986);\r\n  color: white;\r\n  display: none;\r\n  padding-top: 30px;\r\n  z-index: 999;\n}\r\n", ""]);
 
 // exports
 
@@ -10642,7 +11031,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\nbody[data-v-427fac71] {\n  margin: 30px;\n  line-height: 1.8em;\n}\nimg[data-v-427fac71] {\n  cursor: pointer;\n}\n#content[data-v-427fac71] {\n  margin: 20px 70px;\n  text-align: center;\n  -moz-user-select: none;\n  -webkit-user-select: none;\n  -ms-user-select: none;\n      user-select: none;\n  position: relative;\n}\n.cardSlots[data-v-427fac71] {\n  margin: 27px auto 0 auto;\n  background: rgb(182, 182, 187);\n  /* display: flex; */\n}\n.cardPile[data-v-427fac71] {\n  /* margin: 0 auto; */\n  /* background: rgb(201, 201, 202); */\n  /* display: flex; */\n}\n.cardSlots[data-v-427fac71],\n.cardPile[data-v-427fac71] {\n  width: 100%;\n  /* height: 170px; */\n  padding: 20px;\n  /* border: 2px solid rgb(95, 95, 95); */\n  border-radius: 15px;\n  text-align: center;\n  box-shadow: 0 0 0.3em rgba(41, 40, 40, 0.8);\n}\n.cardSlots div div[data-v-427fac71]:first-child,\n.cardPile div[data-v-427fac71]{\n  /* float: left; */\n  width: 90px;\n  height: 100px;\n  display: inline-flex;\n  justify-content: center;\n  align-items: center;\n  /* border: 2px solid rgb(rgb(77, 72, 72), rgb(68, 116, 68), rgb(66, 66, 107)); */\n  border-radius: 10px;\n  margin: 0 10px;\n  background: #fff;\n}\n.cardSlots div[data-v-427fac71]:first-child,\n.cardPile div[data-v-427fac71]:first-child {\n  /* margin-left: 0; */\n}\n.cardSlots div.hovered[data-v-427fac71] {\n  background: #aaa;\n}\n.cardPile div[data-v-427fac71] {\n  background: rgb(123, 24, 136);\n  color: #fff;\n  font-size: 50px;\n  text-shadow: 0 0 3px #000;\n}\n.cardPile div.ui-draggable-dragging[data-v-427fac71] {\n  box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.8);\n}\n.words[data-v-427fac71] {\n  font-size: 26px;\n  font-weight: bold;\n}\n.number[data-v-427fac71] {\n  /* position: relative;  */\n  /* width: 80px; */\n  height: 100px;\n  color: #fff;\n  text-shadow: 0 0 3px #000;\n  /* display: flex; */\n    margin: 0 10px;\n}\n.celebrateimg[data-v-427fac71] {\n    position: absolute;\n    /* text-align: center; */\n    /* margin: 10px auto; */\n    top: 35%;\n    left: 35%;\n    transform: translate(-50%, -50%);\n    width: 320px;\n    z-index: 999;\n}\n.block[data-v-427fac71] {\n  display: inline;\n}\n.vloume[data-v-427fac71] {\n  width: 72px;\n  height: 49px;\n  position: absolute;\n  top: -25%;\n  left: -10%;\n}\n.playAgain[data-v-427fac71] {\n  font-weight: bold;\n  font-size: 24px;\n  /* position: absolute; */\n  /* left: 40%; */\n}\n.numbernames[data-v-427fac71]{\n\n  /* position: absolute; */\n  /* top: 87%; */\n  /* left: 6%; */\n  font-weight: 500;\n}\n.namesInOtherdiv[data-v-427fac71]{\n/* float: left; */\n      /* float: left; */\n    width: auto;\n    height: 40px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    border-radius: 10px;\n    margin: 0 10px;\n    background: rgb(167, 154, 154);\n    font-size: 22px;\n    color: white;\n    margin-top: 10px;\n}\n.namesInOtherdiv[data-v-427fac71]:nth-child(even) {\n  background: rgb(204, 49, 204);\n}\n.namesInOtherdiv[data-v-427fac71]:nth-child(odd) {\n  background: rgb(209, 112, 47);\n}\n.cardSlots div[data-v-427fac71]{\n    display: inline-grid;\n    margin-bottom: 5px;\n}\n", ""]);
+exports.push([module.i, "\nbody[data-v-427fac71] {\r\n  margin: 30px;\r\n  line-height: 1.8em;\n}\nimg[data-v-427fac71] {\r\n  cursor: pointer;\n}\n#content[data-v-427fac71] {\r\n  margin: 20px 70px;\r\n  text-align: center;\r\n  -moz-user-select: none;\r\n  -webkit-user-select: none;\r\n  -ms-user-select: none;\r\n      user-select: none;\r\n  position: relative;\n}\n.cardSlots[data-v-427fac71] {\r\n  margin: 27px auto 0 auto;\r\n  background: rgb(182, 182, 187);\r\n  /* display: flex; */\n}\n.cardPile[data-v-427fac71] {\r\n  /* margin: 0 auto; */\r\n  /* background: rgb(201, 201, 202); */\r\n  /* display: flex; */\n}\n.cardSlots[data-v-427fac71],\r\n.cardPile[data-v-427fac71] {\r\n  width: 100%;\r\n  /* height: 170px; */\r\n  padding: 20px;\r\n  /* border: 2px solid rgb(95, 95, 95); */\r\n  border-radius: 15px;\r\n  text-align: center;\r\n  box-shadow: 0 0 0.3em rgba(41, 40, 40, 0.8);\n}\n.cardSlots div div[data-v-427fac71]:first-child,\r\n.cardPile div[data-v-427fac71]{\r\n  /* float: left; */\r\n  width: 90px;\r\n  height: 100px;\r\n  display: inline-flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  /* border: 2px solid rgb(rgb(77, 72, 72), rgb(68, 116, 68), rgb(66, 66, 107)); */\r\n  border-radius: 10px;\r\n  margin: 0 10px;\r\n  background: #fff;\n}\n.cardSlots div[data-v-427fac71]:first-child,\r\n.cardPile div[data-v-427fac71]:first-child {\r\n  /* margin-left: 0; */\n}\n.cardSlots div.hovered[data-v-427fac71] {\r\n  background: #aaa;\n}\n.cardPile div[data-v-427fac71] {\r\n  background: rgb(123, 24, 136);\r\n  color: #fff;\r\n  font-size: 50px;\r\n  text-shadow: 0 0 3px #000;\n}\n.cardPile div.ui-draggable-dragging[data-v-427fac71] {\r\n  box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.8);\n}\n.words[data-v-427fac71] {\r\n  font-size: 26px;\r\n  font-weight: bold;\n}\n.number[data-v-427fac71] {\r\n  /* position: relative;  */\r\n  /* width: 80px; */\r\n  height: 100px;\r\n  color: #fff;\r\n  text-shadow: 0 0 3px #000;\r\n  /* display: flex; */\r\n    margin: 0 10px;\n}\n.celebrateimg[data-v-427fac71] {\r\n    position: absolute;\r\n    /* text-align: center; */\r\n    /* margin: 10px auto; */\r\n    top: 35%;\r\n    left: 35%;\r\n    transform: translate(-50%, -50%);\r\n    width: 320px;\r\n    z-index: 999;\n}\n.block[data-v-427fac71] {\r\n  display: inline;\n}\n.vloume[data-v-427fac71] {\r\n  width: 72px;\r\n  height: 49px;\r\n  position: absolute;\r\n  top: -25%;\r\n  left: -10%;\n}\n.playAgain[data-v-427fac71] {\r\n  font-weight: bold;\r\n  font-size: 24px;\r\n  /* position: absolute; */\r\n  /* left: 40%; */\n}\n.numbernames[data-v-427fac71]{\r\n\r\n  /* position: absolute; */\r\n  /* top: 87%; */\r\n  /* left: 6%; */\r\n  font-weight: 500;\n}\n.namesInOtherdiv[data-v-427fac71]{\r\n/* float: left; */\r\n      /* float: left; */\r\n    width: auto;\r\n    height: 40px;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    border-radius: 10px;\r\n    margin: 0 10px;\r\n    background: rgb(167, 154, 154);\r\n    font-size: 22px;\r\n    color: white;\r\n    margin-top: 10px;\n}\n.namesInOtherdiv[data-v-427fac71]:nth-child(even) {\r\n  background: rgb(204, 49, 204);\n}\n.namesInOtherdiv[data-v-427fac71]:nth-child(odd) {\r\n  background: rgb(209, 112, 47);\n}\n.cardSlots div[data-v-427fac71]{\r\n    display: inline-grid;\r\n    margin-bottom: 5px;\n}\r\n", ""]);
 
 // exports
 
@@ -10661,7 +11050,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.move[data-v-15ae6866]{\n    position: relative;\n}\n.move img[data-v-15ae6866]:hover{\n    position: absolute;\n    /* transition: 1s infinite linear; */\n    -webkit-animation: moveimage-data-v-15ae6866 1s infinite linear alternate;\n            animation: moveimage-data-v-15ae6866 1s infinite linear alternate\n    /* animation-name: moveimage;\n    animation-duration: 4s; */\n}\n@-webkit-keyframes moveimage-data-v-15ae6866 {\n0%  {top: 0px;}\n50%  {top: 20px;}\n50% {top: -10px;}\n100% {top: 0px;}\n}\n@keyframes moveimage-data-v-15ae6866 {\n0%  {top: 0px;}\n50%  {top: 20px;}\n50% {top: -10px;}\n100% {top: 0px;}\n}\n", ""]);
+exports.push([module.i, "\n.move[data-v-15ae6866]{\r\n    position: relative;\n}\n.move img[data-v-15ae6866]:hover{\r\n    position: absolute;\r\n    /* transition: 1s infinite linear; */\r\n    -webkit-animation: moveimage-data-v-15ae6866 1s infinite linear alternate;\r\n            animation: moveimage-data-v-15ae6866 1s infinite linear alternate\r\n    /* animation-name: moveimage;\r\n    animation-duration: 4s; */\n}\n@-webkit-keyframes moveimage-data-v-15ae6866 {\n0%  {top: 0px;}\n50%  {top: 20px;}\n50% {top: -10px;}\n100% {top: 0px;}\n}\n@keyframes moveimage-data-v-15ae6866 {\n0%  {top: 0px;}\n50%  {top: 20px;}\n50% {top: -10px;}\n100% {top: 0px;}\n}\r\n", ""]);
 
 // exports
 
@@ -42078,6 +42467,36 @@ if(false) {}
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Numbers/Sort/MergeSortComponent.vue?vue&type=style&index=0&id=a3d86850&scoped=true&lang=css&":
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Numbers/Sort/MergeSortComponent.vue?vue&type=style&index=0&id=a3d86850&scoped=true&lang=css& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../../node_modules/css-loader??ref--6-1!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--6-2!../../../../../node_modules/vue-loader/lib??vue-loader-options!./MergeSortComponent.vue?vue&type=style&index=0&id=a3d86850&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Numbers/Sort/MergeSortComponent.vue?vue&type=style&index=0&id=a3d86850&scoped=true&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/OrderNumberComponent.vue?vue&type=style&index=0&id=427fac71&scoped=true&lang=css&":
 /*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/OrderNumberComponent.vue?vue&type=style&index=0&id=427fac71&scoped=true&lang=css& ***!
@@ -49038,10 +49457,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Numbers/Sort/MergeSortComponent.vue?vue&type=template&id=a3d86850&":
-/*!**********************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Numbers/Sort/MergeSortComponent.vue?vue&type=template&id=a3d86850& ***!
-  \**********************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Numbers/Sort/MergeSortComponent.vue?vue&type=template&id=a3d86850&scoped=true&":
+/*!**********************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Numbers/Sort/MergeSortComponent.vue?vue&type=template&id=a3d86850&scoped=true& ***!
+  \**********************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -49059,40 +49478,31 @@ var render = function() {
         "div",
         {
           staticClass:
-            "col-md-2 d-flex justify-content-center align-items-center p-4"
+            "col-md-1 d-flex justify-content-center align-items-center",
+          style: [{ position: "fixed", top: "30%", "margin-left": "1%" }]
         },
         [
-          _c(
-            "div",
-            { staticStyle: { "text-align": "center", "line-height": "5" } },
-            [
-              _c("img", {
-                style: [{ position: "fixed", top: "30%", left: "15%" }],
-                attrs: {
-                  src: "/storage/Images/" + _vm.answer + ".gif",
-                  alt: ""
-                }
-              })
-            ]
-          )
+          _c("div", { staticStyle: { "text-align": "center" } }, [
+            _c("img", {
+              attrs: { src: "/storage/Images/" + _vm.answer + ".gif", alt: "" }
+            })
+          ])
         ]
       ),
       _vm._v(" "),
       _c(
         "div",
-        {
-          staticClass: "col-md-10 justify-content-center align-items-center p-4"
-        },
+        { staticClass: "col-md-11 justify-content-center align-items-center" },
         [
           _c(
             "h2",
             {
               staticClass:
-                "col-md-12 justify-content-center align-items-center p-4",
-              style: [{ "margin-left": "12%" }]
+                "col-md-12 justify-content-center align-items-center",
+              style: [{ margin: "0% 15% 3% 11%" }]
             },
             [
-              _vm._v("  Step One\n                    "),
+              _vm._v("\n          Step One\n          "),
               _c("i", {
                 class: _vm.steps < 2 ? _vm.voiceIcon : "",
                 staticStyle: { "font-size": "48px", color: "#FF8C00" },
@@ -49119,58 +49529,84 @@ var render = function() {
                 "div",
                 {
                   attrs: { id: "left-container", draggable: _vm.status },
-                  on: { dragstart: _vm.onDragging }
+                  on: {
+                    dragstart: function($event) {
+                      _vm.onDragging(_vm.numbersArray.slice(0, 4), $event)
+                    }
+                  }
                 },
-                _vm._l(_vm.numbersArray.slice(0, 4), function(i) {
-                  return _c(
+                [
+                  _c(
                     "div",
                     {
-                      key: i,
-                      staticClass:
-                        "col-md-1 d-flex justify-content-center align-items-center p-4",
-                      style: [{ "background-color": "lightgreen" }]
+                      staticClass: "col-md-5",
+                      class: { "animated bounce repeat-3": _vm.steps === 1 },
+                      staticStyle: {
+                        "background-color": "lightblue",
+                        "border-radius": "30%"
+                      }
                     },
-                    [
-                      _c(
+                    _vm._l(_vm.numbersArray.slice(0, 4), function(i) {
+                      return _c(
                         "div",
                         {
-                          staticStyle: { "font-size": "30px", margin: "0 40px" }
+                          key: i,
+                          staticClass:
+                            "col-md-1 d-flex justify-content-center align-items-center m-5"
                         },
-                        [_vm._v(_vm._s(i))]
+                        [
+                          _c("img", {
+                            staticStyle: { height: "50px" },
+                            attrs: { src: "/storage/Images/" + i + ".png" }
+                          })
+                        ]
                       )
-                    ]
+                    }),
+                    0
                   )
-                }),
-                0
+                ]
               ),
               _vm._v(" "),
               _c(
                 "div",
                 {
                   attrs: { id: "right-container", draggable: "true" },
-                  on: { dragstart: _vm.onDragging }
+                  on: {
+                    dragstart: function($event) {
+                      _vm.onDragging(_vm.numbersArray.slice(4, 8), $event)
+                    }
+                  }
                 },
-                _vm._l(_vm.numbersArray.slice(4, 8), function(i) {
-                  return _c(
+                [
+                  _c(
                     "div",
                     {
-                      key: i,
-                      staticClass:
-                        "col-md-1 d-flex justify-content-center align-items-center p-4",
-                      style: [{ "background-color": "lightblue" }]
+                      staticClass: "col-md-5 ml-4",
+                      class: { "animated bounce repeat-3": _vm.steps === 0 },
+                      staticStyle: {
+                        "background-color": "lightblue",
+                        "border-radius": "30%"
+                      }
                     },
-                    [
-                      _c(
+                    _vm._l(_vm.numbersArray.slice(4, 8), function(i) {
+                      return _c(
                         "div",
                         {
-                          staticStyle: { "font-size": "30px", margin: "0 40px" }
+                          key: i,
+                          staticClass:
+                            "col-md-1 d-flex justify-content-center align-items-center m-5"
                         },
-                        [_vm._v(_vm._s(i))]
+                        [
+                          _c("img", {
+                            staticStyle: { height: "50px" },
+                            attrs: { src: "/storage/Images/" + i + ".png" }
+                          })
+                        ]
                       )
-                    ]
+                    }),
+                    0
                   )
-                }),
-                0
+                ]
               ),
               _vm._v(" "),
               _c("div", [
@@ -49179,14 +49615,14 @@ var render = function() {
                     _vm.steps === 0
                       ? {
                           width: "25%",
-                          height: "150px",
+                          height: "90px",
                           float: "right",
                           "margin-right": "20%"
                         }
                       : _vm.steps === 1
                       ? {
                           width: "25%",
-                          height: "150px",
+                          height: "90px",
                           float: "left",
                           "margin-right": "20%",
                           transform: "scaleX(-1)"
@@ -49201,17 +49637,17 @@ var render = function() {
           _vm._v(" "),
           _c(
             "div",
-            { staticClass: "col-md-12", staticStyle: { "margin-left": "20%" } },
+            { staticClass: "col-md-12", staticStyle: { "margin-left": "25%" } },
             [
               _c("div", {
-                staticClass:
-                  "col-md-5 d-flex justify-content-center align-items-center p-4",
+                staticClass: "col-md-5 mt-2",
                 style: [
                   {
-                    margin: "5px",
-                    border: "1px solid gray",
-                    width: "50%",
-                    height: "74px",
+                    "border-radius": "30%",
+                    margin: "10px 5px",
+                    border: "2px solid yellow",
+                    width: "51%",
+                    height: "100px",
                     "background-color": "lightgreen"
                   }
                 ],
@@ -49220,15 +49656,15 @@ var render = function() {
               }),
               _vm._v(" "),
               _c("div", {
-                staticClass:
-                  "col-md-5 d-flex justify-content-center align-items-center p-4",
+                staticClass: "col-md-5 mt-2",
                 style: [
                   {
-                    margin: "5px",
-                    border: "1px solid gray",
-                    width: "50%",
-                    height: "74px",
-                    "background-color": "lightblue"
+                    "border-radius": "30%",
+                    margin: "10px 5px",
+                    border: "2px solid orange",
+                    width: "51%",
+                    height: "100px",
+                    "background-color": "lightpink"
                   }
                 ],
                 attrs: { id: "right-draggable" },
@@ -49243,14 +49679,14 @@ var render = function() {
                   style: [
                     _vm.steps < 2
                       ? { opacity: "0" }
-                      : { margin: "10% 0 3% -10%" }
+                      : { margin: "3% 0% 1% -7%" }
                   ]
                 },
                 [
-                  _vm._v(" Step Two \n                "),
+                  _vm._v("\n            Step Two\n            "),
                   _c("i", {
                     class: _vm.steps < 6 ? _vm.voiceIcon : "",
-                    staticStyle: { "font-size": "48px", color: "#FF8C00" },
+                    staticStyle: { "font-size": "30px", color: "#FF8C00" },
                     on: {
                       click: function($event) {
                         return _vm.voice(
@@ -49266,34 +49702,40 @@ var render = function() {
                 ]
               ),
               _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "col-md-5 d-flex justify-content-center align-items-center p-4",
-                  style: [
-                    _vm.steps < 2
-                      ? { display: "none" }
-                      : { margin: "5px", width: "50%", height: "74px" }
-                  ]
-                },
-                [
-                  _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-md-12" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "col-md-6 d-flex justify-content-center align-items-center",
+                    style: [
+                      _vm.steps < 2
+                        ? { display: "none" }
+                        : { width: "45%", height: "100px" }
+                    ]
+                  },
+                  [
                     _c(
                       "div",
                       {
-                        staticClass: "col-md-5",
+                        staticClass: "col-md-5 mr-2",
+                        class: { "animated bounce repeat-3": _vm.steps == 5 },
                         style: [
                           _vm.steps < 2
                             ? { display: "none" }
                             : {
-                                border: "1px solid gray",
+                                "border-radius": "30%",
+                                border: "2px solid orange",
                                 "background-color": "lightgreen",
-                                margin: "15px 0"
+                                margin: "5px 0"
                               }
                         ],
                         attrs: { id: "4left-2", draggable: "true" },
-                        on: { dragstart: _vm.onDragging }
+                        on: {
+                          dragstart: function($event) {
+                            _vm.onDragging(_vm.numbersArray.slice(0, 2), $event)
+                          }
+                        }
                       },
                       _vm._l(_vm.numbersArray.slice(0, 2), function(i) {
                         return _c(
@@ -49301,19 +49743,14 @@ var render = function() {
                           {
                             key: i,
                             staticClass:
-                              "xyz col-md-5 d-flex justify-content-center align-items-center p-4"
+                              "ml-2 xyz col-md-5 d-flex justify-content-center align-items-center p-4"
                           },
                           [
-                            _c(
-                              "div",
-                              {
-                                staticStyle: {
-                                  "font-size": "30px",
-                                  margin: "0 40px"
-                                }
-                              },
-                              [_vm._v(_vm._s(i))]
-                            )
+                            _c("img", {
+                              staticClass: "pl-1",
+                              staticStyle: { height: "50px" },
+                              attrs: { src: "/storage/Images/" + i + ".png" }
+                            })
                           ]
                         )
                       }),
@@ -49323,18 +49760,24 @@ var render = function() {
                     _c(
                       "div",
                       {
-                        staticClass: "col-md-5",
+                        staticClass: "col-md-5 mr-2",
+                        class: { "animated bounce repeat-3": _vm.steps == 4 },
                         style: [
                           _vm.steps < 2
                             ? { display: "none" }
                             : {
-                                border: "1px solid gray",
+                                "border-radius": "30%",
+                                border: "2px solid orange",
                                 "background-color": "lightgreen",
-                                margin: "15px 0 15px 0"
+                                margin: "5px 0 "
                               }
                         ],
                         attrs: { id: "4left-1", draggable: "true" },
-                        on: { dragstart: _vm.onDragging }
+                        on: {
+                          dragstart: function($event) {
+                            _vm.onDragging(_vm.numbersArray.slice(2, 4), $event)
+                          }
+                        }
                       },
                       _vm._l(_vm.numbersArray.slice(2, 4), function(i) {
                         return _c(
@@ -49342,56 +49785,54 @@ var render = function() {
                           {
                             key: i,
                             staticClass:
-                              "xyz col-md-5 d-flex justify-content-center align-items-center p-4"
+                              "ml-2 xyz col-md-5 d-flex justify-content-center align-items-center p-4"
                           },
                           [
-                            _c(
-                              "div",
-                              {
-                                staticStyle: {
-                                  "font-size": "30px",
-                                  margin: "0 40px"
-                                }
-                              },
-                              [_vm._v(_vm._s(i))]
-                            )
+                            _c("img", {
+                              staticClass: "pl-1",
+                              staticStyle: { height: "50px" },
+                              attrs: { src: "/storage/Images/" + i + ".png" }
+                            })
                           ]
                         )
                       }),
                       0
                     )
-                  ])
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "col-md-5 d-flex justify-content-center align-items-center p-4",
-                  style: [
-                    _vm.steps < 2
-                      ? { display: "none" }
-                      : { margin: "5px", width: "50%", height: "74px" }
                   ]
-                },
-                [
-                  _c("div", { staticClass: "row" }, [
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "col-md-6 mr-5",
+                    style: [
+                      _vm.steps < 2
+                        ? { display: "none" }
+                        : { width: "45%", height: "100px" }
+                    ]
+                  },
+                  [
                     _c(
                       "div",
                       {
-                        staticClass: "col-md-5",
+                        staticClass: "col-md-5 mr-2",
+                        class: { "animated bounce repeat-3": _vm.steps == 3 },
                         style: [
                           _vm.steps < 2
                             ? { display: "none" }
                             : {
-                                border: "1px solid gray",
-                                "background-color": "lightblue",
-                                margin: "15px 0"
+                                "border-radius": "30%",
+                                border: "2px solid orange",
+                                "background-color": "lightpink",
+                                margin: "5px 0"
                               }
                         ],
                         attrs: { id: "4right-1", draggable: "true" },
-                        on: { dragstart: _vm.onDragging }
+                        on: {
+                          dragstart: function($event) {
+                            _vm.onDragging(_vm.numbersArray.slice(4, 6), $event)
+                          }
+                        }
                       },
                       _vm._l(_vm.numbersArray.slice(4, 6), function(i) {
                         return _c(
@@ -49399,19 +49840,14 @@ var render = function() {
                           {
                             key: i,
                             staticClass:
-                              "xyz col-md-5 d-flex justify-content-center align-items-center p-4"
+                              "col-md-5 d-flex justify-content-center align-items-center p-4 xyz ml-2"
                           },
                           [
-                            _c(
-                              "div",
-                              {
-                                staticStyle: {
-                                  "font-size": "30px",
-                                  margin: "0 40px"
-                                }
-                              },
-                              [_vm._v(_vm._s(i))]
-                            )
+                            _c("img", {
+                              staticClass: "pl-1",
+                              staticStyle: { height: "50px" },
+                              attrs: { src: "/storage/Images/" + i + ".png" }
+                            })
                           ]
                         )
                       }),
@@ -49421,18 +49857,24 @@ var render = function() {
                     _c(
                       "div",
                       {
-                        staticClass: "col-md-5",
+                        staticClass: "col-md-5 mr-2",
+                        class: { "animated bounce repeat-3": _vm.steps == 2 },
                         style: [
                           _vm.steps < 2
                             ? { display: "none" }
                             : {
-                                border: "1px solid gray",
-                                "background-color": "lightblue",
-                                margin: "15px 0"
+                                "border-radius": "30%",
+                                border: "2px solid orange",
+                                "background-color": "lightpink",
+                                margin: "5px 0 "
                               }
                         ],
                         attrs: { id: "4right-2", draggable: "true" },
-                        on: { dragstart: _vm.onDragging }
+                        on: {
+                          dragstart: function($event) {
+                            _vm.onDragging(_vm.numbersArray.slice(6, 8), $event)
+                          }
+                        }
                       },
                       _vm._l(_vm.numbersArray.slice(6, 8), function(i) {
                         return _c(
@@ -49440,27 +49882,22 @@ var render = function() {
                           {
                             key: i,
                             staticClass:
-                              "xyz col-md-5 d-flex justify-content-center align-items-center p-4"
+                              "ml-2 xyz col-md-5 d-flex justify-content-center align-items-center p-4"
                           },
                           [
-                            _c(
-                              "div",
-                              {
-                                staticStyle: {
-                                  "font-size": "30px",
-                                  margin: "0 40px"
-                                }
-                              },
-                              [_vm._v(_vm._s(i))]
-                            )
+                            _c("img", {
+                              staticClass: "pl-1",
+                              staticStyle: { height: "50px" },
+                              attrs: { src: "/storage/Images/" + i + ".png" }
+                            })
                           ]
                         )
                       }),
                       0
                     )
-                  ])
-                ]
-              ),
+                  ]
+                )
+              ]),
               _vm._v(" "),
               _c("div", [
                 _c("img", {
@@ -49468,29 +49905,29 @@ var render = function() {
                     _vm.steps === 2
                       ? {
                           width: "25%",
-                          height: "150px",
-                          "margin-right": "8%",
+                          height: "90px",
+                          "margin-right": "15%",
                           float: "right"
                         }
                       : _vm.steps === 3
                       ? {
                           width: "25%",
-                          height: "150px",
-                          "margin-right": "38%",
+                          height: "90px",
+                          "margin-right": "25%",
                           float: "right",
                           transform: "scaleX(-1)"
                         }
                       : _vm.steps === 4
                       ? {
                           width: "25%",
-                          height: "150px",
-                          "margin-left": "22%",
+                          height: "90px",
+                          "margin-left": "8%",
                           float: "left"
                         }
                       : _vm.steps === 5
                       ? {
                           width: "25%",
-                          height: "150px",
+                          height: "90px",
                           "margin-left": "-4%",
                           float: "left",
                           transform: "scaleX(-1)"
@@ -49501,93 +49938,95 @@ var render = function() {
                 })
               ]),
               _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "col-md-12 d-flex justify-content-center align-items-center p-4",
-                  staticStyle: { "margin-left": "-5%" }
-                },
-                [
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "col-md-6 d-flex justify-content-center align-items-center p-4"
-                    },
-                    [
-                      _c("div", {
-                        staticClass: " col-md-6",
-                        style: [
-                          _vm.steps < 2
-                            ? { display: "none" }
-                            : {
-                                width: "100%",
-                                height: "74px",
-                                "background-color": "#FAEBD7"
-                              }
-                        ],
-                        attrs: { id: "4left-step1" },
-                        on: { drop: _vm.drop, dragover: _vm.allowDrop }
-                      }),
-                      _vm._v(" "),
-                      _c("div", {
-                        staticClass: " col-md-6",
-                        style: [
-                          _vm.steps < 2
-                            ? { display: "none" }
-                            : {
-                                width: "100%",
-                                height: "74px",
-                                "background-color": "#F5F5DC"
-                              }
-                        ],
-                        attrs: { id: "4left-step2" },
-                        on: { drop: _vm.drop, dragover: _vm.allowDrop }
-                      })
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "col-md-6 d-flex justify-content-center align-items-center p-4"
-                    },
-                    [
-                      _c("div", {
-                        staticClass: " col-md-6",
-                        style: [
-                          _vm.steps < 2
-                            ? { display: "none" }
-                            : {
-                                width: "100%",
-                                height: "74px",
-                                "background-color": "#FAEBD7"
-                              }
-                        ],
-                        attrs: { id: "4right-step3" },
-                        on: { drop: _vm.drop, dragover: _vm.allowDrop }
-                      }),
-                      _vm._v(" "),
-                      _c("div", {
-                        staticClass: " col-md-6",
-                        style: [
-                          _vm.steps < 2
-                            ? { display: "none" }
-                            : {
-                                width: "100%",
-                                height: "74px",
-                                "background-color": "#F5F5DC"
-                              }
-                        ],
-                        attrs: { id: "4right-step4" },
-                        on: { drop: _vm.drop, dragover: _vm.allowDrop }
-                      })
-                    ]
-                  )
-                ]
-              ),
+              _c("div", { staticClass: "col-md-12 ml-3" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "col-md-5 d-flex justify-content-center align-items-center",
+                    staticStyle: {}
+                  },
+                  [
+                    _c("div", {
+                      staticClass: "col-md-5 mr-2 pt-2",
+                      style: [
+                        _vm.steps < 2
+                          ? { display: "none" }
+                          : {
+                              width: "50%",
+                              height: "80px",
+                              "border-radius": "30%",
+                              border: "2px solid orange",
+                              "background-color": " lightblue"
+                            }
+                      ],
+                      attrs: { id: "4left-step1" },
+                      on: { drop: _vm.drop, dragover: _vm.allowDrop }
+                    }),
+                    _vm._v(" "),
+                    _c("div", {
+                      staticClass: "col-md-5 ml-2 pt-2",
+                      style: [
+                        _vm.steps < 2
+                          ? { display: "none" }
+                          : {
+                              width: "50%",
+                              height: "80px",
+                              "border-radius": "30%",
+                              border: "2px solid orange",
+                              "background-color": "rgb(255, 218, 224)"
+                            }
+                      ],
+                      attrs: { id: "4left-step2" },
+                      on: { drop: _vm.drop, dragover: _vm.allowDrop }
+                    })
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "col-md-5 d-flex justify-content-center align-items-center ml-2",
+                    staticStyle: {}
+                  },
+                  [
+                    _c("div", {
+                      staticClass: "col-md-5 mr-2 pt-2",
+                      style: [
+                        _vm.steps < 2
+                          ? { display: "none" }
+                          : {
+                              width: "50%",
+                              height: "80px",
+                              "border-radius": "30%",
+                              border: "2px solid orange",
+                              "background-color": "#FAEBD7"
+                            }
+                      ],
+                      attrs: { id: "4right-step3" },
+                      on: { drop: _vm.drop, dragover: _vm.allowDrop }
+                    }),
+                    _vm._v(" "),
+                    _c("div", {
+                      staticClass: "col-md-5 ml-2 pt-2",
+                      style: [
+                        _vm.steps < 2
+                          ? { display: "none" }
+                          : {
+                              width: "50%",
+                              height: "80px",
+                              "border-radius": "30%",
+                              border: "2px solid orange",
+                              "background-color": " rgb(216, 255, 157)"
+                            }
+                      ],
+                      attrs: { id: "4right-step4" },
+                      on: { drop: _vm.drop, dragover: _vm.allowDrop }
+                    })
+                  ]
+                )
+              ]),
               _vm._v(" "),
               _c(
                 "h2",
@@ -49595,16 +50034,14 @@ var render = function() {
                   staticClass:
                     "col-md-12 justify-content-center align-items-center",
                   style: [
-                    _vm.steps < 6
-                      ? { opacity: "0" }
-                      : { margin: "10% 0 3% -7%" }
+                    _vm.steps < 6 ? { opacity: "0" } : { margin: "2% 0 3% -7%" }
                   ]
                 },
                 [
-                  _vm._v(" Step Three \n                "),
+                  _vm._v("\n            Step Three\n            "),
                   _c("i", {
                     class: _vm.steps < 14 ? _vm.voiceIcon : "",
-                    staticStyle: { "font-size": "48px", color: "#FF8C00" },
+                    staticStyle: { "font-size": "30px", color: "#FF8C00" },
                     on: {
                       click: function($event) {
                         return _vm.voice(
@@ -49622,27 +50059,27 @@ var render = function() {
                 ]
               ),
               _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "col-md-6 d-flex justify-content-center align-items-center p-4",
-                  style: [
-                    _vm.steps < 6
-                      ? { display: "none" }
-                      : { width: "50%", height: "74px" }
-                  ]
-                },
-                [
-                  _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-md-11 mb-5" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "col-md-6 d-flex justify-content-center align-items-center",
+                    style: [
+                      _vm.steps < 6
+                        ? { display: "none" }
+                        : { width: "50%", height: "100px" }
+                    ]
+                  },
+                  [
                     _c(
                       "div",
                       {
-                        staticClass: "col-md-5",
+                        staticClass: "col-md-6",
                         style: [
                           _vm.steps < 6
                             ? { display: "none" }
-                            : { margin: "15px 0" }
+                            : { margin: "10px 0px" }
                         ]
                       },
                       _vm._l(_vm.numbersArray.slice(0, 2), function(i) {
@@ -49651,29 +50088,32 @@ var render = function() {
                           {
                             key: i,
                             staticClass:
-                              "col-md-4 d-flex justify-content-center align-items-center p-4",
+                              "col-md-1 d-flex justify-content-center align-items-center p-5 m-1",
+                            class: {
+                              "animated bounce repeat-3":
+                                _vm.steps == 12 || _vm.steps == 13
+                            },
                             style: [
                               _vm.steps < 6
                                 ? { display: "none" }
                                 : {
-                                    "background-color": "#FAEBD7",
-                                    margin: "0 5%"
+                                    "border-radius": "30%",
+                                    border: "2px solid orange",
+                                    "background-color": "lightpink"
                                   }
                             ],
                             attrs: { id: i + "-element", draggable: "true" },
-                            on: { dragstart: _vm.onDragging }
+                            on: {
+                              dragstart: function($event) {
+                                _vm.onDragging(i, $event)
+                              }
+                            }
                           },
                           [
-                            _c(
-                              "div",
-                              {
-                                staticStyle: {
-                                  "font-size": "30px",
-                                  margin: "0 40px"
-                                }
-                              },
-                              [_vm._v(_vm._s(i))]
-                            )
+                            _c("img", {
+                              staticStyle: { height: "50px" },
+                              attrs: { src: "/storage/Images/" + i + ".png" }
+                            })
                           ]
                         )
                       }),
@@ -49683,7 +50123,7 @@ var render = function() {
                     _c(
                       "div",
                       {
-                        staticClass: "col-md-5",
+                        staticClass: "col-md-6",
                         style: [
                           _vm.steps < 6
                             ? { display: "none" }
@@ -49696,59 +50136,60 @@ var render = function() {
                           {
                             key: i,
                             staticClass:
-                              "col-md-4 d-flex justify-content-center align-items-center p-4",
+                              "col-md-1 d-flex justify-content-center align-items-center p-5 m-1",
+                            class: {
+                              "animated bounce repeat-3":
+                                _vm.steps == 10 || _vm.steps == 11
+                            },
                             style: [
                               _vm.steps < 6
                                 ? { display: "none" }
                                 : {
-                                    "background-color": "#FAEBD7",
-                                    margin: "0 5%"
+                                    "border-radius": "30%",
+                                    border: "2px solid orange",
+                                    "background-color": "lightpink"
                                   }
                             ],
                             attrs: { id: i + "-element", draggable: "true" },
-                            on: { dragstart: _vm.onDragging }
+                            on: {
+                              dragstart: function($event) {
+                                _vm.onDragging(i, $event)
+                              }
+                            }
                           },
                           [
-                            _c(
-                              "div",
-                              {
-                                staticStyle: {
-                                  "font-size": "30px",
-                                  margin: "0 40px"
-                                }
-                              },
-                              [_vm._v(_vm._s(i))]
-                            )
+                            _c("img", {
+                              staticStyle: { height: "50px" },
+                              attrs: { src: "/storage/Images/" + i + ".png" }
+                            })
                           ]
                         )
                       }),
                       0
                     )
-                  ])
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "col-md-6 d-flex justify-content-center align-items-center p-4",
-                  style: [
-                    _vm.steps < 6
-                      ? { display: "none" }
-                      : { width: "50%", height: "74px" }
                   ]
-                },
-                [
-                  _c("div", { staticClass: "row" }, [
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "col-md-6 d-flex justify-content-center align-items-center",
+                    style: [
+                      _vm.steps < 6
+                        ? { display: "none" }
+                        : { width: "50%", height: "100px" }
+                    ]
+                  },
+                  [
                     _c(
                       "div",
                       {
-                        staticClass: "col-md-5",
+                        staticClass: "col-md-6",
                         style: [
                           _vm.steps < 6
                             ? { display: "none" }
-                            : { margin: "15px 0" }
+                            : { margin: "15px 0px" }
                         ]
                       },
                       _vm._l(_vm.numbersArray.slice(4, 6), function(i) {
@@ -49757,29 +50198,32 @@ var render = function() {
                           {
                             key: i,
                             staticClass:
-                              "col-md-4 d-flex justify-content-center align-items-center p-4",
+                              "col-md-1 d-flex justify-content-center align-items-center p-5 m-1",
+                            class: {
+                              "animated bounce repeat-3":
+                                _vm.steps == 8 || _vm.steps == 9
+                            },
                             style: [
                               _vm.steps < 6
                                 ? { display: "none" }
                                 : {
-                                    "background-color": "#F5F5DC",
-                                    margin: "0 5%"
+                                    "border-radius": "30%",
+                                    border: "2px solid orange",
+                                    "background-color": "lightpink"
                                   }
                             ],
                             attrs: { id: i + "-element", draggable: "true" },
-                            on: { dragstart: _vm.onDragging }
+                            on: {
+                              dragstart: function($event) {
+                                _vm.onDragging(i, $event)
+                              }
+                            }
                           },
                           [
-                            _c(
-                              "div",
-                              {
-                                staticStyle: {
-                                  "font-size": "30px",
-                                  margin: "0 40px"
-                                }
-                              },
-                              [_vm._v(_vm._s(i))]
-                            )
+                            _c("img", {
+                              staticStyle: { height: "50px" },
+                              attrs: { src: "/storage/Images/" + i + ".png" }
+                            })
                           ]
                         )
                       }),
@@ -49789,7 +50233,7 @@ var render = function() {
                     _c(
                       "div",
                       {
-                        staticClass: "col-md-5",
+                        staticClass: "col-md-6",
                         style: [
                           _vm.steps < 6
                             ? { display: "none" }
@@ -49802,241 +50246,248 @@ var render = function() {
                           {
                             key: i,
                             staticClass:
-                              "col-md-4 d-flex justify-content-center align-items-center p-4",
+                              "col-md-1 d-flex justify-content-center align-items-center p-5 m-1",
+                            class: {
+                              "animated bounce repeat-3":
+                                _vm.steps == 6 || _vm.steps == 7
+                            },
                             style: [
                               _vm.steps < 6
                                 ? { display: "none" }
                                 : {
-                                    "background-color": "#F5F5DC",
-                                    margin: "0 5%"
+                                    "border-radius": "30%",
+                                    border: "2px solid orange",
+                                    "background-color": "lightpink"
                                   }
                             ],
                             attrs: { id: i + "-element", draggable: "true" },
-                            on: { dragstart: _vm.onDragging }
+                            on: {
+                              dragstart: function($event) {
+                                _vm.onDragging(i, $event)
+                              }
+                            }
                           },
                           [
-                            _c(
-                              "div",
-                              {
-                                staticStyle: {
-                                  "font-size": "30px",
-                                  margin: "0 40px"
-                                }
-                              },
-                              [_vm._v(_vm._s(i))]
-                            )
+                            _c("img", {
+                              staticStyle: { height: "50px" },
+                              attrs: { src: "/storage/Images/" + i + ".png" }
+                            })
                           ]
                         )
                       }),
                       0
                     )
-                  ])
-                ]
-              ),
+                  ]
+                )
+              ]),
               _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "col-md-12 d-flex justify-content-center align-items-center p-4",
-                  staticStyle: { "margin-left": "-5%" }
-                },
-                [
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "col-md-3 d-flex justify-content-center align-items-center p-4"
-                    },
-                    [
-                      _c("div", {
-                        staticClass: " col-md-6",
-                        style: [
-                          _vm.steps < 6
-                            ? { display: "none" }
-                            : {
-                                width: "100%",
-                                height: "74px",
-                                "border-right": "2px solid white",
-                                "background-color": "#FAEBD7"
-                              }
-                        ],
-                        attrs: {
-                          id:
-                            Math.min.apply(Math, _vm.numbersArray.slice(0, 2)) +
-                            "-sort"
-                        },
-                        on: { drop: _vm.drop, dragover: _vm.allowDrop }
-                      }),
-                      _vm._v(" "),
-                      _c("div", {
-                        staticClass: " col-md-6",
-                        style: [
-                          _vm.steps < 6
-                            ? { display: "none" }
-                            : {
-                                width: "100%",
-                                height: "74px",
-                                "border-right": "2px solid white",
-                                "background-color": "#FAEBD7"
-                              }
-                        ],
-                        attrs: {
-                          id:
-                            Math.max.apply(Math, _vm.numbersArray.slice(0, 2)) +
-                            "-sort"
-                        },
-                        on: { drop: _vm.drop, dragover: _vm.allowDrop }
-                      })
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "col-md-3 d-flex justify-content-center align-items-center p-4"
-                    },
-                    [
-                      _c("div", {
-                        staticClass: " col-md-6",
-                        style: [
-                          _vm.steps < 6
-                            ? { display: "none" }
-                            : {
-                                width: "100%",
-                                height: "74px",
-                                "border-right": "2px solid white",
-                                "background-color": "#FAEBD7"
-                              }
-                        ],
-                        attrs: {
-                          id:
-                            Math.min.apply(Math, _vm.numbersArray.slice(2, 4)) +
-                            "-sort"
-                        },
-                        on: { drop: _vm.drop, dragover: _vm.allowDrop }
-                      }),
-                      _vm._v(" "),
-                      _c("div", {
-                        staticClass: " col-md-6",
-                        style: [
-                          _vm.steps < 6
-                            ? { display: "none" }
-                            : {
-                                width: "100%",
-                                height: "74px",
-                                "background-color": "#FAEBD7"
-                              }
-                        ],
-                        attrs: {
-                          id:
-                            Math.max.apply(Math, _vm.numbersArray.slice(2, 4)) +
-                            "-sort"
-                        },
-                        on: { drop: _vm.drop, dragover: _vm.allowDrop }
-                      })
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "col-md-3 d-flex justify-content-center align-items-center p-4"
-                    },
-                    [
-                      _c("div", {
-                        staticClass: " col-md-6",
-                        style: [
-                          _vm.steps < 6
-                            ? { display: "none" }
-                            : {
-                                width: "100%",
-                                height: "74px",
-                                "border-right": "2px solid white",
-                                "background-color": "#F5F5DC"
-                              }
-                        ],
-                        attrs: {
-                          id:
-                            Math.min.apply(Math, _vm.numbersArray.slice(4, 6)) +
-                            "-sort"
-                        },
-                        on: { drop: _vm.drop, dragover: _vm.allowDrop }
-                      }),
-                      _vm._v(" "),
-                      _c("div", {
-                        staticClass: " col-md-6",
-                        style: [
-                          _vm.steps < 6
-                            ? { display: "none" }
-                            : {
-                                width: "100%",
-                                height: "74px",
-                                "border-right": "2px solid white",
-                                "background-color": "#F5F5DC"
-                              }
-                        ],
-                        attrs: {
-                          id:
-                            Math.max.apply(Math, _vm.numbersArray.slice(4, 6)) +
-                            "-sort"
-                        },
-                        on: { drop: _vm.drop, dragover: _vm.allowDrop }
-                      })
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "col-md-3 d-flex justify-content-center align-items-center p-4"
-                    },
-                    [
-                      _c("div", {
-                        staticClass: " col-md-6",
-                        style: [
-                          _vm.steps < 6
-                            ? { display: "none" }
-                            : {
-                                width: "100%",
-                                height: "74px",
-                                "border-right": "2px solid white",
-                                "background-color": "#F5F5DC"
-                              }
-                        ],
-                        attrs: {
-                          id:
-                            Math.min.apply(Math, _vm.numbersArray.slice(6, 8)) +
-                            "-sort"
-                        },
-                        on: { drop: _vm.drop, dragover: _vm.allowDrop }
-                      }),
-                      _vm._v(" "),
-                      _c("div", {
-                        staticClass: " col-md-6",
-                        style: [
-                          _vm.steps < 6
-                            ? { display: "none" }
-                            : {
-                                width: "100%",
-                                height: "74px",
-                                "background-color": "#F5F5DC"
-                              }
-                        ],
-                        attrs: {
-                          id:
-                            Math.max.apply(Math, _vm.numbersArray.slice(6, 8)) +
-                            "-sort"
-                        },
-                        on: { drop: _vm.drop, dragover: _vm.allowDrop }
-                      })
-                    ]
-                  )
-                ]
-              ),
+              _c("div", { staticClass: "col-md-11 mt-5 ml-5" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "col-md-2 d-flex justify-content-center align-items-center mr-5"
+                  },
+                  [
+                    _c("div", {
+                      staticClass: "col-md-6 m-1 p-4 pt-5",
+                      style: [
+                        _vm.steps < 6
+                          ? { display: "none" }
+                          : {
+                              width: "50%",
+                              height: "100px",
+                              "border-radius": "30%",
+                              border: "2px solid #F2BBAD",
+                              "background-color": " lightblue"
+                            }
+                      ],
+                      attrs: {
+                        id:
+                          Math.min.apply(Math, _vm.numbersArray.slice(0, 2)) +
+                          "-sort"
+                      },
+                      on: { drop: _vm.drop, dragover: _vm.allowDrop }
+                    }),
+                    _vm._v(" "),
+                    _c("div", {
+                      staticClass: "col-md-6 p-4 pt-5",
+                      style: [
+                        _vm.steps < 6
+                          ? { display: "none" }
+                          : {
+                              width: "50%",
+                              height: "100px",
+                              "border-radius": "30%",
+                              border: "2px solid #F2BBAD",
+                              "background-color": " lightblue"
+                            }
+                      ],
+                      attrs: {
+                        id:
+                          Math.max.apply(Math, _vm.numbersArray.slice(0, 2)) +
+                          "-sort"
+                      },
+                      on: { drop: _vm.drop, dragover: _vm.allowDrop }
+                    })
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "col-md-2 d-flex justify-content-center align-items-center ml-5"
+                  },
+                  [
+                    _c("div", {
+                      staticClass: "col-md-6 m-1 p-4 pt-5",
+                      style: [
+                        _vm.steps < 6
+                          ? { display: "none" }
+                          : {
+                              width: "50%",
+                              height: "100px",
+                              "border-radius": "30%",
+                              border: "2px solid #F2BBAD",
+                              "background-color": " lightblue"
+                            }
+                      ],
+                      attrs: {
+                        id:
+                          Math.min.apply(Math, _vm.numbersArray.slice(2, 4)) +
+                          "-sort"
+                      },
+                      on: { drop: _vm.drop, dragover: _vm.allowDrop }
+                    }),
+                    _vm._v(" "),
+                    _c("div", {
+                      staticClass: "col-md-6 pt-5",
+                      style: [
+                        _vm.steps < 6
+                          ? { display: "none" }
+                          : {
+                              width: "50%",
+                              height: "100px",
+                              "border-radius": "30%",
+                              border: "2px solid #F2BBAD",
+                              "background-color": " lightblue"
+                            }
+                      ],
+                      attrs: {
+                        id:
+                          Math.max.apply(Math, _vm.numbersArray.slice(2, 4)) +
+                          "-sort"
+                      },
+                      on: { drop: _vm.drop, dragover: _vm.allowDrop }
+                    })
+                  ]
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-1" }),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "col-md-2 d-flex justify-content-center align-items-center ml-3 mr-5"
+                  },
+                  [
+                    _c("div", {
+                      staticClass: "col-md-6 m-1 p-4 pt-5",
+                      style: [
+                        _vm.steps < 6
+                          ? { display: "none" }
+                          : {
+                              width: "50%",
+                              height: "100px",
+                              "border-radius": "30%",
+                              border: "2px solid #F2BBAD",
+                              "background-color": " lightblue"
+                            }
+                      ],
+                      attrs: {
+                        id:
+                          Math.min.apply(Math, _vm.numbersArray.slice(4, 6)) +
+                          "-sort"
+                      },
+                      on: { drop: _vm.drop, dragover: _vm.allowDrop }
+                    }),
+                    _vm._v(" "),
+                    _c("div", {
+                      staticClass: "col-md-6 p-4 pt-5",
+                      style: [
+                        _vm.steps < 6
+                          ? { display: "none" }
+                          : {
+                              width: "50%",
+                              height: "100px",
+                              "border-radius": "30%",
+                              border: "2px solid #F2BBAD",
+                              "background-color": " lightblue"
+                            }
+                      ],
+                      attrs: {
+                        id:
+                          Math.max.apply(Math, _vm.numbersArray.slice(4, 6)) +
+                          "-sort"
+                      },
+                      on: { drop: _vm.drop, dragover: _vm.allowDrop }
+                    })
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "col-md-2 d-flex justify-content-center align-items-center ml-5"
+                  },
+                  [
+                    _c("div", {
+                      staticClass: "col-md-6 m-1 p-4 pt-5",
+                      style: [
+                        _vm.steps < 6
+                          ? { display: "none" }
+                          : {
+                              width: "50%",
+                              height: "100px",
+                              "border-radius": "30%",
+                              border: "2px solid #F2BBAD",
+                              "background-color": "lightblue"
+                            }
+                      ],
+                      attrs: {
+                        id:
+                          Math.min.apply(Math, _vm.numbersArray.slice(6, 8)) +
+                          "-sort"
+                      },
+                      on: { drop: _vm.drop, dragover: _vm.allowDrop }
+                    }),
+                    _vm._v(" "),
+                    _c("div", {
+                      staticClass: "col-md-6 p-4 pt-5",
+                      style: [
+                        _vm.steps < 6
+                          ? { display: "none" }
+                          : {
+                              width: "50%",
+                              height: "100px",
+                              "border-radius": "30%",
+                              border: "2px solid #F2BBAD",
+                              "background-color": "lightblue"
+                            }
+                      ],
+                      attrs: {
+                        id:
+                          Math.max.apply(Math, _vm.numbersArray.slice(6, 8)) +
+                          "-sort"
+                      },
+                      on: { drop: _vm.drop, dragover: _vm.allowDrop }
+                    })
+                  ]
+                )
+              ]),
               _vm._v(" "),
               _c(
                 "h2",
@@ -50046,14 +50497,14 @@ var render = function() {
                   style: [
                     _vm.steps < 14
                       ? { opacity: "0" }
-                      : { margin: "10% 0 3% -7%" }
+                      : { margin: "2% 0 3% -7%" }
                   ]
                 },
                 [
-                  _vm._v(" Step Four \n                "),
+                  _vm._v("\n            Step Four\n            "),
                   _c("i", {
                     class: _vm.steps < 18 ? _vm.voiceIcon : "",
-                    staticStyle: { "font-size": "48px", color: "#FF8C00" },
+                    staticStyle: { "font-size": "30px", color: "#FF8C00" },
                     on: {
                       click: function($event) {
                         return _vm.voice(
@@ -50071,674 +50522,716 @@ var render = function() {
                 ]
               ),
               _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "col-md-3 d-flex justify-content-center align-items-center p-4"
-                },
-                [
-                  _c(
-                    "div",
-                    {
-                      staticClass: " col-md-6",
-                      style: [
-                        _vm.steps < 14
-                          ? { display: "none" }
-                          : {
-                              width: "100%",
-                              height: "74px",
-                              "border-right": "2px solid white",
-                              "background-color": "#FAEBD7"
-                            }
-                      ]
-                    },
-                    [
-                      _c(
-                        "div",
-                        {
-                          key: Math.min.apply(
-                            Math,
-                            _vm.numbersArray.slice(0, 2)
-                          ),
-                          staticClass:
-                            "d-flex justify-content-center align-items-center p-4",
-                          attrs: {
-                            id:
-                              Math.min.apply(
-                                Math,
-                                _vm.numbersArray.slice(0, 2)
-                              ) + "-step4",
-                            draggable: "true"
-                          },
-                          on: { dragstart: _vm.onDragging }
-                        },
-                        [
-                          _c(
-                            "div",
-                            {
-                              staticStyle: {
-                                "font-size": "30px",
-                                margin: "0 40px"
+              _c("div", { staticClass: "col-md-11 mt-5 mr-5 pr-5" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "col-md-3 d-flex justify-content-center align-items-center"
+                  },
+                  [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "col-md-5 m-1",
+                        class: { "animated bounce repeat-3": _vm.steps == 21 },
+                        style: [
+                          _vm.steps < 14
+                            ? { display: "none" }
+                            : {
+                                height: "100px",
+                                "border-radius": "30%",
+                                border: "2px solid #FFD5AA",
+                                "background-color": "#F0B9D6"
                               }
+                        ]
+                      },
+                      [
+                        _c(
+                          "div",
+                          {
+                            key: Math.min.apply(
+                              Math,
+                              _vm.numbersArray.slice(0, 2)
+                            ),
+                            staticClass:
+                              "col-md-4 d-flex justify-content-center align-items-center py-4 m-3",
+                            attrs: {
+                              id:
+                                Math.min.apply(
+                                  Math,
+                                  _vm.numbersArray.slice(0, 2)
+                                ) + "-step4",
+                              draggable: "true"
                             },
-                            [
-                              _vm._v(
-                                _vm._s(
+                            on: {
+                              dragstart: function($event) {
+                                _vm.onDragging(
                                   Math.min.apply(
                                     Math,
                                     _vm.numbersArray.slice(0, 2)
-                                  )
+                                  ),
+                                  $event
                                 )
-                              )
-                            ]
-                          )
-                        ]
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass: " col-md-6",
-                      style: [
-                        _vm.steps < 14
-                          ? { display: "none" }
-                          : {
-                              width: "100%",
-                              height: "74px",
-                              "border-right": "2px solid white",
-                              "background-color": "#FAEBD7"
-                            }
-                      ]
-                    },
-                    [
-                      _c(
-                        "div",
-                        {
-                          key: Math.max.apply(
-                            Math,
-                            _vm.numbersArray.slice(0, 2)
-                          ),
-                          staticClass:
-                            "d-flex justify-content-center align-items-center p-4",
-                          attrs: {
-                            id:
-                              Math.max.apply(
-                                Math,
-                                _vm.numbersArray.slice(0, 2)
-                              ) + "-step4",
-                            draggable: "true"
-                          },
-                          on: { dragstart: _vm.onDragging }
-                        },
-                        [
-                          _c(
-                            "div",
-                            {
-                              staticStyle: {
-                                "font-size": "30px",
-                                margin: "0 40px"
                               }
+                            }
+                          },
+                          [
+                            _c("img", {
+                              staticStyle: { height: "50px" },
+                              attrs: {
+                                src:
+                                  "/storage/Images/" +
+                                  Math.min.apply(
+                                    Math,
+                                    _vm.numbersArray.slice(0, 2)
+                                  ) +
+                                  ".png"
+                              }
+                            })
+                          ]
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "col-md-5 m-1",
+                        class: { "animated bounce repeat-3": _vm.steps == 20 },
+                        style: [
+                          _vm.steps < 14
+                            ? { display: "none" }
+                            : {
+                                height: "100px",
+                                "border-radius": "30%",
+                                border: "3px solid #FFD5AA",
+                                "background-color": "#F0B9D6"
+                              }
+                        ]
+                      },
+                      [
+                        _c(
+                          "div",
+                          {
+                            key: Math.max.apply(
+                              Math,
+                              _vm.numbersArray.slice(0, 2)
+                            ),
+                            staticClass:
+                              "col-md-4 d-flex justify-content-center align-items-center py-4 m-3",
+                            attrs: {
+                              id:
+                                Math.max.apply(
+                                  Math,
+                                  _vm.numbersArray.slice(0, 2)
+                                ) + "-step4",
+                              draggable: "true"
                             },
-                            [
-                              _vm._v(
-                                _vm._s(
+                            on: {
+                              dragstart: function($event) {
+                                _vm.onDragging(
                                   Math.max.apply(
                                     Math,
                                     _vm.numbersArray.slice(0, 2)
-                                  )
+                                  ),
+                                  $event
                                 )
-                              )
-                            ]
-                          )
-                        ]
-                      )
-                    ]
-                  )
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "col-md-3 d-flex justify-content-center align-items-center p-4"
-                },
-                [
-                  _c(
-                    "div",
-                    {
-                      staticClass: " col-md-6",
-                      style: [
-                        _vm.steps < 14
-                          ? { display: "none" }
-                          : {
-                              width: "100%",
-                              height: "74px",
-                              "border-right": "2px solid white",
-                              "background-color": "#FAEBD7"
-                            }
-                      ]
-                    },
-                    [
-                      _c(
-                        "div",
-                        {
-                          key: Math.min.apply(
-                            Math,
-                            _vm.numbersArray.slice(2, 4)
-                          ),
-                          staticClass:
-                            "d-flex justify-content-center align-items-center p-4",
-                          attrs: {
-                            draggable: "true",
-                            id:
-                              Math.min.apply(
-                                Math,
-                                _vm.numbersArray.slice(2, 4)
-                              ) + "-step4"
-                          },
-                          on: { dragstart: _vm.onDragging }
-                        },
-                        [
-                          _c(
-                            "div",
-                            {
-                              staticStyle: {
-                                "font-size": "30px",
-                                margin: "0 40px"
                               }
+                            }
+                          },
+                          [
+                            _c("img", {
+                              staticStyle: { height: "50px" },
+                              attrs: {
+                                src:
+                                  "/storage/Images/" +
+                                  Math.max.apply(
+                                    Math,
+                                    _vm.numbersArray.slice(0, 2)
+                                  ) +
+                                  ".png"
+                              }
+                            })
+                          ]
+                        )
+                      ]
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "col-md-3 d-flex justify-content-center align-items-center"
+                  },
+                  [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "col-md-5 m-1",
+                        class: { "animated bounce repeat-3": _vm.steps == 19 },
+                        style: [
+                          _vm.steps < 14
+                            ? { display: "none" }
+                            : {
+                                height: "100px",
+                                "border-radius": "30%",
+                                border: "2px solid #FFD5AA",
+                                "background-color": "#F0B9D6"
+                              }
+                        ]
+                      },
+                      [
+                        _c(
+                          "div",
+                          {
+                            key: Math.min.apply(
+                              Math,
+                              _vm.numbersArray.slice(2, 4)
+                            ),
+                            staticClass:
+                              "col-md-4 d-flex justify-content-center align-items-center py-4 m-3",
+                            attrs: {
+                              id:
+                                Math.min.apply(
+                                  Math,
+                                  _vm.numbersArray.slice(2, 4)
+                                ) + "-step4",
+                              draggable: "true"
                             },
-                            [
-                              _vm._v(
-                                _vm._s(
+                            on: {
+                              dragstart: function($event) {
+                                _vm.onDragging(
                                   Math.min.apply(
                                     Math,
                                     _vm.numbersArray.slice(2, 4)
-                                  )
+                                  ),
+                                  $event
                                 )
-                              )
-                            ]
-                          )
-                        ]
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass: " col-md-6",
-                      style: [
-                        _vm.steps < 14
-                          ? { display: "none" }
-                          : {
-                              width: "100%",
-                              height: "74px",
-                              "background-color": "#FAEBD7"
-                            }
-                      ]
-                    },
-                    [
-                      _c(
-                        "div",
-                        {
-                          key: Math.max.apply(
-                            Math,
-                            _vm.numbersArray.slice(2, 4)
-                          ),
-                          staticClass:
-                            "d-flex justify-content-center align-items-center p-4",
-                          attrs: {
-                            id:
-                              Math.max.apply(
-                                Math,
-                                _vm.numbersArray.slice(2, 4)
-                              ) + "-step4",
-                            draggable: "true"
-                          },
-                          on: { dragstart: _vm.onDragging }
-                        },
-                        [
-                          _c(
-                            "div",
-                            {
-                              staticStyle: {
-                                "font-size": "30px",
-                                margin: "0 40px"
                               }
+                            }
+                          },
+                          [
+                            _c("img", {
+                              staticStyle: { height: "50px" },
+                              attrs: {
+                                src:
+                                  "/storage/Images/" +
+                                  Math.min.apply(
+                                    Math,
+                                    _vm.numbersArray.slice(2, 4)
+                                  ) +
+                                  ".png"
+                              }
+                            })
+                          ]
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "col-md-5 m-1",
+                        class: { "animated bounce repeat-3": _vm.steps == 18 },
+                        style: [
+                          _vm.steps < 14
+                            ? { display: "none" }
+                            : {
+                                height: "100px",
+                                "border-radius": "30%",
+                                border: "3px solid #FFD5AA",
+                                "background-color": "#F0B9D6"
+                              }
+                        ]
+                      },
+                      [
+                        _c(
+                          "div",
+                          {
+                            key: Math.max.apply(
+                              Math,
+                              _vm.numbersArray.slice(2, 4)
+                            ),
+                            staticClass:
+                              "col-md-4 d-flex justify-content-center align-items-center py-4 m-3",
+                            attrs: {
+                              id:
+                                Math.max.apply(
+                                  Math,
+                                  _vm.numbersArray.slice(2, 4)
+                                ) + "-step4",
+                              draggable: "true"
                             },
-                            [
-                              _vm._v(
-                                _vm._s(
+                            on: {
+                              dragstart: function($event) {
+                                _vm.onDragging(
                                   Math.max.apply(
                                     Math,
                                     _vm.numbersArray.slice(2, 4)
-                                  )
+                                  ),
+                                  $event
                                 )
-                              )
-                            ]
-                          )
-                        ]
-                      )
-                    ]
-                  )
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "col-md-3 d-flex justify-content-center align-items-center p-4"
-                },
-                [
-                  _c(
-                    "div",
-                    {
-                      staticClass: " col-md-6",
-                      style: [
-                        _vm.steps < 14
-                          ? { display: "none" }
-                          : {
-                              width: "100%",
-                              height: "74px",
-                              "border-right": "2px solid white",
-                              "background-color": "#F5F5DC"
-                            }
-                      ]
-                    },
-                    [
-                      _c(
-                        "div",
-                        {
-                          key: Math.min.apply(
-                            Math,
-                            _vm.numbersArray.slice(4, 6)
-                          ),
-                          staticClass:
-                            "d-flex justify-content-center align-items-center p-4",
-                          attrs: {
-                            draggable: "true",
-                            id:
-                              Math.min.apply(
-                                Math,
-                                _vm.numbersArray.slice(4, 6)
-                              ) + "-step4"
-                          },
-                          on: { dragstart: _vm.onDragging }
-                        },
-                        [
-                          _c(
-                            "div",
-                            {
-                              staticStyle: {
-                                "font-size": "30px",
-                                margin: "0 40px"
                               }
+                            }
+                          },
+                          [
+                            _c("img", {
+                              staticStyle: { height: "50px" },
+                              attrs: {
+                                src:
+                                  "/storage/Images/" +
+                                  Math.max.apply(
+                                    Math,
+                                    _vm.numbersArray.slice(2, 4)
+                                  ) +
+                                  ".png"
+                              }
+                            })
+                          ]
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-1 mr-5" })
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "col-md-3 d-flex justify-content-center align-items-center"
+                  },
+                  [
+                    _c("div", { staticClass: "col-md-1 ml-5" }),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "col-md-5 m-1",
+                        class: { "animated bounce repeat-3": _vm.steps == 17 },
+                        style: [
+                          _vm.steps < 14
+                            ? { display: "none" }
+                            : {
+                                height: "100px",
+                                "border-radius": "30%",
+                                border: "2px solid #FFD5AA",
+                                "background-color": "#F0B9D6"
+                              }
+                        ]
+                      },
+                      [
+                        _c(
+                          "div",
+                          {
+                            key: Math.min.apply(
+                              Math,
+                              _vm.numbersArray.slice(4, 6)
+                            ),
+                            staticClass:
+                              "col-md-4 d-flex justify-content-center align-items-center py-4 m-3",
+                            attrs: {
+                              id:
+                                Math.min.apply(
+                                  Math,
+                                  _vm.numbersArray.slice(4, 6)
+                                ) + "-step4",
+                              draggable: "true"
                             },
-                            [
-                              _vm._v(
-                                _vm._s(
+                            on: {
+                              dragstart: function($event) {
+                                _vm.onDragging(
                                   Math.min.apply(
                                     Math,
                                     _vm.numbersArray.slice(4, 6)
-                                  )
+                                  ),
+                                  $event
                                 )
-                              )
-                            ]
-                          )
-                        ]
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass: " col-md-6",
-                      style: [
-                        _vm.steps < 14
-                          ? { display: "none" }
-                          : {
-                              width: "100%",
-                              height: "74px",
-                              "border-right": "2px solid white",
-                              "background-color": "#F5F5DC"
-                            }
-                      ]
-                    },
-                    [
-                      _c(
-                        "div",
-                        {
-                          key: Math.max.apply(
-                            Math,
-                            _vm.numbersArray.slice(4, 6)
-                          ),
-                          staticClass:
-                            "d-flex justify-content-center align-items-center p-4",
-                          attrs: {
-                            id:
-                              Math.max.apply(
-                                Math,
-                                _vm.numbersArray.slice(4, 6)
-                              ) + "-step4",
-                            draggable: "true"
-                          },
-                          on: { dragstart: _vm.onDragging }
-                        },
-                        [
-                          _c(
-                            "div",
-                            {
-                              staticStyle: {
-                                "font-size": "30px",
-                                margin: "0 40px"
                               }
+                            }
+                          },
+                          [
+                            _c("img", {
+                              staticStyle: { height: "50px" },
+                              attrs: {
+                                src:
+                                  "/storage/Images/" +
+                                  Math.min.apply(
+                                    Math,
+                                    _vm.numbersArray.slice(4, 6)
+                                  ) +
+                                  ".png"
+                              }
+                            })
+                          ]
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "col-md-5 m-1",
+                        class: { "animated bounce repeat-3": _vm.steps == 16 },
+                        style: [
+                          _vm.steps < 14
+                            ? { display: "none" }
+                            : {
+                                height: "100px",
+                                "border-radius": "30%",
+                                border: "3px solid #FFD5AA",
+                                "background-color": "#F0B9D6"
+                              }
+                        ]
+                      },
+                      [
+                        _c(
+                          "div",
+                          {
+                            key: Math.max.apply(
+                              Math,
+                              _vm.numbersArray.slice(4, 6)
+                            ),
+                            staticClass:
+                              "col-md-4 d-flex justify-content-center align-items-center py-4 m-3",
+                            attrs: {
+                              id:
+                                Math.max.apply(
+                                  Math,
+                                  _vm.numbersArray.slice(4, 6)
+                                ) + "-step4",
+                              draggable: "true"
                             },
-                            [
-                              _vm._v(
-                                _vm._s(
+                            on: {
+                              dragstart: function($event) {
+                                _vm.onDragging(
                                   Math.max.apply(
                                     Math,
                                     _vm.numbersArray.slice(4, 6)
-                                  )
+                                  ),
+                                  $event
                                 )
-                              )
-                            ]
-                          )
-                        ]
-                      )
-                    ]
-                  )
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "col-md-3 d-flex justify-content-center align-items-center p-4"
-                },
-                [
-                  _c(
-                    "div",
-                    {
-                      staticClass: " col-md-6",
-                      style: [
-                        _vm.steps < 14
-                          ? { display: "none" }
-                          : {
-                              width: "100%",
-                              height: "74px",
-                              "border-right": "2px solid white",
-                              "background-color": "#F5F5DC"
-                            }
-                      ]
-                    },
-                    [
-                      _c(
-                        "div",
-                        {
-                          key: Math.min.apply(
-                            Math,
-                            _vm.numbersArray.slice(6, 8)
-                          ),
-                          staticClass:
-                            "d-flex justify-content-center align-items-center p-4",
-                          attrs: {
-                            id:
-                              Math.min.apply(
-                                Math,
-                                _vm.numbersArray.slice(6, 8)
-                              ) + "-step4",
-                            draggable: "true"
-                          },
-                          on: { dragstart: _vm.onDragging }
-                        },
-                        [
-                          _c(
-                            "div",
-                            {
-                              staticStyle: {
-                                "font-size": "30px",
-                                margin: "0 40px"
                               }
+                            }
+                          },
+                          [
+                            _c("img", {
+                              staticStyle: { height: "50px" },
+                              attrs: {
+                                src:
+                                  "/storage/Images/" +
+                                  Math.max.apply(
+                                    Math,
+                                    _vm.numbersArray.slice(4, 6)
+                                  ) +
+                                  ".png"
+                              }
+                            })
+                          ]
+                        )
+                      ]
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "col-md-3 d-flex justify-content-center align-items-center"
+                  },
+                  [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "col-md-5 m-1",
+                        class: { "animated bounce repeat-3": _vm.steps == 15 },
+                        style: [
+                          _vm.steps < 14
+                            ? { display: "none" }
+                            : {
+                                height: "100px",
+                                "border-radius": "30%",
+                                border: "2px solid #FFD5AA",
+                                "background-color": "#F0B9D6"
+                              }
+                        ]
+                      },
+                      [
+                        _c(
+                          "div",
+                          {
+                            key: Math.min.apply(
+                              Math,
+                              _vm.numbersArray.slice(6, 8)
+                            ),
+                            staticClass:
+                              "col-md-4 d-flex justify-content-center align-items-center py-4 m-3",
+                            attrs: {
+                              id:
+                                Math.min.apply(
+                                  Math,
+                                  _vm.numbersArray.slice(6, 8)
+                                ) + "-step4",
+                              draggable: "true"
                             },
-                            [
-                              _vm._v(
-                                _vm._s(
+                            on: {
+                              dragstart: function($event) {
+                                _vm.onDragging(
                                   Math.min.apply(
                                     Math,
                                     _vm.numbersArray.slice(6, 8)
-                                  )
+                                  ),
+                                  $event
                                 )
-                              )
-                            ]
-                          )
+                              }
+                            }
+                          },
+                          [
+                            _c("img", {
+                              staticStyle: { height: "50px" },
+                              attrs: {
+                                src:
+                                  "/storage/Images/" +
+                                  Math.min.apply(
+                                    Math,
+                                    _vm.numbersArray.slice(6, 8)
+                                  ) +
+                                  ".png"
+                              }
+                            })
+                          ]
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "col-md-5 m-1",
+                        class: { "animated bounce repeat-3": _vm.steps == 14 },
+                        style: [
+                          _vm.steps < 14
+                            ? { display: "none" }
+                            : {
+                                height: "100px",
+                                "border-radius": "30%",
+                                border: "3px solid #FFD5AA",
+                                "background-color": "#F0B9D6"
+                              }
                         ]
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass: " col-md-6",
+                      },
+                      [
+                        _c(
+                          "div",
+                          {
+                            key: Math.max.apply(
+                              Math,
+                              _vm.numbersArray.slice(6, 8)
+                            ),
+                            staticClass:
+                              "col-md-4 d-flex justify-content-center align-items-center py-4 m-3",
+                            attrs: {
+                              id:
+                                Math.max.apply(
+                                  Math,
+                                  _vm.numbersArray.slice(6, 8)
+                                ) + "-step4",
+                              draggable: "true"
+                            },
+                            on: {
+                              dragstart: function($event) {
+                                _vm.onDragging(
+                                  Math.max.apply(
+                                    Math,
+                                    _vm.numbersArray.slice(6, 8)
+                                  ),
+                                  $event
+                                )
+                              }
+                            }
+                          },
+                          [
+                            _c("img", {
+                              staticStyle: { height: "50px" },
+                              attrs: {
+                                src:
+                                  "/storage/Images/" +
+                                  Math.max.apply(
+                                    Math,
+                                    _vm.numbersArray.slice(6, 8)
+                                  ) +
+                                  ".png"
+                              }
+                            })
+                          ]
+                        )
+                      ]
+                    )
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-11 mt-5 mr-5 pr-5" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "col-md-6 d-flex justify-content-center align-items-center pr-5"
+                  },
+                  [
+                    _c("div", {
+                      staticClass: "col-md-3 m-1 p-5",
+                      class: { "animated bounce repeat-3": _vm.steps == 21 },
                       style: [
                         _vm.steps < 14
                           ? { display: "none" }
                           : {
-                              width: "100%",
-                              height: "74px",
-                              "background-color": "#F5F5DC"
+                              width: "80%",
+                              height: "100px",
+                              "border-radius": "30%",
+                              border: "2px solid #F2BBAD",
+                              "background-color": "lightgreen"
                             }
-                      ]
-                    },
-                    [
-                      _c(
-                        "div",
-                        {
-                          key: Math.max.apply(
-                            Math,
-                            _vm.numbersArray.slice(6, 8)
-                          ),
-                          staticClass:
-                            "d-flex justify-content-center align-items-center p-4",
-                          attrs: {
-                            draggable: "true",
-                            id:
-                              Math.max.apply(
-                                Math,
-                                _vm.numbersArray.slice(6, 8)
-                              ) + "-step4"
-                          },
-                          on: { dragstart: _vm.onDragging }
-                        },
-                        [
-                          _c(
-                            "div",
-                            {
-                              staticStyle: {
-                                "font-size": "30px",
-                                margin: "0 40px"
-                              }
-                            },
-                            [
-                              _vm._v(
-                                _vm._s(
-                                  Math.max.apply(
-                                    Math,
-                                    _vm.numbersArray.slice(6, 8)
-                                  )
-                                )
-                              )
-                            ]
-                          )
-                        ]
-                      )
-                    ]
-                  )
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "col-md-12 d-flex justify-content-center align-items-center p-4",
-                  staticStyle: { "margin-left": "-5%" }
-                },
-                [
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "col-md-6 d-flex justify-content-center align-items-center p-4"
-                    },
-                    [
-                      _c("div", {
-                        staticClass: " col-md-3",
-                        style: [
-                          _vm.steps < 14
-                            ? { display: "none" }
-                            : {
-                                width: "100%",
-                                "border-right": "2px solid white",
-                                height: "74px",
-                                "background-color": "lightgreen"
-                              }
-                        ],
-                        attrs: { id: _vm.leftSortedArray[0] + "-sortstep4" },
-                        on: { drop: _vm.drop, dragover: _vm.allowDrop }
-                      }),
-                      _vm._v(" "),
-                      _c("div", {
-                        staticClass: " col-md-3",
-                        style: [
-                          _vm.steps < 14
-                            ? { display: "none" }
-                            : {
-                                width: "100%",
-                                "border-right": "2px solid white",
-                                height: "74px",
-                                "background-color": "lightgreen"
-                              }
-                        ],
-                        attrs: { id: _vm.leftSortedArray[1] + "-sortstep4" },
-                        on: { drop: _vm.drop, dragover: _vm.allowDrop }
-                      }),
-                      _vm._v(" "),
-                      _c("div", {
-                        staticClass: " col-md-3",
-                        style: [
-                          _vm.steps < 14
-                            ? { display: "none" }
-                            : {
-                                width: "100%",
-                                height: "74px",
-                                "border-right": "2px solid white",
-                                "background-color": "lightgreen"
-                              }
-                        ],
-                        attrs: { id: _vm.leftSortedArray[2] + "-sortstep4" },
-                        on: { drop: _vm.drop, dragover: _vm.allowDrop }
-                      }),
-                      _vm._v(" "),
-                      _c("div", {
-                        staticClass: " col-md-3",
-                        style: [
-                          _vm.steps < 14
-                            ? { display: "none" }
-                            : {
-                                width: "100%",
-                                height: "74px",
-                                "background-color": "lightgreen"
-                              }
-                        ],
-                        attrs: { id: _vm.leftSortedArray[3] + "-sortstep4" },
-                        on: { drop: _vm.drop, dragover: _vm.allowDrop }
-                      })
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "col-md-6 d-flex justify-content-center align-items-center p-4"
-                    },
-                    [
-                      _c("div", {
-                        staticClass: " col-md-3",
-                        style: [
-                          _vm.steps < 14
-                            ? { display: "none" }
-                            : {
-                                width: "100%",
-                                height: "74px",
-                                "border-right": "2px solid white",
-                                "background-color": "lightblue"
-                              }
-                        ],
-                        attrs: { id: _vm.rightSortedArray[0] + "-sortstep4" },
-                        on: { drop: _vm.drop, dragover: _vm.allowDrop }
-                      }),
-                      _vm._v(" "),
-                      _c("div", {
-                        staticClass: " col-md-3",
-                        style: [
-                          _vm.steps < 14
-                            ? { display: "none" }
-                            : {
-                                width: "100%",
-                                height: "74px",
-                                "border-right": "2px solid white",
-                                "background-color": "lightblue"
-                              }
-                        ],
-                        attrs: { id: _vm.rightSortedArray[1] + "-sortstep4" },
-                        on: { drop: _vm.drop, dragover: _vm.allowDrop }
-                      }),
-                      _vm._v(" "),
-                      _c("div", {
-                        staticClass: " col-md-3",
-                        style: [
-                          _vm.steps < 14
-                            ? { display: "none" }
-                            : {
-                                width: "100%",
-                                height: "74px",
-                                "border-right": "2px solid white",
-                                "background-color": "lightblue"
-                              }
-                        ],
-                        attrs: { id: _vm.rightSortedArray[2] + "-sortstep4" },
-                        on: { drop: _vm.drop, dragover: _vm.allowDrop }
-                      }),
-                      _vm._v(" "),
-                      _c("div", {
-                        staticClass: " col-md-3",
-                        style: [
-                          _vm.steps < 14
-                            ? { display: "none" }
-                            : {
-                                width: "100%",
-                                height: "74px",
-                                "border-right": "2px solid white",
-                                "background-color": "lightblue"
-                              }
-                        ],
-                        attrs: { id: _vm.rightSortedArray[3] + "-sortstep4" },
-                        on: { drop: _vm.drop, dragover: _vm.allowDrop }
-                      })
-                    ]
-                  )
-                ]
-              ),
+                      ],
+                      attrs: { id: _vm.leftSortedArray[0] + "-sortstep4" },
+                      on: { drop: _vm.drop, dragover: _vm.allowDrop }
+                    }),
+                    _vm._v(" "),
+                    _c("div", {
+                      staticClass: "col-md-3 m-1 p-5",
+                      style: [
+                        _vm.steps < 14
+                          ? { display: "none" }
+                          : {
+                              width: "80%",
+                              height: "100px",
+                              "border-radius": "30%",
+                              border: "2px solid #F2BBAD",
+                              "background-color": "lightgreen"
+                            }
+                      ],
+                      attrs: { id: _vm.leftSortedArray[1] + "-sortstep4" },
+                      on: { drop: _vm.drop, dragover: _vm.allowDrop }
+                    }),
+                    _vm._v(" "),
+                    _c("div", {
+                      staticClass: "col-md-3 m-1 p-5",
+                      style: [
+                        _vm.steps < 14
+                          ? { display: "none" }
+                          : {
+                              width: "80%",
+                              height: "100px",
+                              "border-radius": "30%",
+                              border: "2px solid #F2BBAD",
+                              "background-color": "lightgreen"
+                            }
+                      ],
+                      attrs: { id: _vm.leftSortedArray[2] + "-sortstep4" },
+                      on: { drop: _vm.drop, dragover: _vm.allowDrop }
+                    }),
+                    _vm._v(" "),
+                    _c("div", {
+                      staticClass: "col-md-3 m-1 p-5",
+                      style: [
+                        _vm.steps < 14
+                          ? { display: "none" }
+                          : {
+                              width: "80%",
+                              height: "100px",
+                              "border-radius": "30%",
+                              border: "2px solid #F2BBAD",
+                              "background-color": "lightgreen"
+                            }
+                      ],
+                      attrs: { id: _vm.leftSortedArray[3] + "-sortstep4" },
+                      on: { drop: _vm.drop, dragover: _vm.allowDrop }
+                    })
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "col-md-6 d-flex justify-content-center align-items-center pl-5"
+                  },
+                  [
+                    _c("div", {
+                      staticClass: "col-md-3 m-1 p-5",
+                      style: [
+                        _vm.steps < 14
+                          ? { display: "none" }
+                          : {
+                              width: "80%",
+                              height: "100px",
+                              "border-radius": "30%",
+                              border: "2px solid #F2BBAD",
+                              "background-color": "lightblue"
+                            }
+                      ],
+                      attrs: { id: _vm.rightSortedArray[0] + "-sortstep4" },
+                      on: { drop: _vm.drop, dragover: _vm.allowDrop }
+                    }),
+                    _vm._v(" "),
+                    _c("div", {
+                      staticClass: "col-md-3 m-1 p-5",
+                      style: [
+                        _vm.steps < 14
+                          ? { display: "none" }
+                          : {
+                              width: "80%",
+                              height: "100px",
+                              "border-radius": "30%",
+                              border: "2px solid #F2BBAD",
+                              "background-color": "lightblue"
+                            }
+                      ],
+                      attrs: { id: _vm.rightSortedArray[1] + "-sortstep4" },
+                      on: { drop: _vm.drop, dragover: _vm.allowDrop }
+                    }),
+                    _vm._v(" "),
+                    _c("div", {
+                      staticClass: "col-md-3 m-1 p-5",
+                      style: [
+                        _vm.steps < 14
+                          ? { display: "none" }
+                          : {
+                              width: "80%",
+                              height: "100px",
+                              "border-radius": "30%",
+                              border: "2px solid #F2BBAD",
+                              "background-color": "lightblue"
+                            }
+                      ],
+                      attrs: { id: _vm.rightSortedArray[2] + "-sortstep4" },
+                      on: { drop: _vm.drop, dragover: _vm.allowDrop }
+                    }),
+                    _vm._v(" "),
+                    _c("div", {
+                      staticClass: "col-md-3 m-1 p-5",
+                      style: [
+                        _vm.steps < 14
+                          ? { display: "none" }
+                          : {
+                              width: "80%",
+                              height: "100px",
+                              "border-radius": "30%",
+                              border: "2px solid #F2BBAD",
+                              "background-color": "lightblue"
+                            }
+                      ],
+                      attrs: { id: _vm.rightSortedArray[3] + "-sortstep4" },
+                      on: { drop: _vm.drop, dragover: _vm.allowDrop }
+                    })
+                  ]
+                )
+              ]),
               _vm._v(" "),
               _c(
                 "h2",
@@ -50746,14 +51239,16 @@ var render = function() {
                   staticClass:
                     "col-md-12 justify-content-center align-items-center",
                   style: [
-                    _vm.steps < 22 ? { opacity: "0" } : { margin: "10% 0 3% 0" }
+                    _vm.steps < 22
+                      ? { opacity: "0" }
+                      : { margin: "2% 0 3% -7%" }
                   ]
                 },
                 [
-                  _vm._v(" Step Five \n                "),
+                  _vm._v("\n            Step Five\n            "),
                   _c("i", {
                     class: _vm.steps < 22 ? _vm.voiceIcon : "",
-                    staticStyle: { "font-size": "48px", color: "#FF8C00" },
+                    staticStyle: { "font-size": "30px", color: "#FF8C00" },
                     on: {
                       click: function($event) {
                         return _vm.voice(
@@ -50773,403 +51268,464 @@ var render = function() {
                 ]
               ),
               _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "col-md-6 d-flex justify-content-center align-items-center p-4"
-                },
-                [
-                  _c(
-                    "div",
-                    {
-                      staticClass: " col-md-3",
-                      style: [
-                        _vm.steps < 22
-                          ? { display: "none" }
-                          : {
-                              width: "100%",
-                              "border-right": "2px solid white",
-                              height: "74px",
-                              "background-color": "lightgreen"
-                            }
-                      ]
-                    },
-                    [
-                      _c(
-                        "div",
-                        {
-                          key: _vm.leftSortedArray[0],
-                          staticClass:
-                            "d-flex justify-content-center align-items-center p-4",
-                          attrs: {
-                            id: _vm.leftSortedArray[0] + "-step5",
-                            draggable: "true"
-                          },
-                          on: { dragstart: _vm.onDragging }
-                        },
-                        [
-                          _c(
-                            "div",
-                            {
-                              staticStyle: {
-                                "font-size": "30px",
-                                margin: "0 40px"
-                              }
-                            },
-                            [_vm._v(_vm._s(_vm.leftSortedArray[0]))]
-                          )
-                        ]
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass: " col-md-3",
-                      style: [
-                        _vm.steps < 22
-                          ? { display: "none" }
-                          : {
-                              width: "100%",
-                              "border-right": "2px solid white",
-                              height: "74px",
-                              "background-color": "lightgreen"
-                            }
-                      ]
-                    },
-                    [
-                      _c(
-                        "div",
-                        {
-                          key: _vm.leftSortedArray[1],
-                          staticClass:
-                            "d-flex justify-content-center align-items-center p-4",
-                          attrs: {
-                            id: _vm.leftSortedArray[1] + "-step5",
-                            draggable: "true"
-                          },
-                          on: { dragstart: _vm.onDragging }
-                        },
-                        [
-                          _c(
-                            "div",
-                            {
-                              staticStyle: {
-                                "font-size": "30px",
-                                margin: "0 40px"
-                              }
-                            },
-                            [_vm._v(_vm._s(_vm.leftSortedArray[1]))]
-                          )
-                        ]
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass: " col-md-3",
-                      style: [
-                        _vm.steps < 22
-                          ? { display: "none" }
-                          : {
-                              width: "100%",
-                              height: "74px",
-                              "border-right": "2px solid white",
-                              "background-color": "lightgreen"
-                            }
-                      ]
-                    },
-                    [
-                      _c(
-                        "div",
-                        {
-                          key: _vm.leftSortedArray[2],
-                          staticClass:
-                            "d-flex justify-content-center align-items-center p-4",
-                          attrs: {
-                            id: _vm.leftSortedArray[2] + "-step5",
-                            draggable: "true"
-                          },
-                          on: { dragstart: _vm.onDragging }
-                        },
-                        [
-                          _c(
-                            "div",
-                            {
-                              staticStyle: {
-                                "font-size": "30px",
-                                margin: "0 40px"
-                              }
-                            },
-                            [_vm._v(_vm._s(_vm.leftSortedArray[2]))]
-                          )
-                        ]
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass: " col-md-3",
-                      style: [
-                        _vm.steps < 22
-                          ? { display: "none" }
-                          : {
-                              width: "100%",
-                              height: "74px",
-                              "background-color": "lightgreen"
-                            }
-                      ]
-                    },
-                    [
-                      _c(
-                        "div",
-                        {
-                          key: _vm.leftSortedArray[3],
-                          staticClass:
-                            "d-flex justify-content-center align-items-center p-4",
-                          attrs: {
-                            id: _vm.leftSortedArray[3] + "-step5",
-                            draggable: "true"
-                          },
-                          on: { dragstart: _vm.onDragging }
-                        },
-                        [
-                          _c(
-                            "div",
-                            {
-                              staticStyle: {
-                                "font-size": "30px",
-                                margin: "0 40px"
-                              }
-                            },
-                            [_vm._v(_vm._s(_vm.leftSortedArray[3]))]
-                          )
-                        ]
-                      )
-                    ]
-                  )
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "col-md-6 d-flex justify-content-center align-items-center p-4"
-                },
-                [
-                  _c(
-                    "div",
-                    {
-                      staticClass: " col-md-3",
-                      style: [
-                        _vm.steps < 22
-                          ? { display: "none" }
-                          : {
-                              width: "100%",
-                              height: "74px",
-                              "border-right": "2px solid white",
-                              "background-color": "lightblue"
-                            }
-                      ]
-                    },
-                    [
-                      _c(
-                        "div",
-                        {
-                          key: _vm.rightSortedArray[0],
-                          staticClass:
-                            "d-flex justify-content-center align-items-center p-4",
-                          attrs: {
-                            id: _vm.rightSortedArray[0] + "-step5",
-                            draggable: "true"
-                          },
-                          on: { dragstart: _vm.onDragging }
-                        },
-                        [
-                          _c(
-                            "div",
-                            {
-                              staticStyle: {
-                                "font-size": "30px",
-                                margin: "0 40px"
-                              }
-                            },
-                            [_vm._v(_vm._s(_vm.rightSortedArray[0]))]
-                          )
-                        ]
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass: " col-md-3",
-                      style: [
-                        _vm.steps < 22
-                          ? { display: "none" }
-                          : {
-                              width: "100%",
-                              height: "74px",
-                              "border-right": "2px solid white",
-                              "background-color": "lightblue"
-                            }
-                      ]
-                    },
-                    [
-                      _c(
-                        "div",
-                        {
-                          key: _vm.rightSortedArray[1],
-                          staticClass:
-                            "d-flex justify-content-center align-items-center p-4",
-                          attrs: {
-                            id: _vm.rightSortedArray[1] + "-step5",
-                            draggable: "true"
-                          },
-                          on: { dragstart: _vm.onDragging }
-                        },
-                        [
-                          _c(
-                            "div",
-                            {
-                              staticStyle: {
-                                "font-size": "30px",
-                                margin: "0 40px"
-                              }
-                            },
-                            [_vm._v(_vm._s(_vm.rightSortedArray[1]))]
-                          )
-                        ]
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass: " col-md-3",
-                      style: [
-                        _vm.steps < 22
-                          ? { display: "none" }
-                          : {
-                              width: "100%",
-                              height: "74px",
-                              "border-right": "2px solid white",
-                              "background-color": "lightblue"
-                            }
-                      ],
-                      attrs: { id: _vm.rightSortedArray[2] + "-sortstep4" }
-                    },
-                    [
-                      _c(
-                        "div",
-                        {
-                          key: _vm.rightSortedArray[2],
-                          staticClass:
-                            "d-flex justify-content-center align-items-center p-4",
-                          attrs: {
-                            id: _vm.rightSortedArray[2] + "-step5",
-                            draggable: "true"
-                          },
-                          on: { dragstart: _vm.onDragging }
-                        },
-                        [
-                          _c(
-                            "div",
-                            {
-                              staticStyle: {
-                                "font-size": "30px",
-                                margin: "0 40px"
-                              }
-                            },
-                            [_vm._v(_vm._s(_vm.rightSortedArray[2]))]
-                          )
-                        ]
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass: " col-md-3",
-                      style: [
-                        _vm.steps < 22
-                          ? { display: "none" }
-                          : {
-                              width: "100%",
-                              height: "74px",
-                              "border-right": "2px solid white",
-                              "background-color": "lightblue"
-                            }
-                      ],
-                      attrs: { id: _vm.rightSortedArray[3] + "-sortstep4" }
-                    },
-                    [
-                      _c(
-                        "div",
-                        {
-                          key: _vm.rightSortedArray[3],
-                          staticClass:
-                            "d-flex justify-content-center align-items-center p-4",
-                          attrs: {
-                            id: _vm.rightSortedArray[3] + "-step5",
-                            draggable: "true"
-                          },
-                          on: { dragstart: _vm.onDragging }
-                        },
-                        [
-                          _c(
-                            "div",
-                            {
-                              staticStyle: {
-                                "font-size": "30px",
-                                margin: "0 40px"
-                              }
-                            },
-                            [_vm._v(_vm._s(_vm.rightSortedArray[3]))]
-                          )
-                        ]
-                      )
-                    ]
-                  )
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "col-md-12 d-flex justify-content-center align-items-center p-4",
-                  staticStyle: { "margin-left": "-5%" }
-                },
-                [
-                  _c(
-                    "div",
-                    {
-                      staticClass: "col-md-12",
-                      staticStyle: { "margin-left": "25%" }
-                    },
-                    _vm._l(_vm.sortedArray, function(i) {
-                      return _c("div", {
-                        key: i,
-                        staticClass: "col-md-1",
+              _c("div", { staticClass: "col-md-11" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "col-md-5 d-flex justify-content-center align-items-center p-4"
+                  },
+                  [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "col-md-3 m-1",
+                        class: { "animated bounce repeat-3": _vm.steps == 29 },
                         style: [
                           _vm.steps < 22
                             ? { display: "none" }
                             : {
-                                border: "1px solid gray",
-                                "background-color": "lightblue",
-                                height: "74px",
-                                margin: "0 3px"
+                                height: "100px",
+                                "border-radius": "30%",
+                                border: "2px solid #FFD5AA",
+                                "background-color": "lightgreen"
+                              }
+                        ]
+                      },
+                      [
+                        _c(
+                          "div",
+                          {
+                            key: _vm.leftSortedArray[0],
+                            staticClass:
+                              "d-flex justify-content-center align-items-center p-4 pt-5",
+                            attrs: {
+                              id: _vm.leftSortedArray[0] + "-step5",
+                              draggable: "true"
+                            },
+                            on: {
+                              dragstart: function($event) {
+                                return _vm.onDragging(
+                                  _vm.leftSortedArray[0],
+                                  $event
+                                )
+                              }
+                            }
+                          },
+                          [
+                            _vm._v("\n             \\\n                  "),
+                            _c("img", {
+                              staticStyle: { height: "50px" },
+                              attrs: {
+                                src:
+                                  "/storage/Images/" +
+                                  _vm.leftSortedArray[0] +
+                                  ".png"
+                              }
+                            })
+                          ]
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "col-md-3 m-1",
+                        class: { "animated bounce repeat-3": _vm.steps == 28 },
+                        style: [
+                          _vm.steps < 22
+                            ? { display: "none" }
+                            : {
+                                height: "100px",
+                                "border-radius": "30%",
+                                border: "2px solid #FFD5AA",
+                                "background-color": "lightgreen"
+                              }
+                        ]
+                      },
+                      [
+                        _c(
+                          "div",
+                          {
+                            key: _vm.leftSortedArray[1],
+                            staticClass:
+                              "d-flex justify-content-center align-items-center p-4 pt-5",
+                            attrs: {
+                              id: _vm.leftSortedArray[1] + "-step5",
+                              draggable: "true"
+                            },
+                            on: {
+                              dragstart: function($event) {
+                                return _vm.onDragging(
+                                  _vm.leftSortedArray[1],
+                                  $event
+                                )
+                              }
+                            }
+                          },
+                          [
+                            _c("img", {
+                              staticStyle: { height: "50px" },
+                              attrs: {
+                                src:
+                                  "/storage/Images/" +
+                                  _vm.leftSortedArray[1] +
+                                  ".png"
+                              }
+                            })
+                          ]
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "col-md-3 m-1",
+                        class: { "animated bounce repeat-3": _vm.steps == 27 },
+                        style: [
+                          _vm.steps < 22
+                            ? { display: "none" }
+                            : {
+                                height: "100px",
+                                "border-radius": "30%",
+                                border: "2px solid #FFD5AA",
+                                "background-color": "lightgreen"
+                              }
+                        ]
+                      },
+                      [
+                        _c(
+                          "div",
+                          {
+                            key: _vm.leftSortedArray[2],
+                            staticClass:
+                              "d-flex justify-content-center align-items-center p-4 pt-5",
+                            attrs: {
+                              id: _vm.leftSortedArray[2] + "-step5",
+                              draggable: "true"
+                            },
+                            on: {
+                              dragstart: function($event) {
+                                return _vm.onDragging(
+                                  _vm.leftSortedArray[2],
+                                  $event
+                                )
+                              }
+                            }
+                          },
+                          [
+                            _c("img", {
+                              staticStyle: { height: "50px" },
+                              attrs: {
+                                src:
+                                  "/storage/Images/" +
+                                  _vm.leftSortedArray[2] +
+                                  ".png"
+                              }
+                            })
+                          ]
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "col-md-3 m-1",
+                        class: { "animated bounce repeat-3": _vm.steps == 26 },
+                        style: [
+                          _vm.steps < 22
+                            ? { display: "none" }
+                            : {
+                                height: "100px",
+                                "border-radius": "30%",
+                                border: "2px solid #FFD5AA",
+                                "background-color": "lightgreen"
+                              }
+                        ]
+                      },
+                      [
+                        _c(
+                          "div",
+                          {
+                            key: _vm.leftSortedArray[3],
+                            staticClass:
+                              "d-flex justify-content-center align-items-center p-4 pt-5",
+                            attrs: {
+                              id: _vm.leftSortedArray[3] + "-step5",
+                              draggable: "true"
+                            },
+                            on: {
+                              dragstart: function($event) {
+                                return _vm.onDragging(
+                                  _vm.leftSortedArray[3],
+                                  $event
+                                )
+                              }
+                            }
+                          },
+                          [
+                            _c("img", {
+                              staticStyle: { height: "50px" },
+                              attrs: {
+                                src:
+                                  "/storage/Images/" +
+                                  _vm.leftSortedArray[3] +
+                                  ".png"
+                              }
+                            })
+                          ]
+                        )
+                      ]
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-1" }),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "col-md-5 d-flex justify-content-center align-items-center p-4"
+                  },
+                  [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "col-md-3 m-1",
+                        class: { "animated bounce repeat-3": _vm.steps == 25 },
+                        style: [
+                          _vm.steps < 22
+                            ? { display: "none" }
+                            : {
+                                height: "100px",
+                                "border-radius": "30%",
+                                border: "2px solid #FFD5AA",
+                                "background-color": "lightblue"
+                              }
+                        ]
+                      },
+                      [
+                        _c(
+                          "div",
+                          {
+                            key: _vm.rightSortedArray[0],
+                            staticClass:
+                              "d-flex justify-content-center align-items-center p-4 pt-5",
+                            attrs: {
+                              id: _vm.rightSortedArray[0] + "-step5",
+                              draggable: "true"
+                            },
+                            on: {
+                              dragstart: function($event) {
+                                return _vm.onDragging(
+                                  _vm.rightSortedArray[0],
+                                  $event
+                                )
+                              }
+                            }
+                          },
+                          [
+                            _c("img", {
+                              staticStyle: { height: "50px" },
+                              attrs: {
+                                src:
+                                  "/storage/Images/" +
+                                  _vm.rightSortedArray[0] +
+                                  ".png"
+                              }
+                            })
+                          ]
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "col-md-3 m-1",
+                        class: { "animated bounce repeat-3": _vm.steps == 24 },
+                        style: [
+                          _vm.steps < 22
+                            ? { display: "none" }
+                            : {
+                                height: "100px",
+                                "border-radius": "30%",
+                                border: "2px solid #FFD5AA",
+                                "background-color": "lightblue"
+                              }
+                        ]
+                      },
+                      [
+                        _c(
+                          "div",
+                          {
+                            key: _vm.rightSortedArray[1],
+                            staticClass:
+                              "d-flex justify-content-center align-items-center p-4 pt-5",
+                            attrs: {
+                              id: _vm.rightSortedArray[1] + "-step5",
+                              draggable: "true"
+                            },
+                            on: {
+                              dragstart: function($event) {
+                                return _vm.onDragging(
+                                  _vm.rightSortedArray[1],
+                                  $event
+                                )
+                              }
+                            }
+                          },
+                          [
+                            _c("img", {
+                              staticStyle: { height: "50px" },
+                              attrs: {
+                                src:
+                                  "/storage/Images/" +
+                                  _vm.rightSortedArray[1] +
+                                  ".png"
+                              }
+                            })
+                          ]
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "col-md-3 m-1",
+                        class: { "animated bounce repeat-3": _vm.steps == 23 },
+                        style: [
+                          _vm.steps < 22
+                            ? { display: "none" }
+                            : {
+                                height: "100px",
+                                "border-radius": "30%",
+                                border: "2px solid #FFD5AA",
+                                "background-color": "lightblue"
+                              }
+                        ],
+                        attrs: { id: _vm.rightSortedArray[2] + "-sortstep4" }
+                      },
+                      [
+                        _c(
+                          "div",
+                          {
+                            key: _vm.rightSortedArray[2],
+                            staticClass:
+                              "d-flex justify-content-center align-items-center p-4 pt-5",
+                            attrs: {
+                              id: _vm.rightSortedArray[2] + "-step5",
+                              draggable: "true"
+                            },
+                            on: {
+                              dragstart: function($event) {
+                                return _vm.onDragging(
+                                  _vm.rightSortedArray[2],
+                                  $event
+                                )
+                              }
+                            }
+                          },
+                          [
+                            _c("img", {
+                              staticStyle: { height: "50px" },
+                              attrs: {
+                                src:
+                                  "/storage/Images/" +
+                                  _vm.rightSortedArray[2] +
+                                  ".png"
+                              }
+                            })
+                          ]
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "col-md-3 m-1",
+                        class: { "animated bounce repeat-3": _vm.steps == 22 },
+                        style: [
+                          _vm.steps < 22
+                            ? { display: "none" }
+                            : {
+                                height: "100px",
+                                "border-radius": "30%",
+                                border: "2px solid #FFD5AA",
+                                "background-color": "lightblue"
+                              }
+                        ],
+                        attrs: { id: _vm.rightSortedArray[3] + "-sortstep4" }
+                      },
+                      [
+                        _c(
+                          "div",
+                          {
+                            key: _vm.rightSortedArray[3],
+                            staticClass:
+                              "d-flex justify-content-center align-items-center p-4 pt-5",
+                            attrs: {
+                              id: _vm.rightSortedArray[3] + "-step5",
+                              draggable: "true"
+                            },
+                            on: {
+                              dragstart: function($event) {
+                                return _vm.onDragging(
+                                  _vm.rightSortedArray[3],
+                                  $event
+                                )
+                              }
+                            }
+                          },
+                          [
+                            _c("img", {
+                              staticStyle: { height: "50px" },
+                              attrs: {
+                                src:
+                                  "/storage/Images/" +
+                                  _vm.rightSortedArray[3] +
+                                  ".png"
+                              }
+                            })
+                          ]
+                        )
+                      ]
+                    )
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "col-md-11 d-flex justify-content-center align-items-center ml-5 pl-5"
+                },
+                [
+                  _c("div", { staticClass: "col-md-1" }),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "col-md-11 " },
+                    _vm._l(_vm.sortedArray, function(i) {
+                      return _c("div", {
+                        key: i,
+                        staticClass: "col-lg-1 m-1 py-5 pl-4 ",
+                        style: [
+                          _vm.steps < 22
+                            ? { display: "none" }
+                            : {
+                                width: "100%",
+                                height: "100px",
+                                "border-radius": "30%",
+                                border: "2px solid #FFD5AA",
+                                "background-color": "#F0B9D6"
                               }
                         ],
                         attrs: { id: i + "-finalResult" },
@@ -51184,7 +51740,44 @@ var render = function() {
           )
         ]
       )
-    ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "popup justify-content-center align-items-center",
+        attrs: { id: "congrats", onclick: "$(this).hide()" }
+      },
+      [
+        _c("div", { staticClass: "d-flex justify-content-center" }, [
+          _c("img", {
+            staticClass: "col-md-5",
+            style: [{ margin: "5px", "line-height": "7" }],
+            attrs: { src: "/storage/Images/congrates.gif", alt: "" }
+          })
+        ])
+      ]
+    ),
+    _vm._v(" "),
+    _c("audio", {
+      attrs: { id: "correctElm", src: "/storage/Sound/correct.mp3" }
+    }),
+    _vm._v(" "),
+    _c("audio", {
+      attrs: { id: "appluaseElm", src: "/storage/Sound/applause6.mp3" }
+    }),
+    _vm._v(" "),
+    _c("audio", {
+      attrs: { id: "WrongElm", src: "/storage/Sound/Wrong-answer.mp3" }
+    }),
+    _vm._v(" "),
+    _c("audio", {
+      attrs: { id: "applausElm", src: "/storage/Sound/congrats-applaus.mp3" }
+    }),
+    _vm._v(" "),
+    _c("audio", {
+      attrs: { id: "fireworkElm", src: "/storage/Sound/firework.mp3" }
+    })
   ])
 }
 var staticRenderFns = []
@@ -63666,7 +64259,7 @@ Vue.component("bubble-sort-component", __webpack_require__(/*! ./components/Numb
 Vue.component("collection-component", __webpack_require__(/*! ./components/CollectionComponent.vue */ "./resources/js/components/CollectionComponent.vue")["default"]);
 Vue.component("sort-collection-component", __webpack_require__(/*! ./components/SortCollectionComponent.vue */ "./resources/js/components/SortCollectionComponent.vue")["default"]);
 Vue.component("cards-collection-component", __webpack_require__(/*! ./components/CardsCollectionComponent.vue */ "./resources/js/components/CardsCollectionComponent.vue")["default"]);
-Vue.component('binary-search-component', __webpack_require__(/*! ./components/Numbers/BinarySearch/BinarySearchComponent.vue */ "./resources/js/components/Numbers/BinarySearch/BinarySearchComponent.vue")["default"]);
+Vue.component("binary-search-component", __webpack_require__(/*! ./components/Numbers/BinarySearch/BinarySearchComponent.vue */ "./resources/js/components/Numbers/BinarySearch/BinarySearchComponent.vue")["default"]);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -65295,9 +65888,11 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _MergeSortComponent_vue_vue_type_template_id_a3d86850___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MergeSortComponent.vue?vue&type=template&id=a3d86850& */ "./resources/js/components/Numbers/Sort/MergeSortComponent.vue?vue&type=template&id=a3d86850&");
+/* harmony import */ var _MergeSortComponent_vue_vue_type_template_id_a3d86850_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MergeSortComponent.vue?vue&type=template&id=a3d86850&scoped=true& */ "./resources/js/components/Numbers/Sort/MergeSortComponent.vue?vue&type=template&id=a3d86850&scoped=true&");
 /* harmony import */ var _MergeSortComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MergeSortComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/Numbers/Sort/MergeSortComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _MergeSortComponent_vue_vue_type_style_index_0_id_a3d86850_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./MergeSortComponent.vue?vue&type=style&index=0&id=a3d86850&scoped=true&lang=css& */ "./resources/js/components/Numbers/Sort/MergeSortComponent.vue?vue&type=style&index=0&id=a3d86850&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
 
 
 
@@ -65305,13 +65900,13 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _MergeSortComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _MergeSortComponent_vue_vue_type_template_id_a3d86850___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _MergeSortComponent_vue_vue_type_template_id_a3d86850___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _MergeSortComponent_vue_vue_type_template_id_a3d86850_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _MergeSortComponent_vue_vue_type_template_id_a3d86850_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
-  null,
+  "a3d86850",
   null
   
 )
@@ -65337,19 +65932,35 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/Numbers/Sort/MergeSortComponent.vue?vue&type=template&id=a3d86850&":
-/*!****************************************************************************************************!*\
-  !*** ./resources/js/components/Numbers/Sort/MergeSortComponent.vue?vue&type=template&id=a3d86850& ***!
-  \****************************************************************************************************/
+/***/ "./resources/js/components/Numbers/Sort/MergeSortComponent.vue?vue&type=style&index=0&id=a3d86850&scoped=true&lang=css&":
+/*!******************************************************************************************************************************!*\
+  !*** ./resources/js/components/Numbers/Sort/MergeSortComponent.vue?vue&type=style&index=0&id=a3d86850&scoped=true&lang=css& ***!
+  \******************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_MergeSortComponent_vue_vue_type_style_index_0_id_a3d86850_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader!../../../../../node_modules/css-loader??ref--6-1!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--6-2!../../../../../node_modules/vue-loader/lib??vue-loader-options!./MergeSortComponent.vue?vue&type=style&index=0&id=a3d86850&scoped=true&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Numbers/Sort/MergeSortComponent.vue?vue&type=style&index=0&id=a3d86850&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_MergeSortComponent_vue_vue_type_style_index_0_id_a3d86850_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_MergeSortComponent_vue_vue_type_style_index_0_id_a3d86850_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_MergeSortComponent_vue_vue_type_style_index_0_id_a3d86850_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_MergeSortComponent_vue_vue_type_style_index_0_id_a3d86850_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_MergeSortComponent_vue_vue_type_style_index_0_id_a3d86850_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/js/components/Numbers/Sort/MergeSortComponent.vue?vue&type=template&id=a3d86850&scoped=true&":
+/*!****************************************************************************************************************!*\
+  !*** ./resources/js/components/Numbers/Sort/MergeSortComponent.vue?vue&type=template&id=a3d86850&scoped=true& ***!
+  \****************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MergeSortComponent_vue_vue_type_template_id_a3d86850___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./MergeSortComponent.vue?vue&type=template&id=a3d86850& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Numbers/Sort/MergeSortComponent.vue?vue&type=template&id=a3d86850&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MergeSortComponent_vue_vue_type_template_id_a3d86850___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MergeSortComponent_vue_vue_type_template_id_a3d86850_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./MergeSortComponent.vue?vue&type=template&id=a3d86850&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Numbers/Sort/MergeSortComponent.vue?vue&type=template&id=a3d86850&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MergeSortComponent_vue_vue_type_template_id_a3d86850_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MergeSortComponent_vue_vue_type_template_id_a3d86850___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MergeSortComponent_vue_vue_type_template_id_a3d86850_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -65547,8 +66158,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/eslam/iti/project/gradution-project/GamesForKids/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/eslam/iti/project/gradution-project/GamesForKids/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! E:\_9MonthITI\45-GradProject\GamesForKids\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! E:\_9MonthITI\45-GradProject\GamesForKids\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
