@@ -3,7 +3,7 @@
     <img :src="src" class="vloume" @click="play()" alt />
     <div class="row" v-for="obj in stepsArrayObject" :key="obj">
       <div
-        class="col-md-8 d-flex justify-content-center align-items-center p-4 mt-3"
+        class="col-md-12 d-flex justify-content-center align-items-center p-4 mt-3"
         style=" background-color: rgba(188, 239, 252, 0.829);"
       >
         <div>
@@ -17,12 +17,12 @@
           </div>
         </div>
       </div>
-      <div
+      <!-- <div
         class="col-md-4 d-flex justify-content-center align-items-center"
         style="text-align:center;"
       >
         <img style="height:130px" :src="'/storage/Images/good.jpg'" alt />
-      </div>
+      </div> -->
     </div>
 
     <div class="row" :style="[start == end ? { display: 'none' } : '']">
