@@ -1,5 +1,6 @@
 @extends('layouts.app')
 <link src="./fonts/MISTV___.TTF" />
+<link href="css/generalCssNumbers.css" rel="stylesheet" />
  <link href="css/cards-2-2.css" rel="stylesheet" />
  @section('className',"sub-banner")
 

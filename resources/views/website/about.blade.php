@@ -137,7 +137,7 @@
 							</div>
 						</div>
 					</div>
-					<h4>Mohamed Farag</h4>
+					<h4>Ashraf Amer</h4>
 					<p>Full Stack Developer</p>
 				</div>
 				<div class="col-md-2 w3l_team_grid">
@@ -155,7 +155,7 @@
 							</div>
 						</div>
 					</div>
-					<h4>AshRaf Amer</h4>
+					<h4>Mohamed Farag</h4>
 					<p>Full Stack Developer</p>
 				</div>
 				<div class="col-md-2 w3l_team_grid">
@@ -175,6 +175,25 @@
 						</div>
 					</div>
 					<h4>Banan Emad</h4>
+					<p>Full Stack Developer</p>
+				</div>
+				<div class="col-md-2 w3l_team_grid">
+					<div class="view view-second">
+						<img src="images/t6.jpeg" alt=" " style="object-fit: cover;height:155px" class="img-responsive " />
+						<div class="mask"></div>
+						<div class="content">
+							<div class="w3l_social_icons w3l_social_icons1">
+								<ul>
+									<li><a href="#" class="linkedin"></a></li>
+									<li><a href="#" class="google"></a></li>
+									<li><a href="#" class="twitter"></a></li>
+									<li><a href="#" class="facebook"></a></li>
+								</ul>
+							</div>
+							<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.</p>
+						</div>
+					</div>
+					<h4>Maryam Gowifel</h4>
 					<p>Full Stack Developer</p>
 				</div>
 				<div class="clearfix"> </div>

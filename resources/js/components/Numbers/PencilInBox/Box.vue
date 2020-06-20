@@ -1,5 +1,5 @@
 <template>
-                <div class="matchedNumber" :id="id"   @dragover.prevent    @drop.prevent="drop">
+                <div class="matchedNumber" :id="id"   @dragover.prevent  @drop.prevent="drop">
 
                 <slot/>
                 </div>
@@ -12,14 +12,19 @@ export default{
     props:["id"],
     methods:{
         drop: e=>{
-
                 const pencil_id= e.dataTransfer.getData('pencil_id');
                 const penc=document.getElementById(pencil_id);
                 penc.style.display="inline-block";
 
                 e.target.appendChild(penc);
                 const targetDivId=e.target.id;
-              
+                if (targetDivId == "box-0"){
+                   if($("#"+targetDivId+" > div").length > 0){
+                    alert("you can't put any pencils ");
+                    e.target.removeChild(penc);
+                    $('.objects')[0].appendChild(penc);
+                    }
+                    }
                 if (targetDivId == "box-1"){
 
                     if($("#"+targetDivId+" > div").length == 1){
@@ -28,7 +33,8 @@ export default{
                    if($("#"+targetDivId+" > div").length > 1){
                     alert("you already put one");
                     e.target.removeChild(penc);
-                    $('.objects').appendChild(penc);
+                    $('.objects')[0].appendChild(penc);
+                  
                     }
                     }
                  else if (targetDivId == "box-2"){
@@ -39,7 +45,7 @@ export default{
                     if($("#"+targetDivId+" > div").length > 2){
                     alert("you already put two");
                     e.target.removeChild(penc);
-                    $('.objects').appendChild(penc);
+                    $('.objects')[0].appendChild(penc);
                     }
                 }
                  else if (targetDivId == "box-3"){
@@ -49,7 +55,7 @@ export default{
                       if($("#"+targetDivId+" > div").length > 3){
                     alert("you already put three");
                     e.target.removeChild(penc);
-                    $('.objects').appendChild(penc);
+                    $('.objects')[0].appendChild(penc);
                     }
                 }
                  else if (targetDivId == "box-4"){
@@ -59,7 +65,7 @@ export default{
                       if($("#"+targetDivId+" > div").length > 4){
                     alert("you already put four");
                     e.target.removeChild(penc);
-                    $('.objects').appendChild(penc);
+                    $('.objects')[0].appendChild(penc);
                     }
                 }
                  else if (targetDivId == "box-5"){
@@ -69,7 +75,7 @@ export default{
                       if($("#"+targetDivId+" > div").length > 5){
                     alert("you already put threfivee");
                     e.target.removeChild(penc);
-                    $('.objects').appendChild(penc);
+                    $('.objects')[0].appendChild(penc);
                     }
                 }
                  else if (targetDivId == "box-6"){
@@ -79,7 +85,7 @@ export default{
                       if($("#"+targetDivId+" > div").length > 6){
                     alert("you already put six");
                     e.target.removeChild(penc);
-                    $('.objects').appendChild(penc);
+                    $('.objects')[0].appendChild(penc);
                     }
                 }
                  else if (targetDivId == "box-7"){
@@ -89,7 +95,7 @@ export default{
                       if($("#"+targetDivId+" > div").length > 7){
                     alert("you already put seven");
                     e.target.removeChild(penc);
-                    $('.objects').appendChild(penc);
+                    $('.objects')[0].appendChild(penc);
                     }
                 }
                  else if (targetDivId == "box-8"){
@@ -99,7 +105,7 @@ export default{
                       if($("#"+targetDivId+" > div").length > 8){
                     alert("you already put eight");
                     e.target.removeChild(penc);
-                    $('.objects').appendChild(penc);
+                    $('.objects')[0].appendChild(penc);
                     }
                 }
                 else if (targetDivId == "box-9"){
@@ -112,12 +118,11 @@ export default{
 
                     alert("you already put nine");
                     e.target.removeChild(penc);
-                    $('.objects').appendChild(penc);
+                    $('.objects')[0].appendChild(penc);
                     }
                 }
                 
-                
-        }                           
+        }  
     }
 }
 </script>

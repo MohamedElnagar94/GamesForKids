@@ -3,6 +3,8 @@
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
+//javscript alert
+import '../../node_modules/sweetalert';
 
 require("./bootstrap");
 
@@ -73,6 +75,10 @@ Vue.component(
 Vue.component(
     "game-memory-component",
     require("./components/GameMemory/GameMemoryComponent.vue").default
+);
+Vue.component(
+    "maze-game-component",
+    require("./components/MazeGame/StartComponent.vue").default
 );
 Vue.component(
     "bubble-sort-component",
