@@ -251,7 +251,6 @@ export default {
       $("#fireworkElm")[0].play();
     }
   },
-  computed: {},
   created() {
     var array = [1, 2, 3, 4, 5, 6];
     var newarr = array.slice();
