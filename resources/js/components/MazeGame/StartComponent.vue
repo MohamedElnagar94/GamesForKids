@@ -241,6 +241,8 @@ body {
   top: 73%;
   left: 45%;
   position: absolute;
+  font-weight: bold;
+  font-size: 24px;
 }
 .vloume {
   width: 72px;

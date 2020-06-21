@@ -2,9 +2,9 @@
     <div class="h-full">
         <svg class="maze" width="100%" height="100%" :viewBox="`0 0 ${maze.length *2 +1} ${maze[0].length * 2 +1}`" shape-rendering="crispEdges">
             <defs>
-                <pattern id="imgpattern" x="0" y="0" width="1" height="1"
+                <pattern id="imgpattern" x="0"  y="0" width="1" height="1"
                         viewBox="0 0 1024 576" preserveAspectRatio="xMidYMid slice">
-                    <image width="1024" height="576" xlink:href="/storage/Images/boy.gif"/>
+                    <image width="1024" v-bind:class="{ boyleft: isBoyleft}" height="576" xlink:href="/storage/Images/boy.gif"/>
                 </pattern>
                 <pattern id="imggold" x="0" y="0" width="1" height="1"
                         viewBox="0 0 1024 576" preserveAspectRatio="xMidYMid slice">
@@ -39,7 +39,8 @@ export default {
     data(){
         return{
             player:{x:1,y:0},
-            walls:[]
+            walls:[],
+            isBoyleft:false
         }
     },
     methods: {
@@ -76,21 +77,26 @@ export default {
                 case 'ArrowUp':
                     if(!this.isWall(this.player.x, this.player.y - 1))
                         this.player.y--
+                    this.isBoyleft = false
                 break
                 case 'KeyD':
                 case 'ArrowRight':
                     if(!this.isWall(this.player.x + 1, this.player.y))
                         this.player.x++
+                     this.isBoyleft = false
                 break
                 case 'KeyS':
                 case 'ArrowDown':
                     if(!this.isWall(this.player.x , this.player.y + 1))
                         this.player.y++
+                     this.isBoyleft = false
                 break
                 case 'KeyA':
                 case 'ArrowLeft':
                     if(!this.isWall(this.player.x -1,this.player.y))
                         this.player.x--
+                     this.isBoyleft = true
+                    
                 break
             }
             if(this.player.x === this.maze[0].length * 2 && this.player.y === this.maze.length *2 -1){
@@ -161,5 +167,15 @@ export default {
 }
 .player{
     background-image: url('/storage/Images/boy.gif');
+}
+.boy{
+    /* transform: rotate(90deg); */
+}
+.boyleft{
+    transform-box: fill-box;
+  transform-origin: center;
+  transform: rotate(-180deg); 
+  transform: scaleX(-1);
+   
 }
 </style>

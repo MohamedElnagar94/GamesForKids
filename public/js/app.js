@@ -3001,7 +3001,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         x: 1,
         y: 0
       },
-      walls: []
+      walls: [],
+      isBoyleft: false
     };
   },
   methods: {
@@ -3027,21 +3028,25 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         case 'KeyW':
         case 'ArrowUp':
           if (!this.isWall(this.player.x, this.player.y - 1)) this.player.y--;
+          this.isBoyleft = false;
           break;
 
         case 'KeyD':
         case 'ArrowRight':
           if (!this.isWall(this.player.x + 1, this.player.y)) this.player.x++;
+          this.isBoyleft = false;
           break;
 
         case 'KeyS':
         case 'ArrowDown':
           if (!this.isWall(this.player.x, this.player.y + 1)) this.player.y++;
+          this.isBoyleft = false;
           break;
 
         case 'KeyA':
         case 'ArrowLeft':
           if (!this.isWall(this.player.x - 1, this.player.y)) this.player.x--;
+          this.isBoyleft = true;
           break;
       }
 
@@ -10923,7 +10928,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "#app {\n  color: #fff;\n  font-family: Catamaran, Lato, Helvetica, Arial, sans-serif;\n}\n.top-bar {\n  background: #444446;\n  width: 70%;\n  text-align: center;\n  margin-left: 14%;\n}\n.intermission {\n  background: #A96F4A;\n}\n.scroller::-webkit-scrollbar {\n  width: 14px;\n  height: 14px;\n}\n.scroller::-webkit-scrollbar-thumb {\n  background: #202225;\n}\n.scroller::-webkit-scrollbar-track, .scroller::-webkit-scrollbar-corner {\n  background: #2f3136;\n}\n.scroller::-webkit-scrollbar-thumb, .scroller::-webkit-scrollbar-track {\n  border: 3px solid #36393f;\n  border-radius: 7px;\n}\n.material-icons {\n  transition: 0.2s color ease;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n.menu-bar .material-icons, .top-bar .material-icons {\n  color: #a6a7a8;\n}\n.material-icons.close:hover {\n  color: #f04747;\n}\n.material-icons.hamburger:hover {\n  color: #fff;\n}\n.winMessage {\n  position: absolute;\n  top: 50%;\n  left: 45%;\n}\n.bold {\n  font-size: 24px;\n  font-weight: bold;\n}\n.celebrateimg {\n  position: absolute;\n  /* text-align: center; */\n  /* margin: 10px auto; */\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  width: 320px;\n  z-index: 999;\n}\n.playAgain {\n  top: 73%;\n  left: 45%;\n  position: absolute;\n}\n.vloume {\n  width: 72px;\n  height: 49px;\n  position: absolute;\n  top: 22%;\n  left: 43px;\n  cursor: pointer;\n}", ""]);
+exports.push([module.i, "#app {\n  color: #fff;\n  font-family: Catamaran, Lato, Helvetica, Arial, sans-serif;\n}\n.top-bar {\n  background: #444446;\n  width: 70%;\n  text-align: center;\n  margin-left: 14%;\n}\n.intermission {\n  background: #A96F4A;\n}\n.scroller::-webkit-scrollbar {\n  width: 14px;\n  height: 14px;\n}\n.scroller::-webkit-scrollbar-thumb {\n  background: #202225;\n}\n.scroller::-webkit-scrollbar-track, .scroller::-webkit-scrollbar-corner {\n  background: #2f3136;\n}\n.scroller::-webkit-scrollbar-thumb, .scroller::-webkit-scrollbar-track {\n  border: 3px solid #36393f;\n  border-radius: 7px;\n}\n.material-icons {\n  transition: 0.2s color ease;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n.menu-bar .material-icons, .top-bar .material-icons {\n  color: #a6a7a8;\n}\n.material-icons.close:hover {\n  color: #f04747;\n}\n.material-icons.hamburger:hover {\n  color: #fff;\n}\n.winMessage {\n  position: absolute;\n  top: 50%;\n  left: 45%;\n}\n.bold {\n  font-size: 24px;\n  font-weight: bold;\n}\n.celebrateimg {\n  position: absolute;\n  /* text-align: center; */\n  /* margin: 10px auto; */\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  width: 320px;\n  z-index: 999;\n}\n.playAgain {\n  top: 73%;\n  left: 45%;\n  position: absolute;\n  font-weight: bold;\n  font-size: 24px;\n}\n.vloume {\n  width: 72px;\n  height: 49px;\n  position: absolute;\n  top: 22%;\n  left: 43px;\n  cursor: pointer;\n}", ""]);
 
 // exports
 
@@ -11018,7 +11023,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.maze[data-v-b2dc126a]{\n    height: 570px;\n}\n.runboy[data-v-b2dc126a]{\n    position: absolute;\n}\n.player[data-v-b2dc126a]{\n    background-image: url('/storage/Images/boy.gif');\n}\n", ""]);
+exports.push([module.i, "\n.maze[data-v-b2dc126a]{\n    height: 570px;\n}\n.runboy[data-v-b2dc126a]{\n    position: absolute;\n}\n.player[data-v-b2dc126a]{\n    background-image: url('/storage/Images/boy.gif');\n}\n.boy[data-v-b2dc126a]{\n    /* transform: rotate(90deg); */\n}\n.boyleft[data-v-b2dc126a]{\n    transform-box: fill-box;\n  transform-origin: center;\n  transform: rotate(-180deg); \n  transform: scaleX(-1);\n}\n", ""]);
 
 // exports
 
@@ -47238,6 +47243,7 @@ var render = function() {
             },
             [
               _c("image", {
+                class: { boyleft: _vm.isBoyleft },
                 attrs: {
                   width: "1024",
                   height: "576",
