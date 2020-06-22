@@ -128,7 +128,7 @@ import Pencil from './Pencilsbox';
            scoreCalculate:function(){
             document.getElementById("scoreText").innerText=$(".boxFull").length;
             
-             if(document.getElementById("scoreText").innerText==3){
+             if(document.getElementById("scoreText").innerText==9){
                  
                         document.getElementById("scoreText").innerText=10;
                         document.getElementById("scoreText").innerText=0;
