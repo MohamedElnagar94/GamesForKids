@@ -18,9 +18,7 @@ export default{
           
             const target =e.target;
               e.dataTransfer.setData('pencil_id',target.id);
-               setTimeout(()=>{
-                    target.style.display="none";
-               },0);
+              
         }
     }
 }

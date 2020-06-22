@@ -26,6 +26,7 @@ Vue.component(
     require("./components/Numbers/PencilInBox/PencilInBox.vue").default
 );
 
+
 Vue.component("ballons", require("./components/Numbers/Ballons.vue").default);
 Vue.component("cards-2-2", require("./components/Cards2by2.vue").default);
 Vue.component("cards-2-3", require("./components/Cards2by3.vue").default);
@@ -93,6 +94,11 @@ Vue.component(
     require("./components/CardsCollectionComponent.vue").default
 );
 Vue.component('binary-search-component', require('./components/Numbers/BinarySearch/BinarySearchComponent.vue').default);
+
+Vue.component("puzzle2", require("./components/puzzle/Puzzle2.vue").default);
+Vue.component("puzzle", require("./components/puzzle/Puzzle.vue").default);
+Vue.component("puzzle3", require("./components/puzzle/Puzzle3.vue").default);
+Vue.component("puzzle4", require("./components/puzzle/Puzzle4.vue").default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

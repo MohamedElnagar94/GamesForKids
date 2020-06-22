@@ -7,8 +7,6 @@ body {
 .row h2{
   margin-left:20% ;
   margin-top:.5em;
-  /* font-family:Kristen ITC; */ 
-  /* font-family:'Comic Sans MS'; */
   font-family: Jokerman ,'Comic Sans MS';
   font-size:500%;
 color:#fff;
@@ -64,7 +62,7 @@ color:#fff;
   margin:20px 30px;
   transition:transform 0.5s ease;
   z-index:10;
-  animation:balloons 4s ease-in-out infinite;
+  /* animation:balloons 10s ease-in-out infinite; */
   transform-origin:bottom center;
   font-size: xx-large ;
 
@@ -106,31 +104,29 @@ color:#fff;
   background:rgba(0,0,0,0.2); 
 }
 
-.balloon:nth-child(1){ background:hsl(245,100%,65%); animation-duration:3.5s; }
-.balloon:nth-child(1):before { color:hsl(245,100%,65%);  }
+.balloon:nth-child(3){ background:hsl(245,100%,65%); animation-duration:10s; }
+.balloon:nth-child(3):before { color:hsl(245,100%,65%);  }
+.balloon:nth-child(2){ background:hsl(300,100%,59%); animation-duration:10s; }
+.balloon:nth-child(2):before { color:hsl(300,100%,50%);  }
 
-.balloon:nth-child(2){ background:hsl(130,100%,60%); animation-duration:3s; }
-.balloon:nth-child(2):before { color:hsl(139,100%,50%);  }
+.balloon:nth-child(1){ background:hsl(53,100%,58%); animation-duration:10s; }
+.balloon:nth-child(1):before { color:hsl(59,100%,52%);  }
 
-
-.balloon:nth-child(3){ background:hsl(0,100%,59%); animation-duration:5s; }
-.balloon:nth-child(3):before { color:hsl(0,100%,50%);  }
-
-.balloon:nth-child(4){ background:hsl(53,100%,58%); animation-duration:4.5s; }
-.balloon:nth-child(4):before { color:hsl(59,100%,52%);  }
-
-.balloon:nth-child(5){ background:hsl(23,100%,57%); animation-duration:5s; }
-.balloon:nth-child(5):before { color:hsl(23,100%,46%);  }
+.balloon:nth-child(4){ background:hsl(23,100%,57%); animation-duration:10s; }
+.balloon:nth-child(4):before { color:hsl(23,100%,46%);  }
 
 @keyframes example {
-	from {height:6.5em;}
-	to {height:0px ;}
+	from {background-color: antiquewhite;}
+	to {background-color: black;}
   }
  
-  .hideBalloon{
-	  animation-name: example;
-	  animation-duration: 2s;
-	  animation-fill-mode: forwards;
+  .hideBalloonRight{
+    transform:scale(1.3,1.3);
+	  background-color: green;
+  }
+  .hideBalloonWrong{
+    transform :scale(.8,.8);
+	  background-color: red;
   }
 @media only screen and (max-width:800px ) {
 

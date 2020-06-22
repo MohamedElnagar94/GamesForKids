@@ -30,6 +30,18 @@ Route::get('/cards-2-3', function () {
 Route::get('/cards-3-4', function () {
     return view('cards3by4');
 });
+Route::get('/puzzle', function () {
+    return view('puzzles/puzzle');
+});
+Route::get('/puzzle2', function () {
+    return view('puzzles/puzzle2');
+});
+Route::get('/puzzle3', function () {
+    return view('puzzles/puzzle3');
+});
+Route::get('/puzzle4', function () {
+    return view('puzzles/puzzle4');
+});
 Route::get('/cards-4-4','GameMemoryController@gamememory');
 Route::get('/', function () {
     return view('website.index');

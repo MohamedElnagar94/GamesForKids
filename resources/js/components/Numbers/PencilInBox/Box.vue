@@ -1,5 +1,5 @@
 <template>
-                <div class="matchedNumber" :id="id"   @dragover.prevent  @drop.prevent="drop">
+                <div class="matchedNumber" :id="id"   @dragover.prevent="allowDrop"  @drop.prevent="drop">
 
                 <slot/>
                 </div>
@@ -11,7 +11,13 @@ export default{
  
     props:["id"],
     methods:{
-        drop: e=>{
+      playSound :function (sound) {
+                    if(sound) {
+                        var audio = new Audio(sound);
+                        audio.play();
+                    }
+                 },
+        drop: function(e){
                 const pencil_id= e.dataTransfer.getData('pencil_id');
                 const penc=document.getElementById(pencil_id);
                 penc.style.display="inline-block";
@@ -20,18 +26,25 @@ export default{
                 const targetDivId=e.target.id;
                 if (targetDivId == "box-0"){
                    if($("#"+targetDivId+" > div").length > 0){
-                    alert("you can't put any pencils ");
+                        let popup = document.getElementById("myPopup");
+                        popup.classList.toggle("show");
                     e.target.removeChild(penc);
                     $('.objects')[0].appendChild(penc);
                     }
                     }
                 if (targetDivId == "box-1"){
-
+                   
                     if($("#"+targetDivId+" > div").length == 1){
-                        $("#"+targetDivId ).addClass("boxFull");                      
+                        $("#"+targetDivId ).addClass("boxFull"); 
+                    
+                         let success='/sounds/clap.mp3';
+                        this.playSound(success);    
+
                     }
                    if($("#"+targetDivId+" > div").length > 1){
-                    alert("you already put one");
+
+                       let popup1=document.getElementById("myPopup1");
+                        popup1.classList.toggle("show");
                     e.target.removeChild(penc);
                     $('.objects')[0].appendChild(penc);
                   
@@ -40,10 +53,13 @@ export default{
                  else if (targetDivId == "box-2"){
                     if($("#"+targetDivId+" > div").length == 2){
                         $("#"+targetDivId ).addClass("boxFull");
+                         let success='/sounds/clap.mp3';
+                    this.playSound(success);
                        
                     }
                     if($("#"+targetDivId+" > div").length > 2){
-                    alert("you already put two");
+                    let popup2=document.getElementById("myPopup2");
+                        popup2.classList.toggle("show");
                     e.target.removeChild(penc);
                     $('.objects')[0].appendChild(penc);
                     }
@@ -51,9 +67,12 @@ export default{
                  else if (targetDivId == "box-3"){
                     if($("#"+targetDivId+" > div").length == 3){
                         $("#"+targetDivId ).addClass("boxFull");
+                         let success='/sounds/clap.mp3';
+                    this.playSound(success);
                     }
                       if($("#"+targetDivId+" > div").length > 3){
-                    alert("you already put three");
+                     let popup3=document.getElementById("myPopup3");
+                        popup3.classList.toggle("show");
                     e.target.removeChild(penc);
                     $('.objects')[0].appendChild(penc);
                     }
@@ -61,9 +80,12 @@ export default{
                  else if (targetDivId == "box-4"){
                     if($("#"+targetDivId+" > div").length == 4){
                         $("#"+targetDivId ).addClass("boxFull");
+                         let success='/sounds/clap.mp3';
+                    this.playSound(success);
                     }
                       if($("#"+targetDivId+" > div").length > 4){
-                    alert("you already put four");
+                     let popup4=document.getElementById("myPopup4");
+                        popup4.classList.toggle("show");
                     e.target.removeChild(penc);
                     $('.objects')[0].appendChild(penc);
                     }
@@ -71,9 +93,12 @@ export default{
                  else if (targetDivId == "box-5"){
                     if($("#"+targetDivId+" > div").length == 5){
                         $("#"+targetDivId ).addClass("boxFull");
+                         let success='/sounds/clap.mp3';
+                    this.playSound(success);
                     }
                       if($("#"+targetDivId+" > div").length > 5){
-                    alert("you already put threfivee");
+                     let popup5=document.getElementById("myPopup5");
+                        popup5.classList.toggle("show");
                     e.target.removeChild(penc);
                     $('.objects')[0].appendChild(penc);
                     }
@@ -81,9 +106,12 @@ export default{
                  else if (targetDivId == "box-6"){
                     if($("#"+targetDivId+" > div").length == 6){
                         $("#"+targetDivId ).addClass("boxFull");
+                         let success='/sounds/clap.mp3';
+                    this.playSound(success);
                     }
                       if($("#"+targetDivId+" > div").length > 6){
-                    alert("you already put six");
+                      let popup6 = document.getElementById("myPopup6");
+                        popup6.classList.toggle("show");
                     e.target.removeChild(penc);
                     $('.objects')[0].appendChild(penc);
                     }
@@ -91,9 +119,12 @@ export default{
                  else if (targetDivId == "box-7"){
                     if($("#"+targetDivId+" > div").length == 7){
                         $("#"+targetDivId ).addClass("boxFull");
+                         let success='/sounds/clap.mp3';
+                    this.playSound(success);
                     }
                       if($("#"+targetDivId+" > div").length > 7){
-                    alert("you already put seven");
+                      let popup7 = document.getElementById("myPopup7");
+                        popup7.classList.toggle("show");
                     e.target.removeChild(penc);
                     $('.objects')[0].appendChild(penc);
                     }
@@ -101,9 +132,12 @@ export default{
                  else if (targetDivId == "box-8"){
                     if($("#"+targetDivId+" > div").length == 8){
                         $("#"+targetDivId ).addClass("boxFull");
+                         let success='/sounds/clap.mp3';
+                    this.playSound(success);
                     }
                       if($("#"+targetDivId+" > div").length > 8){
-                    alert("you already put eight");
+                      let popup8= document.getElementById("myPopup8");
+                        popup8.classList.toggle("show");
                     e.target.removeChild(penc);
                     $('.objects')[0].appendChild(penc);
                     }
@@ -111,18 +145,26 @@ export default{
                 else if (targetDivId == "box-9"){
                     if($("#"+targetDivId+" > div").length == 9){
                         $("#"+targetDivId ).addClass("boxFull");
+                         let success='/sounds/clap.mp3';
+                    this.playSound(success);
                      
 
                     }
                       if($("#"+targetDivId+" > div").length > 9){
 
-                    alert("you already put nine");
+                    let popup9 = document.getElementById("myPopup9");
+                        popup9.classList.toggle("show");
                     e.target.removeChild(penc);
                     $('.objects')[0].appendChild(penc);
                     }
                 }
                 
-        }  
+        }  ,
+           allowDrop:function(ev) {
+            ev.preventDefault();
+            }
+,
+   
     }
 }
 </script>

@@ -2977,6 +2977,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ballons",
   data: function data() {
@@ -3000,7 +3013,7 @@ __webpack_require__.r(__webpack_exports__);
         this.clearSetInterval();
         var audio = new Audio(sound);
         audio.play();
-        this.answerNum = sound.slice(24, 25);
+        this.answerNum = sound.slice(16, 17);
         this.timeDisplay();
       }
     },
@@ -3048,26 +3061,45 @@ __webpack_require__.r(__webpack_exports__);
       this.localStorageArrayBallons = [];
     },
     clickedBallon: function clickedBallon(e) {
-      var balloonPop = '/storage/sounds/ballon.mp3';
-      var success = '/storage/sounds/clap.mp3';
-      var notSuccess = '/storage/sounds/tryAgain.mp3';
+      var balloonPop = '/sounds/ballon.mp3';
+      var success = '/sounds/clap.mp3';
+      var notSuccess = '/sounds/tryAgain.mp3';
+      localStorage.setItem("ballonsAnswers", JSON.stringify(this.localStorageArrayBallons));
       this.localStorageArrayBallons.push({
         soundNumber: this.answerNum,
         ballonClickedNumber: e.target.innerText,
         rightOrWrong: this.answerNum === e.target.innerText
       });
-      localStorage.setItem("ballonsAnswers", JSON.stringify(this.localStorageArrayBallons));
-      console.log(localStorage.getItem("ballonsAnswers"));
+
+      if (e.target.innerText != this.answerNum) {
+        e.target.style.border = "3px solid red";
+        e.target.style.textDecoration = "line-through";
+        e.target.style.transform = "scale(.8,.8)";
+        setTimeout(function () {
+          e.target.style.border = "none";
+          e.target.style.transform = "scale(1,1)";
+          e.target.style.textDecoration = "none";
+        }.bind(this), 1800);
+      }
 
       if (e.target.innerText == this.answerNum) {
-        e.target.classList.addClass = "hideBalloon";
+        console.log("inner" + e.target.innerText);
+        console.log("answer" + this.answerNum);
+        e.target.style.border = "3px solid white";
+        e.target.style.transform = "scale(1.3,1.3)";
         this.score += 1;
-        this.playSound(balloonPop);
+        this.playSound(success);
+        setTimeout(function () {
+          e.target.style.border = "none";
+          e.target.style.transform = "scale(1,1)";
+        }.bind(this), 2000);
       }
 
       if (this.count < 11) {
-        this.newArray = [];
-        this.ballonRandom();
+        setTimeout(function () {
+          this.newArray = [];
+          this.ballonRandom();
+        }.bind(this), 2200);
         this.count++;
       }
 
@@ -4271,6 +4303,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["id"],
   methods: {
+    playSound: function playSound(sound) {
+      if (sound) {
+        var audio = new Audio(sound);
+        audio.play();
+      }
+    },
     drop: function drop(e) {
       var pencil_id = e.dataTransfer.getData('pencil_id');
       var penc = document.getElementById(pencil_id);
@@ -4280,7 +4318,8 @@ __webpack_require__.r(__webpack_exports__);
 
       if (targetDivId == "box-0") {
         if ($("#" + targetDivId + " > div").length > 0) {
-          alert("you can't put any pencils ");
+          var popup = document.getElementById("myPopup");
+          popup.classList.toggle("show");
           e.target.removeChild(penc);
           $('.objects')[0].appendChild(penc);
         }
@@ -4289,94 +4328,124 @@ __webpack_require__.r(__webpack_exports__);
       if (targetDivId == "box-1") {
         if ($("#" + targetDivId + " > div").length == 1) {
           $("#" + targetDivId).addClass("boxFull");
+          var success = '/sounds/clap.mp3';
+          this.playSound(success);
         }
 
         if ($("#" + targetDivId + " > div").length > 1) {
-          alert("you already put one");
+          var popup1 = document.getElementById("myPopup1");
+          popup1.classList.toggle("show");
           e.target.removeChild(penc);
           $('.objects')[0].appendChild(penc);
         }
       } else if (targetDivId == "box-2") {
         if ($("#" + targetDivId + " > div").length == 2) {
           $("#" + targetDivId).addClass("boxFull");
+          var _success = '/sounds/clap.mp3';
+          this.playSound(_success);
         }
 
         if ($("#" + targetDivId + " > div").length > 2) {
-          alert("you already put two");
+          var popup2 = document.getElementById("myPopup2");
+          popup2.classList.toggle("show");
           e.target.removeChild(penc);
           $('.objects')[0].appendChild(penc);
         }
       } else if (targetDivId == "box-3") {
         if ($("#" + targetDivId + " > div").length == 3) {
           $("#" + targetDivId).addClass("boxFull");
+          var _success2 = '/sounds/clap.mp3';
+          this.playSound(_success2);
         }
 
         if ($("#" + targetDivId + " > div").length > 3) {
-          alert("you already put three");
+          var popup3 = document.getElementById("myPopup3");
+          popup3.classList.toggle("show");
           e.target.removeChild(penc);
           $('.objects')[0].appendChild(penc);
         }
       } else if (targetDivId == "box-4") {
         if ($("#" + targetDivId + " > div").length == 4) {
           $("#" + targetDivId).addClass("boxFull");
+          var _success3 = '/sounds/clap.mp3';
+          this.playSound(_success3);
         }
 
         if ($("#" + targetDivId + " > div").length > 4) {
-          alert("you already put four");
+          var popup4 = document.getElementById("myPopup4");
+          popup4.classList.toggle("show");
           e.target.removeChild(penc);
           $('.objects')[0].appendChild(penc);
         }
       } else if (targetDivId == "box-5") {
         if ($("#" + targetDivId + " > div").length == 5) {
           $("#" + targetDivId).addClass("boxFull");
+          var _success4 = '/sounds/clap.mp3';
+          this.playSound(_success4);
         }
 
         if ($("#" + targetDivId + " > div").length > 5) {
-          alert("you already put threfivee");
+          var popup5 = document.getElementById("myPopup5");
+          popup5.classList.toggle("show");
           e.target.removeChild(penc);
           $('.objects')[0].appendChild(penc);
         }
       } else if (targetDivId == "box-6") {
         if ($("#" + targetDivId + " > div").length == 6) {
           $("#" + targetDivId).addClass("boxFull");
+          var _success5 = '/sounds/clap.mp3';
+          this.playSound(_success5);
         }
 
         if ($("#" + targetDivId + " > div").length > 6) {
-          alert("you already put six");
+          var popup6 = document.getElementById("myPopup6");
+          popup6.classList.toggle("show");
           e.target.removeChild(penc);
           $('.objects')[0].appendChild(penc);
         }
       } else if (targetDivId == "box-7") {
         if ($("#" + targetDivId + " > div").length == 7) {
           $("#" + targetDivId).addClass("boxFull");
+          var _success6 = '/sounds/clap.mp3';
+          this.playSound(_success6);
         }
 
         if ($("#" + targetDivId + " > div").length > 7) {
-          alert("you already put seven");
+          var popup7 = document.getElementById("myPopup7");
+          popup7.classList.toggle("show");
           e.target.removeChild(penc);
           $('.objects')[0].appendChild(penc);
         }
       } else if (targetDivId == "box-8") {
         if ($("#" + targetDivId + " > div").length == 8) {
           $("#" + targetDivId).addClass("boxFull");
+          var _success7 = '/sounds/clap.mp3';
+          this.playSound(_success7);
         }
 
         if ($("#" + targetDivId + " > div").length > 8) {
-          alert("you already put eight");
+          var popup8 = document.getElementById("myPopup8");
+          popup8.classList.toggle("show");
           e.target.removeChild(penc);
           $('.objects')[0].appendChild(penc);
         }
       } else if (targetDivId == "box-9") {
         if ($("#" + targetDivId + " > div").length == 9) {
           $("#" + targetDivId).addClass("boxFull");
+          var _success8 = '/sounds/clap.mp3';
+          this.playSound(_success8);
         }
 
         if ($("#" + targetDivId + " > div").length > 9) {
-          alert("you already put nine");
+          var popup9 = document.getElementById("myPopup9");
+          popup9.classList.toggle("show");
           e.target.removeChild(penc);
           $('.objects')[0].appendChild(penc);
         }
       }
+    },
+    allowDrop: function allowDrop(ev) {
+      ev.preventDefault();
     }
   }
 });
@@ -4394,6 +4463,18 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Box__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Box */ "./resources/js/components/Numbers/PencilInBox/Box.vue");
 /* harmony import */ var _Pencilsbox__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Pencilsbox */ "./resources/js/components/Numbers/PencilInBox/Pencilsbox.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -4510,8 +4591,7 @@ __webpack_require__.r(__webpack_exports__);
       document.getElementById("scoreText").innerText = $(".boxFull").length;
 
       if (document.getElementById("scoreText").innerText == 3) {
-        document.getElementById("scoreText").innerText = 10; //swal("Great You now know how to count ^__^"  );
-
+        document.getElementById("scoreText").innerText = 10;
         document.getElementById("scoreText").innerText = 0;
         document.getElementById("blockGame").style.zIndex = 3;
         $("#nextLevel")[0].style.display = "inline-block";
@@ -4567,9 +4647,6 @@ __webpack_require__.r(__webpack_exports__);
     dragStart: function dragStart(e) {
       var target = e.target;
       e.dataTransfer.setData('pencil_id', target.id);
-      setTimeout(function () {
-        target.style.display = "none";
-      }, 0);
     }
   }
 });
@@ -6085,6 +6162,864 @@ __webpack_require__.r(__webpack_exports__);
     }
   }
 });
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/puzzle/Puzzle.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/puzzle/Puzzle.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "puzzle",
+  data: function data() {
+    return {
+      draggable: true,
+      context: null,
+      image: null,
+      source: null,
+      score: 0,
+      changeImageSource: null,
+      old: null
+    };
+  },
+  methods: {
+    startTheGame: function startTheGame() {
+      var btn = document.getElementById("startgame");
+      var divv = document.getElementById("modal");
+      var t = document.getElementById("overlay");
+      divv.style.display = "none";
+      t.style.display = "none";
+      this.newGame();
+    },
+    playSound: function playSound(sound) {
+      if (sound) {
+        var audio = new Audio(sound);
+        audio.play();
+        this.answerNum = sound.slice(24, 25);
+      }
+    },
+    newGame: function newGame() {
+      canvasDrawing();
+      this.old = canvasImg.src;
+      this.changeImageSource = randomize();
+      canvasImg.src = "/images/puzzle/" + this.changeImageSource + ".png";
+      ccvs();
+
+      if (this.score == 4) {
+        $("#finalImage")[0].style.display = "none";
+        $(".answer")[0].style.display = "inline-block";
+      }
+
+      this.score = 0;
+    },
+    allowDrop: function allowDrop(ev) {
+      ev.preventDefault();
+    },
+    drag: function drag(ev) {
+      ev.dataTransfer.setData("draggedCanvas", ev.target.id);
+    },
+    drop: function drop(event) {
+      var parent = $(".answer");
+      event.preventDefault();
+      var data = event.dataTransfer.getData("draggedCanvas");
+
+      if (event.target == parent[0].children[0] && data == "myCanvas0" || event.target == parent[0].children[1] && data == "myCanvas1" || event.target == parent[0].children[2] && data == "myCanvas2" || event.target == parent[0].children[3] && data == "myCanvas3") {
+        event.target.appendChild(document.getElementById(data));
+        this.score++;
+      }
+
+      if (this.score == 4) {
+        var success = '/sounds/clap.mp3';
+        $("#finalImage")[0].src = this.old;
+        $("#finalImage")[0].style.display = "inline-block";
+        $(".answer")[0].style.display = "none";
+        this.playSound(success);
+        document.getElementById("nextLevel").style.display = "inline-block";
+      }
+    }
+  },
+  mounted: function mounted() {},
+  created: function created() {}
+});
+var canvasImg = new Image();
+var imageSource = randomize();
+canvasImg.src = "/images/puzzle/" + imageSource + ".png";
+
+function canvasDrawing() {
+  var newCnvas = document.getElementById("testCanvas");
+  var imagePieces = [];
+  var i = 0;
+  var counter = 0;
+
+  for (var x = 0; x < 4; ++x) {
+    for (var y = 0; y < 1; ++y) {
+      var p = imagePieces[i++];
+      var canvas = document.getElementById("myCanvas" + counter);
+      var context = canvas.getContext("2d");
+      canvas.width = 50;
+      canvas.height = 210;
+      imagePieces.push(context);
+      context.drawImage(canvasImg, x * 50, y * 210, 50, 210, 0, 0, canvas.width, canvas.height);
+      shuffle(imagePieces);
+      newCnvas.appendChild(imagePieces[counter].canvas);
+      counter++;
+    }
+  }
+}
+
+;
+var newCnvas = document.getElementById("testCanvas");
+
+function ccvs() {
+  var newParent = document.getElementsByClassName('shuffle');
+  var answerSpan = $(".answer span");
+
+  for (var as = 0; as < 4; as++) {
+    if (answerSpan[as].childNodes.length > 0) {
+      newParent[0].appendChild(answerSpan[as].childNodes[0]);
+    }
+  }
+}
+
+;
+
+function shuffle(a) {
+  for (var j, x, i = a.length; i; j = Math.floor(Math.random() * i), x = a[--i], a[i] = a[j], a[j] = x) {
+    ;
+  }
+
+  return a;
+}
+
+;
+
+function randomize() {
+  var randomNumbers = [];
+
+  for (var n = 0; n < 15; n++) {
+    randomNumbers.push(n);
+  }
+
+  var idx = Math.floor(Math.random() * randomNumbers.length);
+  var r = randomNumbers[idx];
+  return r;
+}
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/puzzle/Puzzle2.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/puzzle/Puzzle2.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "puzzle2",
+  data: function data() {
+    return {
+      draggable: true,
+      context: null,
+      image: null,
+      source: null,
+      score: 0,
+      changeImageSource: null,
+      old: null
+    };
+  },
+  methods: {
+    startTheGame: function startTheGame() {
+      var btn = document.getElementById("startgame");
+      var divv = document.getElementById("modal");
+      var t = document.getElementById("overlay");
+      divv.style.display = "none";
+      t.style.display = "none";
+      this.newGame();
+    },
+    playSound: function playSound(sound) {
+      if (sound) {
+        var audio = new Audio(sound);
+        audio.play();
+        this.answerNum = sound.slice(24, 25);
+      }
+    },
+    newGame: function newGame() {
+      canvasDrawing2();
+      this.old = canvasImg.src;
+      this.changeImageSource = randomize();
+      canvasImg.src = "/images/puzzle/" + this.changeImageSource + ".png";
+      ccvs();
+
+      if (this.score == 6) {
+        $("#finalImage")[0].style.display = "none";
+        $(".answer")[0].style.display = "inline-block";
+      }
+
+      this.score = 0;
+    },
+    allowDrop: function allowDrop(ev) {
+      ev.preventDefault();
+    },
+    drag: function drag(ev) {
+      ev.dataTransfer.setData("draggedCanvas", ev.target.id);
+    },
+    drop: function drop(event) {
+      var parent = $(".answer")[0];
+      event.preventDefault();
+      var data = event.dataTransfer.getData("draggedCanvas");
+
+      if (event.target == parent.children[0] && data == "myCanvas0" || event.target == parent.children[1] && data == "myCanvas2" || event.target == parent.children[2] && data == "myCanvas4" || event.target == parent.children[3] && data == "myCanvas1" || event.target == parent.children[4] && data == "myCanvas3" || event.target == parent.children[5] && data == "myCanvas5") {
+        event.target.appendChild(document.getElementById(data));
+        this.score++;
+        console.log(this.score);
+      }
+
+      if (this.score == 6) {
+        var success = '/sounds/clap.mp3';
+        this.playSound(success);
+        $("#finalImage")[0].src = this.old;
+        $("#finalImage")[0].style.display = "inline-block";
+        $(".answer")[0].style.display = "none";
+        document.getElementById("nextLevel").style.display = "inline-block";
+      }
+    }
+  },
+  mounted: function mounted() {
+    this.newGame();
+    console.log("mounted");
+  },
+  created: function created() {}
+});
+var canvasImg = new Image();
+var imageSource = randomize();
+canvasImg.src = "/images/puzzle/" + imageSource + ".png";
+
+function canvasDrawing2() {
+  var newCnvas = document.getElementById("testCanvas");
+  var imagePieces = [];
+  var i = 0;
+  var counter = 0;
+
+  for (var x = 0; x < 3; ++x) {
+    for (var y = 0; y < 2; ++y) {
+      var p = imagePieces[i++];
+      var canvas = document.getElementById("myCanvas" + counter);
+      var context = canvas.getContext("2d");
+      canvas.width = 66.666;
+      canvas.height = 110; //context.clearRect(0, 0, canvas.width, canvas.height);
+
+      imagePieces.push(context);
+      context.drawImage(canvasImg, x * 66.666, y * 110, 66.666, 110, 0, 0, canvas.width, canvas.height);
+      shuffle(imagePieces);
+      newCnvas.appendChild(imagePieces[counter].canvas);
+      counter++;
+    }
+  }
+}
+
+;
+
+function ccvs() {
+  var newParent = document.getElementsByClassName('shuffle');
+  var answerSpan = $(".answer span");
+
+  for (var as = 0; as < 6; as++) {
+    if (answerSpan[as].childNodes.length > 0) {
+      newParent[0].appendChild(answerSpan[as].childNodes[0]);
+    }
+  }
+}
+
+;
+
+function shuffle(a) {
+  for (var j, x, i = a.length; i; j = Math.floor(Math.random() * i), x = a[--i], a[i] = a[j], a[j] = x) {
+    ;
+  }
+
+  return a;
+}
+
+;
+
+function randomize() {
+  var randomNumbers = [];
+
+  for (var n = 0; n < 14; n++) {
+    randomNumbers.push(n);
+  }
+
+  var idx = Math.floor(Math.random() * randomNumbers.length);
+  var r = randomNumbers[idx];
+  return r;
+}
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/puzzle/Puzzle3.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/puzzle/Puzzle3.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "puzzle3",
+  data: function data() {
+    return {
+      draggable: true,
+      context: null,
+      image: null,
+      source: null,
+      score: 0,
+      changeImageSource: null,
+      old: null
+    };
+  },
+  methods: {
+    playSound: function playSound(sound) {
+      if (sound) {
+        var audio = new Audio(sound);
+        audio.play();
+        this.answerNum = sound.slice(24, 25);
+      }
+    },
+    startTheGame: function startTheGame() {
+      var btn = document.getElementById("startgame");
+      var divv = document.getElementById("modal");
+      var t = document.getElementById("overlay");
+      divv.style.display = "none";
+      t.style.display = "none";
+      this.newGame();
+    },
+    newGame: function newGame() {
+      canvasDrawing3();
+      this.old = canvasImg.src;
+      this.changeImageSource = randomize();
+      canvasImg.src = "/images/puzzle2/" + this.changeImageSource + ".png";
+      ccvs();
+
+      if (this.score == 8) {
+        $("#finalImage")[0].style.display = "none";
+        $(".answer")[0].style.display = "inline-block";
+      }
+
+      this.score = 0;
+      this.organizeDesign();
+    },
+    allowDrop: function allowDrop(ev) {
+      ev.preventDefault();
+    },
+    drag: function drag(ev) {
+      ev.dataTransfer.setData("draggedCanvas", ev.target.id);
+    },
+    drop: function drop(event) {
+      var parent = $(".answer")[0];
+      event.preventDefault();
+      var data = event.dataTransfer.getData("draggedCanvas");
+
+      if (event.target == parent.children[0] && data == "myCanvas0" || event.target == parent.children[1] && data == "myCanvas2" || event.target == parent.children[2] && data == "myCanvas4" || event.target == parent.children[3] && data == "myCanvas6" || event.target == parent.children[4] && data == "myCanvas1" || event.target == parent.children[5] && data == "myCanvas3" || event.target == parent.children[6] && data == "myCanvas5" || event.target == parent.children[7] && data == "myCanvas7") {
+        event.target.appendChild(document.getElementById(data));
+        this.score++;
+        console.log(this.score);
+      }
+
+      if (this.score == 8) {
+        var success = '/sounds/clap.mp3';
+        this.playSound(success);
+        $("#finalImage")[0].src = this.old;
+        $("#finalImage")[0].style.display = "inline-block";
+        $(".answer")[0].style.display = "none";
+        document.getElementById("nextLevel").style.display = "inline-block";
+      }
+    },
+    organizeDesign: function organizeDesign() {
+      if ($(".shuffle canvas").length <= 2) {
+        $(".shuffle")[0].style.flex = 1;
+      }
+
+      if ($(".shuffle canvas").length > 2) {
+        $(".shuffle")[0].style.flex = 2;
+      }
+    }
+  },
+  mounted: function mounted() {
+    this.newGame();
+  },
+  created: function created() {}
+});
+var canvasImg = new Image();
+var imageSource = randomize();
+canvasImg.src = "/images/puzzle2/" + imageSource + ".png";
+
+function canvasDrawing3() {
+  var newCnvas = document.getElementById("testCanvas");
+  var imagePieces = [];
+  var i = 0;
+  var counter = 0;
+
+  for (var x = 0; x < 4; ++x) {
+    for (var y = 0; y < 2; ++y) {
+      var p = imagePieces[i++];
+      var canvas = document.getElementById("myCanvas" + counter);
+      var context = canvas.getContext("2d");
+      canvas.width = 150;
+      canvas.height = 150;
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      imagePieces.push(context);
+      context.drawImage(canvasImg, x * 150, y * 150, 150, 150, 0, 0, canvas.width, canvas.height);
+      shuffle(imagePieces);
+      newCnvas.appendChild(imagePieces[counter].canvas);
+      counter++;
+    }
+  }
+}
+
+;
+
+function ccvs() {
+  var newParent = document.getElementsByClassName('shuffle');
+  var answerSpan = $(".answer span");
+
+  for (var as = 0; as < 8; as++) {
+    if (answerSpan[as].childNodes.length > 0) {
+      newParent[0].appendChild(answerSpan[as].childNodes[0]);
+    }
+  }
+}
+
+;
+
+function shuffle(a) {
+  for (var j, x, i = a.length; i; j = Math.floor(Math.random() * i), x = a[--i], a[i] = a[j], a[j] = x) {
+    ;
+  }
+
+  return a;
+}
+
+;
+
+function randomize() {
+  var randomNumbers = [];
+
+  for (var n = 0; n < 7; n++) {
+    randomNumbers.push(n);
+  }
+
+  var idx = Math.floor(Math.random() * randomNumbers.length);
+  var r = randomNumbers[idx];
+  return r;
+}
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/puzzle/Puzzle4.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/puzzle/Puzzle4.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "puzzle3",
+  data: function data() {
+    return {
+      draggable: true,
+      context: null,
+      image: null,
+      source: null,
+      score: 0,
+      changeImageSource: null,
+      old: null
+    };
+  },
+  methods: {
+    playSound: function playSound(sound) {
+      if (sound) {
+        var audio = new Audio(sound);
+        audio.play();
+        this.answerNum = sound.slice(24, 25);
+      }
+    },
+    startTheGame: function startTheGame() {
+      var btn = document.getElementById("startgame");
+      var divv = document.getElementById("modal");
+      var t = document.getElementById("overlay");
+      divv.style.display = "none";
+      t.style.display = "none";
+      this.newGame();
+    },
+    newGame: function newGame() {
+      canvasDrawing3();
+      this.old = canvasImg.src;
+      this.changeImageSource = randomize();
+      canvasImg.src = "/images/puzzle2/" + this.changeImageSource + ".png";
+      ccvs();
+
+      if (this.score == 10) {
+        $("#finalImage")[0].style.display = "none";
+        $(".answer")[0].style.display = "inline-block";
+      }
+
+      this.score = 0;
+      this.organizeDesign();
+    },
+    allowDrop: function allowDrop(ev) {
+      ev.preventDefault();
+    },
+    drag: function drag(ev) {
+      ev.dataTransfer.setData("draggedCanvas", ev.target.id);
+    },
+    drop: function drop(event) {
+      var parent = $(".answer")[0];
+      event.preventDefault();
+      var data = event.dataTransfer.getData("draggedCanvas");
+
+      if (event.target == parent.children[0] && data == "myCanvas0" || event.target == parent.children[1] && data == "myCanvas2" || event.target == parent.children[2] && data == "myCanvas4" || event.target == parent.children[3] && data == "myCanvas6" || event.target == parent.children[4] && data == "myCanvas8" || event.target == parent.children[5] && data == "myCanvas1" || event.target == parent.children[6] && data == "myCanvas3" || event.target == parent.children[7] && data == "myCanvas5" || event.target == parent.children[8] && data == "myCanvas7" || event.target == parent.children[9] && data == "myCanvas9") {
+        event.target.appendChild(document.getElementById(data));
+        this.score++;
+        console.log(this.score);
+      }
+
+      if (this.score == 10) {
+        var success = '/sounds/clap.mp3';
+        this.playSound(success);
+        $("#finalImage")[0].src = this.old;
+        $("#finalImage")[0].style.display = "inline-block";
+        $(".answer")[0].style.display = "none";
+        document.getElementById("nextLevel").style.display = "inline-block";
+      }
+    },
+    organizeDesign: function organizeDesign() {
+      if ($(".shuffle canvas").length <= 4) {
+        $(".shuffle")[0].style.flex = 2;
+      }
+
+      if ($(".shuffle canvas").length <= 2) {
+        $(".shuffle")[0].style.flex = 1;
+      }
+
+      if ($(".shuffle canvas").length > 4) {
+        $(".shuffle")[0].style.flex = 3;
+      }
+
+      if ($(".shuffle canvas").length = 0) {
+        $(".shuffle")[0].style.flex = 0;
+      }
+    }
+  },
+  mounted: function mounted() {
+    this.newGame();
+  },
+  created: function created() {}
+});
+var canvasImg = new Image();
+var imageSource = randomize();
+canvasImg.src = "/images/puzzle2/" + imageSource + ".png";
+
+function canvasDrawing3() {
+  var newCnvas = document.getElementById("testCanvas");
+  var imagePieces = [];
+  var i = 0;
+  var counter = 0;
+
+  for (var x = 0; x < 5; ++x) {
+    for (var y = 0; y < 2; ++y) {
+      var p = imagePieces[i++];
+      var canvas = document.getElementById("myCanvas" + counter);
+      var context = canvas.getContext("2d");
+      canvas.width = 120;
+      canvas.height = 150;
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      imagePieces.push(context);
+      context.drawImage(canvasImg, x * 120, y * 150, 120, 150, 0, 0, canvas.width, canvas.height);
+      shuffle(imagePieces);
+      newCnvas.appendChild(imagePieces[counter].canvas);
+      counter++;
+    }
+  }
+}
+
+;
+
+function ccvs() {
+  var newParent = document.getElementsByClassName('shuffle');
+  var answerSpan = $(".answer span");
+
+  for (var as = 0; as < 10; as++) {
+    if (answerSpan[as].childNodes.length > 0) {
+      newParent[0].appendChild(answerSpan[as].childNodes[0]);
+    }
+  }
+}
+
+;
+
+function shuffle(a) {
+  for (var j, x, i = a.length; i; j = Math.floor(Math.random() * i), x = a[--i], a[i] = a[j], a[j] = x) {
+    ;
+  }
+
+  return a;
+}
+
+;
+
+function randomize() {
+  var randomNumbers = [];
+
+  for (var n = 0; n < 7; n++) {
+    randomNumbers.push(n);
+  }
+
+  var idx = Math.floor(Math.random() * randomNumbers.length);
+  var r = randomNumbers[idx];
+  return r;
+}
 
 /***/ }),
 
@@ -46684,6 +47619,8 @@ var render = function() {
       _c("h3", [_vm._v("seconds")])
     ]),
     _vm._v(" "),
+    _vm._m(0),
+    _vm._v(" "),
     _c(
       "div",
       {
@@ -46717,7 +47654,7 @@ var render = function() {
               }
             }
           },
-          [_c("span", { staticClass: "glyphicon glyphicon-play" })]
+          [_vm._v("\n          Play Sound\n            ")]
         ),
         _vm._v(" "),
         _c(
@@ -46726,7 +47663,7 @@ var render = function() {
             staticClass: "btn btn-primary btn-lg",
             on: { click: _vm.resetGame }
           },
-          [_c("span", { staticClass: "glyphicon glyphicon-repeat" })]
+          [_vm._v("\n       Reset Game\n         ")]
         ),
         _vm._v(" "),
         _c(
@@ -46757,14 +47694,39 @@ var render = function() {
             staticClass: "m-4 balloon",
             on: { click: _vm.clickedBallon }
           },
-          [_c("span", [_vm._v(_vm._s(result))])]
+          [
+            _c("span", { staticStyle: { "pointer-events": "none" } }, [
+              _vm._v(_vm._s(result))
+            ])
+          ]
         )
       }),
       0
     )
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass:
+          "col-md-12 d-flex justify-content-center align-items-center p-4"
+      },
+      [
+        _c("h3", [_vm._v("How to play : ")]),
+        _c("h5", [
+          _vm._v(
+            "click on the sound button you will hear a number ,then click the ballon that has the same number on  "
+          )
+        ])
+      ]
+    )
+  }
+]
 render._withStripped = true
 
 
@@ -48162,6 +49124,7 @@ var render = function() {
       on: {
         dragover: function($event) {
           $event.preventDefault()
+          return _vm.allowDrop($event)
         },
         drop: function($event) {
           $event.preventDefault()
@@ -48196,6 +49159,8 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { attrs: { id: "test" } }, [
+    _vm._m(0),
+    _vm._v(" "),
     _c("div", { attrs: { id: "gameControlls" } }, [
       _c("h1"),
       _vm._v(" "),
@@ -48210,7 +49175,7 @@ var render = function() {
       _c("h3", [_vm._v("seconds")])
     ]),
     _vm._v(" "),
-    _vm._m(0),
+    _vm._m(1),
     _vm._v(" "),
     _c("div", {
       staticStyle: {
@@ -48230,7 +49195,7 @@ var render = function() {
         "div",
         { staticClass: "eachNumber col-2 " },
         [
-          _vm._m(1),
+          _vm._m(2),
           _vm._v(" "),
           _c("Box", { staticClass: "up ", attrs: { id: "box-0" } })
         ],
@@ -48241,7 +49206,7 @@ var render = function() {
         "div",
         { staticClass: "eachNumber col-2" },
         [
-          _vm._m(2),
+          _vm._m(3),
           _vm._v(" "),
           _c("Box", { staticClass: "up", attrs: { id: "box-1" } })
         ],
@@ -48252,7 +49217,7 @@ var render = function() {
         "div",
         { staticClass: "eachNumber col-2" },
         [
-          _vm._m(3),
+          _vm._m(4),
           _vm._v(" "),
           _c("Box", { staticClass: "up", attrs: { id: "box-2" } })
         ],
@@ -48263,7 +49228,7 @@ var render = function() {
         "div",
         { staticClass: "eachNumber col-2" },
         [
-          _vm._m(4),
+          _vm._m(5),
           _vm._v(" "),
           _c("Box", { staticClass: "up", attrs: { id: "box-3" } })
         ],
@@ -48274,7 +49239,7 @@ var render = function() {
         "div",
         { staticClass: "eachNumber col-2" },
         [
-          _vm._m(5),
+          _vm._m(6),
           _vm._v(" "),
           _c("Box", { staticClass: "up", attrs: { id: "box-4" } })
         ],
@@ -48284,7 +49249,7 @@ var render = function() {
       _c(
         "div",
         { staticClass: "objects col-11", attrs: { id: "pencilPlace" } },
-        _vm._l(50, function(index) {
+        _vm._l(45, function(index) {
           return _c(
             "div",
             { key: index, staticStyle: { display: "inline-block" } },
@@ -48317,7 +49282,7 @@ var render = function() {
         [
           _c("Box", { staticClass: "down", attrs: { id: "box-5" } }),
           _vm._v(" "),
-          _vm._m(6)
+          _vm._m(7)
         ],
         1
       ),
@@ -48328,7 +49293,7 @@ var render = function() {
         [
           _c("Box", { staticClass: "down", attrs: { id: "box-6" } }),
           _vm._v(" "),
-          _vm._m(7)
+          _vm._m(8)
         ],
         1
       ),
@@ -48339,7 +49304,7 @@ var render = function() {
         [
           _c("Box", { staticClass: "down", attrs: { id: "box-7" } }),
           _vm._v(" "),
-          _vm._m(8)
+          _vm._m(9)
         ],
         1
       ),
@@ -48350,7 +49315,7 @@ var render = function() {
         [
           _c("Box", { staticClass: "down", attrs: { id: "box-8" } }),
           _vm._v(" "),
-          _vm._m(9)
+          _vm._m(10)
         ],
         1
       ),
@@ -48361,7 +49326,7 @@ var render = function() {
         [
           _c("Box", { staticClass: "down", attrs: { id: "box-9" } }),
           _vm._v(" "),
-          _vm._m(10)
+          _vm._m(11)
         ],
         1
       )
@@ -48369,6 +49334,27 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass:
+          "col-md-12 d-flex justify-content-center align-items-center p-4",
+        staticStyle: { color: "white" }
+      },
+      [
+        _c("h3", [_vm._v("How to play : ")]),
+        _c("h5", [
+          _vm._v(
+            "drag number of pencils equal to the number shown on each box  "
+          )
+        ])
+      ]
+    )
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -48393,7 +49379,7 @@ var staticRenderFns = [
       _c("span", [_vm._v("0")]),
       _vm._v(" "),
       _c("h6", { staticClass: "popuptext", attrs: { id: "myPopup" } }, [
-        _vm._v(" see ... Zero is empty ")
+        _vm._v("  Zero has to be empty ")
       ])
     ])
   },
@@ -48401,55 +49387,109 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "number" }, [_c("span", [_vm._v("1")])])
+    return _c("div", { staticClass: "number popup" }, [
+      _c("span", [_vm._v("1")]),
+      _vm._v(" "),
+      _c("h6", { staticClass: "popuptext", attrs: { id: "myPopup1" } }, [
+        _vm._v(" you can't put more than One pencil")
+      ])
+    ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "number" }, [_c("span", [_vm._v("2")])])
+    return _c("div", { staticClass: "number popup" }, [
+      _c("span", [_vm._v("2")]),
+      _vm._v(" "),
+      _c("h6", { staticClass: "popuptext", attrs: { id: "myPopup2" } }, [
+        _vm._v(" you can't add more than Two pencils ")
+      ])
+    ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "number" }, [_c("span", [_vm._v("3")])])
+    return _c("div", { staticClass: "number popup" }, [
+      _c("span", [_vm._v("3")]),
+      _vm._v(" "),
+      _c("h6", { staticClass: "popuptext", attrs: { id: "myPopup3" } }, [
+        _vm._v(" you can't add more than Three pencils ")
+      ])
+    ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "number" }, [_c("span", [_vm._v("4")])])
+    return _c("div", { staticClass: "number popup" }, [
+      _c("span", [_vm._v("4")]),
+      _vm._v(" "),
+      _c("h6", { staticClass: "popuptext", attrs: { id: "myPopup4" } }, [
+        _vm._v(" you can't add more than Four pencils ")
+      ])
+    ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "number" }, [_c("span", [_vm._v("5")])])
+    return _c("div", { staticClass: "number popup" }, [
+      _c("span", [_vm._v("5")]),
+      _vm._v(" "),
+      _c("h6", { staticClass: "popuptext", attrs: { id: "myPopup5" } }, [
+        _vm._v(" you can't add more than Five pencils ")
+      ])
+    ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "number" }, [_c("span", [_vm._v("6")])])
+    return _c("div", { staticClass: "number popup" }, [
+      _c("span", [_vm._v("6")]),
+      _vm._v(" "),
+      _c("h6", { staticClass: "popuptext", attrs: { id: "myPopup6" } }, [
+        _vm._v(" you can't add more than Six pencils ")
+      ])
+    ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "number" }, [_c("span", [_vm._v("7")])])
+    return _c("div", { staticClass: "number popup" }, [
+      _c("span", [_vm._v("7")]),
+      _vm._v(" "),
+      _c("h6", { staticClass: "popuptext", attrs: { id: "myPopup7" } }, [
+        _vm._v(" you can't add more than Seven pencils ")
+      ])
+    ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "number" }, [_c("span", [_vm._v("8")])])
+    return _c("div", { staticClass: "number popup" }, [
+      _c("span", [_vm._v("8")]),
+      _vm._v(" "),
+      _c("h6", { staticClass: "popuptext", attrs: { id: "myPopup8" } }, [
+        _vm._v(" you can't add more than Eight pencils ")
+      ])
+    ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "number" }, [_c("span", [_vm._v("9")])])
+    return _c("div", { staticClass: "number popup" }, [
+      _c("span", [_vm._v("9")]),
+      _vm._v(" "),
+      _c("h6", { staticClass: "popuptext", attrs: { id: "myPopup9" } }, [
+        _vm._v(" you can't add more than Nine pencils ")
+      ])
+    ])
   }
 ]
 render._withStripped = true
@@ -51587,6 +52627,843 @@ var render = function() {
       }),
       0
     )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/puzzle/Puzzle.vue?vue&type=template&id=6bc24794&":
+/*!****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/puzzle/Puzzle.vue?vue&type=template&id=6bc24794& ***!
+  \****************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("div", { attrs: { id: "overlay" } }),
+    _vm._v(" "),
+    _c("div", { attrs: { id: "modal" } }, [
+      _c("p", [_vm._v(" hello , welcome to puzzle game ^_^")]),
+      _vm._v(" "),
+      _c(
+        "button",
+        { attrs: { id: "startgame" }, on: { click: _vm.startTheGame } },
+        [_vm._v("start game")]
+      )
+    ]),
+    _vm._v(" "),
+    _c("div", { attrs: { id: "gameControlls" } }, [
+      _c("h4", [_vm._v("Score :")]),
+      _c("span", { attrs: { id: "scoreText" } }, [
+        _vm._v(_vm._s(_vm.score) + " /4")
+      ])
+    ]),
+    _vm._v(" "),
+    _c("br"),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c("button", { staticClass: "nextButton", on: { click: _vm.newGame } }, [
+        _vm._v("new game ")
+      ]),
+      _vm._v(" "),
+      _c(
+        "a",
+        {
+          staticClass: "nextButton",
+          staticStyle: { display: "none" },
+          attrs: { id: "nextLevel", href: "/puzzle2" }
+        },
+        [_vm._v(" next level ")]
+      )
+    ]),
+    _vm._v(" "),
+    _c("br"),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c("img", {
+        staticStyle: { display: "none" },
+        attrs: { id: "finalImage", src: "" }
+      }),
+      _vm._v(" "),
+      _c("div", { staticClass: "answer" }, [
+        _c("span", { on: { drop: _vm.drop, dragover: _vm.allowDrop } }),
+        _vm._v(" "),
+        _c("span", { on: { drop: _vm.drop, dragover: _vm.allowDrop } }),
+        _vm._v(" "),
+        _c("span", { on: { drop: _vm.drop, dragover: _vm.allowDrop } }),
+        _vm._v(" "),
+        _c("span", { on: { drop: _vm.drop, dragover: _vm.allowDrop } })
+      ]),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c("div", { staticClass: "shuffle" }, [
+        _c("canvas", {
+          attrs: { id: "myCanvas0", draggable: _vm.draggable },
+          on: {
+            dragstart: _vm.drag,
+            dragover: function($event) {
+              $event.preventDefault()
+            }
+          }
+        }),
+        _vm._v(" "),
+        _c(
+          "canvas",
+          {
+            attrs: { id: "myCanvas1", draggable: _vm.draggable },
+            on: {
+              dragstart: _vm.drag,
+              dragover: function($event) {
+                $event.preventDefault()
+              }
+            }
+          },
+          [
+            _vm._v(
+              "\r\n                Your browser does not support the HTML canvas tag."
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "canvas",
+          {
+            attrs: { id: "myCanvas2", draggable: _vm.draggable },
+            on: {
+              dragstart: _vm.drag,
+              dragover: function($event) {
+                $event.preventDefault()
+              }
+            }
+          },
+          [
+            _vm._v(
+              "\r\n                Your browser does not support the HTML canvas tag."
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "canvas",
+          {
+            attrs: { id: "myCanvas3", draggable: _vm.draggable },
+            on: {
+              dragstart: _vm.drag,
+              dragover: function($event) {
+                $event.preventDefault()
+              }
+            }
+          },
+          [
+            _vm._v(
+              "\r\n                Your browser does not support the HTML canvas tag."
+            )
+          ]
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { attrs: { id: "testCanvas" } })
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/puzzle/Puzzle2.vue?vue&type=template&id=0c9e544e&":
+/*!*****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/puzzle/Puzzle2.vue?vue&type=template&id=0c9e544e& ***!
+  \*****************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("div", { attrs: { id: "overlay" } }),
+    _vm._v(" "),
+    _c("div", { attrs: { id: "modal" } }, [
+      _c("p", [_vm._v(" hello , welcome to puzzle game ^_^")]),
+      _vm._v(" "),
+      _c(
+        "button",
+        { attrs: { id: "startgame" }, on: { click: _vm.startTheGame } },
+        [_vm._v("start game")]
+      )
+    ]),
+    _vm._v(" "),
+    _c("div", { attrs: { id: "gameControlls" } }, [
+      _c("h4", [_vm._v("Score :")]),
+      _c("span", { attrs: { id: "scoreText" } }, [
+        _vm._v(_vm._s(_vm.score) + " /6")
+      ])
+    ]),
+    _vm._v(" "),
+    _c("br"),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c("button", { staticClass: "nextButton", on: { click: _vm.newGame } }, [
+        _vm._v("new game ")
+      ]),
+      _vm._v(" "),
+      _c(
+        "a",
+        {
+          staticClass: "nextButton",
+          staticStyle: { display: "none" },
+          attrs: { id: "nextLevel", href: "/puzzle2" }
+        },
+        [_vm._v(" next level ")]
+      )
+    ]),
+    _vm._v(" "),
+    _c("br"),
+    _vm._v(" "),
+    _c("img", {
+      staticStyle: { display: "none" },
+      attrs: { id: "finalImage", src: "" }
+    }),
+    _c("br"),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "answer" }, [
+        _c("span", { on: { drop: _vm.drop, dragover: _vm.allowDrop } }),
+        _vm._v(" "),
+        _c("span", { on: { drop: _vm.drop, dragover: _vm.allowDrop } }),
+        _vm._v(" "),
+        _c("span", { on: { drop: _vm.drop, dragover: _vm.allowDrop } }),
+        _vm._v(" "),
+        _c("span", { on: { drop: _vm.drop, dragover: _vm.allowDrop } }),
+        _vm._v(" "),
+        _c("span", { on: { drop: _vm.drop, dragover: _vm.allowDrop } }),
+        _vm._v(" "),
+        _c("span", { on: { drop: _vm.drop, dragover: _vm.allowDrop } })
+      ]),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c("div", { staticClass: "shuffle" }, [
+        _c("canvas", {
+          attrs: { id: "myCanvas0", draggable: _vm.draggable },
+          on: {
+            dragstart: _vm.drag,
+            dragover: function($event) {
+              $event.preventDefault()
+            }
+          }
+        }),
+        _vm._v(" "),
+        _c(
+          "canvas",
+          {
+            attrs: { id: "myCanvas1", draggable: _vm.draggable },
+            on: {
+              dragstart: _vm.drag,
+              dragover: function($event) {
+                $event.preventDefault()
+              }
+            }
+          },
+          [
+            _vm._v(
+              "\r\n                Your browser does not support the HTML canvas tag."
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "canvas",
+          {
+            attrs: { id: "myCanvas2", draggable: _vm.draggable },
+            on: {
+              dragstart: _vm.drag,
+              dragover: function($event) {
+                $event.preventDefault()
+              }
+            }
+          },
+          [
+            _vm._v(
+              "\r\n                Your browser does not support the HTML canvas tag."
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "canvas",
+          {
+            attrs: { id: "myCanvas3", draggable: _vm.draggable },
+            on: {
+              dragstart: _vm.drag,
+              dragover: function($event) {
+                $event.preventDefault()
+              }
+            }
+          },
+          [
+            _vm._v(
+              "\r\n                Your browser does not support the HTML canvas tag."
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "canvas",
+          {
+            attrs: { id: "myCanvas4", draggable: _vm.draggable },
+            on: {
+              dragstart: _vm.drag,
+              dragover: function($event) {
+                $event.preventDefault()
+              }
+            }
+          },
+          [
+            _vm._v(
+              "\r\n                Your browser does not support the HTML canvas tag."
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "canvas",
+          {
+            attrs: { id: "myCanvas5", draggable: _vm.draggable },
+            on: {
+              dragstart: _vm.drag,
+              dragover: function($event) {
+                $event.preventDefault()
+              }
+            }
+          },
+          [
+            _vm._v(
+              "\r\n                Your browser does not support the HTML canvas tag."
+            )
+          ]
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { attrs: { id: "testCanvas" } })
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/puzzle/Puzzle3.vue?vue&type=template&id=0cac6bcf&":
+/*!*****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/puzzle/Puzzle3.vue?vue&type=template&id=0cac6bcf& ***!
+  \*****************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { attrs: { id: "playBoard" } }, [
+    _c("div", { attrs: { id: "overlay" } }),
+    _vm._v(" "),
+    _c("div", { attrs: { id: "modal" } }, [
+      _c("p", [_vm._v(" hello , welcome to puzzle game ^_^")]),
+      _vm._v(" "),
+      _c(
+        "button",
+        { attrs: { id: "startgame" }, on: { click: _vm.startTheGame } },
+        [_vm._v("start game")]
+      )
+    ]),
+    _vm._v(" "),
+    _c("div", { attrs: { id: "gameControlls" } }, [
+      _c("h4", [_vm._v("Score :")]),
+      _c("span", { attrs: { id: "scoreText" } }, [
+        _vm._v(_vm._s(_vm.score) + " /8")
+      ]),
+      _vm._v(" "),
+      _c("button", { staticClass: "nextButton", on: { click: _vm.newGame } }, [
+        _vm._v("new game ")
+      ]),
+      _vm._v(" "),
+      _c(
+        "a",
+        {
+          staticClass: "nextButton",
+          staticStyle: { display: "none" },
+          attrs: { id: "nextLevel", href: "/puzzle2" }
+        },
+        [_vm._v(" next level ")]
+      )
+    ]),
+    _vm._v(" "),
+    _c("img", {
+      staticStyle: { display: "none" },
+      attrs: { id: "finalImage", src: "" }
+    }),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "answer" }, [
+        _c("span", { on: { drop: _vm.drop, dragover: _vm.allowDrop } }),
+        _vm._v(" "),
+        _c("span", { on: { drop: _vm.drop, dragover: _vm.allowDrop } }),
+        _vm._v(" "),
+        _c("span", { on: { drop: _vm.drop, dragover: _vm.allowDrop } }),
+        _vm._v(" "),
+        _c("span", { on: { drop: _vm.drop, dragover: _vm.allowDrop } }),
+        _vm._v(" "),
+        _c("span", { on: { drop: _vm.drop, dragover: _vm.allowDrop } }),
+        _vm._v(" "),
+        _c("span", { on: { drop: _vm.drop, dragover: _vm.allowDrop } }),
+        _vm._v(" "),
+        _c("span", { on: { drop: _vm.drop, dragover: _vm.allowDrop } }),
+        _vm._v(" "),
+        _c("span", { on: { drop: _vm.drop, dragover: _vm.allowDrop } })
+      ]),
+      _vm._v(" "),
+      _c("div", { attrs: { id: "generalDiv" } }, [
+        _c("div", { staticClass: "shuffle" }, [
+          _c("canvas", {
+            attrs: { id: "myCanvas0", draggable: _vm.draggable },
+            on: {
+              dragstart: _vm.drag,
+              dragover: function($event) {
+                $event.preventDefault()
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "canvas",
+            {
+              attrs: { id: "myCanvas1", draggable: _vm.draggable },
+              on: {
+                dragstart: _vm.drag,
+                dragover: function($event) {
+                  $event.preventDefault()
+                }
+              }
+            },
+            [
+              _vm._v(
+                "\r\n                Your browser does not support the HTML canvas tag."
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "canvas",
+            {
+              attrs: { id: "myCanvas2", draggable: _vm.draggable },
+              on: {
+                dragstart: _vm.drag,
+                dragover: function($event) {
+                  $event.preventDefault()
+                }
+              }
+            },
+            [
+              _vm._v(
+                "\r\n                Your browser does not support the HTML canvas tag."
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "canvas",
+            {
+              attrs: { id: "myCanvas3", draggable: _vm.draggable },
+              on: {
+                dragstart: _vm.drag,
+                dragover: function($event) {
+                  $event.preventDefault()
+                }
+              }
+            },
+            [
+              _vm._v(
+                "\r\n                Your browser does not support the HTML canvas tag."
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "canvas",
+            {
+              attrs: { id: "myCanvas4", draggable: _vm.draggable },
+              on: {
+                dragstart: _vm.drag,
+                dragover: function($event) {
+                  $event.preventDefault()
+                }
+              }
+            },
+            [
+              _vm._v(
+                "\r\n                Your browser does not support the HTML canvas tag."
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "canvas",
+            {
+              attrs: { id: "myCanvas5", draggable: _vm.draggable },
+              on: {
+                dragstart: _vm.drag,
+                dragover: function($event) {
+                  $event.preventDefault()
+                }
+              }
+            },
+            [
+              _vm._v(
+                "\r\n                Your browser does not support the HTML canvas tag."
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "canvas",
+            {
+              attrs: { id: "myCanvas6", draggable: _vm.draggable },
+              on: {
+                dragstart: _vm.drag,
+                dragover: function($event) {
+                  $event.preventDefault()
+                }
+              }
+            },
+            [
+              _vm._v(
+                "\r\n                Your browser does not support the HTML canvas tag."
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "canvas",
+            {
+              attrs: { id: "myCanvas7", draggable: _vm.draggable },
+              on: {
+                dragstart: _vm.drag,
+                dragover: function($event) {
+                  $event.preventDefault()
+                }
+              }
+            },
+            [
+              _vm._v(
+                "\r\n                Your browser does not support the HTML canvas tag."
+              )
+            ]
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { attrs: { id: "testCanvas" } })
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/puzzle/Puzzle4.vue?vue&type=template&id=0cba8350&":
+/*!*****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/puzzle/Puzzle4.vue?vue&type=template&id=0cba8350& ***!
+  \*****************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { attrs: { id: "playBoard" } }, [
+    _c("div", { attrs: { id: "overlay" } }),
+    _vm._v(" "),
+    _c("div", { attrs: { id: "modal" } }, [
+      _c("p", [_vm._v(" hello , welcome to puzzle game ^_^")]),
+      _vm._v(" "),
+      _c(
+        "button",
+        { attrs: { id: "startgame" }, on: { click: _vm.startTheGame } },
+        [_vm._v("start game")]
+      )
+    ]),
+    _vm._v(" "),
+    _c("div", { attrs: { id: "gameControlls" } }, [
+      _c("h4", [_vm._v("Score :")]),
+      _c("span", { attrs: { id: "scoreText" } }, [
+        _vm._v(_vm._s(_vm.score) + " /10")
+      ]),
+      _vm._v(" "),
+      _c("button", { staticClass: "nextButton", on: { click: _vm.newGame } }, [
+        _vm._v("new game ")
+      ]),
+      _vm._v(" "),
+      _c(
+        "a",
+        {
+          staticClass: "nextButton",
+          staticStyle: { display: "none" },
+          attrs: { id: "nextLevel", href: "/puzzle2" }
+        },
+        [_vm._v(" next level ")]
+      )
+    ]),
+    _vm._v(" "),
+    _c("img", {
+      staticStyle: { display: "none" },
+      attrs: { id: "finalImage", src: "" }
+    }),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "answer" }, [
+        _c("span", { on: { drop: _vm.drop, dragover: _vm.allowDrop } }),
+        _vm._v(" "),
+        _c("span", { on: { drop: _vm.drop, dragover: _vm.allowDrop } }),
+        _vm._v(" "),
+        _c("span", { on: { drop: _vm.drop, dragover: _vm.allowDrop } }),
+        _vm._v(" "),
+        _c("span", { on: { drop: _vm.drop, dragover: _vm.allowDrop } }),
+        _vm._v(" "),
+        _c("span", { on: { drop: _vm.drop, dragover: _vm.allowDrop } }),
+        _vm._v(" "),
+        _c("span", { on: { drop: _vm.drop, dragover: _vm.allowDrop } }),
+        _vm._v(" "),
+        _c("span", { on: { drop: _vm.drop, dragover: _vm.allowDrop } }),
+        _vm._v(" "),
+        _c("span", { on: { drop: _vm.drop, dragover: _vm.allowDrop } }),
+        _vm._v(" "),
+        _c("span", { on: { drop: _vm.drop, dragover: _vm.allowDrop } }),
+        _vm._v(" "),
+        _c("span", { on: { drop: _vm.drop, dragover: _vm.allowDrop } })
+      ]),
+      _vm._v(" "),
+      _c("div", { attrs: { id: "generalDiv" } }, [
+        _c("div", { staticClass: "shuffle" }, [
+          _c(
+            "canvas",
+            {
+              attrs: { id: "myCanvas0", draggable: _vm.draggable },
+              on: {
+                dragstart: _vm.drag,
+                dragover: function($event) {
+                  $event.preventDefault()
+                }
+              }
+            },
+            [
+              _vm._v(
+                "\r\n                Your browser does not support the HTML canvas tag.\r\n                "
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "canvas",
+            {
+              attrs: { id: "myCanvas1", draggable: _vm.draggable },
+              on: {
+                dragstart: _vm.drag,
+                dragover: function($event) {
+                  $event.preventDefault()
+                }
+              }
+            },
+            [
+              _vm._v(
+                "\r\n                Your browser does not support the HTML canvas tag."
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "canvas",
+            {
+              attrs: { id: "myCanvas2", draggable: _vm.draggable },
+              on: {
+                dragstart: _vm.drag,
+                dragover: function($event) {
+                  $event.preventDefault()
+                }
+              }
+            },
+            [
+              _vm._v(
+                "\r\n                Your browser does not support the HTML canvas tag."
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "canvas",
+            {
+              attrs: { id: "myCanvas3", draggable: _vm.draggable },
+              on: {
+                dragstart: _vm.drag,
+                dragover: function($event) {
+                  $event.preventDefault()
+                }
+              }
+            },
+            [
+              _vm._v(
+                "\r\n                Your browser does not support the HTML canvas tag."
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "canvas",
+            {
+              attrs: { id: "myCanvas4", draggable: _vm.draggable },
+              on: {
+                dragstart: _vm.drag,
+                dragover: function($event) {
+                  $event.preventDefault()
+                }
+              }
+            },
+            [
+              _vm._v(
+                "\r\n                Your browser does not support the HTML canvas tag."
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "canvas",
+            {
+              attrs: { id: "myCanvas5", draggable: _vm.draggable },
+              on: {
+                dragstart: _vm.drag,
+                dragover: function($event) {
+                  $event.preventDefault()
+                }
+              }
+            },
+            [
+              _vm._v(
+                "\r\n                Your browser does not support the HTML canvas tag."
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "canvas",
+            {
+              attrs: { id: "myCanvas6", draggable: _vm.draggable },
+              on: {
+                dragstart: _vm.drag,
+                dragover: function($event) {
+                  $event.preventDefault()
+                }
+              }
+            },
+            [
+              _vm._v(
+                "\r\n                Your browser does not support the HTML canvas tag."
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "canvas",
+            {
+              attrs: { id: "myCanvas7", draggable: _vm.draggable },
+              on: {
+                dragstart: _vm.drag,
+                dragover: function($event) {
+                  $event.preventDefault()
+                }
+              }
+            },
+            [
+              _vm._v(
+                "\r\n                Your browser does not support the HTML canvas tag."
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "canvas",
+            {
+              attrs: { id: "myCanvas8", draggable: _vm.draggable },
+              on: {
+                dragstart: _vm.drag,
+                dragover: function($event) {
+                  $event.preventDefault()
+                }
+              }
+            },
+            [
+              _vm._v(
+                "\r\n                Your browser does not support the HTML canvas tag."
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "canvas",
+            {
+              attrs: { id: "myCanvas9", draggable: _vm.draggable },
+              on: {
+                dragstart: _vm.drag,
+                dragover: function($event) {
+                  $event.preventDefault()
+                }
+              }
+            },
+            [
+              _vm._v(
+                "\r\n                Your browser does not support the HTML canvas tag."
+              )
+            ]
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { attrs: { id: "testCanvas" } })
+      ])
+    ])
   ])
 }
 var staticRenderFns = []
@@ -63811,6 +65688,10 @@ Vue.component("collection-component", __webpack_require__(/*! ./components/Colle
 Vue.component("sort-collection-component", __webpack_require__(/*! ./components/SortCollectionComponent.vue */ "./resources/js/components/SortCollectionComponent.vue")["default"]);
 Vue.component("cards-collection-component", __webpack_require__(/*! ./components/CardsCollectionComponent.vue */ "./resources/js/components/CardsCollectionComponent.vue")["default"]);
 Vue.component('binary-search-component', __webpack_require__(/*! ./components/Numbers/BinarySearch/BinarySearchComponent.vue */ "./resources/js/components/Numbers/BinarySearch/BinarySearchComponent.vue")["default"]);
+Vue.component("puzzle2", __webpack_require__(/*! ./components/puzzle/Puzzle2.vue */ "./resources/js/components/puzzle/Puzzle2.vue")["default"]);
+Vue.component("puzzle", __webpack_require__(/*! ./components/puzzle/Puzzle.vue */ "./resources/js/components/puzzle/Puzzle.vue")["default"]);
+Vue.component("puzzle3", __webpack_require__(/*! ./components/puzzle/Puzzle3.vue */ "./resources/js/components/puzzle/Puzzle3.vue")["default"]);
+Vue.component("puzzle4", __webpack_require__(/*! ./components/puzzle/Puzzle4.vue */ "./resources/js/components/puzzle/Puzzle4.vue")["default"]);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -65668,6 +67549,282 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SortCollectionComponent_vue_vue_type_template_id_15ae6866_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SortCollectionComponent_vue_vue_type_template_id_15ae6866_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/puzzle/Puzzle.vue":
+/*!***************************************************!*\
+  !*** ./resources/js/components/puzzle/Puzzle.vue ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Puzzle_vue_vue_type_template_id_6bc24794___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Puzzle.vue?vue&type=template&id=6bc24794& */ "./resources/js/components/puzzle/Puzzle.vue?vue&type=template&id=6bc24794&");
+/* harmony import */ var _Puzzle_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Puzzle.vue?vue&type=script&lang=js& */ "./resources/js/components/puzzle/Puzzle.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Puzzle_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Puzzle_vue_vue_type_template_id_6bc24794___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Puzzle_vue_vue_type_template_id_6bc24794___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/puzzle/Puzzle.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/puzzle/Puzzle.vue?vue&type=script&lang=js&":
+/*!****************************************************************************!*\
+  !*** ./resources/js/components/puzzle/Puzzle.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Puzzle_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Puzzle.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/puzzle/Puzzle.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Puzzle_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/puzzle/Puzzle.vue?vue&type=template&id=6bc24794&":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/components/puzzle/Puzzle.vue?vue&type=template&id=6bc24794& ***!
+  \**********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Puzzle_vue_vue_type_template_id_6bc24794___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Puzzle.vue?vue&type=template&id=6bc24794& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/puzzle/Puzzle.vue?vue&type=template&id=6bc24794&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Puzzle_vue_vue_type_template_id_6bc24794___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Puzzle_vue_vue_type_template_id_6bc24794___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/puzzle/Puzzle2.vue":
+/*!****************************************************!*\
+  !*** ./resources/js/components/puzzle/Puzzle2.vue ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Puzzle2_vue_vue_type_template_id_0c9e544e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Puzzle2.vue?vue&type=template&id=0c9e544e& */ "./resources/js/components/puzzle/Puzzle2.vue?vue&type=template&id=0c9e544e&");
+/* harmony import */ var _Puzzle2_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Puzzle2.vue?vue&type=script&lang=js& */ "./resources/js/components/puzzle/Puzzle2.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Puzzle2_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Puzzle2_vue_vue_type_template_id_0c9e544e___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Puzzle2_vue_vue_type_template_id_0c9e544e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/puzzle/Puzzle2.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/puzzle/Puzzle2.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************!*\
+  !*** ./resources/js/components/puzzle/Puzzle2.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Puzzle2_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Puzzle2.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/puzzle/Puzzle2.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Puzzle2_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/puzzle/Puzzle2.vue?vue&type=template&id=0c9e544e&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/components/puzzle/Puzzle2.vue?vue&type=template&id=0c9e544e& ***!
+  \***********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Puzzle2_vue_vue_type_template_id_0c9e544e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Puzzle2.vue?vue&type=template&id=0c9e544e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/puzzle/Puzzle2.vue?vue&type=template&id=0c9e544e&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Puzzle2_vue_vue_type_template_id_0c9e544e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Puzzle2_vue_vue_type_template_id_0c9e544e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/puzzle/Puzzle3.vue":
+/*!****************************************************!*\
+  !*** ./resources/js/components/puzzle/Puzzle3.vue ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Puzzle3_vue_vue_type_template_id_0cac6bcf___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Puzzle3.vue?vue&type=template&id=0cac6bcf& */ "./resources/js/components/puzzle/Puzzle3.vue?vue&type=template&id=0cac6bcf&");
+/* harmony import */ var _Puzzle3_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Puzzle3.vue?vue&type=script&lang=js& */ "./resources/js/components/puzzle/Puzzle3.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Puzzle3_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Puzzle3_vue_vue_type_template_id_0cac6bcf___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Puzzle3_vue_vue_type_template_id_0cac6bcf___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/puzzle/Puzzle3.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/puzzle/Puzzle3.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************!*\
+  !*** ./resources/js/components/puzzle/Puzzle3.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Puzzle3_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Puzzle3.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/puzzle/Puzzle3.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Puzzle3_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/puzzle/Puzzle3.vue?vue&type=template&id=0cac6bcf&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/components/puzzle/Puzzle3.vue?vue&type=template&id=0cac6bcf& ***!
+  \***********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Puzzle3_vue_vue_type_template_id_0cac6bcf___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Puzzle3.vue?vue&type=template&id=0cac6bcf& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/puzzle/Puzzle3.vue?vue&type=template&id=0cac6bcf&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Puzzle3_vue_vue_type_template_id_0cac6bcf___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Puzzle3_vue_vue_type_template_id_0cac6bcf___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/puzzle/Puzzle4.vue":
+/*!****************************************************!*\
+  !*** ./resources/js/components/puzzle/Puzzle4.vue ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Puzzle4_vue_vue_type_template_id_0cba8350___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Puzzle4.vue?vue&type=template&id=0cba8350& */ "./resources/js/components/puzzle/Puzzle4.vue?vue&type=template&id=0cba8350&");
+/* harmony import */ var _Puzzle4_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Puzzle4.vue?vue&type=script&lang=js& */ "./resources/js/components/puzzle/Puzzle4.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Puzzle4_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Puzzle4_vue_vue_type_template_id_0cba8350___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Puzzle4_vue_vue_type_template_id_0cba8350___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/puzzle/Puzzle4.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/puzzle/Puzzle4.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************!*\
+  !*** ./resources/js/components/puzzle/Puzzle4.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Puzzle4_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Puzzle4.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/puzzle/Puzzle4.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Puzzle4_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/puzzle/Puzzle4.vue?vue&type=template&id=0cba8350&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/components/puzzle/Puzzle4.vue?vue&type=template&id=0cba8350& ***!
+  \***********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Puzzle4_vue_vue_type_template_id_0cba8350___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Puzzle4.vue?vue&type=template&id=0cba8350& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/puzzle/Puzzle4.vue?vue&type=template&id=0cba8350&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Puzzle4_vue_vue_type_template_id_0cba8350___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Puzzle4_vue_vue_type_template_id_0cba8350___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
