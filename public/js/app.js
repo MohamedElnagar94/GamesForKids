@@ -2941,6 +2941,404 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MazeGame/MazeComponent.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/MazeGame/MazeComponent.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'MazeComponent',
+  props: {
+    maze: {
+      type: Array,
+      required: true
+    }
+  },
+  watch: {
+    maze: function maze() {
+      this.player.x = 1;
+      this.player.y = 0;
+      this.createWalls();
+    }
+  },
+  data: function data() {
+    return {
+      player: {
+        x: 1,
+        y: 0
+      },
+      walls: [],
+      isBoyleft: false
+    };
+  },
+  methods: {
+    isWall: function isWall(x, y, noBounds) {
+      if (x < 0 || y < 0 || x > this.maze[0].length * 2 || y > this.maze.length * 2) return !noBounds;
+      if (x % 2 && y % 2) return false;
+      if (x === 1 && y === 0) return false;
+      if (x === this.maze[0].length * 2 && y === this.maze.length * 2 - 1) return false;
+      var wallX = !(x % 2);
+      var wallY = !(y % 2);
+      var corner = wallX && wallY;
+
+      if (corner) {
+        return true;
+      } else if (wallX) {
+        if (x) return !this.maze[(y - 1) / 2][x / 2 - 1][1];else return !this.maze[(y - 1) / 2][0][3];
+      } else if (wallY) {
+        if (y) return !this.maze[y / 2 - 1][(x - 1) / 2][2];else return !this.maze[0][(x - 1) / 2][0];
+      }
+    },
+    onKeyDown: function onKeyDown(e) {
+      switch (e.code) {
+        case 'KeyW':
+        case 'ArrowUp':
+          if (!this.isWall(this.player.x, this.player.y - 1)) this.player.y--;
+          this.isBoyleft = false;
+          break;
+
+        case 'KeyD':
+        case 'ArrowRight':
+          if (!this.isWall(this.player.x + 1, this.player.y)) this.player.x++;
+          this.isBoyleft = false;
+          break;
+
+        case 'KeyS':
+        case 'ArrowDown':
+          if (!this.isWall(this.player.x, this.player.y + 1)) this.player.y++;
+          this.isBoyleft = false;
+          break;
+
+        case 'KeyA':
+        case 'ArrowLeft':
+          if (!this.isWall(this.player.x - 1, this.player.y)) this.player.x--;
+          this.isBoyleft = true;
+          break;
+      }
+
+      if (this.player.x === this.maze[0].length * 2 && this.player.y === this.maze.length * 2 - 1) {
+        this.win();
+      }
+    },
+    createWalls: function createWalls() {
+      this.walls = [];
+
+      for (var i = 0; i < 2; i++) {
+        var start = {
+          x: i * 2,
+          y: 0
+        };
+
+        var pos = _objectSpread({}, start);
+
+        var wall = "M".concat(start.x, ",").concat(start.y);
+
+        while (true) {
+          var walls = this.isWall(pos.x - 1, pos.y - 1, true) * 8 + this.isWall(pos.x, pos.y - 1, true) * 4 + this.isWall(pos.x - 1, pos.y, true) * 2 + this.isWall(pos.x, pos.y, true) * 1;
+
+          switch (walls) {
+            case 1:
+            case 5:
+            case 13:
+              pos.y++;
+              break;
+
+            case 4:
+            case 12:
+            case 14:
+              pos.x++;
+              break;
+
+            case 8:
+            case 10:
+            case 11:
+              pos.y--;
+              break;
+
+            case 2:
+            case 3:
+            case 7:
+              pos.x--;
+              break;
+          }
+
+          wall += "L".concat(pos.x, ",").concat(pos.y);
+
+          if (start.x === pos.x && start.y === pos.y) {
+            break;
+          }
+        }
+
+        var minifiedWall = wall.replace(/([ML])(\d+),(\d+)(?: L\d+,\3)+( L\d+,\3)/g, '$1$2,$3$4').replace(/([ML])(\d+),(\d+)(?: L\2,\d+)+( L\2,\d+)/g, '$1$2,$3$4');
+        this.walls.push(minifiedWall + 'Z');
+      }
+    },
+    win: function win() {
+      this.$emit('win');
+    }
+  },
+  created: function created() {
+    this.createWalls();
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MazeGame/MenuComponent.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/MazeGame/MenuComponent.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'MenuComponent',
+  props: ['padding'],
+  data: function data() {
+    return {
+      pad: this.padding || 0
+    };
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MazeGame/StartComponent.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/MazeGame/StartComponent.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _utils_genMaze_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils/genMaze.js */ "./resources/js/components/MazeGame/utils/genMaze.js");
+/* harmony import */ var _utils_genMaze_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_utils_genMaze_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _MazeComponent_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MazeComponent.vue */ "./resources/js/components/MazeGame/MazeComponent.vue");
+/* harmony import */ var _MenuComponent_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./MenuComponent.vue */ "./resources/js/components/MazeGame/MenuComponent.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+var congratulations = ['Congratulations!', 'Good job!', 'Amazing!', 'Outstanding!', 'Too fast!', 'Navigation expert!', 'Speedy gonzales!!', 'Keep it up!'];
+var congratsMap = [];
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'StartComponent',
+  components: {
+    Maze: _MazeComponent_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+    Menu: _MenuComponent_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
+  watch: {
+    level: function level() {
+      if (this.offline) this.newMaze();
+    },
+    intermission: function intermission() {
+      var _this = this;
+
+      if (this.intermission) setTimeout(function () {
+        return _this.intermission--;
+      }, 1000);
+    }
+  },
+  data: function data() {
+    return {
+      error: null,
+      maze: null,
+      level: 1,
+      intermission: 0,
+      ws: null,
+      offline: true,
+      menuOpen: false,
+      src: "/storage/Images/close.png"
+    };
+  },
+  methods: {
+    play: function play(event) {
+      var a = this.$refs.audioElm;
+
+      if (a.paused) {
+        a.play();
+        this.src = "/storage/Images/open.png";
+      } else {
+        a.pause();
+        this.src = "/storage/Images/close.png";
+      }
+    },
+    onKeyDown: function onKeyDown(e) {
+      if (this.$refs.maze && !this.intermission && !this.menuOpen) this.$refs.maze.onKeyDown(e);
+
+      if (e.key === "ArrowUp" || e.key === "ArrowDown") {
+        e.stopPropagation();
+        e.preventDefault();
+        console.log(e.key);
+        return false;
+      }
+    },
+    win: function win() {
+      this.intermission = 2;
+      if (this.level <= 8) this.level++;
+    },
+    newMaze: function newMaze() {
+      var s = this.level + 2;
+      this.maze = _utils_genMaze_js__WEBPACK_IMPORTED_MODULE_0___default()(s, s);
+    },
+    getCongratulation: function getCongratulation() {
+      if (!congratsMap[this.level]) congratsMap[this.level] = congratulations[Math.floor(Math.random() * congratulations.length)];
+      return congratsMap[this.level];
+    },
+    onOpen: function onOpen() {// idk
+    },
+    onMessage: function onMessage(msg) {
+      if (this.offline) return;
+      var data = msg.d;
+
+      switch (msg.e) {
+        case 'NEW_MAZE':
+          this.maze = data;
+          break;
+      }
+    },
+    goOnline: function goOnline() {
+      var _this2 = this;
+
+      var ws = this.ws = new WebSocket("".concat(location.protocol.replace('http', 'ws'), "//").concat(location.hostname, ":8880"));
+      ws.onopen = this.onOpen;
+
+      ws.onmessage = function (message) {
+        try {
+          _this2.onMessage(JSON.parse(message.data));
+        } catch (err) {
+          _this2.error = err;
+        }
+      };
+
+      this.offline = false;
+    },
+    goOffline: function goOffline() {
+      if (this.ws) {
+        this.ws.close();
+        this.ws = null;
+      }
+
+      this.offline = true;
+    },
+    forceRerender: function forceRerender() {
+      if (this.level == 8) {
+        // this.newMaze()
+        this.error = null;
+        this.maze = null;
+        this.level = 1;
+        this.intermission = 0;
+        this.ws = null;
+        this.offline = true;
+        this.menuOpen = false;
+
+        if (e.key === "ArrowUp" || e.key === "ArrowDown") {
+          e.stopPropagation();
+          e.preventDefault();
+          console.log(e.key);
+          return false;
+        }
+      }
+    }
+  },
+  created: function created() {
+    this.newMaze();
+  },
+  mounted: function mounted() {
+    var _this3 = this;
+
+    window.addEventListener('keydown', function (e) {
+      _this3.onKeyDown(e);
+    });
+  },
+  beforeDestroy: function beforeDestroy() {
+    this.goOffline();
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Numbers/Ballons.vue?vue&type=script&lang=js&":
 /*!**************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Numbers/Ballons.vue?vue&type=script&lang=js& ***!
@@ -3292,6 +3690,87 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "BinarySearch",
   data: function data() {
@@ -3303,9 +3782,11 @@ __webpack_require__.r(__webpack_exports__);
       thirdResult: [],
       finalResult: [],
       middleNumber: 0,
+      synth: window.speechSynthesis,
       steps: 0,
       changeColor: false,
-      keyChange: 0
+      keyChange: 0,
+      sign: ""
     };
   },
   methods: {
@@ -3326,66 +3807,99 @@ __webpack_require__.r(__webpack_exports__);
         this.numbers.push(randResult);
       }
     },
+    animating: function animating(arr, id) {
+      //devide the new array to middle and two array
+      var temp = arr[Math.floor(arr.length / 2)];
+      var leftarr = arr.filter(function (number) {
+        return number < temp;
+      }).slice();
+      var rightarr = arr.filter(function (number) {
+        return number > temp;
+      }).slice();
+      leftarr.forEach(function (element) {
+        $("#".concat(element).concat(id)).addClass(" animated slideOutLeft repeat-3 ");
+      });
+      rightarr.forEach(function (element) {
+        $("#".concat(element).concat(id)).addClass(" animated slideOutRight  repeat-3  ");
+      });
+      $("#".concat(temp).concat(id)).addClass("animated slideOutDown repeat-3  ");
+      setTimeout(function () {
+        arr.forEach(function (element) {
+          $("#".concat(element).concat(id)).removeClass(" animated slideOutRight  repeat-3 ");
+        });
+      }, 3000);
+    },
     sortNumbers: function sortNumbers() {
       var _this = this;
 
+      // 
+      _.shuffle(this.numbers);
+
       this.numbers.sort();
       setTimeout(function () {
-        Swal.fire({
-          title: "Second Step",
-          width: 500,
-          text: "Compare Between the wanted number and the middle number of these numbers",
-          // icon: "error",
-          confirmButtonText: "Ok"
-        }).then(function (result) {
-          _this.steps = 1;
+        _this.animating(_this.numbers, 'h');
+      }, 1800);
+      setTimeout(function () {
+        _this.steps++;
 
-          _this.changeStep();
-        });
-      }, 2000);
+        _this.popup();
+      }, 5000);
     },
     changeStep: function changeStep() {
       var _this2 = this;
 
       switch (this.steps) {
         case 1:
-          this.middleNumber = this.numbers[Math.floor(this.numbers.length / 2)];
-          console.log("middle number", this.middleNumber);
-
           if (this.theWantedNumber < this.middleNumber) {
             this.seconedResult = this.numbers.filter(function (number) {
               return number < _this2.middleNumber;
             });
+            setTimeout(function () {
+              _this2.animating(_this2.seconedResult, '');
+            }, 1300);
           } else if (this.theWantedNumber > this.middleNumber) {
             this.seconedResult = this.numbers.filter(function (number) {
               return number > _this2.middleNumber;
             });
+            setTimeout(function () {
+              _this2.animating(_this2.seconedResult, '');
+            }, 1300);
           } else if (this.theWantedNumber == this.middleNumber) {
-            $("#".concat(this.theWantedNumber, "h")).addClass("divBg");
+            $("#".concat(this.theWantedNumber, "h")).addClass("divBg animated heartBeat delay-1s repeat-3");
+            setTimeout(function () {
+              _this2.endGame();
+            }, 5000);
           }
 
           break;
 
         case 2:
-          this.middleNumber = this.seconedResult[Math.floor(this.seconedResult.length / 2)];
           console.log("middle number", this.middleNumber);
 
           if (this.theWantedNumber < this.middleNumber) {
             this.thirdResult = this.seconedResult.filter(function (number) {
               return number < _this2.middleNumber;
             });
+            setTimeout(function () {
+              _this2.animating(_this2.thirdResult, 'a');
+            }, 1300);
           } else if (this.theWantedNumber > this.middleNumber) {
             this.thirdResult = this.seconedResult.filter(function (number) {
               return number > _this2.middleNumber;
             });
+            setTimeout(function () {
+              _this2.animating(_this2.thirdResult, 'a');
+            }, 1300);
           } else if (this.theWantedNumber == this.middleNumber) {
-            $("#".concat(this.theWantedNumber)).addClass("divBg");
+            $("#".concat(this.theWantedNumber, "a")).addClass("divBg animated heartBeat delay-1s repeat-3 ");
+            setTimeout(function () {
+              _this2.endGame();
+            }, 5000);
           }
 
           break;
 
         case 3:
-          this.middleNumber = this.thirdResult[Math.floor(this.thirdResult.length / 2)];
           console.log("middle number", this.middleNumber);
 
           if (this.theWantedNumber < this.middleNumber) {
@@ -3397,9 +3911,11 @@ __webpack_require__.r(__webpack_exports__);
             this.finalResult = this.thirdResult.filter(function (number) {
               return number > _this2.middleNumber;
             });
-            console.log("final number", this.finalResult);
           } else if (this.theWantedNumber == this.middleNumber) {
-            $("#".concat(this.theWantedNumber, "a")).addClass("divBg");
+            $("#".concat(this.theWantedNumber, "ab")).addClass("divBg animated heartBeat  delay-1s repeat-3 ");
+            setTimeout(function () {
+              _this2.endGame();
+            }, 5000);
           }
 
           break;
@@ -3415,10 +3931,111 @@ __webpack_require__.r(__webpack_exports__);
       this.finalResult = [];
       this.middleNumber = 0;
       this.keyChange++;
+    },
+    endGame: function endGame() {
+      $("#applausElm")[0].play();
+      $("#congrats").show();
+      $("#fireworkElm")[0].play();
+    },
+    speake: function speake(txt) {
+      //audio text to speach
+      if (speechSynthesis !== undefined) {
+        var toSpeak = new SpeechSynthesisUtterance(txt);
+        toSpeak.voice = this.synth.getVoices()[1];
+        this.synth.speak(toSpeak);
+      }
+    },
+    popup: function popup() {
+      switch (this.steps) {
+        case 1:
+          this.middleNumber = this.numbers[Math.floor(this.numbers.length / 2)];
+          break;
+
+        case 2:
+          this.middleNumber = this.seconedResult[Math.floor(this.seconedResult.length / 2)];
+          break;
+
+        case 3:
+          this.middleNumber = this.thirdResult[Math.floor(this.thirdResult.length / 2)];
+          break;
+
+        default:
+          break;
+      }
+
+      var txtInput = '';
+
+      if (this.sign == "bg") {
+        txtInput = "Is the wanted number" + this.theWantedNumber + " BIGGER than middle number " + this.middleNumber + "?";
+        $("#sign")[0].src = '/storage/Images/bigger-than.png';
+      } else if (this.sign === "ls") {
+        txtInput = "Is the wanted number" + this.theWantedNumber + " SMALLER than middle number " + this.middleNumber + "?";
+        $("#sign")[0].src = '/storage/Images/smaller-than.png';
+      } else {
+        txtInput = "Is the wanted number" + this.theWantedNumber + " Equall middle number " + this.middleNumber + "?";
+        $("#sign")[0].src = '/storage/Images/equal.png';
+      }
+
+      $("#character")[0].src = "/storage/Images/hello2.gif";
+      $("#question")[0].innerText = txtInput;
+      this.speake(txtInput);
+      $("#explain").show();
+    },
+    check: function check(answer) {
+      var _this3 = this;
+
+      var correct = false;
+
+      if (this.sign == "bg" && this.theWantedNumber > this.middleNumber || this.sign == "ls" && this.theWantedNumber < this.middleNumber || this.sign == "eq" && this.theWantedNumber == this.middleNumber) {
+        correct = true;
+      }
+
+      console.log("an-->", answer);
+      console.log("co-->", correct);
+
+      if (correct === answer && answer === true) {
+        $("#character")[0].src = "/storage/Images/good.gif";
+        $("#question")[0].innerText = "Thats correct, GOOD JOB";
+        var txt = $("#question")[0].innerText;
+        $("#correctElm")[0].play();
+        this.speake(txt);
+        setTimeout(function () {
+          $("#explain").hide();
+          _this3.sign = "bg";
+
+          _this3.changeStep();
+        }, 3000);
+      } else if (correct === answer && answer === false) {
+        if (this.sign === "bg") {
+          this.sign = "eq";
+        } else {
+          this.sign = "ls";
+        }
+
+        $("#character")[0].src = "/storage/Images/good.gif";
+        $("#question")[0].innerText = "Thats correct, GOOD JOB";
+        var txt = $("#question")[0].innerText;
+        $("#correctElm")[0].play();
+        this.speake(txt);
+        setTimeout(function () {
+          $("#explain").hide();
+
+          _this3.popup();
+        }, 2000);
+      } else if (correct != answer) {
+        $("#character")[0].src = "/storage/Images/wrong.gif";
+        $("#question")[0].innerText = "No Thats Wrong, Try Again ";
+        var txt = $("#question")[0].innerText;
+        $("#WrongElm")[0].play();
+        setTimeout(function () {
+          _this3.speake(txt);
+        }, 1100);
+      }
     }
   },
   created: function created() {
     this.start();
+    this.sign = "bg";
     setTimeout(function () {
       Swal.fire({
         title: "Frist Step",
@@ -4985,7 +5602,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     $("#congrats").show();
     $("#fireworkElm")[0].play();
   }
-}), _defineProperty(_name$data$data$metho, "computed", {}), _defineProperty(_name$data$data$metho, "created", function created() {
+}), _defineProperty(_name$data$data$metho, "created", function created() {
   var array = [1, 2, 3, 4, 5, 6];
   var newarr = array.slice();
 
@@ -5790,18 +6407,372 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "MergeSortComponent",
   data: function data() {
     return {
-      answer: '',
+      answer: "",
       steps: 0,
-      status: 'false',
+      status: "false",
       numbersArray: [],
       sortedArray: [],
       rightSortedArray: [],
       leftSortedArray: [],
-      voiceIcon: 'fa fa-play-circle',
+      voiceIcon: "fa fa-play-circle",
       synth: window.speechSynthesis
     };
   },
@@ -5823,68 +6794,79 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
       return array;
     },
-    onDragging: function onDragging(event) {
+    onDragging: function onDragging(arr, event) {
       event.dataTransfer.setData("text", event.target.id);
-      console.log('EvEnT ==>', event);
+      event.dataTransfer.setData("imagElements", arr);
+      console.log("EvEnT ==>", event);
     },
     allowDrop: function allowDrop(event) {
       event.preventDefault();
     },
     drag: function drag(event) {
+      this.voice("drag,me");
       event.dataTransfer.setData("text", event.target.id);
     },
     drop: function drop(event) {
       event.preventDefault();
       var data = event.dataTransfer.getData("text");
-      console.log('data =>' + data + 'event => ' + event.target.id);
+      var arr = event.dataTransfer.getData("imagElements");
 
-      if (event.target.id.split('-')[0] === data.split('-')[0]) {
-        var newElementsArray = _toConsumableArray(document.getElementById(data).innerText.replace(/\r?\n|\r/g, ''));
-
-        this.newEle(event.target, newElementsArray);
-        this.answer = 'Yes';
+      if (event.target.id.split("-")[0] === data.split("-")[0]) {
+        this.newEle(event.target, arr.split(","));
+        $("#correctElm")[0].play();
+        $("#appluaseElm")[0].play();
+        this.answer = "Yes";
         this.steps++;
-        this.status = 'true';
+        this.status = "true";
+
+        if (this.steps === 30) {
+          this.endGame();
+        }
 
         if (this.steps === 2 || this.steps === 6 || this.steps === 14 || this.steps === 22) {
-          this.answer = 'Think';
+          this.answer = "Think";
         }
       } else {
-        this.answer = 'No';
+        this.answer = "No";
+        $("#WrongElm")[0].play();
       }
     },
     newEle: function newEle(parent, values) {
       var elements = [];
 
       for (var i = 0; i < values.length; i++) {
-        var el = document.createElement('DIV');
-        el.innerHTML = "\n                    <div  id=".concat(i == 0 || i == 1 ? '-' + values[i] : '-' + values[i], " class=\"col-md-5 d-flex justify-content-center align-items-center p-4\">\n                        <div style=\"font-size: 30px; margin: 0 40px\">").concat(values[i], "</div>\n                    </div>\n                ");
+        var el = document.createElement("DIV");
+        el.innerHTML = "\n                        <div  id=".concat(i == 0 || i == 1 ? "-" + values[i] : "-" + values[i], " >\n                          \n                            <img style=\"height:50px\" src=\"/storage/Images/").concat(values[i], ".png\" />\n                            \n                          \n                        </div>\n                    ");
         elements.push(el);
       }
 
+      console.log("value", values);
+
       switch (values.length) {
         case 4:
-          var leftRegion = document.createElement('DIV');
-          leftRegion.innerHTML = "\n                        <div class=\"row\"  style=\"margin: 15px;\">\n                            ".concat(elements[0].innerHTML, "\n                            ").concat(elements[1].innerHTML, "\n                        </div>\n                    ");
+          var leftRegion = document.createElement("DIV");
+          leftRegion.innerHTML = "\n                             <div>\n                            <div class=\"col-md-1 d-flex justify-content-center align-items-center m-5\">\n                                ".concat(elements[0].innerHTML, "\n                               \n                            </div>\n                              <div class=\"col-md-1 d-flex justify-content-center align-items-center m-5\">\n                                \n                                ").concat(elements[1].innerHTML, "\n                            </div>\n                             </div>\n                        ");
+          console.log("elements[0].innerHTML==>", elements[0].innerHTML);
           parent.appendChild(leftRegion);
-          var rightRegion = document.createElement('DIV');
-          rightRegion.innerHTML = "\n                        <div class=\"row\"  style=\"margin: 15px;\">\n                            ".concat(elements[2].innerHTML, "\n                            ").concat(elements[3].innerHTML, "\n                        </div>\n                    ");
+          var rightRegion = document.createElement("DIV");
+          rightRegion.innerHTML = "\n                            <div>\n                            <div class=\"col-md-1 d-flex justify-content-center align-items-center m-5\">\n                                ".concat(elements[2].innerHTML, "\n                               \n                            </div>\n                              <div class=\"col-md-1 d-flex justify-content-center align-items-center m-5\">\n                                \n                                ").concat(elements[3].innerHTML, "\n                            </div>\n                             </div>\n                        ");
           parent.appendChild(rightRegion);
           break;
 
         case 2:
-          var firstItem = document.createElement('DIV');
-          firstItem.innerHTML = "\n                        <div class=\"col-md-4\"  style=\"margin: 0 5%;\">\n                            ".concat(elements[0].innerHTML, "\n                        </div>\n                    ");
+          var firstItem = document.createElement("DIV");
+          firstItem.innerHTML = "\n                            <div class=\"col-md-1 d-flex justify-content-center align-items-center m-3 pr-5\">\n                                ".concat(elements[0].innerHTML, "\n                            </div>\n                        ");
           parent.appendChild(firstItem);
-          var sectItem = document.createElement('DIV');
-          sectItem.innerHTML = "\n                        <div class=\"col-md-4\"  style=\"margin: 0 5%;\">\n                            ".concat(elements[1].innerHTML, "\n                        </div>\n                    ");
+          var sectItem = document.createElement("DIV");
+          sectItem.innerHTML = "\n                            <div  class=\"col-md-1 d-flex justify-content-center align-items-center m-3 \">\n                                ".concat(elements[1].innerHTML, "\n                            </div>\n                        ");
           parent.appendChild(sectItem);
           break;
 
         case 1:
-          var singleNum = document.createElement('DIV');
-          singleNum.innerHTML = "\n                        <div style=\"margin-left: 15%\">\n                            ".concat(elements[0].innerHTML, "\n                        </div>\n                    ");
+          var singleNum = document.createElement("DIV");
+          singleNum.innerHTML = "\n                            <div  class=\"col-md-1 d-flex justify-content-center align-items-center p-3>\n                                ".concat(elements[0].innerHTML, "\n                            </div>\n                        ");
           parent.appendChild(singleNum);
+          console.log(singleNum);
           break;
       }
     },
@@ -5895,14 +6877,19 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         this.synth.speak(toSpeak);
       }
     },
+    endGame: function endGame() {
+      $("#applausElm")[0].play();
+      $("#congrats").show();
+      $("#fireworkElm")[0].play();
+    },
     voice: function voice(msg) {
       var _this = this;
 
-      this.voiceIcon = 'fa fa-volume-up';
+      this.voiceIcon = "fa fa-volume-up";
       this.textToVoice(msg);
       setTimeout(function () {
-        _this.voiceIcon = 'fa fa-play-circle';
-      }, 4500);
+        _this.voiceIcon = "fa fa-play-circle";
+      }, 1000);
     }
   },
   created: function created() {
@@ -5916,7 +6903,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     this.rightSortedArray = _toConsumableArray(this.numbersArray.slice(4, 8)).sort(function (a, b) {
       return a - b;
     });
-    this.answer = 'Think'; // Values ==> [Think, Yes, No].
+    this.answer = "Think"; // Values ==> [Think, Yes, No].
   }
 });
 
@@ -11453,6 +12440,25 @@ function randomize() {
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MazeGame/StartComponent.vue?vue&type=style&index=0&lang=scss&":
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/MazeGame/StartComponent.vue?vue&type=style&index=0&lang=scss& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "#app {\n  color: #fff;\n  font-family: Catamaran, Lato, Helvetica, Arial, sans-serif;\n}\n.top-bar {\n  background: #444446;\n  width: 70%;\n  text-align: center;\n  margin-left: 14%;\n}\n.intermission {\n  background: #A96F4A;\n}\n.scroller::-webkit-scrollbar {\n  width: 14px;\n  height: 14px;\n}\n.scroller::-webkit-scrollbar-thumb {\n  background: #202225;\n}\n.scroller::-webkit-scrollbar-track, .scroller::-webkit-scrollbar-corner {\n  background: #2f3136;\n}\n.scroller::-webkit-scrollbar-thumb, .scroller::-webkit-scrollbar-track {\n  border: 3px solid #36393f;\n  border-radius: 7px;\n}\n.material-icons {\n  transition: 0.2s color ease;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n.menu-bar .material-icons, .top-bar .material-icons {\n  color: #a6a7a8;\n}\n.material-icons.close:hover {\n  color: #f04747;\n}\n.material-icons.hamburger:hover {\n  color: #fff;\n}\n.winMessage {\n  position: absolute;\n  top: 50%;\n  left: 45%;\n}\n.bold {\n  font-size: 24px;\n  font-weight: bold;\n}\n.celebrateimg {\n  position: absolute;\n  /* text-align: center; */\n  /* margin: 10px auto; */\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  width: 320px;\n  z-index: 999;\n}\n.playAgain {\n  top: 73%;\n  left: 45%;\n  position: absolute;\n  font-weight: bold;\n  font-size: 24px;\n}\n.vloume {\n  width: 72px;\n  height: 49px;\n  position: absolute;\n  top: 22%;\n  left: 43px;\n  cursor: pointer;\n}", ""]);
+
+// exports
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CardsCollectionComponent.vue?vue&type=style&index=0&id=3b0c6907&scoped=true&lang=css&":
 /*!******************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/CardsCollectionComponent.vue?vue&type=style&index=0&id=3b0c6907&scoped=true&lang=css& ***!
@@ -11529,6 +12535,44 @@ exports.push([module.i, "\n.allLevels[data-v-224449b3] {\r\n  width: 5.8%;\r\n  
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MazeGame/MazeComponent.vue?vue&type=style&index=0&id=b2dc126a&scoped=true&lang=css&":
+/*!****************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/MazeGame/MazeComponent.vue?vue&type=style&index=0&id=b2dc126a&scoped=true&lang=css& ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.maze[data-v-b2dc126a]{\r\n    height: 570px;\n}\n.runboy[data-v-b2dc126a]{\r\n    position: absolute;\n}\n.player[data-v-b2dc126a]{\r\n    background-image: url('/storage/Images/boy.gif');\n}\n.boy[data-v-b2dc126a]{\r\n    /* transform: rotate(90deg); */\n}\n.boyleft[data-v-b2dc126a]{\r\n    transform-box: fill-box;\r\n  transform-origin: center;\r\n  transform: rotate(-180deg); \r\n  transform: scaleX(-1);\n}\r\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MazeGame/MenuComponent.vue?vue&type=style&index=0&id=146d0d2b&scoped=true&lang=css&":
+/*!****************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/MazeGame/MenuComponent.vue?vue&type=style&index=0&id=146d0d2b&scoped=true&lang=css& ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.menu-container[data-v-146d0d2b] {\r\n  background: #444446;\n}\n.menu-bar[data-v-146d0d2b] {\r\n  background: #2a2c31;\n}\n.menu[data-v-146d0d2b] {\r\n  background: #36393f;\n}\r\n", ""]);
+
+// exports
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Numbers/BinarySearch/BinarySearchComponent.vue?vue&type=style&index=0&id=4872fa7e&scoped=true&lang=css&":
 /*!************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Numbers/BinarySearch/BinarySearchComponent.vue?vue&type=style&index=0&id=4872fa7e&scoped=true&lang=css& ***!
@@ -11541,7 +12585,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.divBg[data-v-4872fa7e] {\r\n    background-color: rgba(85, 169, 56, 0.5);\n}\n.divBg2[data-v-4872fa7e] {\r\n    background-color: rgba(85, 169, 56, 0.5);\n}\n.result[data-v-4872fa7e] {\r\n    width: 100px;\r\n    height: 100px;\r\n    border: 1px solid gray;\r\n    box-shadow: 0 0 3px 0 gray, inset 0 0 7px 0 gray;\n}\r\n", ""]);
+exports.push([module.i, "\n.divBg[data-v-4872fa7e] {\r\n    background-color: rgba(85, 169, 56, 0.5);\n}\n.divBg2[data-v-4872fa7e] {\r\n    background-color: rgba(85, 169, 56, 0.5);\n}\n.result[data-v-4872fa7e] {\r\n    width: 100px;\r\n    height: 100px;\r\n    border: 1px solid gray;\r\n    box-shadow: 0 0 3px 0 gray, inset 0 0 7px 0 gray;\n}\n.popup[data-v-4872fa7e] {\r\n  position: fixed;\r\n  top: 50%;\r\n  left: 50%;\r\n  width: 100%;\r\n  height: 100%;\r\n  transform: translate(-50%, -50%);\r\n  background-color: rgba(12, 12, 94, 0.986);\r\n  color: white;\r\n  display: none;\r\n  padding-top: 30px;\r\n  z-index: 999;\n}\n.flip-list-move[data-v-4872fa7e] {\r\n  transition: all ease  2s;\n}\n.speech-bubble[data-v-4872fa7e] {\r\n  position: relative;\r\n  background: #cc6dc7d8;\r\n  border-radius: 30%;\r\n  padding: 30px;\r\n  margin-top: 10px;\n}\n#h3steps[data-v-4872fa7e] {\r\n  position: relative;\r\n  background: #ff9dde;\r\n  border-radius: 40%;\r\n  padding: 25px;\r\n  margin-right: 10px;\n}\n.speech-bubble[data-v-4872fa7e]:after {\r\n  content: \"\";\r\n  position: absolute;\r\n  right: 0;\r\n  top: 50%;\r\n  width: 0;\r\n  height: 0;\r\n  border: 24px solid transparent;\r\n  border-left-color: #cc6dc7d8;\r\n  border-right: 0;\r\n  border-top: 0;\r\n  margin-top: -12px;\r\n  margin-right: -24px;\n}\r\n", ""]);
 
 // exports
 
@@ -11636,7 +12680,26 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.vloume[data-v-1e51c6f2] {\r\n  width: 72px;\r\n  height: 49px;\r\n  position: absolute;\r\n  top: 20%;\r\n  left: 50px;\n}\n.selected[data-v-1e51c6f2] {\r\n  font-size: 30px;\r\n  margin: 0 40px;\r\n  position: relative;\r\n  background-color: blue;\r\n  -webkit-animation-duration: 4s;\r\n          animation-duration: 4s;\n}\n.arrow[data-v-1e51c6f2] {\r\n  width: 50px;\r\n  height: 50px;\r\n  display: block;\n}\n.popup[data-v-1e51c6f2] {\r\n  position: fixed;\r\n  top: 50%;\r\n  left: 50%;\r\n  width: 90%;\r\n  height: 100%;\r\n  transform: translate(-50%, -50%);\r\n  background-color: rgba(1, 1, 22, 0.959);\r\n  color: white;\r\n  display: none;\r\n  padding-top: 30px;\r\n  z-index: 999;\n}\n.swapFirst[data-v-1e51c6f2] {\r\n  -webkit-animation: firstSelect-data-v-1e51c6f2;\r\n          animation: firstSelect-data-v-1e51c6f2;\r\n  -webkit-animation-duration: 4s;\r\n          animation-duration: 4s;\r\n  -webkit-animation-delay: 1s;\r\n          animation-delay: 1s;\r\n  -webkit-animation-iteration-count: 2;\r\n          animation-iteration-count: 2;\n}\n.swapSecond[data-v-1e51c6f2] {\r\n  -webkit-animation: secondSelect-data-v-1e51c6f2;\r\n          animation: secondSelect-data-v-1e51c6f2;\r\n  -webkit-animation-duration: 4s;\r\n          animation-duration: 4s;\r\n  -webkit-animation-delay: 1s;\r\n          animation-delay: 1s;\r\n  -webkit-animation-iteration-count: 2;\r\n          animation-iteration-count: 2;\n}\n.speech-bubble[data-v-1e51c6f2] {\r\n  position: relative;\r\n  background: #cc6dc7d8;\r\n  border-radius: 30%;\r\n  padding: 30px;\r\n  margin-top: 10px;\n}\n#h3steps[data-v-1e51c6f2] {\r\n  position: relative;\r\n  background: #ff9dde;\r\n  border-radius: 40%;\r\n  padding: 25px;\r\n  margin-right: 10px;\n}\n.speech-bubble[data-v-1e51c6f2]:after {\r\n  content: \"\";\r\n  position: absolute;\r\n  right: 0;\r\n  top: 50%;\r\n  width: 0;\r\n  height: 0;\r\n  border: 24px solid transparent;\r\n  border-left-color: #cc6dc7d8;\r\n  border-right: 0;\r\n  border-top: 0;\r\n  margin-top: -12px;\r\n  margin-right: -24px;\n}\n@-webkit-keyframes firstSelect-data-v-1e51c6f2 {\nfrom {\r\n    background-color: red;\r\n    left: 0px;\r\n    top: 0px;\n}\n25% {\r\n    background-color: yellow;\r\n    left: 0px;\r\n    top: 50px;\n}\n50% {\r\n    background-color: blue;\r\n    left: 100px;\r\n    top: 50px;\n}\nto {\r\n    background-color: green;\r\n    left: 100px;\r\n    top: 0px;\n}\n}\n@keyframes firstSelect-data-v-1e51c6f2 {\nfrom {\r\n    background-color: red;\r\n    left: 0px;\r\n    top: 0px;\n}\n25% {\r\n    background-color: yellow;\r\n    left: 0px;\r\n    top: 50px;\n}\n50% {\r\n    background-color: blue;\r\n    left: 100px;\r\n    top: 50px;\n}\nto {\r\n    background-color: green;\r\n    left: 100px;\r\n    top: 0px;\n}\n}\n@-webkit-keyframes secondSelect-data-v-1e51c6f2 {\nfrom {\r\n    background-color: red;\r\n    left: 0px;\r\n    top: 0px;\n}\n25% {\r\n    background-color: yellow;\r\n    left: 0px;\r\n    top: -50px;\n}\n50% {\r\n    background-color: blue;\r\n    left: -100px;\r\n    top: -50px;\n}\nto {\r\n    background-color: green;\r\n    left: -100px;\r\n    top: 0px;\n}\n}\n@keyframes secondSelect-data-v-1e51c6f2 {\nfrom {\r\n    background-color: red;\r\n    left: 0px;\r\n    top: 0px;\n}\n25% {\r\n    background-color: yellow;\r\n    left: 0px;\r\n    top: -50px;\n}\n50% {\r\n    background-color: blue;\r\n    left: -100px;\r\n    top: -50px;\n}\nto {\r\n    background-color: green;\r\n    left: -100px;\r\n    top: 0px;\n}\n}\r\n", ""]);
+exports.push([module.i, "\n.vloume[data-v-1e51c6f2] {\r\n  width: 72px;\r\n  height: 49px;\r\n  position: absolute;\r\n  top: 20%;\r\n  left: 50px;\n}\n.selected[data-v-1e51c6f2] {\r\n  font-size: 30px;\r\n  margin: 0 40px;\r\n  position: relative;\r\n  background-color: blue;\r\n  -webkit-animation-duration: 4s;\r\n          animation-duration: 4s;\n}\n.arrow[data-v-1e51c6f2] {\r\n  width: 50px;\r\n  height: 50px;\r\n  display: block;\n}\n.popup[data-v-1e51c6f2] {\r\n  position: fixed;\r\n  top: 50%;\r\n  left: 50%;\r\n  width: 90%;\r\n  height: 100%;\r\n  transform: translate(-50%, -50%);\r\n  background-color: rgba(1, 1, 22, 0.986);\r\n  color: white;\r\n  display: none;\r\n  padding-top: 30px;\r\n  z-index: 999;\n}\n.swapFirst[data-v-1e51c6f2] {\r\n  -webkit-animation: firstSelect-data-v-1e51c6f2;\r\n          animation: firstSelect-data-v-1e51c6f2;\r\n  -webkit-animation-duration: 4s;\r\n          animation-duration: 4s;\r\n  -webkit-animation-delay: 1s;\r\n          animation-delay: 1s;\r\n  -webkit-animation-iteration-count: 2;\r\n          animation-iteration-count: 2;\n}\n.swapSecond[data-v-1e51c6f2] {\r\n  -webkit-animation: secondSelect-data-v-1e51c6f2;\r\n          animation: secondSelect-data-v-1e51c6f2;\r\n  -webkit-animation-duration: 4s;\r\n          animation-duration: 4s;\r\n  -webkit-animation-delay: 1s;\r\n          animation-delay: 1s;\r\n  -webkit-animation-iteration-count: 2;\r\n          animation-iteration-count: 2;\n}\n.speech-bubble[data-v-1e51c6f2] {\r\n  position: relative;\r\n  background: #cc6dc7d8;\r\n  border-radius: 30%;\r\n  padding: 30px;\r\n  margin-top: 10px;\n}\n#h3steps[data-v-1e51c6f2] {\r\n  position: relative;\r\n  background: #ff9dde;\r\n  border-radius: 40%;\r\n  padding: 25px;\r\n  margin-right: 10px;\n}\n.speech-bubble[data-v-1e51c6f2]:after {\r\n  content: \"\";\r\n  position: absolute;\r\n  right: 0;\r\n  top: 50%;\r\n  width: 0;\r\n  height: 0;\r\n  border: 24px solid transparent;\r\n  border-left-color: #cc6dc7d8;\r\n  border-right: 0;\r\n  border-top: 0;\r\n  margin-top: -12px;\r\n  margin-right: -24px;\n}\n@-webkit-keyframes firstSelect-data-v-1e51c6f2 {\nfrom {\r\n    background-color: red;\r\n    left: 0px;\r\n    top: 0px;\n}\n25% {\r\n    background-color: yellow;\r\n    left: 0px;\r\n    top: 50px;\n}\n50% {\r\n    background-color: blue;\r\n    left: 100px;\r\n    top: 50px;\n}\nto {\r\n    background-color: green;\r\n    left: 100px;\r\n    top: 0px;\n}\n}\n@keyframes firstSelect-data-v-1e51c6f2 {\nfrom {\r\n    background-color: red;\r\n    left: 0px;\r\n    top: 0px;\n}\n25% {\r\n    background-color: yellow;\r\n    left: 0px;\r\n    top: 50px;\n}\n50% {\r\n    background-color: blue;\r\n    left: 100px;\r\n    top: 50px;\n}\nto {\r\n    background-color: green;\r\n    left: 100px;\r\n    top: 0px;\n}\n}\n@-webkit-keyframes secondSelect-data-v-1e51c6f2 {\nfrom {\r\n    background-color: red;\r\n    left: 0px;\r\n    top: 0px;\n}\n25% {\r\n    background-color: yellow;\r\n    left: 0px;\r\n    top: -50px;\n}\n50% {\r\n    background-color: blue;\r\n    left: -100px;\r\n    top: -50px;\n}\nto {\r\n    background-color: green;\r\n    left: -100px;\r\n    top: 0px;\n}\n}\n@keyframes secondSelect-data-v-1e51c6f2 {\nfrom {\r\n    background-color: red;\r\n    left: 0px;\r\n    top: 0px;\n}\n25% {\r\n    background-color: yellow;\r\n    left: 0px;\r\n    top: -50px;\n}\n50% {\r\n    background-color: blue;\r\n    left: -100px;\r\n    top: -50px;\n}\nto {\r\n    background-color: green;\r\n    left: -100px;\r\n    top: 0px;\n}\n}\r\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Numbers/Sort/MergeSortComponent.vue?vue&type=style&index=0&id=a3d86850&scoped=true&lang=css&":
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Numbers/Sort/MergeSortComponent.vue?vue&type=style&index=0&id=a3d86850&scoped=true&lang=css& ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.animatediv[data-v-a3d86850] {\r\n  -webkit-animation: firstSelect-data-v-a3d86850;\r\n          animation: firstSelect-data-v-a3d86850;\r\n  -webkit-animation-duration: 4s;\r\n          animation-duration: 4s;\r\n  -webkit-animation-delay: 1s;\r\n          animation-delay: 1s;\r\n  -webkit-animation-iteration-count: 2;\r\n          animation-iteration-count: 2;\r\n  margin: 0 2px;\n}\n@-webkit-keyframes firstSelect-data-v-a3d86850 {\nfrom {\r\n    background-color: pink;\r\n\r\n    top: 0px;\n}\n50% {\r\n    background-color: yellow;\r\n\r\n    top: 200px;\n}\nto {\r\n    background-color: green;\r\n\r\n    top: 0px;\n}\n}\n@keyframes firstSelect-data-v-a3d86850 {\nfrom {\r\n    background-color: pink;\r\n\r\n    top: 0px;\n}\n50% {\r\n    background-color: yellow;\r\n\r\n    top: 200px;\n}\nto {\r\n    background-color: green;\r\n\r\n    top: 0px;\n}\n}\n.popup[data-v-a3d86850] {\r\n  position: fixed;\r\n  top: 50%;\r\n  left: 50%;\r\n  width:100%;\r\n  height: 100%;\r\n  transform: translate(-50%, -50%);\r\n  background-color: rgba(1, 1, 22, 0.986);\r\n  color: white;\r\n  display: none;\r\n  padding-top: 30px;\r\n  z-index: 999;\n}\r\n", ""]);
 
 // exports
 
@@ -42791,6 +43854,36 @@ process.umask = function() { return 0; };
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MazeGame/StartComponent.vue?vue&type=style&index=0&lang=scss&":
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/MazeGame/StartComponent.vue?vue&type=style&index=0&lang=scss& ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--7-2!../../../../node_modules/sass-loader/dist/cjs.js??ref--7-3!../../../../node_modules/vue-loader/lib??vue-loader-options!./StartComponent.vue?vue&type=style&index=0&lang=scss& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MazeGame/StartComponent.vue?vue&type=style&index=0&lang=scss&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CardsCollectionComponent.vue?vue&type=style&index=0&id=3b0c6907&scoped=true&lang=css&":
 /*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/CardsCollectionComponent.vue?vue&type=style&index=0&id=3b0c6907&scoped=true&lang=css& ***!
@@ -42904,6 +43997,66 @@ options.transform = transform
 options.insertInto = undefined;
 
 var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MazeGame/MazeComponent.vue?vue&type=style&index=0&id=b2dc126a&scoped=true&lang=css&":
+/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/MazeGame/MazeComponent.vue?vue&type=style&index=0&id=b2dc126a&scoped=true&lang=css& ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./MazeComponent.vue?vue&type=style&index=0&id=b2dc126a&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MazeGame/MazeComponent.vue?vue&type=style&index=0&id=b2dc126a&scoped=true&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MazeGame/MenuComponent.vue?vue&type=style&index=0&id=146d0d2b&scoped=true&lang=css&":
+/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/MazeGame/MenuComponent.vue?vue&type=style&index=0&id=146d0d2b&scoped=true&lang=css& ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./MenuComponent.vue?vue&type=style&index=0&id=146d0d2b&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MazeGame/MenuComponent.vue?vue&type=style&index=0&id=146d0d2b&scoped=true&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
 
 if(content.locals) module.exports = content.locals;
 
@@ -43070,6 +44223,36 @@ if(false) {}
 
 
 var content = __webpack_require__(/*! !../../../../../node_modules/css-loader??ref--6-1!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--6-2!../../../../../node_modules/vue-loader/lib??vue-loader-options!./BubbleSortComponent.vue?vue&type=style&index=0&id=1e51c6f2&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Numbers/Sort/BubbleSortComponent.vue?vue&type=style&index=0&id=1e51c6f2&scoped=true&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Numbers/Sort/MergeSortComponent.vue?vue&type=style&index=0&id=a3d86850&scoped=true&lang=css&":
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Numbers/Sort/MergeSortComponent.vue?vue&type=style&index=0&id=a3d86850&scoped=true&lang=css& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../../node_modules/css-loader??ref--6-1!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--6-2!../../../../../node_modules/vue-loader/lib??vue-loader-options!./MergeSortComponent.vue?vue&type=style&index=0&id=a3d86850&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Numbers/Sort/MergeSortComponent.vue?vue&type=style&index=0&id=a3d86850&scoped=true&lang=css&");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -47591,6 +48774,340 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MazeGame/MazeComponent.vue?vue&type=template&id=b2dc126a&scoped=true&":
+/*!*************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/MazeGame/MazeComponent.vue?vue&type=template&id=b2dc126a&scoped=true& ***!
+  \*************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "h-full" }, [
+    _c(
+      "svg",
+      {
+        staticClass: "maze",
+        attrs: {
+          width: "100%",
+          height: "100%",
+          viewBox:
+            "0 0 " +
+            (_vm.maze.length * 2 + 1) +
+            " " +
+            (_vm.maze[0].length * 2 + 1),
+          "shape-rendering": "crispEdges"
+        }
+      },
+      [
+        _c("defs", [
+          _c(
+            "pattern",
+            {
+              attrs: {
+                id: "imgpattern",
+                x: "0",
+                y: "0",
+                width: "1",
+                height: "1",
+                viewBox: "0 0 1024 576",
+                preserveAspectRatio: "xMidYMid slice"
+              }
+            },
+            [
+              _c("image", {
+                class: { boyleft: _vm.isBoyleft },
+                attrs: {
+                  width: "1024",
+                  height: "576",
+                  "xlink:href": "/storage/Images/boy.gif"
+                }
+              })
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "pattern",
+            {
+              attrs: {
+                id: "imggold",
+                x: "0",
+                y: "0",
+                width: "1",
+                height: "1",
+                viewBox: "0 0 1024 576",
+                preserveAspectRatio: "xMidYMid slice"
+              }
+            },
+            [
+              _c("image", {
+                attrs: {
+                  width: "1024",
+                  height: "576",
+                  "xlink:href": "/storage/Images/gold.jpg"
+                }
+              })
+            ]
+          )
+        ]),
+        _vm._v(" "),
+        _c("rect", {
+          attrs: {
+            x: "0",
+            y: "0",
+            width: _vm.maze.length * 2 + 1,
+            height: _vm.maze[0].length * 2 + 1,
+            fill: "#494949"
+          }
+        }),
+        _vm._v(" "),
+        _vm._l(_vm.walls.length, function(i) {
+          return _c("path", {
+            key: i,
+            attrs: { fill: "#B46B42", d: _vm.walls[i - 1] }
+          })
+        }),
+        _vm._v(" "),
+        _c("rect", {
+          staticClass: "start",
+          attrs: { x: "1", y: "0", width: "1", height: "1", fill: "#43b581" }
+        }),
+        _vm._v(" "),
+        _c("rect", {
+          staticClass: "end",
+          attrs: {
+            x: _vm.maze[0].length * 2,
+            y: _vm.maze.length * 2 - 1,
+            width: "1",
+            height: "1",
+            fill: "url(#imggold)"
+          }
+        }),
+        _vm._v(" "),
+        _c("rect", {
+          staticClass: "player",
+          attrs: {
+            x: _vm.player.x,
+            y: _vm.player.y,
+            width: "1",
+            height: "1",
+            fill: "url(#imgpattern)"
+          }
+        })
+      ],
+      2
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MazeGame/MenuComponent.vue?vue&type=template&id=146d0d2b&scoped=true&":
+/*!*************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/MazeGame/MenuComponent.vue?vue&type=template&id=146d0d2b&scoped=true& ***!
+  \*************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "menu scroller", class: ["px-" + _vm.pad] }, [
+    _c("div", { staticClass: "h-full", class: ["py-" + _vm.pad] }, [
+      _c(
+        "p",
+        { staticClass: "text-center text-4xl select-none opacity-25 mt-12" },
+        [_vm._v("Menu in progress")]
+      )
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MazeGame/StartComponent.vue?vue&type=template&id=271a133e&":
+/*!**************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/MazeGame/StartComponent.vue?vue&type=template&id=271a133e& ***!
+  \**************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "h-screen flex flex-col", attrs: { id: "app" } },
+    [
+      _c(
+        "div",
+        { staticClass: "top-bar flex items-center shadow-md px-4 h-12" },
+        [
+          _c("p", { staticClass: "flex-1 text-center text-lg bold" }, [
+            _vm._v("Level " + _vm._s(_vm.level))
+          ]),
+          _vm._v(" "),
+          _vm.level == 8
+            ? _c("img", {
+                staticClass: "celebrateimg",
+                attrs: { src: "/storage/Images/congrates.gif" }
+              })
+            : _vm._e(),
+          _vm._v(" "),
+          _c(
+            "i",
+            {
+              staticClass: "material-icons hamburger cursor-pointer",
+              on: {
+                click: function($event) {
+                  _vm.menuOpen = true
+                }
+              }
+            },
+            [_vm._v("menu")]
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "flex-1 flex flex-col h-full" },
+        [
+          _vm.maze
+            ? _c("Maze", {
+                ref: "maze",
+                staticClass: "flex-1",
+                attrs: { maze: _vm.maze },
+                on: { win: _vm.win }
+              })
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.intermission
+            ? _c("div", { staticClass: "intermission absolute pin h-full" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "flex flex-col justify-center items-center h-full winMessage"
+                  },
+                  [
+                    _c(
+                      "p",
+                      { staticClass: "text-4xl font-semibold mb-1 bold" },
+                      [_vm._v(_vm._s(_vm.getCongratulation()))]
+                    ),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "text-6xl bold" }, [
+                      _vm._v("Next level in " + _vm._s(_vm.intermission))
+                    ])
+                  ]
+                )
+              ])
+            : _vm._e()
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "w-100 text-center" }, [
+        _vm.level == 8
+          ? _c(
+              "button",
+              {
+                staticClass: "btn btn-primary mt-3 playAgain",
+                on: {
+                  click: function($event) {
+                    return _vm.forceRerender()
+                  }
+                }
+              },
+              [_vm._v("Play Again")]
+            )
+          : _vm._e()
+      ]),
+      _vm._v(" "),
+      _vm.menuOpen
+        ? _c(
+            "div",
+            {
+              staticClass: "menu-container absolute pin h-screen w-screen py-16"
+            },
+            [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "container mx-auto shadow-md flex flex-col h-full"
+                },
+                [
+                  _c(
+                    "div",
+                    { staticClass: "menu-bar flex items-center px-4 h-12" },
+                    [
+                      _c("p", { staticClass: "text-2xl flex-1 text-center" }, [
+                        _vm._v("Menu")
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "i",
+                        {
+                          staticClass: "material-icons close cursor-pointer",
+                          on: {
+                            click: function($event) {
+                              _vm.menuOpen = false
+                            }
+                          }
+                        },
+                        [_vm._v("close")]
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("Menu", { staticClass: "flex-1", attrs: { padding: "6" } })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("audio", {
+                ref: "audioElm",
+                attrs: { src: "/storage/Images/happy.mp3" }
+              })
+            ]
+          )
+        : _vm._e()
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Numbers/Ballons.vue?vue&type=template&id=32fbe195&":
 /*!******************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Numbers/Ballons.vue?vue&type=template&id=32fbe195& ***!
@@ -47755,12 +49272,12 @@ var render = function() {
           "span",
           {
             staticStyle: {
-              "font-size": "52px",
+              "font-size": "40px",
               color: "darkviolet",
               "font-weight": "bold"
             }
           },
-          [_vm._v("The Wanted Number\n            ")]
+          [_vm._v("The Wanted Number\n              ")]
         ),
         _vm._v(" "),
         _c(
@@ -47768,7 +49285,7 @@ var render = function() {
           {
             staticClass: "d-block",
             staticStyle: {
-              "font-size": "52px",
+              "font-size": "40px",
               color: "blueviolet",
               "font-weight": "900"
             }
@@ -47781,31 +49298,39 @@ var render = function() {
         "div",
         {
           staticClass:
-            "text-center w-100 d-flex justify-content-center align-items-center"
+            "text-center w-100 d-flex justify-content-center align-items-center py-5"
         },
         [
-          _vm._l(_vm.numbers, function(number) {
-            return _c(
-              "div",
-              {
-                key: number,
-                staticClass:
-                  "result d-flex justify-content-center align-items-center m-3",
-                class: { divBg: _vm.seconedResult.includes(number) },
-                attrs: { id: number + "h" }
-              },
-              [
-                _c("img", {
-                  staticClass: "img-fluid column",
-                  staticStyle: { height: "85px" },
-                  attrs: { src: "/storage/Images/" + number + ".png" }
-                })
-              ]
-            )
-          }),
+          _c(
+            "transition-group",
+            {
+              staticClass: "d-flex justify-content-center align-items-center",
+              attrs: { name: "flip-list", tag: "div" }
+            },
+            _vm._l(_vm.numbers, function(number) {
+              return _c(
+                "div",
+                {
+                  key: number,
+                  staticClass:
+                    "col-md-1 result d-flex justify-content-center align-items-center m-3",
+                  class: { divBg: _vm.seconedResult.includes(number) },
+                  attrs: { id: number + "h" }
+                },
+                [
+                  _c("img", {
+                    staticClass: "img-fluid column",
+                    staticStyle: { height: "85px" },
+                    attrs: { src: "/storage/Images/" + number + ".png" }
+                  })
+                ]
+              )
+            }),
+            0
+          ),
           _vm._v(" "),
           _c("i", {
-            staticClass: "fa fa-sort-amount-asc ml-5",
+            staticClass: "fa fa-refresh  mr-5",
             staticStyle: {
               "font-size": "52px",
               color: "blueviolet",
@@ -47819,7 +49344,7 @@ var render = function() {
             }
           })
         ],
-        2
+        1
       ),
       _vm._v(" "),
       _vm.seconedResult.length
@@ -47860,7 +49385,7 @@ var render = function() {
                 on: {
                   "~click": function($event) {
                     _vm.steps++
-                    _vm.changeStep()
+                    _vm.popup()
                   }
                 }
               })
@@ -47913,7 +49438,7 @@ var render = function() {
                     on: {
                       "~click": function($event) {
                         _vm.steps++
-                        _vm.changeStep()
+                        _vm.popup()
                       }
                     }
                   })
@@ -47958,14 +49483,14 @@ var render = function() {
             "div",
             {
               staticClass:
-                "text-center w-100 d-flex justify-content-center align-items-center mt-5"
+                "text-center w-100 d-flex justify-content-center align-items-center mt-5 "
             },
             [
               _c(
                 "div",
                 {
                   staticClass:
-                    "result d-flex justify-content-center align-items-center m-3 divBg"
+                    "result d-flex justify-content-center align-items-center m-3 divBg animated heartBeat repeat-3"
                 },
                 [
                   _c("img", {
@@ -48013,7 +49538,157 @@ var render = function() {
             : _vm._e()
         ]
       )
-    ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "popup justify-content-center align-items-center",
+        attrs: { id: "congrats", onclick: "$(this).hide()" }
+      },
+      [
+        _c("div", { staticClass: "d-flex justify-content-center" }, [
+          _c("img", {
+            staticClass: "col-md-5",
+            style: [{ margin: "5px", "line-height": "7" }],
+            attrs: { src: "/storage/Images/congrates.gif", alt: "" }
+          })
+        ])
+      ]
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "popup", attrs: { id: "explain" } }, [
+      _c(
+        "div",
+        {
+          staticClass:
+            "row d-flex justify-content-center align-items-center pt-6"
+        },
+        [
+          _c("hgroup", { staticClass: "col-md-5 speech-bubble" }, [
+            _c("h1", { attrs: { id: "question" } }, [
+              _vm._v(
+                "\n          Is " +
+                  _vm._s(_vm.theWantedNumber) +
+                  " BIGGER than number\n          " +
+                  _vm._s(_vm.middleNumber) +
+                  "?\n        "
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c("img", {
+            staticClass: "col-md-2",
+            staticStyle: { "line-height": "2" },
+            attrs: {
+              id: "character",
+              src: "/storage/Images/hello2.gif",
+              alt: ""
+            }
+          })
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "justify-content-center align-items-center row m-t-30" },
+        [
+          _c("img", {
+            staticClass: "col-md-1 m-5",
+            attrs: {
+              src: "/storage/Images/" + _vm.theWantedNumber + ".png",
+              alt: ""
+            }
+          }),
+          _vm._v(" "),
+          _c("img", {
+            staticClass: "col-md-1 m-5",
+            attrs: {
+              id: "sign",
+              src: "/storage/Images/bigger-than.png",
+              alt: ""
+            }
+          }),
+          _vm._v(" "),
+          _c("img", {
+            staticClass: "col-md-1 m-5",
+            attrs: {
+              src: "/storage/Images/" + _vm.middleNumber + ".png",
+              alt: ""
+            }
+          })
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "justify-content-center align-items-center row m-t-30" },
+        [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-success col-md-3",
+              staticStyle: {
+                "font-size": "30px",
+                padding: "5px 5px",
+                margin: "10px 20px"
+              },
+              on: {
+                click: function($event) {
+                  return _vm.check(true)
+                }
+              }
+            },
+            [
+              _c("i", { staticClass: "fa fa-check" }),
+              _vm._v("\n        Yes\n      ")
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-danger col-md-3",
+              staticStyle: {
+                "font-size": "30px",
+                padding: "5px 5px",
+                margin: "10px 20px"
+              },
+              on: {
+                click: function($event) {
+                  return _vm.check(false)
+                }
+              }
+            },
+            [
+              _c("i", { staticClass: "fa fa-times" }),
+              _vm._v("\n        No\n      ")
+            ]
+          )
+        ]
+      )
+    ]),
+    _vm._v(" "),
+    _c("audio", {
+      ref: "audioElm",
+      attrs: { src: "/storage/Images/happy.mp3" }
+    }),
+    _vm._v(" "),
+    _c("audio", {
+      attrs: { id: "correctElm", src: "/storage/Sound/correct.mp3" }
+    }),
+    _vm._v(" "),
+    _c("audio", {
+      attrs: { id: "WrongElm", src: "/storage/Sound/Wrong-answer.mp3" }
+    }),
+    _vm._v(" "),
+    _c("audio", {
+      attrs: { id: "applausElm", src: "/storage/Sound/congrats-applaus.mp3" }
+    }),
+    _vm._v(" "),
+    _c("audio", {
+      attrs: { id: "fireworkElm", src: "/storage/Sound/firework.mp3" }
+    })
   ])
 }
 var staticRenderFns = []
@@ -49682,7 +51357,7 @@ var render = function() {
             "div",
             {
               staticClass:
-                "col-md-8 d-flex justify-content-center align-items-center p-4 mt-3",
+                "col-md-12 d-flex justify-content-center align-items-center p-4 mt-3",
               staticStyle: { "background-color": "rgba(188, 239, 252, 0.829)" }
             },
             [
@@ -49718,21 +51393,6 @@ var render = function() {
                 ],
                 2
               )
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass:
-                "col-md-4 d-flex justify-content-center align-items-center",
-              staticStyle: { "text-align": "center" }
-            },
-            [
-              _c("img", {
-                staticStyle: { height: "130px" },
-                attrs: { src: "/storage/Images/good.jpg", alt: "" }
-              })
             ]
           )
         ])
@@ -50215,10 +51875,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Numbers/Sort/MergeSortComponent.vue?vue&type=template&id=a3d86850&":
-/*!**********************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Numbers/Sort/MergeSortComponent.vue?vue&type=template&id=a3d86850& ***!
-  \**********************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Numbers/Sort/MergeSortComponent.vue?vue&type=template&id=a3d86850&scoped=true&":
+/*!**********************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Numbers/Sort/MergeSortComponent.vue?vue&type=template&id=a3d86850&scoped=true& ***!
+  \**********************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -50236,40 +51896,31 @@ var render = function() {
         "div",
         {
           staticClass:
-            "col-md-2 d-flex justify-content-center align-items-center p-4"
+            "col-md-1 d-flex justify-content-center align-items-center",
+          style: [{ position: "fixed", top: "30%", "margin-left": "1%" }]
         },
         [
-          _c(
-            "div",
-            { staticStyle: { "text-align": "center", "line-height": "5" } },
-            [
-              _c("img", {
-                style: [{ position: "fixed", top: "30%", left: "15%" }],
-                attrs: {
-                  src: "/storage/Images/" + _vm.answer + ".gif",
-                  alt: ""
-                }
-              })
-            ]
-          )
+          _c("div", { staticStyle: { "text-align": "center" } }, [
+            _c("img", {
+              attrs: { src: "/storage/Images/" + _vm.answer + ".gif", alt: "" }
+            })
+          ])
         ]
       ),
       _vm._v(" "),
       _c(
         "div",
-        {
-          staticClass: "col-md-10 justify-content-center align-items-center p-4"
-        },
+        { staticClass: "col-md-11 justify-content-center align-items-center" },
         [
           _c(
             "h2",
             {
               staticClass:
-                "col-md-12 justify-content-center align-items-center p-4",
-              style: [{ "margin-left": "12%" }]
+                "col-md-12 justify-content-center align-items-center",
+              style: [{ margin: "0% 15% 3% 11%" }]
             },
             [
-              _vm._v("  Step One\n                    "),
+              _vm._v("\n          Step One\n          "),
               _c("i", {
                 class: _vm.steps < 2 ? _vm.voiceIcon : "",
                 staticStyle: { "font-size": "48px", color: "#FF8C00" },
@@ -50296,58 +51947,84 @@ var render = function() {
                 "div",
                 {
                   attrs: { id: "left-container", draggable: _vm.status },
-                  on: { dragstart: _vm.onDragging }
+                  on: {
+                    dragstart: function($event) {
+                      _vm.onDragging(_vm.numbersArray.slice(0, 4), $event)
+                    }
+                  }
                 },
-                _vm._l(_vm.numbersArray.slice(0, 4), function(i) {
-                  return _c(
+                [
+                  _c(
                     "div",
                     {
-                      key: i,
-                      staticClass:
-                        "col-md-1 d-flex justify-content-center align-items-center p-4",
-                      style: [{ "background-color": "lightgreen" }]
+                      staticClass: "col-md-5",
+                      class: { "animated bounce repeat-3": _vm.steps === 1 },
+                      staticStyle: {
+                        "background-color": "lightblue",
+                        "border-radius": "30%"
+                      }
                     },
-                    [
-                      _c(
+                    _vm._l(_vm.numbersArray.slice(0, 4), function(i) {
+                      return _c(
                         "div",
                         {
-                          staticStyle: { "font-size": "30px", margin: "0 40px" }
+                          key: i,
+                          staticClass:
+                            "col-md-1 d-flex justify-content-center align-items-center m-5"
                         },
-                        [_vm._v(_vm._s(i))]
+                        [
+                          _c("img", {
+                            staticStyle: { height: "50px" },
+                            attrs: { src: "/storage/Images/" + i + ".png" }
+                          })
+                        ]
                       )
-                    ]
+                    }),
+                    0
                   )
-                }),
-                0
+                ]
               ),
               _vm._v(" "),
               _c(
                 "div",
                 {
                   attrs: { id: "right-container", draggable: "true" },
-                  on: { dragstart: _vm.onDragging }
+                  on: {
+                    dragstart: function($event) {
+                      _vm.onDragging(_vm.numbersArray.slice(4, 8), $event)
+                    }
+                  }
                 },
-                _vm._l(_vm.numbersArray.slice(4, 8), function(i) {
-                  return _c(
+                [
+                  _c(
                     "div",
                     {
-                      key: i,
-                      staticClass:
-                        "col-md-1 d-flex justify-content-center align-items-center p-4",
-                      style: [{ "background-color": "lightblue" }]
+                      staticClass: "col-md-5 ml-4",
+                      class: { "animated bounce repeat-3": _vm.steps === 0 },
+                      staticStyle: {
+                        "background-color": "lightblue",
+                        "border-radius": "30%"
+                      }
                     },
-                    [
-                      _c(
+                    _vm._l(_vm.numbersArray.slice(4, 8), function(i) {
+                      return _c(
                         "div",
                         {
-                          staticStyle: { "font-size": "30px", margin: "0 40px" }
+                          key: i,
+                          staticClass:
+                            "col-md-1 d-flex justify-content-center align-items-center m-5"
                         },
-                        [_vm._v(_vm._s(i))]
+                        [
+                          _c("img", {
+                            staticStyle: { height: "50px" },
+                            attrs: { src: "/storage/Images/" + i + ".png" }
+                          })
+                        ]
                       )
-                    ]
+                    }),
+                    0
                   )
-                }),
-                0
+                ]
               ),
               _vm._v(" "),
               _c("div", [
@@ -50356,14 +52033,14 @@ var render = function() {
                     _vm.steps === 0
                       ? {
                           width: "25%",
-                          height: "150px",
+                          height: "90px",
                           float: "right",
                           "margin-right": "20%"
                         }
                       : _vm.steps === 1
                       ? {
                           width: "25%",
-                          height: "150px",
+                          height: "90px",
                           float: "left",
                           "margin-right": "20%",
                           transform: "scaleX(-1)"
@@ -50378,17 +52055,17 @@ var render = function() {
           _vm._v(" "),
           _c(
             "div",
-            { staticClass: "col-md-12", staticStyle: { "margin-left": "20%" } },
+            { staticClass: "col-md-12", staticStyle: { "margin-left": "25%" } },
             [
               _c("div", {
-                staticClass:
-                  "col-md-5 d-flex justify-content-center align-items-center p-4",
+                staticClass: "col-md-5 mt-2",
                 style: [
                   {
-                    margin: "5px",
-                    border: "1px solid gray",
-                    width: "50%",
-                    height: "74px",
+                    "border-radius": "30%",
+                    margin: "10px 5px",
+                    border: "2px solid yellow",
+                    width: "51%",
+                    height: "100px",
                     "background-color": "lightgreen"
                   }
                 ],
@@ -50397,15 +52074,15 @@ var render = function() {
               }),
               _vm._v(" "),
               _c("div", {
-                staticClass:
-                  "col-md-5 d-flex justify-content-center align-items-center p-4",
+                staticClass: "col-md-5 mt-2",
                 style: [
                   {
-                    margin: "5px",
-                    border: "1px solid gray",
-                    width: "50%",
-                    height: "74px",
-                    "background-color": "lightblue"
+                    "border-radius": "30%",
+                    margin: "10px 5px",
+                    border: "2px solid orange",
+                    width: "51%",
+                    height: "100px",
+                    "background-color": "lightpink"
                   }
                 ],
                 attrs: { id: "right-draggable" },
@@ -50420,14 +52097,14 @@ var render = function() {
                   style: [
                     _vm.steps < 2
                       ? { opacity: "0" }
-                      : { margin: "10% 0 3% -10%" }
+                      : { margin: "3% 0% 1% -7%" }
                   ]
                 },
                 [
-                  _vm._v(" Step Two \n                "),
+                  _vm._v("\n            Step Two\n            "),
                   _c("i", {
                     class: _vm.steps < 6 ? _vm.voiceIcon : "",
-                    staticStyle: { "font-size": "48px", color: "#FF8C00" },
+                    staticStyle: { "font-size": "30px", color: "#FF8C00" },
                     on: {
                       click: function($event) {
                         return _vm.voice(
@@ -50443,34 +52120,40 @@ var render = function() {
                 ]
               ),
               _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "col-md-5 d-flex justify-content-center align-items-center p-4",
-                  style: [
-                    _vm.steps < 2
-                      ? { display: "none" }
-                      : { margin: "5px", width: "50%", height: "74px" }
-                  ]
-                },
-                [
-                  _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-md-12" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "col-md-6 d-flex justify-content-center align-items-center",
+                    style: [
+                      _vm.steps < 2
+                        ? { display: "none" }
+                        : { width: "45%", height: "100px" }
+                    ]
+                  },
+                  [
                     _c(
                       "div",
                       {
-                        staticClass: "col-md-5",
+                        staticClass: "col-md-5 mr-2",
+                        class: { "animated bounce repeat-3": _vm.steps == 5 },
                         style: [
                           _vm.steps < 2
                             ? { display: "none" }
                             : {
-                                border: "1px solid gray",
+                                "border-radius": "30%",
+                                border: "2px solid orange",
                                 "background-color": "lightgreen",
-                                margin: "15px 0"
+                                margin: "5px 0"
                               }
                         ],
                         attrs: { id: "4left-2", draggable: "true" },
-                        on: { dragstart: _vm.onDragging }
+                        on: {
+                          dragstart: function($event) {
+                            _vm.onDragging(_vm.numbersArray.slice(0, 2), $event)
+                          }
+                        }
                       },
                       _vm._l(_vm.numbersArray.slice(0, 2), function(i) {
                         return _c(
@@ -50478,19 +52161,14 @@ var render = function() {
                           {
                             key: i,
                             staticClass:
-                              "xyz col-md-5 d-flex justify-content-center align-items-center p-4"
+                              "ml-2 xyz col-md-5 d-flex justify-content-center align-items-center p-4"
                           },
                           [
-                            _c(
-                              "div",
-                              {
-                                staticStyle: {
-                                  "font-size": "30px",
-                                  margin: "0 40px"
-                                }
-                              },
-                              [_vm._v(_vm._s(i))]
-                            )
+                            _c("img", {
+                              staticClass: "pl-1",
+                              staticStyle: { height: "50px" },
+                              attrs: { src: "/storage/Images/" + i + ".png" }
+                            })
                           ]
                         )
                       }),
@@ -50500,18 +52178,24 @@ var render = function() {
                     _c(
                       "div",
                       {
-                        staticClass: "col-md-5",
+                        staticClass: "col-md-5 mr-2",
+                        class: { "animated bounce repeat-3": _vm.steps == 4 },
                         style: [
                           _vm.steps < 2
                             ? { display: "none" }
                             : {
-                                border: "1px solid gray",
+                                "border-radius": "30%",
+                                border: "2px solid orange",
                                 "background-color": "lightgreen",
-                                margin: "15px 0 15px 0"
+                                margin: "5px 0 "
                               }
                         ],
                         attrs: { id: "4left-1", draggable: "true" },
-                        on: { dragstart: _vm.onDragging }
+                        on: {
+                          dragstart: function($event) {
+                            _vm.onDragging(_vm.numbersArray.slice(2, 4), $event)
+                          }
+                        }
                       },
                       _vm._l(_vm.numbersArray.slice(2, 4), function(i) {
                         return _c(
@@ -50519,56 +52203,54 @@ var render = function() {
                           {
                             key: i,
                             staticClass:
-                              "xyz col-md-5 d-flex justify-content-center align-items-center p-4"
+                              "ml-2 xyz col-md-5 d-flex justify-content-center align-items-center p-4"
                           },
                           [
-                            _c(
-                              "div",
-                              {
-                                staticStyle: {
-                                  "font-size": "30px",
-                                  margin: "0 40px"
-                                }
-                              },
-                              [_vm._v(_vm._s(i))]
-                            )
+                            _c("img", {
+                              staticClass: "pl-1",
+                              staticStyle: { height: "50px" },
+                              attrs: { src: "/storage/Images/" + i + ".png" }
+                            })
                           ]
                         )
                       }),
                       0
                     )
-                  ])
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "col-md-5 d-flex justify-content-center align-items-center p-4",
-                  style: [
-                    _vm.steps < 2
-                      ? { display: "none" }
-                      : { margin: "5px", width: "50%", height: "74px" }
                   ]
-                },
-                [
-                  _c("div", { staticClass: "row" }, [
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "col-md-6 mr-5",
+                    style: [
+                      _vm.steps < 2
+                        ? { display: "none" }
+                        : { width: "45%", height: "100px" }
+                    ]
+                  },
+                  [
                     _c(
                       "div",
                       {
-                        staticClass: "col-md-5",
+                        staticClass: "col-md-5 mr-2",
+                        class: { "animated bounce repeat-3": _vm.steps == 3 },
                         style: [
                           _vm.steps < 2
                             ? { display: "none" }
                             : {
-                                border: "1px solid gray",
-                                "background-color": "lightblue",
-                                margin: "15px 0"
+                                "border-radius": "30%",
+                                border: "2px solid orange",
+                                "background-color": "lightpink",
+                                margin: "5px 0"
                               }
                         ],
                         attrs: { id: "4right-1", draggable: "true" },
-                        on: { dragstart: _vm.onDragging }
+                        on: {
+                          dragstart: function($event) {
+                            _vm.onDragging(_vm.numbersArray.slice(4, 6), $event)
+                          }
+                        }
                       },
                       _vm._l(_vm.numbersArray.slice(4, 6), function(i) {
                         return _c(
@@ -50576,19 +52258,14 @@ var render = function() {
                           {
                             key: i,
                             staticClass:
-                              "xyz col-md-5 d-flex justify-content-center align-items-center p-4"
+                              "col-md-5 d-flex justify-content-center align-items-center p-4 xyz ml-2"
                           },
                           [
-                            _c(
-                              "div",
-                              {
-                                staticStyle: {
-                                  "font-size": "30px",
-                                  margin: "0 40px"
-                                }
-                              },
-                              [_vm._v(_vm._s(i))]
-                            )
+                            _c("img", {
+                              staticClass: "pl-1",
+                              staticStyle: { height: "50px" },
+                              attrs: { src: "/storage/Images/" + i + ".png" }
+                            })
                           ]
                         )
                       }),
@@ -50598,18 +52275,24 @@ var render = function() {
                     _c(
                       "div",
                       {
-                        staticClass: "col-md-5",
+                        staticClass: "col-md-5 mr-2",
+                        class: { "animated bounce repeat-3": _vm.steps == 2 },
                         style: [
                           _vm.steps < 2
                             ? { display: "none" }
                             : {
-                                border: "1px solid gray",
-                                "background-color": "lightblue",
-                                margin: "15px 0"
+                                "border-radius": "30%",
+                                border: "2px solid orange",
+                                "background-color": "lightpink",
+                                margin: "5px 0 "
                               }
                         ],
                         attrs: { id: "4right-2", draggable: "true" },
-                        on: { dragstart: _vm.onDragging }
+                        on: {
+                          dragstart: function($event) {
+                            _vm.onDragging(_vm.numbersArray.slice(6, 8), $event)
+                          }
+                        }
                       },
                       _vm._l(_vm.numbersArray.slice(6, 8), function(i) {
                         return _c(
@@ -50617,27 +52300,22 @@ var render = function() {
                           {
                             key: i,
                             staticClass:
-                              "xyz col-md-5 d-flex justify-content-center align-items-center p-4"
+                              "ml-2 xyz col-md-5 d-flex justify-content-center align-items-center p-4"
                           },
                           [
-                            _c(
-                              "div",
-                              {
-                                staticStyle: {
-                                  "font-size": "30px",
-                                  margin: "0 40px"
-                                }
-                              },
-                              [_vm._v(_vm._s(i))]
-                            )
+                            _c("img", {
+                              staticClass: "pl-1",
+                              staticStyle: { height: "50px" },
+                              attrs: { src: "/storage/Images/" + i + ".png" }
+                            })
                           ]
                         )
                       }),
                       0
                     )
-                  ])
-                ]
-              ),
+                  ]
+                )
+              ]),
               _vm._v(" "),
               _c("div", [
                 _c("img", {
@@ -50645,29 +52323,29 @@ var render = function() {
                     _vm.steps === 2
                       ? {
                           width: "25%",
-                          height: "150px",
-                          "margin-right": "8%",
+                          height: "90px",
+                          "margin-right": "15%",
                           float: "right"
                         }
                       : _vm.steps === 3
                       ? {
                           width: "25%",
-                          height: "150px",
-                          "margin-right": "38%",
+                          height: "90px",
+                          "margin-right": "25%",
                           float: "right",
                           transform: "scaleX(-1)"
                         }
                       : _vm.steps === 4
                       ? {
                           width: "25%",
-                          height: "150px",
-                          "margin-left": "22%",
+                          height: "90px",
+                          "margin-left": "8%",
                           float: "left"
                         }
                       : _vm.steps === 5
                       ? {
                           width: "25%",
-                          height: "150px",
+                          height: "90px",
                           "margin-left": "-4%",
                           float: "left",
                           transform: "scaleX(-1)"
@@ -50678,93 +52356,95 @@ var render = function() {
                 })
               ]),
               _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "col-md-12 d-flex justify-content-center align-items-center p-4",
-                  staticStyle: { "margin-left": "-5%" }
-                },
-                [
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "col-md-6 d-flex justify-content-center align-items-center p-4"
-                    },
-                    [
-                      _c("div", {
-                        staticClass: " col-md-6",
-                        style: [
-                          _vm.steps < 2
-                            ? { display: "none" }
-                            : {
-                                width: "100%",
-                                height: "74px",
-                                "background-color": "#FAEBD7"
-                              }
-                        ],
-                        attrs: { id: "4left-step1" },
-                        on: { drop: _vm.drop, dragover: _vm.allowDrop }
-                      }),
-                      _vm._v(" "),
-                      _c("div", {
-                        staticClass: " col-md-6",
-                        style: [
-                          _vm.steps < 2
-                            ? { display: "none" }
-                            : {
-                                width: "100%",
-                                height: "74px",
-                                "background-color": "#F5F5DC"
-                              }
-                        ],
-                        attrs: { id: "4left-step2" },
-                        on: { drop: _vm.drop, dragover: _vm.allowDrop }
-                      })
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "col-md-6 d-flex justify-content-center align-items-center p-4"
-                    },
-                    [
-                      _c("div", {
-                        staticClass: " col-md-6",
-                        style: [
-                          _vm.steps < 2
-                            ? { display: "none" }
-                            : {
-                                width: "100%",
-                                height: "74px",
-                                "background-color": "#FAEBD7"
-                              }
-                        ],
-                        attrs: { id: "4right-step3" },
-                        on: { drop: _vm.drop, dragover: _vm.allowDrop }
-                      }),
-                      _vm._v(" "),
-                      _c("div", {
-                        staticClass: " col-md-6",
-                        style: [
-                          _vm.steps < 2
-                            ? { display: "none" }
-                            : {
-                                width: "100%",
-                                height: "74px",
-                                "background-color": "#F5F5DC"
-                              }
-                        ],
-                        attrs: { id: "4right-step4" },
-                        on: { drop: _vm.drop, dragover: _vm.allowDrop }
-                      })
-                    ]
-                  )
-                ]
-              ),
+              _c("div", { staticClass: "col-md-12 ml-3" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "col-md-5 d-flex justify-content-center align-items-center",
+                    staticStyle: {}
+                  },
+                  [
+                    _c("div", {
+                      staticClass: "col-md-5 mr-2 pt-2",
+                      style: [
+                        _vm.steps < 2
+                          ? { display: "none" }
+                          : {
+                              width: "50%",
+                              height: "80px",
+                              "border-radius": "30%",
+                              border: "2px solid orange",
+                              "background-color": " lightblue"
+                            }
+                      ],
+                      attrs: { id: "4left-step1" },
+                      on: { drop: _vm.drop, dragover: _vm.allowDrop }
+                    }),
+                    _vm._v(" "),
+                    _c("div", {
+                      staticClass: "col-md-5 ml-2 pt-2",
+                      style: [
+                        _vm.steps < 2
+                          ? { display: "none" }
+                          : {
+                              width: "50%",
+                              height: "80px",
+                              "border-radius": "30%",
+                              border: "2px solid orange",
+                              "background-color": "rgb(255, 218, 224)"
+                            }
+                      ],
+                      attrs: { id: "4left-step2" },
+                      on: { drop: _vm.drop, dragover: _vm.allowDrop }
+                    })
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "col-md-5 d-flex justify-content-center align-items-center ml-2",
+                    staticStyle: {}
+                  },
+                  [
+                    _c("div", {
+                      staticClass: "col-md-5 mr-2 pt-2",
+                      style: [
+                        _vm.steps < 2
+                          ? { display: "none" }
+                          : {
+                              width: "50%",
+                              height: "80px",
+                              "border-radius": "30%",
+                              border: "2px solid orange",
+                              "background-color": "#FAEBD7"
+                            }
+                      ],
+                      attrs: { id: "4right-step3" },
+                      on: { drop: _vm.drop, dragover: _vm.allowDrop }
+                    }),
+                    _vm._v(" "),
+                    _c("div", {
+                      staticClass: "col-md-5 ml-2 pt-2",
+                      style: [
+                        _vm.steps < 2
+                          ? { display: "none" }
+                          : {
+                              width: "50%",
+                              height: "80px",
+                              "border-radius": "30%",
+                              border: "2px solid orange",
+                              "background-color": " rgb(216, 255, 157)"
+                            }
+                      ],
+                      attrs: { id: "4right-step4" },
+                      on: { drop: _vm.drop, dragover: _vm.allowDrop }
+                    })
+                  ]
+                )
+              ]),
               _vm._v(" "),
               _c(
                 "h2",
@@ -50772,16 +52452,14 @@ var render = function() {
                   staticClass:
                     "col-md-12 justify-content-center align-items-center",
                   style: [
-                    _vm.steps < 6
-                      ? { opacity: "0" }
-                      : { margin: "10% 0 3% -7%" }
+                    _vm.steps < 6 ? { opacity: "0" } : { margin: "2% 0 3% -7%" }
                   ]
                 },
                 [
-                  _vm._v(" Step Three \n                "),
+                  _vm._v("\n            Step Three\n            "),
                   _c("i", {
                     class: _vm.steps < 14 ? _vm.voiceIcon : "",
-                    staticStyle: { "font-size": "48px", color: "#FF8C00" },
+                    staticStyle: { "font-size": "30px", color: "#FF8C00" },
                     on: {
                       click: function($event) {
                         return _vm.voice(
@@ -50799,27 +52477,27 @@ var render = function() {
                 ]
               ),
               _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "col-md-6 d-flex justify-content-center align-items-center p-4",
-                  style: [
-                    _vm.steps < 6
-                      ? { display: "none" }
-                      : { width: "50%", height: "74px" }
-                  ]
-                },
-                [
-                  _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-md-11 mb-5" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "col-md-6 d-flex justify-content-center align-items-center",
+                    style: [
+                      _vm.steps < 6
+                        ? { display: "none" }
+                        : { width: "50%", height: "100px" }
+                    ]
+                  },
+                  [
                     _c(
                       "div",
                       {
-                        staticClass: "col-md-5",
+                        staticClass: "col-md-6",
                         style: [
                           _vm.steps < 6
                             ? { display: "none" }
-                            : { margin: "15px 0" }
+                            : { margin: "10px 0px" }
                         ]
                       },
                       _vm._l(_vm.numbersArray.slice(0, 2), function(i) {
@@ -50828,29 +52506,32 @@ var render = function() {
                           {
                             key: i,
                             staticClass:
-                              "col-md-4 d-flex justify-content-center align-items-center p-4",
+                              "col-md-1 d-flex justify-content-center align-items-center p-5 m-1",
+                            class: {
+                              "animated bounce repeat-3":
+                                _vm.steps == 12 || _vm.steps == 13
+                            },
                             style: [
                               _vm.steps < 6
                                 ? { display: "none" }
                                 : {
-                                    "background-color": "#FAEBD7",
-                                    margin: "0 5%"
+                                    "border-radius": "30%",
+                                    border: "2px solid orange",
+                                    "background-color": "lightpink"
                                   }
                             ],
                             attrs: { id: i + "-element", draggable: "true" },
-                            on: { dragstart: _vm.onDragging }
+                            on: {
+                              dragstart: function($event) {
+                                _vm.onDragging(i, $event)
+                              }
+                            }
                           },
                           [
-                            _c(
-                              "div",
-                              {
-                                staticStyle: {
-                                  "font-size": "30px",
-                                  margin: "0 40px"
-                                }
-                              },
-                              [_vm._v(_vm._s(i))]
-                            )
+                            _c("img", {
+                              staticStyle: { height: "50px" },
+                              attrs: { src: "/storage/Images/" + i + ".png" }
+                            })
                           ]
                         )
                       }),
@@ -50860,7 +52541,7 @@ var render = function() {
                     _c(
                       "div",
                       {
-                        staticClass: "col-md-5",
+                        staticClass: "col-md-6",
                         style: [
                           _vm.steps < 6
                             ? { display: "none" }
@@ -50873,59 +52554,60 @@ var render = function() {
                           {
                             key: i,
                             staticClass:
-                              "col-md-4 d-flex justify-content-center align-items-center p-4",
+                              "col-md-1 d-flex justify-content-center align-items-center p-5 m-1",
+                            class: {
+                              "animated bounce repeat-3":
+                                _vm.steps == 10 || _vm.steps == 11
+                            },
                             style: [
                               _vm.steps < 6
                                 ? { display: "none" }
                                 : {
-                                    "background-color": "#FAEBD7",
-                                    margin: "0 5%"
+                                    "border-radius": "30%",
+                                    border: "2px solid orange",
+                                    "background-color": "lightpink"
                                   }
                             ],
                             attrs: { id: i + "-element", draggable: "true" },
-                            on: { dragstart: _vm.onDragging }
+                            on: {
+                              dragstart: function($event) {
+                                _vm.onDragging(i, $event)
+                              }
+                            }
                           },
                           [
-                            _c(
-                              "div",
-                              {
-                                staticStyle: {
-                                  "font-size": "30px",
-                                  margin: "0 40px"
-                                }
-                              },
-                              [_vm._v(_vm._s(i))]
-                            )
+                            _c("img", {
+                              staticStyle: { height: "50px" },
+                              attrs: { src: "/storage/Images/" + i + ".png" }
+                            })
                           ]
                         )
                       }),
                       0
                     )
-                  ])
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "col-md-6 d-flex justify-content-center align-items-center p-4",
-                  style: [
-                    _vm.steps < 6
-                      ? { display: "none" }
-                      : { width: "50%", height: "74px" }
                   ]
-                },
-                [
-                  _c("div", { staticClass: "row" }, [
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "col-md-6 d-flex justify-content-center align-items-center",
+                    style: [
+                      _vm.steps < 6
+                        ? { display: "none" }
+                        : { width: "50%", height: "100px" }
+                    ]
+                  },
+                  [
                     _c(
                       "div",
                       {
-                        staticClass: "col-md-5",
+                        staticClass: "col-md-6",
                         style: [
                           _vm.steps < 6
                             ? { display: "none" }
-                            : { margin: "15px 0" }
+                            : { margin: "15px 0px" }
                         ]
                       },
                       _vm._l(_vm.numbersArray.slice(4, 6), function(i) {
@@ -50934,29 +52616,32 @@ var render = function() {
                           {
                             key: i,
                             staticClass:
-                              "col-md-4 d-flex justify-content-center align-items-center p-4",
+                              "col-md-1 d-flex justify-content-center align-items-center p-5 m-1",
+                            class: {
+                              "animated bounce repeat-3":
+                                _vm.steps == 8 || _vm.steps == 9
+                            },
                             style: [
                               _vm.steps < 6
                                 ? { display: "none" }
                                 : {
-                                    "background-color": "#F5F5DC",
-                                    margin: "0 5%"
+                                    "border-radius": "30%",
+                                    border: "2px solid orange",
+                                    "background-color": "lightpink"
                                   }
                             ],
                             attrs: { id: i + "-element", draggable: "true" },
-                            on: { dragstart: _vm.onDragging }
+                            on: {
+                              dragstart: function($event) {
+                                _vm.onDragging(i, $event)
+                              }
+                            }
                           },
                           [
-                            _c(
-                              "div",
-                              {
-                                staticStyle: {
-                                  "font-size": "30px",
-                                  margin: "0 40px"
-                                }
-                              },
-                              [_vm._v(_vm._s(i))]
-                            )
+                            _c("img", {
+                              staticStyle: { height: "50px" },
+                              attrs: { src: "/storage/Images/" + i + ".png" }
+                            })
                           ]
                         )
                       }),
@@ -50966,7 +52651,7 @@ var render = function() {
                     _c(
                       "div",
                       {
-                        staticClass: "col-md-5",
+                        staticClass: "col-md-6",
                         style: [
                           _vm.steps < 6
                             ? { display: "none" }
@@ -50979,241 +52664,248 @@ var render = function() {
                           {
                             key: i,
                             staticClass:
-                              "col-md-4 d-flex justify-content-center align-items-center p-4",
+                              "col-md-1 d-flex justify-content-center align-items-center p-5 m-1",
+                            class: {
+                              "animated bounce repeat-3":
+                                _vm.steps == 6 || _vm.steps == 7
+                            },
                             style: [
                               _vm.steps < 6
                                 ? { display: "none" }
                                 : {
-                                    "background-color": "#F5F5DC",
-                                    margin: "0 5%"
+                                    "border-radius": "30%",
+                                    border: "2px solid orange",
+                                    "background-color": "lightpink"
                                   }
                             ],
                             attrs: { id: i + "-element", draggable: "true" },
-                            on: { dragstart: _vm.onDragging }
+                            on: {
+                              dragstart: function($event) {
+                                _vm.onDragging(i, $event)
+                              }
+                            }
                           },
                           [
-                            _c(
-                              "div",
-                              {
-                                staticStyle: {
-                                  "font-size": "30px",
-                                  margin: "0 40px"
-                                }
-                              },
-                              [_vm._v(_vm._s(i))]
-                            )
+                            _c("img", {
+                              staticStyle: { height: "50px" },
+                              attrs: { src: "/storage/Images/" + i + ".png" }
+                            })
                           ]
                         )
                       }),
                       0
                     )
-                  ])
-                ]
-              ),
+                  ]
+                )
+              ]),
               _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "col-md-12 d-flex justify-content-center align-items-center p-4",
-                  staticStyle: { "margin-left": "-5%" }
-                },
-                [
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "col-md-3 d-flex justify-content-center align-items-center p-4"
-                    },
-                    [
-                      _c("div", {
-                        staticClass: " col-md-6",
-                        style: [
-                          _vm.steps < 6
-                            ? { display: "none" }
-                            : {
-                                width: "100%",
-                                height: "74px",
-                                "border-right": "2px solid white",
-                                "background-color": "#FAEBD7"
-                              }
-                        ],
-                        attrs: {
-                          id:
-                            Math.min.apply(Math, _vm.numbersArray.slice(0, 2)) +
-                            "-sort"
-                        },
-                        on: { drop: _vm.drop, dragover: _vm.allowDrop }
-                      }),
-                      _vm._v(" "),
-                      _c("div", {
-                        staticClass: " col-md-6",
-                        style: [
-                          _vm.steps < 6
-                            ? { display: "none" }
-                            : {
-                                width: "100%",
-                                height: "74px",
-                                "border-right": "2px solid white",
-                                "background-color": "#FAEBD7"
-                              }
-                        ],
-                        attrs: {
-                          id:
-                            Math.max.apply(Math, _vm.numbersArray.slice(0, 2)) +
-                            "-sort"
-                        },
-                        on: { drop: _vm.drop, dragover: _vm.allowDrop }
-                      })
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "col-md-3 d-flex justify-content-center align-items-center p-4"
-                    },
-                    [
-                      _c("div", {
-                        staticClass: " col-md-6",
-                        style: [
-                          _vm.steps < 6
-                            ? { display: "none" }
-                            : {
-                                width: "100%",
-                                height: "74px",
-                                "border-right": "2px solid white",
-                                "background-color": "#FAEBD7"
-                              }
-                        ],
-                        attrs: {
-                          id:
-                            Math.min.apply(Math, _vm.numbersArray.slice(2, 4)) +
-                            "-sort"
-                        },
-                        on: { drop: _vm.drop, dragover: _vm.allowDrop }
-                      }),
-                      _vm._v(" "),
-                      _c("div", {
-                        staticClass: " col-md-6",
-                        style: [
-                          _vm.steps < 6
-                            ? { display: "none" }
-                            : {
-                                width: "100%",
-                                height: "74px",
-                                "background-color": "#FAEBD7"
-                              }
-                        ],
-                        attrs: {
-                          id:
-                            Math.max.apply(Math, _vm.numbersArray.slice(2, 4)) +
-                            "-sort"
-                        },
-                        on: { drop: _vm.drop, dragover: _vm.allowDrop }
-                      })
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "col-md-3 d-flex justify-content-center align-items-center p-4"
-                    },
-                    [
-                      _c("div", {
-                        staticClass: " col-md-6",
-                        style: [
-                          _vm.steps < 6
-                            ? { display: "none" }
-                            : {
-                                width: "100%",
-                                height: "74px",
-                                "border-right": "2px solid white",
-                                "background-color": "#F5F5DC"
-                              }
-                        ],
-                        attrs: {
-                          id:
-                            Math.min.apply(Math, _vm.numbersArray.slice(4, 6)) +
-                            "-sort"
-                        },
-                        on: { drop: _vm.drop, dragover: _vm.allowDrop }
-                      }),
-                      _vm._v(" "),
-                      _c("div", {
-                        staticClass: " col-md-6",
-                        style: [
-                          _vm.steps < 6
-                            ? { display: "none" }
-                            : {
-                                width: "100%",
-                                height: "74px",
-                                "border-right": "2px solid white",
-                                "background-color": "#F5F5DC"
-                              }
-                        ],
-                        attrs: {
-                          id:
-                            Math.max.apply(Math, _vm.numbersArray.slice(4, 6)) +
-                            "-sort"
-                        },
-                        on: { drop: _vm.drop, dragover: _vm.allowDrop }
-                      })
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "col-md-3 d-flex justify-content-center align-items-center p-4"
-                    },
-                    [
-                      _c("div", {
-                        staticClass: " col-md-6",
-                        style: [
-                          _vm.steps < 6
-                            ? { display: "none" }
-                            : {
-                                width: "100%",
-                                height: "74px",
-                                "border-right": "2px solid white",
-                                "background-color": "#F5F5DC"
-                              }
-                        ],
-                        attrs: {
-                          id:
-                            Math.min.apply(Math, _vm.numbersArray.slice(6, 8)) +
-                            "-sort"
-                        },
-                        on: { drop: _vm.drop, dragover: _vm.allowDrop }
-                      }),
-                      _vm._v(" "),
-                      _c("div", {
-                        staticClass: " col-md-6",
-                        style: [
-                          _vm.steps < 6
-                            ? { display: "none" }
-                            : {
-                                width: "100%",
-                                height: "74px",
-                                "background-color": "#F5F5DC"
-                              }
-                        ],
-                        attrs: {
-                          id:
-                            Math.max.apply(Math, _vm.numbersArray.slice(6, 8)) +
-                            "-sort"
-                        },
-                        on: { drop: _vm.drop, dragover: _vm.allowDrop }
-                      })
-                    ]
-                  )
-                ]
-              ),
+              _c("div", { staticClass: "col-md-11 mt-5 ml-5" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "col-md-2 d-flex justify-content-center align-items-center mr-5"
+                  },
+                  [
+                    _c("div", {
+                      staticClass: "col-md-6 m-1 p-4 pt-5",
+                      style: [
+                        _vm.steps < 6
+                          ? { display: "none" }
+                          : {
+                              width: "50%",
+                              height: "100px",
+                              "border-radius": "30%",
+                              border: "2px solid #F2BBAD",
+                              "background-color": " lightblue"
+                            }
+                      ],
+                      attrs: {
+                        id:
+                          Math.min.apply(Math, _vm.numbersArray.slice(0, 2)) +
+                          "-sort"
+                      },
+                      on: { drop: _vm.drop, dragover: _vm.allowDrop }
+                    }),
+                    _vm._v(" "),
+                    _c("div", {
+                      staticClass: "col-md-6 p-4 pt-5",
+                      style: [
+                        _vm.steps < 6
+                          ? { display: "none" }
+                          : {
+                              width: "50%",
+                              height: "100px",
+                              "border-radius": "30%",
+                              border: "2px solid #F2BBAD",
+                              "background-color": " lightblue"
+                            }
+                      ],
+                      attrs: {
+                        id:
+                          Math.max.apply(Math, _vm.numbersArray.slice(0, 2)) +
+                          "-sort"
+                      },
+                      on: { drop: _vm.drop, dragover: _vm.allowDrop }
+                    })
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "col-md-2 d-flex justify-content-center align-items-center ml-5"
+                  },
+                  [
+                    _c("div", {
+                      staticClass: "col-md-6 m-1 p-4 pt-5",
+                      style: [
+                        _vm.steps < 6
+                          ? { display: "none" }
+                          : {
+                              width: "50%",
+                              height: "100px",
+                              "border-radius": "30%",
+                              border: "2px solid #F2BBAD",
+                              "background-color": " lightblue"
+                            }
+                      ],
+                      attrs: {
+                        id:
+                          Math.min.apply(Math, _vm.numbersArray.slice(2, 4)) +
+                          "-sort"
+                      },
+                      on: { drop: _vm.drop, dragover: _vm.allowDrop }
+                    }),
+                    _vm._v(" "),
+                    _c("div", {
+                      staticClass: "col-md-6 pt-5",
+                      style: [
+                        _vm.steps < 6
+                          ? { display: "none" }
+                          : {
+                              width: "50%",
+                              height: "100px",
+                              "border-radius": "30%",
+                              border: "2px solid #F2BBAD",
+                              "background-color": " lightblue"
+                            }
+                      ],
+                      attrs: {
+                        id:
+                          Math.max.apply(Math, _vm.numbersArray.slice(2, 4)) +
+                          "-sort"
+                      },
+                      on: { drop: _vm.drop, dragover: _vm.allowDrop }
+                    })
+                  ]
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-1" }),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "col-md-2 d-flex justify-content-center align-items-center ml-3 mr-5"
+                  },
+                  [
+                    _c("div", {
+                      staticClass: "col-md-6 m-1 p-4 pt-5",
+                      style: [
+                        _vm.steps < 6
+                          ? { display: "none" }
+                          : {
+                              width: "50%",
+                              height: "100px",
+                              "border-radius": "30%",
+                              border: "2px solid #F2BBAD",
+                              "background-color": " lightblue"
+                            }
+                      ],
+                      attrs: {
+                        id:
+                          Math.min.apply(Math, _vm.numbersArray.slice(4, 6)) +
+                          "-sort"
+                      },
+                      on: { drop: _vm.drop, dragover: _vm.allowDrop }
+                    }),
+                    _vm._v(" "),
+                    _c("div", {
+                      staticClass: "col-md-6 p-4 pt-5",
+                      style: [
+                        _vm.steps < 6
+                          ? { display: "none" }
+                          : {
+                              width: "50%",
+                              height: "100px",
+                              "border-radius": "30%",
+                              border: "2px solid #F2BBAD",
+                              "background-color": " lightblue"
+                            }
+                      ],
+                      attrs: {
+                        id:
+                          Math.max.apply(Math, _vm.numbersArray.slice(4, 6)) +
+                          "-sort"
+                      },
+                      on: { drop: _vm.drop, dragover: _vm.allowDrop }
+                    })
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "col-md-2 d-flex justify-content-center align-items-center ml-5"
+                  },
+                  [
+                    _c("div", {
+                      staticClass: "col-md-6 m-1 p-4 pt-5",
+                      style: [
+                        _vm.steps < 6
+                          ? { display: "none" }
+                          : {
+                              width: "50%",
+                              height: "100px",
+                              "border-radius": "30%",
+                              border: "2px solid #F2BBAD",
+                              "background-color": "lightblue"
+                            }
+                      ],
+                      attrs: {
+                        id:
+                          Math.min.apply(Math, _vm.numbersArray.slice(6, 8)) +
+                          "-sort"
+                      },
+                      on: { drop: _vm.drop, dragover: _vm.allowDrop }
+                    }),
+                    _vm._v(" "),
+                    _c("div", {
+                      staticClass: "col-md-6 p-4 pt-5",
+                      style: [
+                        _vm.steps < 6
+                          ? { display: "none" }
+                          : {
+                              width: "50%",
+                              height: "100px",
+                              "border-radius": "30%",
+                              border: "2px solid #F2BBAD",
+                              "background-color": "lightblue"
+                            }
+                      ],
+                      attrs: {
+                        id:
+                          Math.max.apply(Math, _vm.numbersArray.slice(6, 8)) +
+                          "-sort"
+                      },
+                      on: { drop: _vm.drop, dragover: _vm.allowDrop }
+                    })
+                  ]
+                )
+              ]),
               _vm._v(" "),
               _c(
                 "h2",
@@ -51223,14 +52915,14 @@ var render = function() {
                   style: [
                     _vm.steps < 14
                       ? { opacity: "0" }
-                      : { margin: "10% 0 3% -7%" }
+                      : { margin: "2% 0 3% -7%" }
                   ]
                 },
                 [
-                  _vm._v(" Step Four \n                "),
+                  _vm._v("\n            Step Four\n            "),
                   _c("i", {
                     class: _vm.steps < 18 ? _vm.voiceIcon : "",
-                    staticStyle: { "font-size": "48px", color: "#FF8C00" },
+                    staticStyle: { "font-size": "30px", color: "#FF8C00" },
                     on: {
                       click: function($event) {
                         return _vm.voice(
@@ -51248,674 +52940,716 @@ var render = function() {
                 ]
               ),
               _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "col-md-3 d-flex justify-content-center align-items-center p-4"
-                },
-                [
-                  _c(
-                    "div",
-                    {
-                      staticClass: " col-md-6",
-                      style: [
-                        _vm.steps < 14
-                          ? { display: "none" }
-                          : {
-                              width: "100%",
-                              height: "74px",
-                              "border-right": "2px solid white",
-                              "background-color": "#FAEBD7"
-                            }
-                      ]
-                    },
-                    [
-                      _c(
-                        "div",
-                        {
-                          key: Math.min.apply(
-                            Math,
-                            _vm.numbersArray.slice(0, 2)
-                          ),
-                          staticClass:
-                            "d-flex justify-content-center align-items-center p-4",
-                          attrs: {
-                            id:
-                              Math.min.apply(
-                                Math,
-                                _vm.numbersArray.slice(0, 2)
-                              ) + "-step4",
-                            draggable: "true"
-                          },
-                          on: { dragstart: _vm.onDragging }
-                        },
-                        [
-                          _c(
-                            "div",
-                            {
-                              staticStyle: {
-                                "font-size": "30px",
-                                margin: "0 40px"
+              _c("div", { staticClass: "col-md-11 mt-5 mr-5 pr-5" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "col-md-3 d-flex justify-content-center align-items-center"
+                  },
+                  [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "col-md-5 m-1",
+                        class: { "animated bounce repeat-3": _vm.steps == 21 },
+                        style: [
+                          _vm.steps < 14
+                            ? { display: "none" }
+                            : {
+                                height: "100px",
+                                "border-radius": "30%",
+                                border: "2px solid #FFD5AA",
+                                "background-color": "#F0B9D6"
                               }
+                        ]
+                      },
+                      [
+                        _c(
+                          "div",
+                          {
+                            key: Math.min.apply(
+                              Math,
+                              _vm.numbersArray.slice(0, 2)
+                            ),
+                            staticClass:
+                              "col-md-4 d-flex justify-content-center align-items-center py-4 m-3",
+                            attrs: {
+                              id:
+                                Math.min.apply(
+                                  Math,
+                                  _vm.numbersArray.slice(0, 2)
+                                ) + "-step4",
+                              draggable: "true"
                             },
-                            [
-                              _vm._v(
-                                _vm._s(
+                            on: {
+                              dragstart: function($event) {
+                                _vm.onDragging(
                                   Math.min.apply(
                                     Math,
                                     _vm.numbersArray.slice(0, 2)
-                                  )
+                                  ),
+                                  $event
                                 )
-                              )
-                            ]
-                          )
-                        ]
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass: " col-md-6",
-                      style: [
-                        _vm.steps < 14
-                          ? { display: "none" }
-                          : {
-                              width: "100%",
-                              height: "74px",
-                              "border-right": "2px solid white",
-                              "background-color": "#FAEBD7"
-                            }
-                      ]
-                    },
-                    [
-                      _c(
-                        "div",
-                        {
-                          key: Math.max.apply(
-                            Math,
-                            _vm.numbersArray.slice(0, 2)
-                          ),
-                          staticClass:
-                            "d-flex justify-content-center align-items-center p-4",
-                          attrs: {
-                            id:
-                              Math.max.apply(
-                                Math,
-                                _vm.numbersArray.slice(0, 2)
-                              ) + "-step4",
-                            draggable: "true"
-                          },
-                          on: { dragstart: _vm.onDragging }
-                        },
-                        [
-                          _c(
-                            "div",
-                            {
-                              staticStyle: {
-                                "font-size": "30px",
-                                margin: "0 40px"
                               }
+                            }
+                          },
+                          [
+                            _c("img", {
+                              staticStyle: { height: "50px" },
+                              attrs: {
+                                src:
+                                  "/storage/Images/" +
+                                  Math.min.apply(
+                                    Math,
+                                    _vm.numbersArray.slice(0, 2)
+                                  ) +
+                                  ".png"
+                              }
+                            })
+                          ]
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "col-md-5 m-1",
+                        class: { "animated bounce repeat-3": _vm.steps == 20 },
+                        style: [
+                          _vm.steps < 14
+                            ? { display: "none" }
+                            : {
+                                height: "100px",
+                                "border-radius": "30%",
+                                border: "3px solid #FFD5AA",
+                                "background-color": "#F0B9D6"
+                              }
+                        ]
+                      },
+                      [
+                        _c(
+                          "div",
+                          {
+                            key: Math.max.apply(
+                              Math,
+                              _vm.numbersArray.slice(0, 2)
+                            ),
+                            staticClass:
+                              "col-md-4 d-flex justify-content-center align-items-center py-4 m-3",
+                            attrs: {
+                              id:
+                                Math.max.apply(
+                                  Math,
+                                  _vm.numbersArray.slice(0, 2)
+                                ) + "-step4",
+                              draggable: "true"
                             },
-                            [
-                              _vm._v(
-                                _vm._s(
+                            on: {
+                              dragstart: function($event) {
+                                _vm.onDragging(
                                   Math.max.apply(
                                     Math,
                                     _vm.numbersArray.slice(0, 2)
-                                  )
+                                  ),
+                                  $event
                                 )
-                              )
-                            ]
-                          )
-                        ]
-                      )
-                    ]
-                  )
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "col-md-3 d-flex justify-content-center align-items-center p-4"
-                },
-                [
-                  _c(
-                    "div",
-                    {
-                      staticClass: " col-md-6",
-                      style: [
-                        _vm.steps < 14
-                          ? { display: "none" }
-                          : {
-                              width: "100%",
-                              height: "74px",
-                              "border-right": "2px solid white",
-                              "background-color": "#FAEBD7"
-                            }
-                      ]
-                    },
-                    [
-                      _c(
-                        "div",
-                        {
-                          key: Math.min.apply(
-                            Math,
-                            _vm.numbersArray.slice(2, 4)
-                          ),
-                          staticClass:
-                            "d-flex justify-content-center align-items-center p-4",
-                          attrs: {
-                            draggable: "true",
-                            id:
-                              Math.min.apply(
-                                Math,
-                                _vm.numbersArray.slice(2, 4)
-                              ) + "-step4"
-                          },
-                          on: { dragstart: _vm.onDragging }
-                        },
-                        [
-                          _c(
-                            "div",
-                            {
-                              staticStyle: {
-                                "font-size": "30px",
-                                margin: "0 40px"
                               }
+                            }
+                          },
+                          [
+                            _c("img", {
+                              staticStyle: { height: "50px" },
+                              attrs: {
+                                src:
+                                  "/storage/Images/" +
+                                  Math.max.apply(
+                                    Math,
+                                    _vm.numbersArray.slice(0, 2)
+                                  ) +
+                                  ".png"
+                              }
+                            })
+                          ]
+                        )
+                      ]
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "col-md-3 d-flex justify-content-center align-items-center"
+                  },
+                  [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "col-md-5 m-1",
+                        class: { "animated bounce repeat-3": _vm.steps == 19 },
+                        style: [
+                          _vm.steps < 14
+                            ? { display: "none" }
+                            : {
+                                height: "100px",
+                                "border-radius": "30%",
+                                border: "2px solid #FFD5AA",
+                                "background-color": "#F0B9D6"
+                              }
+                        ]
+                      },
+                      [
+                        _c(
+                          "div",
+                          {
+                            key: Math.min.apply(
+                              Math,
+                              _vm.numbersArray.slice(2, 4)
+                            ),
+                            staticClass:
+                              "col-md-4 d-flex justify-content-center align-items-center py-4 m-3",
+                            attrs: {
+                              id:
+                                Math.min.apply(
+                                  Math,
+                                  _vm.numbersArray.slice(2, 4)
+                                ) + "-step4",
+                              draggable: "true"
                             },
-                            [
-                              _vm._v(
-                                _vm._s(
+                            on: {
+                              dragstart: function($event) {
+                                _vm.onDragging(
                                   Math.min.apply(
                                     Math,
                                     _vm.numbersArray.slice(2, 4)
-                                  )
+                                  ),
+                                  $event
                                 )
-                              )
-                            ]
-                          )
-                        ]
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass: " col-md-6",
-                      style: [
-                        _vm.steps < 14
-                          ? { display: "none" }
-                          : {
-                              width: "100%",
-                              height: "74px",
-                              "background-color": "#FAEBD7"
-                            }
-                      ]
-                    },
-                    [
-                      _c(
-                        "div",
-                        {
-                          key: Math.max.apply(
-                            Math,
-                            _vm.numbersArray.slice(2, 4)
-                          ),
-                          staticClass:
-                            "d-flex justify-content-center align-items-center p-4",
-                          attrs: {
-                            id:
-                              Math.max.apply(
-                                Math,
-                                _vm.numbersArray.slice(2, 4)
-                              ) + "-step4",
-                            draggable: "true"
-                          },
-                          on: { dragstart: _vm.onDragging }
-                        },
-                        [
-                          _c(
-                            "div",
-                            {
-                              staticStyle: {
-                                "font-size": "30px",
-                                margin: "0 40px"
                               }
+                            }
+                          },
+                          [
+                            _c("img", {
+                              staticStyle: { height: "50px" },
+                              attrs: {
+                                src:
+                                  "/storage/Images/" +
+                                  Math.min.apply(
+                                    Math,
+                                    _vm.numbersArray.slice(2, 4)
+                                  ) +
+                                  ".png"
+                              }
+                            })
+                          ]
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "col-md-5 m-1",
+                        class: { "animated bounce repeat-3": _vm.steps == 18 },
+                        style: [
+                          _vm.steps < 14
+                            ? { display: "none" }
+                            : {
+                                height: "100px",
+                                "border-radius": "30%",
+                                border: "3px solid #FFD5AA",
+                                "background-color": "#F0B9D6"
+                              }
+                        ]
+                      },
+                      [
+                        _c(
+                          "div",
+                          {
+                            key: Math.max.apply(
+                              Math,
+                              _vm.numbersArray.slice(2, 4)
+                            ),
+                            staticClass:
+                              "col-md-4 d-flex justify-content-center align-items-center py-4 m-3",
+                            attrs: {
+                              id:
+                                Math.max.apply(
+                                  Math,
+                                  _vm.numbersArray.slice(2, 4)
+                                ) + "-step4",
+                              draggable: "true"
                             },
-                            [
-                              _vm._v(
-                                _vm._s(
+                            on: {
+                              dragstart: function($event) {
+                                _vm.onDragging(
                                   Math.max.apply(
                                     Math,
                                     _vm.numbersArray.slice(2, 4)
-                                  )
+                                  ),
+                                  $event
                                 )
-                              )
-                            ]
-                          )
-                        ]
-                      )
-                    ]
-                  )
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "col-md-3 d-flex justify-content-center align-items-center p-4"
-                },
-                [
-                  _c(
-                    "div",
-                    {
-                      staticClass: " col-md-6",
-                      style: [
-                        _vm.steps < 14
-                          ? { display: "none" }
-                          : {
-                              width: "100%",
-                              height: "74px",
-                              "border-right": "2px solid white",
-                              "background-color": "#F5F5DC"
-                            }
-                      ]
-                    },
-                    [
-                      _c(
-                        "div",
-                        {
-                          key: Math.min.apply(
-                            Math,
-                            _vm.numbersArray.slice(4, 6)
-                          ),
-                          staticClass:
-                            "d-flex justify-content-center align-items-center p-4",
-                          attrs: {
-                            draggable: "true",
-                            id:
-                              Math.min.apply(
-                                Math,
-                                _vm.numbersArray.slice(4, 6)
-                              ) + "-step4"
-                          },
-                          on: { dragstart: _vm.onDragging }
-                        },
-                        [
-                          _c(
-                            "div",
-                            {
-                              staticStyle: {
-                                "font-size": "30px",
-                                margin: "0 40px"
                               }
+                            }
+                          },
+                          [
+                            _c("img", {
+                              staticStyle: { height: "50px" },
+                              attrs: {
+                                src:
+                                  "/storage/Images/" +
+                                  Math.max.apply(
+                                    Math,
+                                    _vm.numbersArray.slice(2, 4)
+                                  ) +
+                                  ".png"
+                              }
+                            })
+                          ]
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-1 mr-5" })
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "col-md-3 d-flex justify-content-center align-items-center"
+                  },
+                  [
+                    _c("div", { staticClass: "col-md-1 ml-5" }),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "col-md-5 m-1",
+                        class: { "animated bounce repeat-3": _vm.steps == 17 },
+                        style: [
+                          _vm.steps < 14
+                            ? { display: "none" }
+                            : {
+                                height: "100px",
+                                "border-radius": "30%",
+                                border: "2px solid #FFD5AA",
+                                "background-color": "#F0B9D6"
+                              }
+                        ]
+                      },
+                      [
+                        _c(
+                          "div",
+                          {
+                            key: Math.min.apply(
+                              Math,
+                              _vm.numbersArray.slice(4, 6)
+                            ),
+                            staticClass:
+                              "col-md-4 d-flex justify-content-center align-items-center py-4 m-3",
+                            attrs: {
+                              id:
+                                Math.min.apply(
+                                  Math,
+                                  _vm.numbersArray.slice(4, 6)
+                                ) + "-step4",
+                              draggable: "true"
                             },
-                            [
-                              _vm._v(
-                                _vm._s(
+                            on: {
+                              dragstart: function($event) {
+                                _vm.onDragging(
                                   Math.min.apply(
                                     Math,
                                     _vm.numbersArray.slice(4, 6)
-                                  )
+                                  ),
+                                  $event
                                 )
-                              )
-                            ]
-                          )
-                        ]
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass: " col-md-6",
-                      style: [
-                        _vm.steps < 14
-                          ? { display: "none" }
-                          : {
-                              width: "100%",
-                              height: "74px",
-                              "border-right": "2px solid white",
-                              "background-color": "#F5F5DC"
-                            }
-                      ]
-                    },
-                    [
-                      _c(
-                        "div",
-                        {
-                          key: Math.max.apply(
-                            Math,
-                            _vm.numbersArray.slice(4, 6)
-                          ),
-                          staticClass:
-                            "d-flex justify-content-center align-items-center p-4",
-                          attrs: {
-                            id:
-                              Math.max.apply(
-                                Math,
-                                _vm.numbersArray.slice(4, 6)
-                              ) + "-step4",
-                            draggable: "true"
-                          },
-                          on: { dragstart: _vm.onDragging }
-                        },
-                        [
-                          _c(
-                            "div",
-                            {
-                              staticStyle: {
-                                "font-size": "30px",
-                                margin: "0 40px"
                               }
+                            }
+                          },
+                          [
+                            _c("img", {
+                              staticStyle: { height: "50px" },
+                              attrs: {
+                                src:
+                                  "/storage/Images/" +
+                                  Math.min.apply(
+                                    Math,
+                                    _vm.numbersArray.slice(4, 6)
+                                  ) +
+                                  ".png"
+                              }
+                            })
+                          ]
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "col-md-5 m-1",
+                        class: { "animated bounce repeat-3": _vm.steps == 16 },
+                        style: [
+                          _vm.steps < 14
+                            ? { display: "none" }
+                            : {
+                                height: "100px",
+                                "border-radius": "30%",
+                                border: "3px solid #FFD5AA",
+                                "background-color": "#F0B9D6"
+                              }
+                        ]
+                      },
+                      [
+                        _c(
+                          "div",
+                          {
+                            key: Math.max.apply(
+                              Math,
+                              _vm.numbersArray.slice(4, 6)
+                            ),
+                            staticClass:
+                              "col-md-4 d-flex justify-content-center align-items-center py-4 m-3",
+                            attrs: {
+                              id:
+                                Math.max.apply(
+                                  Math,
+                                  _vm.numbersArray.slice(4, 6)
+                                ) + "-step4",
+                              draggable: "true"
                             },
-                            [
-                              _vm._v(
-                                _vm._s(
+                            on: {
+                              dragstart: function($event) {
+                                _vm.onDragging(
                                   Math.max.apply(
                                     Math,
                                     _vm.numbersArray.slice(4, 6)
-                                  )
+                                  ),
+                                  $event
                                 )
-                              )
-                            ]
-                          )
-                        ]
-                      )
-                    ]
-                  )
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "col-md-3 d-flex justify-content-center align-items-center p-4"
-                },
-                [
-                  _c(
-                    "div",
-                    {
-                      staticClass: " col-md-6",
-                      style: [
-                        _vm.steps < 14
-                          ? { display: "none" }
-                          : {
-                              width: "100%",
-                              height: "74px",
-                              "border-right": "2px solid white",
-                              "background-color": "#F5F5DC"
-                            }
-                      ]
-                    },
-                    [
-                      _c(
-                        "div",
-                        {
-                          key: Math.min.apply(
-                            Math,
-                            _vm.numbersArray.slice(6, 8)
-                          ),
-                          staticClass:
-                            "d-flex justify-content-center align-items-center p-4",
-                          attrs: {
-                            id:
-                              Math.min.apply(
-                                Math,
-                                _vm.numbersArray.slice(6, 8)
-                              ) + "-step4",
-                            draggable: "true"
-                          },
-                          on: { dragstart: _vm.onDragging }
-                        },
-                        [
-                          _c(
-                            "div",
-                            {
-                              staticStyle: {
-                                "font-size": "30px",
-                                margin: "0 40px"
                               }
+                            }
+                          },
+                          [
+                            _c("img", {
+                              staticStyle: { height: "50px" },
+                              attrs: {
+                                src:
+                                  "/storage/Images/" +
+                                  Math.max.apply(
+                                    Math,
+                                    _vm.numbersArray.slice(4, 6)
+                                  ) +
+                                  ".png"
+                              }
+                            })
+                          ]
+                        )
+                      ]
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "col-md-3 d-flex justify-content-center align-items-center"
+                  },
+                  [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "col-md-5 m-1",
+                        class: { "animated bounce repeat-3": _vm.steps == 15 },
+                        style: [
+                          _vm.steps < 14
+                            ? { display: "none" }
+                            : {
+                                height: "100px",
+                                "border-radius": "30%",
+                                border: "2px solid #FFD5AA",
+                                "background-color": "#F0B9D6"
+                              }
+                        ]
+                      },
+                      [
+                        _c(
+                          "div",
+                          {
+                            key: Math.min.apply(
+                              Math,
+                              _vm.numbersArray.slice(6, 8)
+                            ),
+                            staticClass:
+                              "col-md-4 d-flex justify-content-center align-items-center py-4 m-3",
+                            attrs: {
+                              id:
+                                Math.min.apply(
+                                  Math,
+                                  _vm.numbersArray.slice(6, 8)
+                                ) + "-step4",
+                              draggable: "true"
                             },
-                            [
-                              _vm._v(
-                                _vm._s(
+                            on: {
+                              dragstart: function($event) {
+                                _vm.onDragging(
                                   Math.min.apply(
                                     Math,
                                     _vm.numbersArray.slice(6, 8)
-                                  )
+                                  ),
+                                  $event
                                 )
-                              )
-                            ]
-                          )
+                              }
+                            }
+                          },
+                          [
+                            _c("img", {
+                              staticStyle: { height: "50px" },
+                              attrs: {
+                                src:
+                                  "/storage/Images/" +
+                                  Math.min.apply(
+                                    Math,
+                                    _vm.numbersArray.slice(6, 8)
+                                  ) +
+                                  ".png"
+                              }
+                            })
+                          ]
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "col-md-5 m-1",
+                        class: { "animated bounce repeat-3": _vm.steps == 14 },
+                        style: [
+                          _vm.steps < 14
+                            ? { display: "none" }
+                            : {
+                                height: "100px",
+                                "border-radius": "30%",
+                                border: "3px solid #FFD5AA",
+                                "background-color": "#F0B9D6"
+                              }
                         ]
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass: " col-md-6",
+                      },
+                      [
+                        _c(
+                          "div",
+                          {
+                            key: Math.max.apply(
+                              Math,
+                              _vm.numbersArray.slice(6, 8)
+                            ),
+                            staticClass:
+                              "col-md-4 d-flex justify-content-center align-items-center py-4 m-3",
+                            attrs: {
+                              id:
+                                Math.max.apply(
+                                  Math,
+                                  _vm.numbersArray.slice(6, 8)
+                                ) + "-step4",
+                              draggable: "true"
+                            },
+                            on: {
+                              dragstart: function($event) {
+                                _vm.onDragging(
+                                  Math.max.apply(
+                                    Math,
+                                    _vm.numbersArray.slice(6, 8)
+                                  ),
+                                  $event
+                                )
+                              }
+                            }
+                          },
+                          [
+                            _c("img", {
+                              staticStyle: { height: "50px" },
+                              attrs: {
+                                src:
+                                  "/storage/Images/" +
+                                  Math.max.apply(
+                                    Math,
+                                    _vm.numbersArray.slice(6, 8)
+                                  ) +
+                                  ".png"
+                              }
+                            })
+                          ]
+                        )
+                      ]
+                    )
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-11 mt-5 mr-5 pr-5" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "col-md-6 d-flex justify-content-center align-items-center pr-5"
+                  },
+                  [
+                    _c("div", {
+                      staticClass: "col-md-3 m-1 p-5",
+                      class: { "animated bounce repeat-3": _vm.steps == 21 },
                       style: [
                         _vm.steps < 14
                           ? { display: "none" }
                           : {
-                              width: "100%",
-                              height: "74px",
-                              "background-color": "#F5F5DC"
+                              width: "80%",
+                              height: "100px",
+                              "border-radius": "30%",
+                              border: "2px solid #F2BBAD",
+                              "background-color": "lightgreen"
                             }
-                      ]
-                    },
-                    [
-                      _c(
-                        "div",
-                        {
-                          key: Math.max.apply(
-                            Math,
-                            _vm.numbersArray.slice(6, 8)
-                          ),
-                          staticClass:
-                            "d-flex justify-content-center align-items-center p-4",
-                          attrs: {
-                            draggable: "true",
-                            id:
-                              Math.max.apply(
-                                Math,
-                                _vm.numbersArray.slice(6, 8)
-                              ) + "-step4"
-                          },
-                          on: { dragstart: _vm.onDragging }
-                        },
-                        [
-                          _c(
-                            "div",
-                            {
-                              staticStyle: {
-                                "font-size": "30px",
-                                margin: "0 40px"
-                              }
-                            },
-                            [
-                              _vm._v(
-                                _vm._s(
-                                  Math.max.apply(
-                                    Math,
-                                    _vm.numbersArray.slice(6, 8)
-                                  )
-                                )
-                              )
-                            ]
-                          )
-                        ]
-                      )
-                    ]
-                  )
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "col-md-12 d-flex justify-content-center align-items-center p-4",
-                  staticStyle: { "margin-left": "-5%" }
-                },
-                [
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "col-md-6 d-flex justify-content-center align-items-center p-4"
-                    },
-                    [
-                      _c("div", {
-                        staticClass: " col-md-3",
-                        style: [
-                          _vm.steps < 14
-                            ? { display: "none" }
-                            : {
-                                width: "100%",
-                                "border-right": "2px solid white",
-                                height: "74px",
-                                "background-color": "lightgreen"
-                              }
-                        ],
-                        attrs: { id: _vm.leftSortedArray[0] + "-sortstep4" },
-                        on: { drop: _vm.drop, dragover: _vm.allowDrop }
-                      }),
-                      _vm._v(" "),
-                      _c("div", {
-                        staticClass: " col-md-3",
-                        style: [
-                          _vm.steps < 14
-                            ? { display: "none" }
-                            : {
-                                width: "100%",
-                                "border-right": "2px solid white",
-                                height: "74px",
-                                "background-color": "lightgreen"
-                              }
-                        ],
-                        attrs: { id: _vm.leftSortedArray[1] + "-sortstep4" },
-                        on: { drop: _vm.drop, dragover: _vm.allowDrop }
-                      }),
-                      _vm._v(" "),
-                      _c("div", {
-                        staticClass: " col-md-3",
-                        style: [
-                          _vm.steps < 14
-                            ? { display: "none" }
-                            : {
-                                width: "100%",
-                                height: "74px",
-                                "border-right": "2px solid white",
-                                "background-color": "lightgreen"
-                              }
-                        ],
-                        attrs: { id: _vm.leftSortedArray[2] + "-sortstep4" },
-                        on: { drop: _vm.drop, dragover: _vm.allowDrop }
-                      }),
-                      _vm._v(" "),
-                      _c("div", {
-                        staticClass: " col-md-3",
-                        style: [
-                          _vm.steps < 14
-                            ? { display: "none" }
-                            : {
-                                width: "100%",
-                                height: "74px",
-                                "background-color": "lightgreen"
-                              }
-                        ],
-                        attrs: { id: _vm.leftSortedArray[3] + "-sortstep4" },
-                        on: { drop: _vm.drop, dragover: _vm.allowDrop }
-                      })
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "col-md-6 d-flex justify-content-center align-items-center p-4"
-                    },
-                    [
-                      _c("div", {
-                        staticClass: " col-md-3",
-                        style: [
-                          _vm.steps < 14
-                            ? { display: "none" }
-                            : {
-                                width: "100%",
-                                height: "74px",
-                                "border-right": "2px solid white",
-                                "background-color": "lightblue"
-                              }
-                        ],
-                        attrs: { id: _vm.rightSortedArray[0] + "-sortstep4" },
-                        on: { drop: _vm.drop, dragover: _vm.allowDrop }
-                      }),
-                      _vm._v(" "),
-                      _c("div", {
-                        staticClass: " col-md-3",
-                        style: [
-                          _vm.steps < 14
-                            ? { display: "none" }
-                            : {
-                                width: "100%",
-                                height: "74px",
-                                "border-right": "2px solid white",
-                                "background-color": "lightblue"
-                              }
-                        ],
-                        attrs: { id: _vm.rightSortedArray[1] + "-sortstep4" },
-                        on: { drop: _vm.drop, dragover: _vm.allowDrop }
-                      }),
-                      _vm._v(" "),
-                      _c("div", {
-                        staticClass: " col-md-3",
-                        style: [
-                          _vm.steps < 14
-                            ? { display: "none" }
-                            : {
-                                width: "100%",
-                                height: "74px",
-                                "border-right": "2px solid white",
-                                "background-color": "lightblue"
-                              }
-                        ],
-                        attrs: { id: _vm.rightSortedArray[2] + "-sortstep4" },
-                        on: { drop: _vm.drop, dragover: _vm.allowDrop }
-                      }),
-                      _vm._v(" "),
-                      _c("div", {
-                        staticClass: " col-md-3",
-                        style: [
-                          _vm.steps < 14
-                            ? { display: "none" }
-                            : {
-                                width: "100%",
-                                height: "74px",
-                                "border-right": "2px solid white",
-                                "background-color": "lightblue"
-                              }
-                        ],
-                        attrs: { id: _vm.rightSortedArray[3] + "-sortstep4" },
-                        on: { drop: _vm.drop, dragover: _vm.allowDrop }
-                      })
-                    ]
-                  )
-                ]
-              ),
+                      ],
+                      attrs: { id: _vm.leftSortedArray[0] + "-sortstep4" },
+                      on: { drop: _vm.drop, dragover: _vm.allowDrop }
+                    }),
+                    _vm._v(" "),
+                    _c("div", {
+                      staticClass: "col-md-3 m-1 p-5",
+                      style: [
+                        _vm.steps < 14
+                          ? { display: "none" }
+                          : {
+                              width: "80%",
+                              height: "100px",
+                              "border-radius": "30%",
+                              border: "2px solid #F2BBAD",
+                              "background-color": "lightgreen"
+                            }
+                      ],
+                      attrs: { id: _vm.leftSortedArray[1] + "-sortstep4" },
+                      on: { drop: _vm.drop, dragover: _vm.allowDrop }
+                    }),
+                    _vm._v(" "),
+                    _c("div", {
+                      staticClass: "col-md-3 m-1 p-5",
+                      style: [
+                        _vm.steps < 14
+                          ? { display: "none" }
+                          : {
+                              width: "80%",
+                              height: "100px",
+                              "border-radius": "30%",
+                              border: "2px solid #F2BBAD",
+                              "background-color": "lightgreen"
+                            }
+                      ],
+                      attrs: { id: _vm.leftSortedArray[2] + "-sortstep4" },
+                      on: { drop: _vm.drop, dragover: _vm.allowDrop }
+                    }),
+                    _vm._v(" "),
+                    _c("div", {
+                      staticClass: "col-md-3 m-1 p-5",
+                      style: [
+                        _vm.steps < 14
+                          ? { display: "none" }
+                          : {
+                              width: "80%",
+                              height: "100px",
+                              "border-radius": "30%",
+                              border: "2px solid #F2BBAD",
+                              "background-color": "lightgreen"
+                            }
+                      ],
+                      attrs: { id: _vm.leftSortedArray[3] + "-sortstep4" },
+                      on: { drop: _vm.drop, dragover: _vm.allowDrop }
+                    })
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "col-md-6 d-flex justify-content-center align-items-center pl-5"
+                  },
+                  [
+                    _c("div", {
+                      staticClass: "col-md-3 m-1 p-5",
+                      style: [
+                        _vm.steps < 14
+                          ? { display: "none" }
+                          : {
+                              width: "80%",
+                              height: "100px",
+                              "border-radius": "30%",
+                              border: "2px solid #F2BBAD",
+                              "background-color": "lightblue"
+                            }
+                      ],
+                      attrs: { id: _vm.rightSortedArray[0] + "-sortstep4" },
+                      on: { drop: _vm.drop, dragover: _vm.allowDrop }
+                    }),
+                    _vm._v(" "),
+                    _c("div", {
+                      staticClass: "col-md-3 m-1 p-5",
+                      style: [
+                        _vm.steps < 14
+                          ? { display: "none" }
+                          : {
+                              width: "80%",
+                              height: "100px",
+                              "border-radius": "30%",
+                              border: "2px solid #F2BBAD",
+                              "background-color": "lightblue"
+                            }
+                      ],
+                      attrs: { id: _vm.rightSortedArray[1] + "-sortstep4" },
+                      on: { drop: _vm.drop, dragover: _vm.allowDrop }
+                    }),
+                    _vm._v(" "),
+                    _c("div", {
+                      staticClass: "col-md-3 m-1 p-5",
+                      style: [
+                        _vm.steps < 14
+                          ? { display: "none" }
+                          : {
+                              width: "80%",
+                              height: "100px",
+                              "border-radius": "30%",
+                              border: "2px solid #F2BBAD",
+                              "background-color": "lightblue"
+                            }
+                      ],
+                      attrs: { id: _vm.rightSortedArray[2] + "-sortstep4" },
+                      on: { drop: _vm.drop, dragover: _vm.allowDrop }
+                    }),
+                    _vm._v(" "),
+                    _c("div", {
+                      staticClass: "col-md-3 m-1 p-5",
+                      style: [
+                        _vm.steps < 14
+                          ? { display: "none" }
+                          : {
+                              width: "80%",
+                              height: "100px",
+                              "border-radius": "30%",
+                              border: "2px solid #F2BBAD",
+                              "background-color": "lightblue"
+                            }
+                      ],
+                      attrs: { id: _vm.rightSortedArray[3] + "-sortstep4" },
+                      on: { drop: _vm.drop, dragover: _vm.allowDrop }
+                    })
+                  ]
+                )
+              ]),
               _vm._v(" "),
               _c(
                 "h2",
@@ -51923,14 +53657,16 @@ var render = function() {
                   staticClass:
                     "col-md-12 justify-content-center align-items-center",
                   style: [
-                    _vm.steps < 22 ? { opacity: "0" } : { margin: "10% 0 3% 0" }
+                    _vm.steps < 22
+                      ? { opacity: "0" }
+                      : { margin: "2% 0 3% -7%" }
                   ]
                 },
                 [
-                  _vm._v(" Step Five \n                "),
+                  _vm._v("\n            Step Five\n            "),
                   _c("i", {
                     class: _vm.steps < 22 ? _vm.voiceIcon : "",
-                    staticStyle: { "font-size": "48px", color: "#FF8C00" },
+                    staticStyle: { "font-size": "30px", color: "#FF8C00" },
                     on: {
                       click: function($event) {
                         return _vm.voice(
@@ -51950,403 +53686,464 @@ var render = function() {
                 ]
               ),
               _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "col-md-6 d-flex justify-content-center align-items-center p-4"
-                },
-                [
-                  _c(
-                    "div",
-                    {
-                      staticClass: " col-md-3",
-                      style: [
-                        _vm.steps < 22
-                          ? { display: "none" }
-                          : {
-                              width: "100%",
-                              "border-right": "2px solid white",
-                              height: "74px",
-                              "background-color": "lightgreen"
-                            }
-                      ]
-                    },
-                    [
-                      _c(
-                        "div",
-                        {
-                          key: _vm.leftSortedArray[0],
-                          staticClass:
-                            "d-flex justify-content-center align-items-center p-4",
-                          attrs: {
-                            id: _vm.leftSortedArray[0] + "-step5",
-                            draggable: "true"
-                          },
-                          on: { dragstart: _vm.onDragging }
-                        },
-                        [
-                          _c(
-                            "div",
-                            {
-                              staticStyle: {
-                                "font-size": "30px",
-                                margin: "0 40px"
-                              }
-                            },
-                            [_vm._v(_vm._s(_vm.leftSortedArray[0]))]
-                          )
-                        ]
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass: " col-md-3",
-                      style: [
-                        _vm.steps < 22
-                          ? { display: "none" }
-                          : {
-                              width: "100%",
-                              "border-right": "2px solid white",
-                              height: "74px",
-                              "background-color": "lightgreen"
-                            }
-                      ]
-                    },
-                    [
-                      _c(
-                        "div",
-                        {
-                          key: _vm.leftSortedArray[1],
-                          staticClass:
-                            "d-flex justify-content-center align-items-center p-4",
-                          attrs: {
-                            id: _vm.leftSortedArray[1] + "-step5",
-                            draggable: "true"
-                          },
-                          on: { dragstart: _vm.onDragging }
-                        },
-                        [
-                          _c(
-                            "div",
-                            {
-                              staticStyle: {
-                                "font-size": "30px",
-                                margin: "0 40px"
-                              }
-                            },
-                            [_vm._v(_vm._s(_vm.leftSortedArray[1]))]
-                          )
-                        ]
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass: " col-md-3",
-                      style: [
-                        _vm.steps < 22
-                          ? { display: "none" }
-                          : {
-                              width: "100%",
-                              height: "74px",
-                              "border-right": "2px solid white",
-                              "background-color": "lightgreen"
-                            }
-                      ]
-                    },
-                    [
-                      _c(
-                        "div",
-                        {
-                          key: _vm.leftSortedArray[2],
-                          staticClass:
-                            "d-flex justify-content-center align-items-center p-4",
-                          attrs: {
-                            id: _vm.leftSortedArray[2] + "-step5",
-                            draggable: "true"
-                          },
-                          on: { dragstart: _vm.onDragging }
-                        },
-                        [
-                          _c(
-                            "div",
-                            {
-                              staticStyle: {
-                                "font-size": "30px",
-                                margin: "0 40px"
-                              }
-                            },
-                            [_vm._v(_vm._s(_vm.leftSortedArray[2]))]
-                          )
-                        ]
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass: " col-md-3",
-                      style: [
-                        _vm.steps < 22
-                          ? { display: "none" }
-                          : {
-                              width: "100%",
-                              height: "74px",
-                              "background-color": "lightgreen"
-                            }
-                      ]
-                    },
-                    [
-                      _c(
-                        "div",
-                        {
-                          key: _vm.leftSortedArray[3],
-                          staticClass:
-                            "d-flex justify-content-center align-items-center p-4",
-                          attrs: {
-                            id: _vm.leftSortedArray[3] + "-step5",
-                            draggable: "true"
-                          },
-                          on: { dragstart: _vm.onDragging }
-                        },
-                        [
-                          _c(
-                            "div",
-                            {
-                              staticStyle: {
-                                "font-size": "30px",
-                                margin: "0 40px"
-                              }
-                            },
-                            [_vm._v(_vm._s(_vm.leftSortedArray[3]))]
-                          )
-                        ]
-                      )
-                    ]
-                  )
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "col-md-6 d-flex justify-content-center align-items-center p-4"
-                },
-                [
-                  _c(
-                    "div",
-                    {
-                      staticClass: " col-md-3",
-                      style: [
-                        _vm.steps < 22
-                          ? { display: "none" }
-                          : {
-                              width: "100%",
-                              height: "74px",
-                              "border-right": "2px solid white",
-                              "background-color": "lightblue"
-                            }
-                      ]
-                    },
-                    [
-                      _c(
-                        "div",
-                        {
-                          key: _vm.rightSortedArray[0],
-                          staticClass:
-                            "d-flex justify-content-center align-items-center p-4",
-                          attrs: {
-                            id: _vm.rightSortedArray[0] + "-step5",
-                            draggable: "true"
-                          },
-                          on: { dragstart: _vm.onDragging }
-                        },
-                        [
-                          _c(
-                            "div",
-                            {
-                              staticStyle: {
-                                "font-size": "30px",
-                                margin: "0 40px"
-                              }
-                            },
-                            [_vm._v(_vm._s(_vm.rightSortedArray[0]))]
-                          )
-                        ]
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass: " col-md-3",
-                      style: [
-                        _vm.steps < 22
-                          ? { display: "none" }
-                          : {
-                              width: "100%",
-                              height: "74px",
-                              "border-right": "2px solid white",
-                              "background-color": "lightblue"
-                            }
-                      ]
-                    },
-                    [
-                      _c(
-                        "div",
-                        {
-                          key: _vm.rightSortedArray[1],
-                          staticClass:
-                            "d-flex justify-content-center align-items-center p-4",
-                          attrs: {
-                            id: _vm.rightSortedArray[1] + "-step5",
-                            draggable: "true"
-                          },
-                          on: { dragstart: _vm.onDragging }
-                        },
-                        [
-                          _c(
-                            "div",
-                            {
-                              staticStyle: {
-                                "font-size": "30px",
-                                margin: "0 40px"
-                              }
-                            },
-                            [_vm._v(_vm._s(_vm.rightSortedArray[1]))]
-                          )
-                        ]
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass: " col-md-3",
-                      style: [
-                        _vm.steps < 22
-                          ? { display: "none" }
-                          : {
-                              width: "100%",
-                              height: "74px",
-                              "border-right": "2px solid white",
-                              "background-color": "lightblue"
-                            }
-                      ],
-                      attrs: { id: _vm.rightSortedArray[2] + "-sortstep4" }
-                    },
-                    [
-                      _c(
-                        "div",
-                        {
-                          key: _vm.rightSortedArray[2],
-                          staticClass:
-                            "d-flex justify-content-center align-items-center p-4",
-                          attrs: {
-                            id: _vm.rightSortedArray[2] + "-step5",
-                            draggable: "true"
-                          },
-                          on: { dragstart: _vm.onDragging }
-                        },
-                        [
-                          _c(
-                            "div",
-                            {
-                              staticStyle: {
-                                "font-size": "30px",
-                                margin: "0 40px"
-                              }
-                            },
-                            [_vm._v(_vm._s(_vm.rightSortedArray[2]))]
-                          )
-                        ]
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass: " col-md-3",
-                      style: [
-                        _vm.steps < 22
-                          ? { display: "none" }
-                          : {
-                              width: "100%",
-                              height: "74px",
-                              "border-right": "2px solid white",
-                              "background-color": "lightblue"
-                            }
-                      ],
-                      attrs: { id: _vm.rightSortedArray[3] + "-sortstep4" }
-                    },
-                    [
-                      _c(
-                        "div",
-                        {
-                          key: _vm.rightSortedArray[3],
-                          staticClass:
-                            "d-flex justify-content-center align-items-center p-4",
-                          attrs: {
-                            id: _vm.rightSortedArray[3] + "-step5",
-                            draggable: "true"
-                          },
-                          on: { dragstart: _vm.onDragging }
-                        },
-                        [
-                          _c(
-                            "div",
-                            {
-                              staticStyle: {
-                                "font-size": "30px",
-                                margin: "0 40px"
-                              }
-                            },
-                            [_vm._v(_vm._s(_vm.rightSortedArray[3]))]
-                          )
-                        ]
-                      )
-                    ]
-                  )
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "col-md-12 d-flex justify-content-center align-items-center p-4",
-                  staticStyle: { "margin-left": "-5%" }
-                },
-                [
-                  _c(
-                    "div",
-                    {
-                      staticClass: "col-md-12",
-                      staticStyle: { "margin-left": "25%" }
-                    },
-                    _vm._l(_vm.sortedArray, function(i) {
-                      return _c("div", {
-                        key: i,
-                        staticClass: "col-md-1",
+              _c("div", { staticClass: "col-md-11" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "col-md-5 d-flex justify-content-center align-items-center p-4"
+                  },
+                  [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "col-md-3 m-1",
+                        class: { "animated bounce repeat-3": _vm.steps == 29 },
                         style: [
                           _vm.steps < 22
                             ? { display: "none" }
                             : {
-                                border: "1px solid gray",
-                                "background-color": "lightblue",
-                                height: "74px",
-                                margin: "0 3px"
+                                height: "100px",
+                                "border-radius": "30%",
+                                border: "2px solid #FFD5AA",
+                                "background-color": "lightgreen"
+                              }
+                        ]
+                      },
+                      [
+                        _c(
+                          "div",
+                          {
+                            key: _vm.leftSortedArray[0],
+                            staticClass:
+                              "d-flex justify-content-center align-items-center p-4 pt-5",
+                            attrs: {
+                              id: _vm.leftSortedArray[0] + "-step5",
+                              draggable: "true"
+                            },
+                            on: {
+                              dragstart: function($event) {
+                                return _vm.onDragging(
+                                  _vm.leftSortedArray[0],
+                                  $event
+                                )
+                              }
+                            }
+                          },
+                          [
+                            _vm._v("\n             \\\n                  "),
+                            _c("img", {
+                              staticStyle: { height: "50px" },
+                              attrs: {
+                                src:
+                                  "/storage/Images/" +
+                                  _vm.leftSortedArray[0] +
+                                  ".png"
+                              }
+                            })
+                          ]
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "col-md-3 m-1",
+                        class: { "animated bounce repeat-3": _vm.steps == 28 },
+                        style: [
+                          _vm.steps < 22
+                            ? { display: "none" }
+                            : {
+                                height: "100px",
+                                "border-radius": "30%",
+                                border: "2px solid #FFD5AA",
+                                "background-color": "lightgreen"
+                              }
+                        ]
+                      },
+                      [
+                        _c(
+                          "div",
+                          {
+                            key: _vm.leftSortedArray[1],
+                            staticClass:
+                              "d-flex justify-content-center align-items-center p-4 pt-5",
+                            attrs: {
+                              id: _vm.leftSortedArray[1] + "-step5",
+                              draggable: "true"
+                            },
+                            on: {
+                              dragstart: function($event) {
+                                return _vm.onDragging(
+                                  _vm.leftSortedArray[1],
+                                  $event
+                                )
+                              }
+                            }
+                          },
+                          [
+                            _c("img", {
+                              staticStyle: { height: "50px" },
+                              attrs: {
+                                src:
+                                  "/storage/Images/" +
+                                  _vm.leftSortedArray[1] +
+                                  ".png"
+                              }
+                            })
+                          ]
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "col-md-3 m-1",
+                        class: { "animated bounce repeat-3": _vm.steps == 27 },
+                        style: [
+                          _vm.steps < 22
+                            ? { display: "none" }
+                            : {
+                                height: "100px",
+                                "border-radius": "30%",
+                                border: "2px solid #FFD5AA",
+                                "background-color": "lightgreen"
+                              }
+                        ]
+                      },
+                      [
+                        _c(
+                          "div",
+                          {
+                            key: _vm.leftSortedArray[2],
+                            staticClass:
+                              "d-flex justify-content-center align-items-center p-4 pt-5",
+                            attrs: {
+                              id: _vm.leftSortedArray[2] + "-step5",
+                              draggable: "true"
+                            },
+                            on: {
+                              dragstart: function($event) {
+                                return _vm.onDragging(
+                                  _vm.leftSortedArray[2],
+                                  $event
+                                )
+                              }
+                            }
+                          },
+                          [
+                            _c("img", {
+                              staticStyle: { height: "50px" },
+                              attrs: {
+                                src:
+                                  "/storage/Images/" +
+                                  _vm.leftSortedArray[2] +
+                                  ".png"
+                              }
+                            })
+                          ]
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "col-md-3 m-1",
+                        class: { "animated bounce repeat-3": _vm.steps == 26 },
+                        style: [
+                          _vm.steps < 22
+                            ? { display: "none" }
+                            : {
+                                height: "100px",
+                                "border-radius": "30%",
+                                border: "2px solid #FFD5AA",
+                                "background-color": "lightgreen"
+                              }
+                        ]
+                      },
+                      [
+                        _c(
+                          "div",
+                          {
+                            key: _vm.leftSortedArray[3],
+                            staticClass:
+                              "d-flex justify-content-center align-items-center p-4 pt-5",
+                            attrs: {
+                              id: _vm.leftSortedArray[3] + "-step5",
+                              draggable: "true"
+                            },
+                            on: {
+                              dragstart: function($event) {
+                                return _vm.onDragging(
+                                  _vm.leftSortedArray[3],
+                                  $event
+                                )
+                              }
+                            }
+                          },
+                          [
+                            _c("img", {
+                              staticStyle: { height: "50px" },
+                              attrs: {
+                                src:
+                                  "/storage/Images/" +
+                                  _vm.leftSortedArray[3] +
+                                  ".png"
+                              }
+                            })
+                          ]
+                        )
+                      ]
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-1" }),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "col-md-5 d-flex justify-content-center align-items-center p-4"
+                  },
+                  [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "col-md-3 m-1",
+                        class: { "animated bounce repeat-3": _vm.steps == 25 },
+                        style: [
+                          _vm.steps < 22
+                            ? { display: "none" }
+                            : {
+                                height: "100px",
+                                "border-radius": "30%",
+                                border: "2px solid #FFD5AA",
+                                "background-color": "lightblue"
+                              }
+                        ]
+                      },
+                      [
+                        _c(
+                          "div",
+                          {
+                            key: _vm.rightSortedArray[0],
+                            staticClass:
+                              "d-flex justify-content-center align-items-center p-4 pt-5",
+                            attrs: {
+                              id: _vm.rightSortedArray[0] + "-step5",
+                              draggable: "true"
+                            },
+                            on: {
+                              dragstart: function($event) {
+                                return _vm.onDragging(
+                                  _vm.rightSortedArray[0],
+                                  $event
+                                )
+                              }
+                            }
+                          },
+                          [
+                            _c("img", {
+                              staticStyle: { height: "50px" },
+                              attrs: {
+                                src:
+                                  "/storage/Images/" +
+                                  _vm.rightSortedArray[0] +
+                                  ".png"
+                              }
+                            })
+                          ]
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "col-md-3 m-1",
+                        class: { "animated bounce repeat-3": _vm.steps == 24 },
+                        style: [
+                          _vm.steps < 22
+                            ? { display: "none" }
+                            : {
+                                height: "100px",
+                                "border-radius": "30%",
+                                border: "2px solid #FFD5AA",
+                                "background-color": "lightblue"
+                              }
+                        ]
+                      },
+                      [
+                        _c(
+                          "div",
+                          {
+                            key: _vm.rightSortedArray[1],
+                            staticClass:
+                              "d-flex justify-content-center align-items-center p-4 pt-5",
+                            attrs: {
+                              id: _vm.rightSortedArray[1] + "-step5",
+                              draggable: "true"
+                            },
+                            on: {
+                              dragstart: function($event) {
+                                return _vm.onDragging(
+                                  _vm.rightSortedArray[1],
+                                  $event
+                                )
+                              }
+                            }
+                          },
+                          [
+                            _c("img", {
+                              staticStyle: { height: "50px" },
+                              attrs: {
+                                src:
+                                  "/storage/Images/" +
+                                  _vm.rightSortedArray[1] +
+                                  ".png"
+                              }
+                            })
+                          ]
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "col-md-3 m-1",
+                        class: { "animated bounce repeat-3": _vm.steps == 23 },
+                        style: [
+                          _vm.steps < 22
+                            ? { display: "none" }
+                            : {
+                                height: "100px",
+                                "border-radius": "30%",
+                                border: "2px solid #FFD5AA",
+                                "background-color": "lightblue"
+                              }
+                        ],
+                        attrs: { id: _vm.rightSortedArray[2] + "-sortstep4" }
+                      },
+                      [
+                        _c(
+                          "div",
+                          {
+                            key: _vm.rightSortedArray[2],
+                            staticClass:
+                              "d-flex justify-content-center align-items-center p-4 pt-5",
+                            attrs: {
+                              id: _vm.rightSortedArray[2] + "-step5",
+                              draggable: "true"
+                            },
+                            on: {
+                              dragstart: function($event) {
+                                return _vm.onDragging(
+                                  _vm.rightSortedArray[2],
+                                  $event
+                                )
+                              }
+                            }
+                          },
+                          [
+                            _c("img", {
+                              staticStyle: { height: "50px" },
+                              attrs: {
+                                src:
+                                  "/storage/Images/" +
+                                  _vm.rightSortedArray[2] +
+                                  ".png"
+                              }
+                            })
+                          ]
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "col-md-3 m-1",
+                        class: { "animated bounce repeat-3": _vm.steps == 22 },
+                        style: [
+                          _vm.steps < 22
+                            ? { display: "none" }
+                            : {
+                                height: "100px",
+                                "border-radius": "30%",
+                                border: "2px solid #FFD5AA",
+                                "background-color": "lightblue"
+                              }
+                        ],
+                        attrs: { id: _vm.rightSortedArray[3] + "-sortstep4" }
+                      },
+                      [
+                        _c(
+                          "div",
+                          {
+                            key: _vm.rightSortedArray[3],
+                            staticClass:
+                              "d-flex justify-content-center align-items-center p-4 pt-5",
+                            attrs: {
+                              id: _vm.rightSortedArray[3] + "-step5",
+                              draggable: "true"
+                            },
+                            on: {
+                              dragstart: function($event) {
+                                return _vm.onDragging(
+                                  _vm.rightSortedArray[3],
+                                  $event
+                                )
+                              }
+                            }
+                          },
+                          [
+                            _c("img", {
+                              staticStyle: { height: "50px" },
+                              attrs: {
+                                src:
+                                  "/storage/Images/" +
+                                  _vm.rightSortedArray[3] +
+                                  ".png"
+                              }
+                            })
+                          ]
+                        )
+                      ]
+                    )
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "col-md-11 d-flex justify-content-center align-items-center ml-5 pl-5"
+                },
+                [
+                  _c("div", { staticClass: "col-md-1" }),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "col-md-11 " },
+                    _vm._l(_vm.sortedArray, function(i) {
+                      return _c("div", {
+                        key: i,
+                        staticClass: "col-lg-1 m-1 py-5 pl-4 ",
+                        style: [
+                          _vm.steps < 22
+                            ? { display: "none" }
+                            : {
+                                width: "100%",
+                                height: "100px",
+                                "border-radius": "30%",
+                                border: "2px solid #FFD5AA",
+                                "background-color": "#F0B9D6"
                               }
                         ],
                         attrs: { id: i + "-finalResult" },
@@ -52361,7 +54158,44 @@ var render = function() {
           )
         ]
       )
-    ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "popup justify-content-center align-items-center",
+        attrs: { id: "congrats", onclick: "$(this).hide()" }
+      },
+      [
+        _c("div", { staticClass: "d-flex justify-content-center" }, [
+          _c("img", {
+            staticClass: "col-md-5",
+            style: [{ margin: "5px", "line-height": "7" }],
+            attrs: { src: "/storage/Images/congrates.gif", alt: "" }
+          })
+        ])
+      ]
+    ),
+    _vm._v(" "),
+    _c("audio", {
+      attrs: { id: "correctElm", src: "/storage/Sound/correct.mp3" }
+    }),
+    _vm._v(" "),
+    _c("audio", {
+      attrs: { id: "appluaseElm", src: "/storage/Sound/applause6.mp3" }
+    }),
+    _vm._v(" "),
+    _c("audio", {
+      attrs: { id: "WrongElm", src: "/storage/Sound/Wrong-answer.mp3" }
+    }),
+    _vm._v(" "),
+    _c("audio", {
+      attrs: { id: "applausElm", src: "/storage/Sound/congrats-applaus.mp3" }
+    }),
+    _vm._v(" "),
+    _c("audio", {
+      attrs: { id: "fireworkElm", src: "/storage/Sound/firework.mp3" }
+    })
   ])
 }
 var staticRenderFns = []
@@ -65683,6 +67517,7 @@ Vue.component("merge-sort-component", __webpack_require__(/*! ./components/Numbe
 Vue.component("insertion-sort-component", __webpack_require__(/*! ./components/Numbers/Sort/InsertionSortComponent.vue */ "./resources/js/components/Numbers/Sort/InsertionSortComponent.vue")["default"]);
 Vue.component("levels-component", __webpack_require__(/*! ./components/LevelsComponent.vue */ "./resources/js/components/LevelsComponent.vue")["default"]);
 Vue.component("game-memory-component", __webpack_require__(/*! ./components/GameMemory/GameMemoryComponent.vue */ "./resources/js/components/GameMemory/GameMemoryComponent.vue")["default"]);
+Vue.component("maze-game-component", __webpack_require__(/*! ./components/MazeGame/StartComponent.vue */ "./resources/js/components/MazeGame/StartComponent.vue")["default"]);
 Vue.component("bubble-sort-component", __webpack_require__(/*! ./components/Numbers/Sort/BubbleSortComponent.vue */ "./resources/js/components/Numbers/Sort/BubbleSortComponent.vue")["default"]);
 Vue.component("collection-component", __webpack_require__(/*! ./components/CollectionComponent.vue */ "./resources/js/components/CollectionComponent.vue")["default"]);
 Vue.component("sort-collection-component", __webpack_require__(/*! ./components/SortCollectionComponent.vue */ "./resources/js/components/SortCollectionComponent.vue")["default"]);
@@ -66372,6 +68207,321 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LevelsComponent_vue_vue_type_template_id_224449b3_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/js/components/MazeGame/MazeComponent.vue":
+/*!************************************************************!*\
+  !*** ./resources/js/components/MazeGame/MazeComponent.vue ***!
+  \************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _MazeComponent_vue_vue_type_template_id_b2dc126a_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MazeComponent.vue?vue&type=template&id=b2dc126a&scoped=true& */ "./resources/js/components/MazeGame/MazeComponent.vue?vue&type=template&id=b2dc126a&scoped=true&");
+/* harmony import */ var _MazeComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MazeComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/MazeGame/MazeComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _MazeComponent_vue_vue_type_style_index_0_id_b2dc126a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./MazeComponent.vue?vue&type=style&index=0&id=b2dc126a&scoped=true&lang=css& */ "./resources/js/components/MazeGame/MazeComponent.vue?vue&type=style&index=0&id=b2dc126a&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _MazeComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _MazeComponent_vue_vue_type_template_id_b2dc126a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _MazeComponent_vue_vue_type_template_id_b2dc126a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "b2dc126a",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/MazeGame/MazeComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/MazeGame/MazeComponent.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************!*\
+  !*** ./resources/js/components/MazeGame/MazeComponent.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MazeComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./MazeComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MazeGame/MazeComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MazeComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/MazeGame/MazeComponent.vue?vue&type=style&index=0&id=b2dc126a&scoped=true&lang=css&":
+/*!*********************************************************************************************************************!*\
+  !*** ./resources/js/components/MazeGame/MazeComponent.vue?vue&type=style&index=0&id=b2dc126a&scoped=true&lang=css& ***!
+  \*********************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_MazeComponent_vue_vue_type_style_index_0_id_b2dc126a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./MazeComponent.vue?vue&type=style&index=0&id=b2dc126a&scoped=true&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MazeGame/MazeComponent.vue?vue&type=style&index=0&id=b2dc126a&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_MazeComponent_vue_vue_type_style_index_0_id_b2dc126a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_MazeComponent_vue_vue_type_style_index_0_id_b2dc126a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_MazeComponent_vue_vue_type_style_index_0_id_b2dc126a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_MazeComponent_vue_vue_type_style_index_0_id_b2dc126a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_MazeComponent_vue_vue_type_style_index_0_id_b2dc126a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/js/components/MazeGame/MazeComponent.vue?vue&type=template&id=b2dc126a&scoped=true&":
+/*!*******************************************************************************************************!*\
+  !*** ./resources/js/components/MazeGame/MazeComponent.vue?vue&type=template&id=b2dc126a&scoped=true& ***!
+  \*******************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MazeComponent_vue_vue_type_template_id_b2dc126a_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./MazeComponent.vue?vue&type=template&id=b2dc126a&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MazeGame/MazeComponent.vue?vue&type=template&id=b2dc126a&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MazeComponent_vue_vue_type_template_id_b2dc126a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MazeComponent_vue_vue_type_template_id_b2dc126a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/MazeGame/MenuComponent.vue":
+/*!************************************************************!*\
+  !*** ./resources/js/components/MazeGame/MenuComponent.vue ***!
+  \************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _MenuComponent_vue_vue_type_template_id_146d0d2b_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MenuComponent.vue?vue&type=template&id=146d0d2b&scoped=true& */ "./resources/js/components/MazeGame/MenuComponent.vue?vue&type=template&id=146d0d2b&scoped=true&");
+/* harmony import */ var _MenuComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MenuComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/MazeGame/MenuComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _MenuComponent_vue_vue_type_style_index_0_id_146d0d2b_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./MenuComponent.vue?vue&type=style&index=0&id=146d0d2b&scoped=true&lang=css& */ "./resources/js/components/MazeGame/MenuComponent.vue?vue&type=style&index=0&id=146d0d2b&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _MenuComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _MenuComponent_vue_vue_type_template_id_146d0d2b_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _MenuComponent_vue_vue_type_template_id_146d0d2b_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "146d0d2b",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/MazeGame/MenuComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/MazeGame/MenuComponent.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************!*\
+  !*** ./resources/js/components/MazeGame/MenuComponent.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MenuComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./MenuComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MazeGame/MenuComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MenuComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/MazeGame/MenuComponent.vue?vue&type=style&index=0&id=146d0d2b&scoped=true&lang=css&":
+/*!*********************************************************************************************************************!*\
+  !*** ./resources/js/components/MazeGame/MenuComponent.vue?vue&type=style&index=0&id=146d0d2b&scoped=true&lang=css& ***!
+  \*********************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_MenuComponent_vue_vue_type_style_index_0_id_146d0d2b_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./MenuComponent.vue?vue&type=style&index=0&id=146d0d2b&scoped=true&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MazeGame/MenuComponent.vue?vue&type=style&index=0&id=146d0d2b&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_MenuComponent_vue_vue_type_style_index_0_id_146d0d2b_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_MenuComponent_vue_vue_type_style_index_0_id_146d0d2b_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_MenuComponent_vue_vue_type_style_index_0_id_146d0d2b_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_MenuComponent_vue_vue_type_style_index_0_id_146d0d2b_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_MenuComponent_vue_vue_type_style_index_0_id_146d0d2b_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/js/components/MazeGame/MenuComponent.vue?vue&type=template&id=146d0d2b&scoped=true&":
+/*!*******************************************************************************************************!*\
+  !*** ./resources/js/components/MazeGame/MenuComponent.vue?vue&type=template&id=146d0d2b&scoped=true& ***!
+  \*******************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MenuComponent_vue_vue_type_template_id_146d0d2b_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./MenuComponent.vue?vue&type=template&id=146d0d2b&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MazeGame/MenuComponent.vue?vue&type=template&id=146d0d2b&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MenuComponent_vue_vue_type_template_id_146d0d2b_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MenuComponent_vue_vue_type_template_id_146d0d2b_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/MazeGame/StartComponent.vue":
+/*!*************************************************************!*\
+  !*** ./resources/js/components/MazeGame/StartComponent.vue ***!
+  \*************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _StartComponent_vue_vue_type_template_id_271a133e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./StartComponent.vue?vue&type=template&id=271a133e& */ "./resources/js/components/MazeGame/StartComponent.vue?vue&type=template&id=271a133e&");
+/* harmony import */ var _StartComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./StartComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/MazeGame/StartComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _StartComponent_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./StartComponent.vue?vue&type=style&index=0&lang=scss& */ "./resources/js/components/MazeGame/StartComponent.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _StartComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _StartComponent_vue_vue_type_template_id_271a133e___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _StartComponent_vue_vue_type_template_id_271a133e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/MazeGame/StartComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/MazeGame/StartComponent.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************!*\
+  !*** ./resources/js/components/MazeGame/StartComponent.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_StartComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./StartComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MazeGame/StartComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_StartComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/MazeGame/StartComponent.vue?vue&type=style&index=0&lang=scss&":
+/*!***********************************************************************************************!*\
+  !*** ./resources/js/components/MazeGame/StartComponent.vue?vue&type=style&index=0&lang=scss& ***!
+  \***********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_StartComponent_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--7-2!../../../../node_modules/sass-loader/dist/cjs.js??ref--7-3!../../../../node_modules/vue-loader/lib??vue-loader-options!./StartComponent.vue?vue&type=style&index=0&lang=scss& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MazeGame/StartComponent.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_StartComponent_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_StartComponent_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_StartComponent_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_StartComponent_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_StartComponent_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/js/components/MazeGame/StartComponent.vue?vue&type=template&id=271a133e&":
+/*!********************************************************************************************!*\
+  !*** ./resources/js/components/MazeGame/StartComponent.vue?vue&type=template&id=271a133e& ***!
+  \********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_StartComponent_vue_vue_type_template_id_271a133e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./StartComponent.vue?vue&type=template&id=271a133e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MazeGame/StartComponent.vue?vue&type=template&id=271a133e&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_StartComponent_vue_vue_type_template_id_271a133e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_StartComponent_vue_vue_type_template_id_271a133e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/MazeGame/utils/genMaze.js":
+/*!***********************************************************!*\
+  !*** ./resources/js/components/MazeGame/utils/genMaze.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = function genMaze(x, y) {
+  var totalCells = x * y;
+  var cells = new Array();
+  var unvis = new Array();
+
+  for (var i = 0; i < y; i++) {
+    cells[i] = new Array();
+    unvis[i] = new Array();
+
+    for (var j = 0; j < x; j++) {
+      cells[i][j] = [0, 0, 0, 0];
+      unvis[i][j] = true;
+    }
+  } // Set a random position to start from
+
+
+  var currentCell = [Math.floor(Math.random() * y), Math.floor(Math.random() * x)];
+  var path = [currentCell];
+  unvis[currentCell[0]][currentCell[1]] = false;
+  var visited = 1;
+
+  while (visited < totalCells) {
+    var pot = [[currentCell[0] - 1, currentCell[1], 0, 2], [currentCell[0], currentCell[1] + 1, 1, 3], [currentCell[0] + 1, currentCell[1], 2, 0], [currentCell[0], currentCell[1] - 1, 3, 1]];
+    var neighbors = new Array();
+
+    for (var l = 0; l < 4; l++) {
+      if (pot[l][0] > -1 && pot[l][0] < y && pot[l][1] > -1 && pot[l][1] < x && unvis[pot[l][0]][pot[l][1]]) neighbors.push(pot[l]);
+    }
+
+    if (neighbors.length) {
+      var next = neighbors[Math.floor(Math.random() * neighbors.length)];
+      cells[currentCell[0]][currentCell[1]][next[2]] = 1;
+      cells[next[0]][next[1]][next[3]] = 1;
+      unvis[next[0]][next[1]] = false;
+      visited++;
+      currentCell = [next[0], next[1]];
+      path.push(currentCell);
+    } else {
+      currentCell = path.pop();
+    }
+  }
+
+  return cells;
+};
 
 /***/ }),
 
@@ -67320,9 +69470,11 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _MergeSortComponent_vue_vue_type_template_id_a3d86850___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MergeSortComponent.vue?vue&type=template&id=a3d86850& */ "./resources/js/components/Numbers/Sort/MergeSortComponent.vue?vue&type=template&id=a3d86850&");
+/* harmony import */ var _MergeSortComponent_vue_vue_type_template_id_a3d86850_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MergeSortComponent.vue?vue&type=template&id=a3d86850&scoped=true& */ "./resources/js/components/Numbers/Sort/MergeSortComponent.vue?vue&type=template&id=a3d86850&scoped=true&");
 /* harmony import */ var _MergeSortComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MergeSortComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/Numbers/Sort/MergeSortComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _MergeSortComponent_vue_vue_type_style_index_0_id_a3d86850_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./MergeSortComponent.vue?vue&type=style&index=0&id=a3d86850&scoped=true&lang=css& */ "./resources/js/components/Numbers/Sort/MergeSortComponent.vue?vue&type=style&index=0&id=a3d86850&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
 
 
 
@@ -67330,13 +69482,13 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _MergeSortComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _MergeSortComponent_vue_vue_type_template_id_a3d86850___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _MergeSortComponent_vue_vue_type_template_id_a3d86850___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _MergeSortComponent_vue_vue_type_template_id_a3d86850_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _MergeSortComponent_vue_vue_type_template_id_a3d86850_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
-  null,
+  "a3d86850",
   null
   
 )
@@ -67362,19 +69514,35 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/Numbers/Sort/MergeSortComponent.vue?vue&type=template&id=a3d86850&":
-/*!****************************************************************************************************!*\
-  !*** ./resources/js/components/Numbers/Sort/MergeSortComponent.vue?vue&type=template&id=a3d86850& ***!
-  \****************************************************************************************************/
+/***/ "./resources/js/components/Numbers/Sort/MergeSortComponent.vue?vue&type=style&index=0&id=a3d86850&scoped=true&lang=css&":
+/*!******************************************************************************************************************************!*\
+  !*** ./resources/js/components/Numbers/Sort/MergeSortComponent.vue?vue&type=style&index=0&id=a3d86850&scoped=true&lang=css& ***!
+  \******************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_MergeSortComponent_vue_vue_type_style_index_0_id_a3d86850_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader!../../../../../node_modules/css-loader??ref--6-1!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--6-2!../../../../../node_modules/vue-loader/lib??vue-loader-options!./MergeSortComponent.vue?vue&type=style&index=0&id=a3d86850&scoped=true&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Numbers/Sort/MergeSortComponent.vue?vue&type=style&index=0&id=a3d86850&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_MergeSortComponent_vue_vue_type_style_index_0_id_a3d86850_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_MergeSortComponent_vue_vue_type_style_index_0_id_a3d86850_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_MergeSortComponent_vue_vue_type_style_index_0_id_a3d86850_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_MergeSortComponent_vue_vue_type_style_index_0_id_a3d86850_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_MergeSortComponent_vue_vue_type_style_index_0_id_a3d86850_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/js/components/Numbers/Sort/MergeSortComponent.vue?vue&type=template&id=a3d86850&scoped=true&":
+/*!****************************************************************************************************************!*\
+  !*** ./resources/js/components/Numbers/Sort/MergeSortComponent.vue?vue&type=template&id=a3d86850&scoped=true& ***!
+  \****************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MergeSortComponent_vue_vue_type_template_id_a3d86850___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./MergeSortComponent.vue?vue&type=template&id=a3d86850& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Numbers/Sort/MergeSortComponent.vue?vue&type=template&id=a3d86850&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MergeSortComponent_vue_vue_type_template_id_a3d86850___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MergeSortComponent_vue_vue_type_template_id_a3d86850_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./MergeSortComponent.vue?vue&type=template&id=a3d86850&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Numbers/Sort/MergeSortComponent.vue?vue&type=template&id=a3d86850&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MergeSortComponent_vue_vue_type_template_id_a3d86850_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MergeSortComponent_vue_vue_type_template_id_a3d86850___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MergeSortComponent_vue_vue_type_template_id_a3d86850_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

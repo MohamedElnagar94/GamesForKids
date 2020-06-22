@@ -85,6 +85,7 @@ Route::get('/binarySearch',function(){
 });
 Route::get('/bubblesort',"BubbleSortController@index");
 Route::get('/insertionsort',"Sort\InsertionSortController@index");
+Route::get('/maze','MazeGameController@mazegame');
 
 
 

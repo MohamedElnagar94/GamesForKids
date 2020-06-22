@@ -3,7 +3,7 @@
     <img :src="src" class="vloume" @click="play()" alt />
     <div class="row" v-for="obj in stepsArrayObject" :key="obj">
       <div
-        class="col-md-8 d-flex justify-content-center align-items-center p-4 mt-3"
+        class="col-md-12 d-flex justify-content-center align-items-center p-4 mt-3"
         style=" background-color: rgba(188, 239, 252, 0.829);"
       >
         <div>
@@ -17,12 +17,12 @@
           </div>
         </div>
       </div>
-      <div
+      <!-- <div
         class="col-md-4 d-flex justify-content-center align-items-center"
         style="text-align:center;"
       >
         <img style="height:130px" :src="'/storage/Images/good.jpg'" alt />
-      </div>
+      </div> -->
     </div>
 
     <div class="row" :style="[start == end ? { display: 'none' } : '']">
@@ -251,7 +251,6 @@ export default {
       $("#fireworkElm")[0].play();
     }
   },
-  computed: {},
   created() {
     var array = [1, 2, 3, 4, 5, 6];
     var newarr = array.slice();
@@ -302,7 +301,7 @@ export default {
   height: 100%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-  background-color: rgba(1, 1, 22, 0.959);
+  background-color: rgba(1, 1, 22, 0.986);
   color: white;
   display: none;
   padding-top: 30px;
